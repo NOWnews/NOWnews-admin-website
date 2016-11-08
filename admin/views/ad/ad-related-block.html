@@ -1,0 +1,15 @@
+{% set nativeAd = news.ad %}
+{% if nativeAd != null %}
+    <div class="mui-row one-news">
+        <a target="_blank" href="{{ nativeAd.url }}">
+            <div class="mui-col-xs-5">
+                <img style="max-width: 100%;padding-top:5px;" src="{{ nativeAd.img }}">
+            </div>
+            <div class="mui-col-xs-7 related-news-info">
+                <h4 class="category-title">Sponsor</h4>
+                <div class="mui-divider"></div>
+                <span> {{ nativeAd.title }}</span>
+            </div>
+        </a>
+    </div>
+{% endif %}

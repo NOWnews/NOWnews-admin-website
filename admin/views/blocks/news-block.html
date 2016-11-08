@@ -1,0 +1,19 @@
+<div class="news-block">
+    <div class="mui-container-fluid">
+        <div class="mui-row">
+            <a href="/news/{{ news._id }}">
+                <img class="news-main-image" src="{{ news.image.thumbnail if news.image.thumbnail else 'http://legacy.nownews.com/NOWnews_default/default_terry.jpg' }}" />
+                <div class="news-info-bg">
+                </div>
+                <div class="news-info">
+                    <p class="category-title">
+                        {{ news.category.name or '不分類' }}
+                    </p>
+                    <p class="info-title">{{ news.field_short_title.value }}</p>
+                    <p class="info-caption text-gray">{{ news.createdAt }}</p>
+                </div>
+                <div class="line"></div>
+            </a>
+        </div>
+    </div>
+</div>

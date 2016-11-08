@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: http://m.nownews.com/sitemap.xml

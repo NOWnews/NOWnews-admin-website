@@ -1,0 +1,63 @@
+{% extends "../base.html" %}
+
+{% block socialblock %}
+    {% if specialType %}
+        {% include "../seo/head-social-category-special.html" %}
+    {% else %}
+        {% include "../seo/head-social-category.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block container %}
+    {# 設定輪播的數量 #}
+    {% set slideItem = 5 %}
+
+    <div id="content-wrapper">
+        <div class="mui--appbar-height"></div>
+        <nav class="category-select mui-container-fluid">
+            {% set categoryType = 'news' %}
+            {% include "../blocks/category-nav.html" %}
+        </nav>
+        <div class="nownews-wrapper">
+            <div class="mui-container-fluid">
+                <div class="mui-row">
+                    <div class="single-item">
+                        {% for news in newsList %}
+                            {% if loop.index <= slideItem %}
+                                <div class="slick-news">
+                                    <a href="/news/{{ news._id }}">
+                                        <div class="slick-news-info">
+                                            <p class="info-title">
+                                                {{ news.field_short_title.value }}
+                                            </p>
+                                        </div>
+                                        <img class="news-main-image" src="{{ news.image.thumbnail if news.image.thumbnail else 'http://legacy.nownews.com/NOWnews_default/default_terry.jpg' }}" />
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nownews-wrapper slider-under" id="{{ 'list-wrapper' if taxId else '' }}">
+            {% for news in newsList %}
+                {% if loop.index > slideItem %}
+                    {% include "../blocks/news-block.html" %}
+                {% endif %}
+
+                {# 列表頁 slide 後面第二個位置的廣告版位 #}
+                {% if loop.index - slideItem == 1 %}
+                    {% include "../ad/list/ad336x280.html" %}
+                {% endif %}
+
+                {# 廣告版位 #}
+                {% set noSliderNumber = loop.index - slideItem %}
+                {% if loop.index > slideItem and noSliderNumber % 3 == 0 %}
+                    {% include "../ad/ad-news-block.html" %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

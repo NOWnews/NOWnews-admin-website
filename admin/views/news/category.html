@@ -1,0 +1,36 @@
+{% extends "../base.html" %}
+
+{% block socialblock %}
+    {% include "../seo/head-social-category.html" %}
+{% endblock %}
+
+{% block container %}
+    <div id="content-wrapper">
+        <div class="mui--appbar-height"></div>
+        <nav class="category-select mui-container-fluid">
+            {% set categoryType = 'news' %}
+            {% include "../blocks/category-nav.html" %}
+        </nav>
+        <div class="nownews-wrapper">
+            {% for news in newsList %}
+                {% include "../blocks/news-block.html" %}
+                {# 廣告版位 #}
+                {% if loop.index % 3 == 0 %}
+                    {% set noSliderNumber = loop.index %}
+                    {% include "../ad/ad-news-block.html" %}
+                {% endif %}
+            {% endfor %}
+            {% if (not newsList or newsList.length == 0) %}
+                <br />
+                <div class="mui--text-center text-gray">
+                    <i class="fa fa-3x fa-search"></i>
+                    <br />
+                    <br />
+                    <p class="mui--text-title">
+                        <b>抱歉，找不到您要的新聞</b>
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

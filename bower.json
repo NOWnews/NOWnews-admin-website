@@ -1,0 +1,20 @@
+{
+  "name": "nowmobile",
+  "description": "NOWnews mobile service",
+  "main": "index.js",
+  "authors": [
+    "Webber Wu"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "mui": "^0.6.8"
+  }
+}

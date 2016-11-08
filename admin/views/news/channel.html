@@ -1,0 +1,28 @@
+{% extends "../base.html" %}
+
+{% block socialblock %}
+    {% include "../seo/head-social-channel.html" %}
+{% endblock %}
+
+{% block container %}
+    <div id="content-wrapper">
+        <div class="mui--appbar-height"></div>
+        <div id="channel-nav-block" class="{{ 'is-open' if isOpen else '' }}">
+            <div class="mui-panel mui--text-center ">
+                <span class="channel-name {{ 'mui--hide' if isOpen else '' }}"> {{ channelName }}</span>
+                <i class="fa fa-play fa-rotate-90 {{ 'fa-rotate-270' if isOpen else '' }}" aria-hidden="true"></i>
+            </div>
+            {% include "../blocks/channel-nav.html" %}
+        </div>
+        <div class="nownews-wrapper">
+            {% for news in newsList %}
+                {% include "../blocks/news-block.html" %}
+                {# 廣告版位 #}
+                {% if loop.index % 3 == 0 %}
+                    {% set noSliderNumber = loop.index %}
+                    {% include "../ad/ad-news-block.html" %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

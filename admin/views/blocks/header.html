@@ -1,0 +1,75 @@
+<header class="mui-appbar mui--z1">
+    <div class="mui-container">
+        <table width="100%">
+
+            <!-- 搜尋模式 -->
+            <tr id="search-bar" class="mui--appbar-height
+                {{ '' if isSearch else 'mui--hide' }}">
+                <td>
+                    <form action="/news/search">
+                        <div class="mui-textfield">
+                            <input id="search-input" name="keyword" type="text" placeholder="搜尋新聞" value="{{ keyword }}">
+                        </div>
+                    </form>
+                </td>
+                <td class="mui--text-title fa-close-area" align="right">
+                    <a class="header-btn">
+                        <img src="/static/img/icon-close.png" />
+                        <!-- <i class="fa fa-fw fa-lg fa-close"></i> -->
+                    </a>
+                </td>
+            </tr>
+
+            <!-- 漢堡列表模式 -->
+            <tr id="menu-nav-bar" class="mui--appbar-height mui--hide">
+                <td class="mui--text-title mui--invisible">
+                    <a class="header-btn">
+                        <img src="/static/img/icon-menu.png">
+                    </a>
+                </td>
+                <td class="mui--text-center">
+                    <img class="mobile-logo" src="/static/img/mobile-logo.png" title="NOWnews"/>
+                </td>
+                <td class="mui--text-title fa-close-area" align="right">
+                    <a class="header-btn" href="#">
+                        <img src="/static/img/icon-close.png">
+                    </a>
+                </td>
+            </tr>
+
+            <!-- Default Header 模式 -->
+            <tr id="header-bar" class="mui--appbar-height
+                {{ 'mui--hide' if (isPhotoOne or isSearch) else '' }}">
+                <td class="mui--text-title fa-bars-area">
+                    <a class="header-btn">
+                        <img src="/static/img/icon-menu.png">
+                    </a>
+                </td>
+                <td class="mui--text-center">
+                    <a href="/">
+                        <img class="mobile-logo" src="/static/img/mobile-logo.png" title="NOWnews"/>
+                    </a>
+                </td>
+                <td class="mui--text-title fa-search-area" align="right">
+                    <a class="header-btn" href="#">
+                        <img src="/static/img/icon-search.png">
+                    </a>
+                </td>
+            </tr>
+
+            <!-- Photo One 模式 -->
+            <tr id="photo-one-bar" class="mui--appbar-height
+                {{ 'mui--show' if isPhotoOne else 'mui--hide' }}">
+                <td class="mui--text-center mui--text-headline">
+                    <span>1</span>/{{ photo.collectionImages.length }}
+                </td>
+                <td class="mui--text-title fa-close-area" align="right">
+                    <a href="/photo/category/{{photo.categories[0]._id}}" class="header-btn">
+                        <img src="/static/img/icon-close.png">
+                    </a>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</header>

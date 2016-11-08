@@ -1,0 +1,111 @@
+{# 雀巢追蹤碼 #}
+
+{% set traceCode1 = false %}
+{% set traceCode2 = false %}
+{% set traceCode3 = false %}
+
+{% if news.nodeId == 2225146 %}
+    {% set traceCode1 = true %}
+    {% set traceCode2 = true %}
+    {% set traceCode3 = true %}
+{% endif %}
+
+{% if news.nodeId == 2229413 %}
+    {% set traceCode1 = true %}
+    {% set traceCode2 = true %}
+    {% set traceCode3 = true %}
+{% endif %}
+
+{% if news.nodeId == 2225185 %}
+    {% set traceCode1 = true %}
+    {% set traceCode2 = true %}
+    {% set traceCode3 = true %}
+{% endif %}
+
+{% if news.nodeId == 2225141 %}
+    {% set traceCode1 = true %}
+    {% set traceCode2 = true %}
+    {% set traceCode3 = true %}
+{% endif %}
+
+{% if news.nodeId == 2156980 %}
+    {% set traceCode1 = true %}
+    {% set traceCode2 = true %}
+    {% set traceCode3 = true %}
+{% endif %}
+
+{% if news.nodeId == 2261161 %}
+    {% set traceCode1 = true %}
+    {% set traceCode2 = true %}
+    {% set traceCode3 = true %}
+{% endif %}
+
+{% if news.nodeId == 2262347 %}
+    {% set traceCode1 = true %}
+    {% set traceCode2 = true %}
+    {% set traceCode3 = true %}
+{% endif %}
+
+{% if traceCode1 %}
+    <script src="//d17m68fovwmgxj.cloudfront.net/js/appier-track-v1.7.js"></script>
+    <script>Appier.appierPVTrack('377v9G2aC37zXbH',0,'false','ZkNStzH0jD7ax2Z')</script>
+    <script>
+        (function(w, d, s, m) {
+            var f = d.getElementsByTagName('script')[0],
+                j = d.createElement('script'),
+                ns = 'APPIER_RETARGET';
+            w._appierSendQueue = [];
+            w['appierRetargetJson'] = { id: s, site: m};
+            j.async = true;
+            j.src = '//d17m68fovwmgxj.cloudfront.net/js/rt/track.js';
+            f.parentNode.insertBefore(j, f);
+            !w[ns] && (w[ns] = {});
+            (!w[ns].send) && (w[ns].send = function(j){
+                w._appierSendQueue.push(j);
+            });
+    })(window, document,'AofB','campaign.nestleoptipro.com.tw');
+    </script>
+{% endif %}
+
+{% if traceCode2 %}
+    <script type="text/javascript">
+        var product = {
+            category : [ '能恩水解1' ]
+        };
+    </script>
+
+    <script type="text/javascript">
+        (function(){
+            var s   = document.createElement('script');
+            var x   = document.getElementsByTagName('script')[0];
+            s.type  = 'text/javascript';
+            s.async = true;
+            s.src   = ('https:'==document.location.protocol?'https://':'http://')
+                    + 'ap-sonar.sociomantic.com/js/2010-07-01/adpan/nownews-tw';
+            x.parentNode.insertBefore( s, x );
+        })();
+    </script>
+{% endif %}
+
+{% if traceCode3 %}
+    <script>
+        (function(w, d, s, m) {        
+            var f = d.getElementsByTagName('script')[0],
+                            j = d.createElement('script'),
+                            ns = 'APPIER_RETARGET';        
+            w._appierSendQueue = [];        
+            w['appierRetargetJson'] = {
+                id: s,
+                site: m
+            };        
+            j.async = true;        
+            j.src = '//d17m68fovwmgxj.cloudfront.net/js/rt/track.js';        
+            f.parentNode.insertBefore(j, f);        
+            !w[ns] && (w[ns] = {});        
+            (!w[ns].send) && (w[ns].send = function(j) {            
+                w._appierSendQueue.push(j);        
+            });
+        })(window, document, 'AofB', 'nestleoptipro.com.tw');
+    </script>
+    <script src="//d17m68fovwmgxj.cloudfront.net/js/rt-ext/track-ext-a.js"></script>
+{% endif %}

@@ -1,0 +1,52 @@
+{% extends "../base.html" %}
+
+{% block socialblock %}
+    {% include "../seo/head-social-one-photo.html" %}
+{% endblock %}
+
+{% block container %}
+
+    {# NOWnews Page View 偵測碼 #}
+    {% include "../trace/NOWpageview.html" %}
+
+    <div id="content-wrapper" style="background:#000;">
+        <div class="nownews-wrapper">
+            <div class="mui-container-fluid">
+                <div class="mui-row">
+                    <div class="photo-info" style="margin-top: 20px;">
+                        <div class="news_item" style="color: #fff">{{ photo.collectionImages[0].cite }}</div>
+                    </div>
+                    <div class="slick-photos">
+                        {% for image in photo.collectionImages %}
+                            <div class="slick-photo">
+                                <img class="photo-main-image" data-lazy="{{ image.thumbnail }}" />
+                                <div class="shadow-photo mui--hide">
+                                    <div class="shadow-photo-info mui--text-subhead">
+                                        {{ image.cite }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            //首圖圖說
+            var photoInfoText = $('.slick-photo.slick-active .shadow-photo-info').text();
+            $('.photo-info .news_item').text(photoInfoText);
+            //圖說
+            $('.slick-photos').on('afterChange', function(event, slick, currentSlide, nextSlide){
+                photoInfoText = $('.slick-photo.slick-active .shadow-photo-info').text();
+                $('.photo-info .news_item').text(photoInfoText);
+            });
+        });
+    </script>
+
+<!-- 先放置頂廣告，待 11 月初的會議調整
+    {# 置底的 social link #}
+    {% include "../blocks/social-link.html" %} -->
+{% endblock %}

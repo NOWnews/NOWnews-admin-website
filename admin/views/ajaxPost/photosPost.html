@@ -1,0 +1,21 @@
+{% for photo in photoList %}
+    <div class="mui-container-fluid">
+        <div class="mui-row photo-block">
+            <div class="shadow-photo">
+                <a href="/photo/{{photo.nodeId}}">
+                    <div class="shadow-photo-info">
+                        <p class="info-title">{{ photo.title }}</p>
+                    </div>
+                    <img class="photo-main-image" src="{{ photo.thumbnail }}" />
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {# 廣告版位 #}
+    {#
+        {% if loop.index % 3 == 0 %}
+            {% include "../ad/ad-photo-block.html" %}
+        {% endif %}
+    #}
+{% endfor %}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        {% include "./blocks/head-meta.html" %}
+        {% include "./blocks/head-include.html" %}
+
+        {# seo block #}
+        {% include "./seo/base/fbBase.html" %}
+        {% block socialblock %}{% endblock %}
+
+        {# JSON-LD 資料 #}
+        {% include "./seo/jsonld.html" %}
+
+        {# shareholic #}
+        {% include "./share/social.html" %}
+
+        {# 廣告 gpt 資料 #}
+        {% include "./ad/base/gpt.html" %}
+        {# 百度用資料 #}
+        {% include "./blocks/baidu.html" %}
+    </head>
+
+    <body>
+        {# GTM SEO 資料 #}
+        {% include "./trace/GTM.html" %}
+        {% include "./blocks/header.html" %}
+        {% include "./blocks/menu-nav.html" %}
+        {% block container %}{% endblock %}
+        {% include "./blocks/footer.html" %}
+
+        {# 置底廣告版位 #}
+        {% include "./ad/base/fixed-bottom320x50.html" %}
+        <div class="custom-space"></div>
+        <div class="mui--hide" id="loading">
+            <span>下面更精彩 ...</span>
+        </div>
+
+        {# google 討厭蓋版 dfp 廣告 #}
+        {% include "./ad/cover/dfp.html" %}
+        {# google 討厭蓋版 onead 廣告 #}
+        {% include "./ad/cover/onead.html" %}
+    </body>
+</html>

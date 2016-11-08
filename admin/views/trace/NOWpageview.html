@@ -1,0 +1,67 @@
+{# pv api #}
+
+{# 新聞用 pv #}
+{% if news %}
+    <script type="text/javascript">
+        function sendPageView (address) {
+            $.post( "http://61.67.121.50:10011/news", {
+                title: '{{ news.title }}',
+                url: '{{ news.url }}',
+                nodeId: '{{ news.nodeId }}',
+                type: 'NEWS',
+                platform: 'MOBILE',
+                taxId: '{{ news.category._id }}',
+                newsCreatedTime: '{{ news.created * 1000 }}',
+                address: address
+            }, function( data ) {});
+            return;
+        }
+
+        // 定位用資訊
+        var address = {
+            longitude: null,
+            latitude: null
+        }
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(function(position){
+                address.longitude = position.coords.longitude;
+                address.latitude = position.coords.latitude;
+                sendPageView(address);
+            },function(error){
+                address = { error: 'code ' + error.code + ':' + error.message };
+                sendPageView(address);
+            });
+        }else{
+            address = { error: "瀏覽器不支援定位" };
+            sendPageView(address);
+        }
+    </script>
+{% endif %}
+
+{# 圖輯用 pv #}
+{% if photo %}
+    <script type="text/javascript">
+        $.post( "http://61.67.121.50:10011/news", {
+            title: '{{ photo.title }}',
+            url: '{{ photo.url }}',
+            type: 'NEWS',
+            platform: 'MOBILE',
+            taxId: 449377, // 圖輯的 mainCategory id
+            newsCreatedTime: '{{ photo.created * 1000 }}'
+        }, function( data ) {});
+    </script>
+{% endif %}
+
+{# 影音用 pv #}
+{% if video %}
+    <script type="text/javascript">
+        $.post( "http://61.67.121.50:10011/news", {
+            title: '{{ video.title }}',
+            url: '{{ video.url }}',
+            type: 'NEWS',
+            platform: 'MOBILE',
+            taxId: 419897, // 影音的 mainCategory id
+            newsCreatedTime: '{{ video.created * 1000 }}'
+        }, function( data ) {});
+    </script>
+{% endif %}

@@ -1,0 +1,23 @@
+<!--for base meta -->
+<title>{{ photo.title }} | {{ photo.categories[0].name }} | NOWnews今日新聞</title>
+<meta name="description" content="{{ photo.jsonld.description }}" />
+<meta name="keywords" content="">
+
+<!-- for facebook use2-->
+<meta property="og:url" content="{{ photo.jsonld.mainEntityOfPage.id }}">
+<meta property="og:title" content="{{ photo.title }} | NOWnews今日新聞">
+<meta property="og:description" content="{{ photo.jsonld.description }}">
+<meta property="og:image" content="{{ photo.mainImage }}">
+<meta property="og:image" content="{{ photo.originImage }}">
+
+<!-- for Google plus use -->
+<meta itemprop="url" content="{{ photo.jsonld.mainEntityOfPage.id }}">
+<meta itemprop="name" content="{{ photo.title }} | NOWnews今日新聞">
+<meta itemprop="description" content="{{ photo.jsonld.description }}">
+<meta itemprop="image" content="{{ photo.mainImage }}">
+<meta itemprop="keywords" content="">
+<meta itemprop="articleSection" content="{{ photo.categories[0].name }}">
+<meta itemprop="dateCreated" content="{{ photo.jsonld.datePublished }}">
+<meta itemprop="dateModified" content="{{ photo.jsonld.dateModified }}">
+<meta itemprop="datePublished" content="{{ photo.jsonld.datePublished }}">
+<link rel="canonical" href="{{ photo.jsonld.mainEntityOfPage.id }}">
