@@ -1,43 +1,28 @@
 <!doctype html>
 <html>
     <head>
+
+        {% block head %}<title>新編採 | 首頁</title>{% endblock %}
+
         {% include "./blocks/head-meta.html" %}
         {% include "./blocks/head-include.html" %}
 
-        {# seo block #}
-        {% include "./seo/base/fbBase.html" %}
-        {% block socialblock %}{% endblock %}
-
-        {# JSON-LD 資料 #}
-        {% include "./seo/jsonld.html" %}
-
-        {# shareholic #}
-        {% include "./share/social.html" %}
-
-        {# 廣告 gpt 資料 #}
-        {% include "./ad/base/gpt.html" %}
-        {# 百度用資料 #}
-        {% include "./blocks/baidu.html" %}
     </head>
 
-    <body>
-        {# GTM SEO 資料 #}
-        {% include "./trace/GTM.html" %}
-        {% include "./blocks/header.html" %}
-        {% include "./blocks/menu-nav.html" %}
-        {% block container %}{% endblock %}
-        {% include "./blocks/footer.html" %}
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
 
-        {# 置底廣告版位 #}
-        {% include "./ad/base/fixed-bottom320x50.html" %}
-        <div class="custom-space"></div>
-        <div class="mui--hide" id="loading">
-            <span>下面更精彩 ...</span>
+            {% include "./blocks/header.html" %}
+            {% include "./blocks/left-aside.html" %}
+
+            {% block container %}{% endblock %}
+
+            {% include "./blocks/footer.html" %}
+            {% include "./blocks/right-aside.html" %}
+
+            <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+            <div class="control-sidebar-bg"></div>
         </div>
 
-        {# google 討厭蓋版 dfp 廣告 #}
-        {% include "./ad/cover/dfp.html" %}
-        {# google 討厭蓋版 onead 廣告 #}
-        {% include "./ad/cover/onead.html" %}
     </body>
 </html>

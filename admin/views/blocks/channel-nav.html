@@ -1,9 +1,0 @@
-<div id="channel-nav">
-    {% for channel in mainChannel %}
-        <a class="mui--text-subhead {{ 'is-active' if channel.nodeId == channelId else '' }}" href="/news/channel/{{channel.nodeId}}">
-            <div>
-                {{ channel.name }}
-            </div>
-        </a>
-    {% endfor %}
-</div>

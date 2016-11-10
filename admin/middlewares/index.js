@@ -38,6 +38,7 @@ module.exports = function(app) {
     // 靜態檔案位置
 
     let staticFilePath = (process.env.NODE_ENV === 'production') ? 'public/dist' : 'source';
+    console.log(`${rootPath}/admin/${staticFilePath}`, 1212121);
     app.use('/static', express.static(`${rootPath}/admin/${staticFilePath}`));
 
     // overwrite put and delete method

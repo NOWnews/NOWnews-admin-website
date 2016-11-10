@@ -12,7 +12,7 @@ mobile.set('port', port);
 var server = http.createServer(mobile);
 server.listen(port);
 console.log(`-------------------------------`);
-console.log(`Start NOWmobile`);
+console.log(`Start NOWnewsAdmin`);
 console.log(`Listen Port ${port}`);
 console.log(`${env} mode`);
 console.log(`-------------------------------`);

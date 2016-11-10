@@ -1,8 +1,0 @@
-{% for news in newsList %}
-    {% include "../blocks/news-block.html" %}
-
-    {# 廣告版位 #}
-    {% if loop.index % 3 == 0 %}
-        {% include "../ad/ad-news-block.html" %}
-    {% endif %}
-{% endfor %}

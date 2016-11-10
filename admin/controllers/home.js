@@ -8,28 +8,29 @@ const debug = require('debug')('NOWmobile:controllers:home');
 
 router.route('/')
     .get((req, res, next) => {
-        co(function*() {
+        return res.render('home/home');
+        // co(function*() {
+            //
+            // let result = yield [
+            //     getApi('category/news'),
+            //     getApi('news/headline'),
+            // ];
 
-            let result = yield [
-                getApi('category/news'),
-                getApi('news/headline'),
-            ];
+            // let mainCategory = result[0];
+            // let { newsList, ads } = result[1];
+            //
+            // if(req.query.data === 'PLAYJJ'){
+            //     return res.json({ newsList });
+            // }
+            //
+            // return res.render('home/home', {
+            //     nativeAds: ads || [],
+            //     newsList,
+            //     mainCategory,
+            //     specialType: 'headline',
+            // });
 
-            let mainCategory = result[0];
-            let { newsList, ads } = result[1];
-
-            if(req.query.data === 'PLAYJJ'){
-                return res.json({ newsList });
-            }
-
-            return res.render('home/home', {
-                nativeAds: ads || [],
-                newsList,
-                mainCategory,
-                specialType: 'headline',
-            });
-
-        }).catch(next);
+        // }).catch(next);
 
     });
 

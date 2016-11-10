@@ -1,75 +1,170 @@
-<header class="mui-appbar mui--z1">
-    <div class="mui-container">
-        <table width="100%">
+<header class="main-header">
 
-            <!-- 搜尋模式 -->
-            <tr id="search-bar" class="mui--appbar-height
-                {{ '' if isSearch else 'mui--hide' }}">
-                <td>
-                    <form action="/news/search">
-                        <div class="mui-textfield">
-                            <input id="search-input" name="keyword" type="text" placeholder="搜尋新聞" value="{{ keyword }}">
-                        </div>
-                    </form>
-                </td>
-                <td class="mui--text-title fa-close-area" align="right">
-                    <a class="header-btn">
-                        <img src="/static/img/icon-close.png" />
-                        <!-- <i class="fa fa-fw fa-lg fa-close"></i> -->
-                    </a>
-                </td>
-            </tr>
+    <!-- Logo -->
+    <a href="index2.html" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>A</b>LT</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>Admin</b>LTE</span>
+    </a>
 
-            <!-- 漢堡列表模式 -->
-            <tr id="menu-nav-bar" class="mui--appbar-height mui--hide">
-                <td class="mui--text-title mui--invisible">
-                    <a class="header-btn">
-                        <img src="/static/img/icon-menu.png">
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+                <li class="dropdown messages-menu">
+                    <!-- Menu toggle button -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="label label-success">4</span>
                     </a>
-                </td>
-                <td class="mui--text-center">
-                    <img class="mobile-logo" src="/static/img/mobile-logo.png" title="NOWnews"/>
-                </td>
-                <td class="mui--text-title fa-close-area" align="right">
-                    <a class="header-btn" href="#">
-                        <img src="/static/img/icon-close.png">
-                    </a>
-                </td>
-            </tr>
+                    <ul class="dropdown-menu">
+                        <li class="header">You have 4 messages</li>
+                        <li>
+                            <!-- inner menu: contains the messages -->
+                            <ul class="menu">
+                                <li>
+                                    <!-- start message -->
+                                    <a href="#">
+                                        <div class="pull-left">
+                                            <!-- User Image -->
+                                            <img src="/static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                        </div>
+                                        <!-- Message title and timestamp -->
+                                        <h4>
+                    Support Team
+                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                  </h4>
+                                        <!-- The message -->
+                                        <p>Why not buy a new awesome theme?</p>
+                                    </a>
+                                </li>
+                                <!-- end message -->
+                            </ul>
+                            <!-- /.menu -->
+                        </li>
+                        <li class="footer"><a href="#">See All Messages</a></li>
+                    </ul>
+                </li>
+                <!-- /.messages-menu -->
 
-            <!-- Default Header 模式 -->
-            <tr id="header-bar" class="mui--appbar-height
-                {{ 'mui--hide' if (isPhotoOne or isSearch) else '' }}">
-                <td class="mui--text-title fa-bars-area">
-                    <a class="header-btn">
-                        <img src="/static/img/icon-menu.png">
+                <!-- Notifications Menu -->
+                <li class="dropdown notifications-menu">
+                    <!-- Menu toggle button -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell-o"></i>
+                        <span class="label label-warning">10</span>
                     </a>
-                </td>
-                <td class="mui--text-center">
-                    <a href="/">
-                        <img class="mobile-logo" src="/static/img/mobile-logo.png" title="NOWnews"/>
+                    <ul class="dropdown-menu">
+                        <li class="header">You have 10 notifications</li>
+                        <li>
+                            <!-- Inner Menu: contains the notifications -->
+                            <ul class="menu">
+                                <li>
+                                    <!-- start notification -->
+                                    <a href="#">
+                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                    </a>
+                                </li>
+                                <!-- end notification -->
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="#">View all</a></li>
+                    </ul>
+                </li>
+                <!-- Tasks Menu -->
+                <li class="dropdown tasks-menu">
+                    <!-- Menu Toggle Button -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-flag-o"></i>
+                        <span class="label label-danger">9</span>
                     </a>
-                </td>
-                <td class="mui--text-title fa-search-area" align="right">
-                    <a class="header-btn" href="#">
-                        <img src="/static/img/icon-search.png">
+                    <ul class="dropdown-menu">
+                        <li class="header">You have 9 tasks</li>
+                        <li>
+                            <!-- Inner menu: contains the tasks -->
+                            <ul class="menu">
+                                <li>
+                                    <!-- Task item -->
+                                    <a href="#">
+                                        <!-- Task title and progress text -->
+                                        <h3>
+                    Design some buttons
+                    <small class="pull-right">20%</small>
+                  </h3>
+                                        <!-- The progress bar -->
+                                        <div class="progress xs">
+                                            <!-- Change the css width attribute to simulate progress -->
+                                            <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                <span class="sr-only">20% Complete</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- end task item -->
+                            </ul>
+                        </li>
+                        <li class="footer">
+                            <a href="#">View all tasks</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- User Account Menu -->
+                <li class="dropdown user user-menu">
+                    <!-- Menu Toggle Button -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <!-- The user image in the navbar-->
+                        <img src="/static/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                        <span class="hidden-xs">Alexander Pierce</span>
                     </a>
-                </td>
-            </tr>
+                    <ul class="dropdown-menu">
+                        <!-- The user image in the menu -->
+                        <li class="user-header">
+                            <img src="/static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
-            <!-- Photo One 模式 -->
-            <tr id="photo-one-bar" class="mui--appbar-height
-                {{ 'mui--show' if isPhotoOne else 'mui--hide' }}">
-                <td class="mui--text-center mui--text-headline">
-                    <span>1</span>/{{ photo.collectionImages.length }}
-                </td>
-                <td class="mui--text-title fa-close-area" align="right">
-                    <a href="/photo/category/{{photo.categories[0]._id}}" class="header-btn">
-                        <img src="/static/img/icon-close.png">
-                    </a>
-                </td>
-            </tr>
-
-        </table>
-    </div>
+                            <p>
+                                Alexander Pierce - Web Developer
+                                <small>Member since Nov. 2012</small>
+                            </p>
+                        </li>
+                        <!-- Menu Body -->
+                        <li class="user-body">
+                            <div class="row">
+                                <div class="col-xs-4 text-center">
+                                    <a href="#">Followers</a>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <a href="#">Sales</a>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <a href="#">Friends</a>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Control Sidebar Toggle Button -->
+                <li>
+                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </header>
