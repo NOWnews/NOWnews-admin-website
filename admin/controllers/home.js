@@ -8,7 +8,7 @@ const debug = require('debug')('NOWmobile:controllers:home');
 
 router.route('/')
     .get((req, res, next) => {
-        return res.render('home/home');
+        return res.render('home/index');
         // co(function*() {
             //
             // let result = yield [
