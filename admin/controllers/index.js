@@ -1,10 +1,11 @@
+import auth from './auth';
 import home from './home';
 import login from './login';
 import dashboard from './dashboard';
 
-
 module.exports = function(app) {
 
+    app.use('/', auth);
     app.use('/', home);
     app.use('/', login);
     app.use('/', dashboard);
