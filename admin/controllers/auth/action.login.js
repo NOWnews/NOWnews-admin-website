@@ -23,8 +23,8 @@ module.exports = function(req, res, next) {
         // debug('login user= %j', loginUser);
 
         let loginUser = {
-            name: "admin",
-        }
+            name: 'admin',
+        };
 
 
         if (!req.session) {
