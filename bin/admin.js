@@ -6,7 +6,7 @@ let mobile = require('../admin.js');
 let http = require('http');
 
 let env = process.env.NODE_ENV;
-let port = process.env.PORT || '8700';
+let port = process.env.PORT || '3000';
 mobile.set('port', port);
 
 var server = http.createServer(mobile);

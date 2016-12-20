@@ -4,10 +4,11 @@ import getApi from '../util/getApi';
 let router = express.Router();
 
 const debug = require('debug')('NOWmobile:controllers:home');
-
+// 驗證是否登入
+const isLogin = require('../middlewares/isLogin');
 
 router.route('/')
-    .get((req, res, next) => {
+    .get(isLogin, (req, res, next) => {
         return res.render('home/index');
         // co(function*() {
             //

@@ -31,7 +31,7 @@ module.exports = function(req, res, next) {
             req.session = {};
         }
 
-        req.session.user = loginUser;
+        req.session.adminUser = loginUser;
 
         return res.redirect('/');
     })
