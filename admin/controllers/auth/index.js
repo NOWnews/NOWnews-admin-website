@@ -5,11 +5,11 @@ const pageLogin = require('./page.login');
 const actionLogin = require('./action.login');
 const actionLogout = require('./action.logout');
 
-router.route('/auth/login')
+router.route('/login')
     .get(pageLogin)
     .post(actionLogin);
 
-router.route('/auth/logout')
+router.route('/logout')
     .get(actionLogout);
 
 module.exports = router;

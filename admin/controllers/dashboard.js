@@ -5,7 +5,6 @@ let router = express.Router();
 
 const debug = require('debug')('NOWmobile:controllers:home');
 
-
 router.route('/dashboard')
     .get((req, res, next) => {
         return res.render('dashboard/index');
