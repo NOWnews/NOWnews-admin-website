@@ -7,6 +7,8 @@ import video from './video';
 import analysis from './analysis';
 import moderator from './moderator';
 import menu from './menu';
+import robot from './robot';
+
 
 module.exports = function(app) {
 
@@ -18,6 +20,7 @@ module.exports = function(app) {
     app.use('/analysis', analysis);
     app.use('/moderator', moderator);
     app.use('/menu', menu);
+    app.use('/robots.txt', robot);
     app.use('/', home);
 
     return function(req, res, next) {
