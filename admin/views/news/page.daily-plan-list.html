@@ -1,0 +1,23 @@
+{% set title = "每日稿單" %}
+{% extends "../base.html" %}
+{% block headTitle %}
+    <title>新編採 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                {{ title }}
+                <small>各部門的稿單列表，可以新增自己的稿單。</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/"><i class="fa fa-dashboard"></i>首頁</a></li>
+                <li class="active">{{ title }}</li>
+            </ol>
+        </section>
+        <section class="content">
+            {% include "./block.table.html" %}
+        </section>
+    </div>
+{% endblock %}
