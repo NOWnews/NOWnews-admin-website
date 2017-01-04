@@ -12,6 +12,7 @@ module.exports = () => {
         // 設定左選單的
         let pathName = req._parsedUrl.pathname.split('/')[1];
         res.locals.adminMenu = adminMenu;
+        res.locals.pathName = pathName;
         if (adminMenu[pathName]) {
             _.map(adminMenu, (value) => { 
                 value.status = false; return value; 
