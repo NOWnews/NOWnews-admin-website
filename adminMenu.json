@@ -4,7 +4,7 @@
         "name": "控制台",
         "status": false,
         "icon": "fa-dashboard",
-        "children": []
+        "children": null
     },
     "news": {
         "url": "/news",
