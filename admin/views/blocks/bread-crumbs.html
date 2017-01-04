@@ -1,4 +1,14 @@
-<ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i>首頁</a></li>
-    <li class="active">{{adminMenu[pathName].name}}管理</li>
-</ol>
+{% if title %}
+    <h1>{{title}}管理</h1>
+    <small>{{subtitle}}</small>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i>首頁</a></li>
+        <li class="active">{{title}}管理</li>
+    </ol>
+{% else %}
+    <h1>{{adminMenu[pathName].name}}管理</h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i>首頁</a></li>
+        <li class="active">{{adminMenu[pathName].name}}管理</li>
+    </ol>
+{% endif %}

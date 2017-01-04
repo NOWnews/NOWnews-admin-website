@@ -12,11 +12,17 @@
         "status": false,
         "icon": "fa-newspaper-o",
         "children": [{
-            "url": "#",
-            "name": "Link in level 2"
+            "url": "/news/dailyPlanList",
+            "name": "每日稿單"
         },{
-            "url": "#",
-            "name": "Link in level 2"
+            "url": "/news/myList",
+            "name": "我的新聞"
+        },{
+            "url": "/news/create",
+            "name": "新增新聞"
+        },{
+            "url": "/news/reviewList",
+            "name": "待審新聞"
         }]
     },
     "layout": {

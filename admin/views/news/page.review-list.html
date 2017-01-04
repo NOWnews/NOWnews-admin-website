@@ -1,0 +1,12 @@
+{% set title = "待審新聞" %}
+{% set subtitle = "與自己中心相關送審的新聞列表" %}
+{% extends "../base.html" %}
+{% block headTitle %}
+    <title>新編採 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+    <section class="content">
+        {% include "./block.table.html" %}
+    </section>
+{% endblock %}
