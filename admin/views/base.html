@@ -15,7 +15,13 @@
             {% include "./blocks/header.html" %}
             {% include "./blocks/left-aside.html" %}
 
-            {% block container %}{% endblock %}
+            <div class="content-wrapper">
+                <section class="content-header">
+                    
+                    {% include "./blocks/breadcrumbs.html" %}
+                </section>
+                {% block container %}{% endblock %}
+            </div>
 
             {% include "./blocks/footer.html" %}
             {% include "./blocks/right-aside.html" %}

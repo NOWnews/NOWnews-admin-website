@@ -1,23 +1,12 @@
 {% set title = "我的新聞" %}
+{% set subtitle = "我的新聞列表，照時間排序，狀態有草稿、審核、...等等 的項目。" %}
 {% extends "../base.html" %}
 {% block headTitle %}
     <title>新編採 | {{ title }}</title>
 {% endblock %}
 
 {% block container %}
-    <div class="content-wrapper">
-        <section class="content-header">
-            <h1>
-                {{ title }}
-                <small>我的新聞列表，照時間排序，狀態有草稿、審核、...等等 的項目。</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="/"><i class="fa fa-dashboard"></i>首頁</a></li>
-                <li class="active">{{ title }}</li>
-            </ol>
-        </section>
-        <section class="content">
-            {% include "./block.table.html" %}
-        </section>
-    </div>
+    <section class="content">
+        {% include "./block.table.html" %}
+    </section>
 {% endblock %}

@@ -1,0 +1,110 @@
+{
+    "dashboard": {
+        "url": "/dashboard",
+        "name": "控制台",
+        "icon": "fa-dashboard",
+        "children": null
+    },
+    "news": {
+        "url": "/news",
+        "name": "新聞",
+        "icon": "fa-newspaper-o",
+        "children": [{
+            "url": "/news/dailyPlanList",
+            "name": "每日稿單"
+        },{
+            "url": "/news/myList",
+            "name": "我的新聞"
+        },{
+            "url": "/news/create",
+            "name": "新增新聞"
+        },{
+            "url": "/news/reviewList",
+            "name": "待審新聞"
+        }]
+    },
+    "layout": {
+        "url": "/layout",
+        "name": "版面調整",
+        "icon": "fa-object-ungroup",
+        "children": [{
+            "url": "#",
+            "name": "Link in level 2"
+        },{
+            "url": "#",
+            "name": "Link in level 2"
+        }]
+    },
+    "picture": {
+        "url": "/picture",
+        "name": "圖片",
+        "icon": "fa-file-image-o",
+        "children": [{
+            "url": "#",
+            "name": "Link in level 2"
+        },{
+            "url": "#",
+            "name": "Link in level 2"
+        }]
+    },
+    "video": {
+        "url": "/video",
+        "name": "影片",
+        "icon": "fa-file-video-o",
+        "children": [{
+            "url": "#",
+            "name": "Link in level 2"
+        },{
+            "url": "#",
+            "name": "Link in level 2"
+        }]
+    },
+    "analysis": {
+        "url": "/analysis",
+        "name": "統計",
+        "icon": "fa-heartbeat",
+        "children": [{
+            "url": "#",
+            "name": "Link in level 2"
+        },{
+            "url": "#",
+            "name": "Link in level 2"
+        }]
+    },
+    "moderator": {
+        "url": "/moderator",
+        "name": "版主",
+        "icon": "fa-group",
+        "children": [{
+            "url": "#",
+            "name": "Link in level 2"
+        },{
+            "url": "#",
+            "name": "Link in level 2"
+        }]
+    },
+    "menu": {
+        "url": "/menu",
+        "name": "選單設定",
+        "icon": "fa-calendar-check-o",
+        "children": [{
+            "url": "#",
+            "name": "Link in level 2"
+        },{
+            "url": "#",
+            "name": "Link in level 2"
+        }]
+    },
+    "member": {
+        "url": "/member",
+        "name": "會員",
+        "icon": "fa-user",
+        "children": [{
+            "url": "#",
+            "name": "Link in level 2"
+        },{
+            "url": "#",
+            "name": "Link in level 2"
+        }]
+    }
+}

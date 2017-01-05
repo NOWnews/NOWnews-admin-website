@@ -1,23 +1,12 @@
 {% set title = "待審新聞" %}
+{% set subtitle = "與自己中心相關送審的新聞列表" %}
 {% extends "../base.html" %}
 {% block headTitle %}
     <title>新編採 | {{ title }}</title>
 {% endblock %}
 
 {% block container %}
-    <div class="content-wrapper">
-        <section class="content-header">
-            <h1>
-                {{ title }}
-                <small>與自己中心相關送審的新聞列表</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="/"><i class="fa fa-dashboard"></i>首頁</a></li>
-                <li class="active">{{ title }}</li>
-            </ol>
-        </section>
-        <section class="content">
-            {% include "./block.table.html" %}
-        </section>
-    </div>
+    <section class="content">
+        {% include "./block.table.html" %}
+    </section>
 {% endblock %}
