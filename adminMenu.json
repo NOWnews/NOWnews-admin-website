@@ -2,14 +2,12 @@
     "dashboard": {
         "url": "/dashboard",
         "name": "控制台",
-        "status": false,
         "icon": "fa-dashboard",
         "children": null
     },
     "news": {
         "url": "/news",
         "name": "新聞",
-        "status": false,
         "icon": "fa-newspaper-o",
         "children": [{
             "url": "/news/dailyPlanList",
@@ -28,7 +26,6 @@
     "layout": {
         "url": "/layout",
         "name": "版面調整",
-        "status": false,
         "icon": "fa-object-ungroup",
         "children": [{
             "url": "#",
@@ -41,7 +38,6 @@
     "picture": {
         "url": "/picture",
         "name": "圖片",
-        "status": false,
         "icon": "fa-file-image-o",
         "children": [{
             "url": "#",
@@ -54,7 +50,6 @@
     "video": {
         "url": "/video",
         "name": "影片",
-        "status": false,
         "icon": "fa-file-video-o",
         "children": [{
             "url": "#",
@@ -67,7 +62,6 @@
     "analysis": {
         "url": "/analysis",
         "name": "統計",
-        "status": false,
         "icon": "fa-heartbeat",
         "children": [{
             "url": "#",
@@ -80,7 +74,6 @@
     "moderator": {
         "url": "/moderator",
         "name": "版主",
-        "status": false,
         "icon": "fa-group",
         "children": [{
             "url": "#",
@@ -93,7 +86,6 @@
     "menu": {
         "url": "/menu",
         "name": "選單設定",
-        "status": false,
         "icon": "fa-calendar-check-o",
         "children": [{
             "url": "#",
@@ -106,7 +98,6 @@
     "member": {
         "url": "/member",
         "name": "會員",
-        "status": false,
         "icon": "fa-user",
         "children": [{
             "url": "#",
