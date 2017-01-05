@@ -4,11 +4,12 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar Menu -->
+        <script></script>
         <ul class="sidebar-menu">
             <li class="header">系統選單</li>
             {% for key, value in adminMenu %}
                 {% if value.children %}
-                    <li class="treeview {{ 'active' if value.status }}">
+                    <li class="treeview {{ 'active' if key == pathname }}">
                         <a href="#"><i class="fa {{value.icon}}"></i> <span>{{value.name}}</span>
                             <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
@@ -16,13 +17,13 @@
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="{{value.url}}">列表</a></li>
-                            {% for children in value.children %}
-                                <li><a href="{{children.url}}">{{children.name}}</a></li>
+                            {% for child in value.children %}
+                                <li><a href="{{child.url}}">{{child.name}}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
                 {% else %}
-                    <li class="{{ 'active' if value.status }}"><a href="{{value.url}}"><i class="fa {{value.icon}}"></i> <span>{{value.name}}</span></a></li>
+                    <li class="{{ 'active' if key == pathname }}"><a href="{{value.url}}"><i class="fa {{value.icon}}"></i> <span>{{value.name}}</span></a></li>
                 {% endif %}
             {% endfor %}
         </ul>
