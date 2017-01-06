@@ -1,28 +1,25 @@
-import auth from './auth';
+import adminMenu from '../../adminMenu.json';
 import home from './home';
 import robot from './robot';
 import _ from 'lodash';
 
 let adminPageRouter = {
     analysis: require('./analysis'),
+    auth: require('./auth'),
     dashboard: require('./dashboard'),
+    layout: require('./layout'),
     menu: require('./menu'),
     moderator: require('./moderator'),
     news: require('./news'),
     picture: require('./picture'),
     video: require('./video'),
-    layout: require('./layout'),
-    member: require('./member'),
-}
-
-import adminMenu from '../../adminMenu.json';
+};
 
 module.exports = function(app) {
     _.forEach(adminMenu, (menuValue, key) => {
-        app.use(menuValue.url, adminPageRouter[key]);
+        app.use(`/${key}`, adminPageRouter[key]);
     });
 
-    app.use('/auth', auth);
     app.use('/robots.txt', robot);
     app.use('/', home);
 
