@@ -1,0 +1,11 @@
+{% set title = "編輯XX" %}
+{% extends "../../base.html" %}
+{% block headTitle %}
+    <title>新編採 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+    <section class="content">
+        {% include "./block.form.html" %}
+    </section>
+{% endblock %}

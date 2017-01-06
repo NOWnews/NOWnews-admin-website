@@ -95,16 +95,19 @@
             "name": "Link in level 2"
         }]
     },
-    "member": {
-        "url": "/member",
-        "name": "會員",
-        "icon": "fa-user",
+    "auth": {
+        "url": "#",
+        "name": "權限控管",
+        "icon": "fa-file-video-o",
         "children": [{
-            "url": "#",
-            "name": "Link in level 2"
+            "url": "/auth/center",
+            "name": "中心部門"
         },{
-            "url": "#",
-            "name": "Link in level 2"
+            "url": "/auth/role",
+            "name": "角色管理"
+        },{
+            "url": "/auth/user",
+            "name": "使用者管理"
         }]
     }
 }
