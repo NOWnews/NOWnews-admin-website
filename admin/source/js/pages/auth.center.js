@@ -34,4 +34,30 @@ $(function () {
         }
     });
 
+
+    $('#delete-center').on('click', function(){
+        var confirmed = confirm("您確定要刪除嗎？");
+        if (!confirmed) { return; }
+        var id = $('input[name="id"]').val();
+        $.ajax({
+            url: '/auth/center/' + id,
+            type: 'DELETE',
+            success: function(result) {
+                location.href = "/auth/center";
+            }
+        });
+    });
+
+    $('.delete-department').on('click', function(){
+        var confirmed = confirm("您確定要刪除嗎？");
+        if (!confirmed) { return; }
+        var id = $(this).prev().val();
+        $.ajax({
+            url: '/auth/department/' + id,
+            type: 'DELETE',
+            success: function(result) {
+                location.reload();
+            }
+        });
+    });
 });
