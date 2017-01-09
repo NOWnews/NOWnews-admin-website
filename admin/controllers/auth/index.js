@@ -4,6 +4,7 @@ import actionLogout from './action.logout';
 import pageLogin from './page.login';
 
 import center from './center';
+import department from './department';
 import role from './role';
 import user from './user';
 
@@ -17,6 +18,7 @@ router.route('/logout')
     .get(actionLogout);
 
 center(router);
+department(router);
 role(router);
 user(router);
 
