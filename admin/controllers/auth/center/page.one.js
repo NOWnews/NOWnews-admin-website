@@ -5,12 +5,26 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        let result = await new Promise((resolve, reject) => {
+        let center = await new Promise((resolve, reject) => {
             return resolve('controllers/auth/center/page.one.js');
         });
 
-        debug('center = %j', result);
-        return res.render('auth/center/page.one.html');
+        center = {
+            id: 1,
+            name: '研發中心',
+            Departments: [{
+                id: 1,
+                name: '系統開發部',
+            } , {
+                id: 2,
+                name: '視覺設計部',
+            }],
+        };
+
+        debug('center = %j', center);
+        return res.render('auth/center/page.one.html', {
+            center,
+        });
     }
     catch(err) {
         return next(err);

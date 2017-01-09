@@ -1,4 +1,4 @@
-{% set title = "編輯XX" %}
+{% set title = "編輯部門/組別" %}
 {% extends "../../base.html" %}
 {% block headTitle %}
     <title>新編採 | {{ title }}</title>
@@ -6,6 +6,21 @@
 
 {% block container %}
     <section class="content">
-        {% include "./block.form.html" %}
+        <div class="box">
+            <form action="/auth/department/{{department.id}}" method="post">
+                <div class="box-body">
+                    <input type="hidden" name="_method" value="put">
+                    {% include "./block.form.html" %}
+                </div>
+                <div class="box-footer">
+                    <a href="/auth/center" class="btn btn-default">
+                        返回
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        送出
+                    </button>
+                </div>
+            </form>
+        </div>
     </section>
 {% endblock %}

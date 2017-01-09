@@ -1,4 +1,6 @@
 $(function () {
+    // Group 列表、排序處理
+    // https://datatables.net/examples/advanced_init/row_grouping.html
     var table = $('#center-table').DataTable({
         "columnDefs": [
             { "visible": false, "targets": 0 }
@@ -23,7 +25,7 @@ $(function () {
         }
     });
 
-    $('#center-table tbody').on('click', 'tr.group', function () {
+    $('#center-table tbody').on('click', 'tr.group', function(){
         var currentOrder = table.order()[0];
         if ( currentOrder[0] === 0 && currentOrder[1] === 'asc') {
             table.order([ 0, 'desc']).draw();
@@ -31,4 +33,5 @@ $(function () {
             table.order([ 0, 'asc']).draw();
         }
     });
+
 });

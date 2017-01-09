@@ -5,12 +5,20 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        let result = await new Promise((resolve, reject) => {
+        let department = await new Promise((resolve, reject) => {
             return resolve('controllers/auth/department/page.one.js');
         });
-
-        debug('department = %j', result);
-        return res.render('auth/department/page.one.html');
+        department = {
+            id: 1,
+            center: {
+                id: 2,
+            },
+            name: "政治組",
+        };
+        debug('department = %j', department);
+        return res.render('auth/department/page.one.html', {
+            department,
+        });
     }
     catch(err) {
         return next(err);

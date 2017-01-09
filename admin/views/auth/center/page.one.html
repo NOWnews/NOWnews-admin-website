@@ -5,7 +5,38 @@
 {% endblock %}
 
 {% block container %}
+    {% include "../department/modal.create.html" %}
     <section class="content">
-        {% include "./block.form.html" %}
+        <div class="box">
+            <form action="/auth/center/{{center.id}}" method="post">
+                <div class="box-body">
+                    <input type="hidden" name="_method" value="put">
+                    {% include "./block.form.html" %}
+                    <hr />
+                    <label>部門/組別</label>
+                    <button type="button"
+                        data-toggle="modal"
+                        data-target="#create-departemnt">
+                        +
+                    </button>
+                    <ul>
+                        {%- for department in center.Departments %}
+                            <li>{{ department.name }}</li>
+                        {%- endfor %}
+                    </ul>
+                </div>
+                <div class="box-footer">
+                    <a href="/auth/center" class="btn btn-default">
+                        返回
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        送出
+                    </button>
+                    <button type="button" class="btn btn-danger">
+                        刪除
+                    </button>
+                </div>
+            </form>
+        </div>
     </section>
 {% endblock %}
