@@ -4,12 +4,21 @@ const debug = Debug('NOWnews-admin-website: controllers:auth:role:page.list');
 module.exports = async (req, res, next) => {
 
     try {
-        let result = await new Promise((resolve, reject) => {
+        let roleList = await new Promise((resolve, reject) => {
             return resolve('controllers/auth/role/page.list.js');
         });
 
-        debug('roleList = %j', result);
-        return res.render('auth/role/page.list.html');
+        roleList = [{
+            id: 1,
+            name: '總編輯',
+        },{
+            id: 2,
+            name: '副總編輯',
+        }];
+        debug('roleList = %j', roleList);
+        return res.render('auth/role/page.list.html', {
+            roleList,
+        });
     }
     catch(err) {
         return next(err);

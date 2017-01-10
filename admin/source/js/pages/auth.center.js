@@ -1,4 +1,4 @@
-$(function () {
+$(function() {
     // Group 列表、排序處理
     // https://datatables.net/examples/advanced_init/row_grouping.html
     var table = $('#center-table').DataTable({

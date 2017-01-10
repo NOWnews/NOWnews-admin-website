@@ -1,9 +1,42 @@
-<div class="box-body">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>名稱 *</label>
-            </div>
-        </div>
-    </div>
+<div class="form-group">
+    <label>角色名稱
+        <span class="text-danger">*</span>
+    </label>
+    <input class="form-control"
+        name="name"
+        required
+        type="text"
+        value="{{ role.name }}" />
+</div>
+<div class="form-group">
+    <label>權限設定
+        <span class="text-danger">*</span>
+    </label>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>名稱</th>
+                <th>動作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%- for menuPolicy in defaultPolicies %}
+                <tr>
+                    <td width="15%">{{ menuPolicy._id }}</td>
+                    <td>
+                        {%- for policy in menuPolicy.policies %}
+                            <label>
+                                <input
+                                    {{ checkedPolicies[policy._id] }}
+                                    type="checkbox"
+                                    name="policies[]"
+                                    value="{{policy._id}}" />
+                                {{ policy.method }}
+                            </label>
+                        {%- endfor %}
+                    </td>
+                </tr>
+            {%- endfor %}
+        </tbody>
+    </table>
 </div>
