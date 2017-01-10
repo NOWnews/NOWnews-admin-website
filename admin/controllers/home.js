@@ -1,6 +1,6 @@
 import co from 'co';
 import express from 'express';
-import getApi from '../util/getApi';
+// import api from '../util/api';
 let router = express.Router();
 
 const debug = require('debug')('NOWmobile:controllers:home');
@@ -13,8 +13,8 @@ router.route('/')
         // co(function*() {
             //
             // let result = yield [
-            //     getApi('category/news'),
-            //     getApi('news/headline'),
+            //     api('category/news'),
+            //     api('news/headline'),
             // ];
 
             // let mainCategory = result[0];

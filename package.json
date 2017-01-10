@@ -4,7 +4,7 @@
   "description": "NOWnews Admin service",
   "main": "index.js",
   "scripts": {
-    "start": "npm install && NODE_ENV=staging DEBUG=NOWnewsAdmin* ./node_modules/nodemon/bin/nodemon.js ./bin/admin.js",
+    "start": "npm install && NODE_ENV=develop DEBUG=NOWnewsAdmin* ./node_modules/nodemon/bin/nodemon.js ./bin/admin.js",
     "build": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules",
     "prod": "NODE_ENV=production node ./bin/server"
   },
@@ -29,6 +29,7 @@
     "chalk": "1.1.3",
     "co": "4.6.0",
     "compression": "1.6.2",
+    "config": "^1.24.0",
     "cookie-parser": "1.4.3",
     "cookie-session": "2.0.0-alpha.1",
     "cors": "2.8.0",
