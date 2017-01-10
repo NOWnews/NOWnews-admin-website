@@ -1,23 +1,23 @@
 {
-  "name": "NOWnewsAdmin",
+  "name": "NOWnews-admin-website",
   "version": "0.0.1",
   "description": "NOWnews Admin service",
   "main": "index.js",
   "scripts": {
-    "start": "npm install && NODE_ENV=develop DEBUG=NOWnewsAdmin* ./node_modules/nodemon/bin/nodemon.js ./bin/admin.js",
+    "start": "npm install && NODE_ENV=develop DEBUG=NOWnews-admin-website* ./node_modules/nodemon/bin/nodemon.js ./bin/admin.js",
     "build": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules",
     "prod": "NODE_ENV=production node ./bin/server"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com:nownews/NOWnewsAdmin.git"
+    "url": "git+ssh://git@gitlab.com:nownews/NOWnews-admin-website.git"
   },
   "author": "Webber Wu",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/nownews/NOWnewsAdmin/issues"
+    "url": "https://gitlab.com/nownews/NOWnews-admin-website/issues"
   },
-  "homepage": "https://gitlab.com/nownews/NOWnewsAdmin#README",
+  "homepage": "https://gitlab.com/nownews/NOWnews-admin-website#README",
   "dependencies": {
     "babel-core": "6.14.0",
     "babel-polyfill": "6.13.0",
