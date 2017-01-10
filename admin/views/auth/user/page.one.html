@@ -6,6 +6,22 @@
 
 {% block container %}
     <section class="content">
-        {% include "./block.table.html" %}
+        <div class="box">
+            <form action="/auth/user/{{user.id}}" method="post">
+                <div class="box-body">
+                    <input type="hidden" name="id" value="{{user.id}}">
+                    <input type="hidden" name="_method" value="put">
+                    {% include "./block.form.html" %}
+                </div>
+                <div class="box-footer">
+                    <a href="/auth/user" class="btn btn-default">
+                        返回
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        送出
+                    </button>
+                </div>
+            </form>
+        </div>
     </section>
 {% endblock %}

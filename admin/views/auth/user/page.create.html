@@ -6,6 +6,20 @@
 
 {% block container %}
     <section class="content">
-        {% include "./block.form.html" %}
+        <div class="box">
+            <form action="/auth/user/create" method="post">
+                <div class="box-body">
+                    {% include "./block.form.html" %}
+                </div>
+                <div class="box-footer">
+                    <a href="/auth/user" class="btn btn-default">
+                        返回
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        送出
+                    </button>
+                </div>
+            </form>
+        </div>
     </section>
 {% endblock %}

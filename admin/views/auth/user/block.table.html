@@ -1,46 +1,47 @@
-<div class="box">
-    <div class="box-body">
-        <table id="center-table" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>名稱</th>
-                    <th>編輯</th>
-                    <th>移除</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% set arr = [1,2,3,4,5,6,7,8,9] %}
-                {%- for index in arr %}
-                    <tr>
-                        <td>
-                            <a href="#">
-                                影／台灣唯一入選　周子瑜再登百大美女奪第八
-                            </a>
-                        </td>
-                        <td>
-                            <a class="btn btn-info"
-                                href="/center/{{index}}">
-                                編輯
-                            </a>
-                        </td>
-                        <td>
-                            <button class="btn btn-danger">移除</button>
-                        </td>
-                    </tr>
-                {%- endfor %}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>名稱</th>
-                    <th>編輯</th>
-                    <th>移除</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-</div>
-<script>
-  $(function () {
-    $("#center-table").DataTable();
-  });
-</script>
+<table id="user-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>員編</th>
+            <th>姓名(暱稱)</th>
+            <th>部門中心</th>
+            <th>狀態</th>
+            <th>信箱</th>
+            <th>電話</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%- for user in userList %}
+            <tr>
+                <td>{{ user.staffId }}</td>
+                <td>{{ user.name }}({{ user.nickname }})</td>
+                <td>{{ 'XX部門' }} - {{ 'XX中心' }}</td>
+                <td>{{ user.status }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone }}</td>
+                <td>
+                    <a class="btn btn-info" href="/auth/user/{{user.id}}">
+                        編輯
+                    </a>
+                </td>
+                <td>
+                    <input type="hidden" name="id" value="{{user.id}}">
+                    <button class="btn btn-danger delete-user">移除</button>
+                </td>
+            </tr>
+        {%- endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>員編</th>
+            <th>姓名(暱稱)</th>
+            <th>部門中心</th>
+            <th>狀態</th>
+            <th>信箱</th>
+            <th>電話</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </tfoot>
+</table>
