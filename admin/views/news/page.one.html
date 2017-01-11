@@ -1,11 +1,210 @@
-{% set title = "編輯新聞" %}
-{% extends "../base.html" %}
-{% block headTitle %}
-    <title>新編採 | {{ title }}</title>
-{% endblock %}
-
-{% block container %}
-    <section class="content">
-        {% include "./block.one.html" %}
-    </section>
+{% set title = "編輯新聞" %} {% extends "../base.html" %} {% block headTitle %}
+<title>新編採 | {{ title }}</title>
+{% endblock %} {% block container %}
+<section class="content">
+    <form>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">作者: 吳承翰</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="control-label">新聞來源</label>
+                            <select class="form-control select2">
+                                <option selected="selected">NOWnews</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="control-label">新聞主分類</label>
+                            <select class="form-control select2">
+                                <option selected="selected">娛樂王國</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="control-label">處理者</label>
+                            <select class="form-control select2">
+                                <option selected="selected">吳承翰</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> 成人新聞
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> 不可外送
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="control-label">記者資訊</label>
+                            <input type="text" class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="control-label">記者圖像</label>
+                            <select class="form-control select2">
+                                <option selected="selected">吳承翰</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="control-label">長標</label>
+                            <input type="text" class="form-control" placeholder="限制字數為 26">
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="control-label">短標</label>
+                            <input type="text" class="form-control" placeholder="限制字數為 16">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <!--<div class="box-footer">
+                    Footer
+                </div>-->
+            <!-- /.box-footer-->
+        </div>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">作者: 吳承翰</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <label>首圖</label>
+                    <ul class="mailbox-attachments clearfix">
+                        <li>
+                            <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+                            <div class="mailbox-attachment-info">
+                                <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+                                <span class="mailbox-attachment-size">
+                                    1,245 KB
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="btn btn-default btn-file">
+                        <i class="fa fa-paperclip"></i> 上傳檔案
+                        <input type="file" name="attachment">
+                    </div>
+                    <p class="help-block">Max. 32MB</p>
+                </div>
+                <div class="form-group">
+                    <label>摘要</label>
+                    <textarea class="form-control" rows="5" placeholder="Enter ..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>內文</label>
+                    <textarea class="form-control" rows="5" placeholder="Enter ..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>關鍵字</label>
+                    <select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                        <option>Alabama</option>
+                        <option>Alaska</option>
+                        <option>California</option>
+                        <option>Delaware</option>
+                        <option>Tennessee</option>
+                        <option>Texas</option>
+                        <option>Washington</option>
+                    </select>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                Footer
+            </div>
+            <!-- /.box-footer-->
+        </div>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">發稿設定</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" placeholder="Enter ..."></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">撰稿備忘錄</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" placeholder="Enter ..."></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">注意事項</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <p>存成草稿：會出現個人工作區，只有自己看見。</p>
+                <p>存成送審：會出現在新聞列表，並同部門的同事都會看見。</p>
+                <p>存成發佈：可在板主管理(新聞)剛剛有貼的版面裡找到，或是在我的新聞裡找的到。</p>
+                <p>傳給特定長官或同事：把處理者改成該同事，並把狀態改成"草稿"，這樣才會出現在他的個人工作區裡。</p>
+            </div>
+        </div>
+    </form>
+</section>
 {% endblock %}
