@@ -4,13 +4,16 @@ const debug = Debug('NOWnews-admin-website: controllers:auth:department:action.u
 module.exports = async (req, res, next) => {
 
     try {
-        let result = await new Promise((resolve, reject) => {
-            return resolve('controllers/auth/department/action.update.js');
-        });
+        let data = req.body;
+        data.UpdatedBy = req.session.adminUser._id;
 
-        debug('updatedDepartment = %j', result);
+        let url = `/departments/${req.params.id}`;
 
-        return res.json(result);
+        let { data: department } = await axios.put(url, data);
+
+        debug('updatedDepartment = %j', department);
+
+        return res.json({ department });
     }
     catch(err) {
         return next(err);

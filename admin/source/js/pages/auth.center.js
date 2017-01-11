@@ -34,7 +34,6 @@ $(function() {
         var confirmed = confirm("您確定要刪除嗎？");
         if (!confirmed) { return; }
         var id = $('input[name=id]').val();
-        console.log(id);
         $.ajax({
             url: '/auth/center/' + id,
             type: 'DELETE',
@@ -45,6 +44,29 @@ $(function() {
     });
 
     // Department
+    $('#creaet-departemnt-form').on('submit', function(e) {
+        let url = $(this).attr('action');
+        let data = $(this).serialize();
+        $.post(url, data, function() {
+            location.reload();
+        });
+        return false;
+    });
+
+    $('.save-department').on('click', function(e){
+        var name = $(this).prev().val().trim();
+        if (name.length === 0) return false;
+        var departmentId = $(this).next().val();
+        $.ajax({
+            url: '/auth/department/' + departmentId,
+            type: 'PUT',
+            data: 'name=' + name,
+            success: function(data){
+                location.reload();
+            }
+        });
+    });
+
     $('.delete-department').on('click', function(){
         var confirmed = confirm("您確定要刪除嗎？");
         if (!confirmed) { return; }
