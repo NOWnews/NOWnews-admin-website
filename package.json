@@ -1,24 +1,25 @@
 {
-  "name": "NOWnewsAdmin",
+  "name": "NOWnews-admin-website",
   "version": "0.0.1",
   "description": "NOWnews Admin service",
   "main": "index.js",
   "scripts": {
-    "start": "npm install && NODE_ENV=staging DEBUG=NOWnewsAdmin* ./node_modules/nodemon/bin/nodemon.js ./bin/admin.js",
+    "start": "npm install && NODE_ENV=develop DEBUG=NOWnews-admin-website* ./node_modules/nodemon/bin/nodemon.js ./bin/admin.js",
     "build": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules",
     "prod": "NODE_ENV=production node ./bin/server"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com:nownews/NOWnewsAdmin.git"
+    "url": "git+ssh://git@gitlab.com:nownews/NOWnews-admin-website.git"
   },
   "author": "Webber Wu",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/nownews/NOWnewsAdmin/issues"
+    "url": "https://gitlab.com/nownews/NOWnews-admin-website/issues"
   },
-  "homepage": "https://gitlab.com/nownews/NOWnewsAdmin#README",
+  "homepage": "https://gitlab.com/nownews/NOWnews-admin-website#README",
   "dependencies": {
+    "axios": "^0.15.3",
     "babel-core": "6.14.0",
     "babel-polyfill": "6.13.0",
     "babel-preset-es2015": "6.14.0",
@@ -29,6 +30,7 @@
     "chalk": "1.1.3",
     "co": "4.6.0",
     "compression": "1.6.2",
+    "config": "^1.24.0",
     "cookie-parser": "1.4.3",
     "cookie-session": "2.0.0-alpha.1",
     "cors": "2.8.0",
@@ -43,7 +45,6 @@
     "mongoose": "4.6.0",
     "mongoose-auto-increment": "5.0.1",
     "morgan": "1.7.0",
-    "node-fetch": "1.6.0",
     "nodemon": "1.10.2",
     "nunjucks": "2.4.2",
     "sitemap": "1.8.1"
