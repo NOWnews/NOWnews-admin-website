@@ -23,6 +23,7 @@ module.exports = function(req, res, next) {
         // debug('login user= %j', loginUser);
 
         let loginUser = {
+            _id: '530000000000000000000001',
             name: 'admin',
         };
 

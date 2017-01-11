@@ -1,4 +1,4 @@
-{% set title = "編輯中心" %}
+{% set title = "編輯中心部門" %}
 {% extends "../../base.html" %}
 {% block headTitle %}
     <title>新編採 | {{ title }}</title>
@@ -8,21 +8,29 @@
     {% include "../department/modal.create.html" %}
     <section class="content">
         <div class="box">
-            <form action="/auth/center/{{center.id}}" method="post">
+            <form action="/auth/center/{{center._id}}" method="post">
                 <div class="box-body">
-                    <input type="hidden" name="id" value="{{center.id}}">
+                    <input type="hidden" name="id" value="{{center._id}}">
                     <input type="hidden" name="_method" value="put">
                     {% include "./block.form.html" %}
                     <hr />
                     <label>部門/組別</label>
                     <button type="button"
+                        class="fa fa-plus"
                         data-toggle="modal"
                         data-target="#create-departemnt">
-                        +
                     </button>
-                    <ul>
+                    <ul id="deaprtment-list">
                         {%- for department in center.Departments %}
-                            <li>{{ department.name }}</li>
+                            <li>
+                                <input type="text" value="{{department.name}}" required>
+                                <button type="button"
+                                    class="fa fa-save save-department"></button>
+                                <input type="hidden" value="{{department._id}}" required>
+                                <button type="button"
+                                    class="fa fa-trash delete-department"></button>
+                            </li>
+
                         {%- endfor %}
                     </ul>
                 </div>

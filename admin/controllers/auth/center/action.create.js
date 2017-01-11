@@ -4,15 +4,17 @@ const debug = Debug('NOWnews-admin-website: controllers:auth:center:action.creat
 module.exports = async (req, res, next) => {
 
     try {
-        let result = await new Promise((resolve, reject) => {
-            return resolve('controllers/auth/center/action.create.js');
-        });
+        let userId = req.session.adminUser._id;
+        let data = req.body;
+        data.CreatedBy = userId;
+        data.UpdatedBy = userId;
 
-        debug('createdCenter = %j', result);
+        let { data: center } = await axios.post('/centers', data);
 
-        return res.json(result);
-    }
-    catch(err) {
+        debug('createdCenter = %j', center);
+
+        return res.redirect(`/auth/center/${center._id}`);
+    } catch(err) {
         return next(err);
     }
 };

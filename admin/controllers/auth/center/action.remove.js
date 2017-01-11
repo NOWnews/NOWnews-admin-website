@@ -4,15 +4,20 @@ const debug = Debug('NOWnews-admin-website: controllers:auth:center:action.remov
 module.exports = async (req, res, next) => {
 
     try {
-        let result = await new Promise((resolve, reject) => {
-            return resolve('controllers/auth/center/action.remove.js');
-        });
 
-        debug('removedCenter = %j', result);
+        let data = {
+            UpdatedBy: req.session.adminUser._id,
+        };
 
-        return res.json(result);
-    }
-    catch(err) {
+        let url = `/centers/${req.params.id}`;
+
+        let { data: center } = await axios.delete(url, { data });
+
+        debug('removedCenter = %j', center);
+
+        return res.redirect('/auth/center');
+
+    } catch(err) {
         return next(err);
     }
 };
