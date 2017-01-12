@@ -1,9 +1,13 @@
-import express from 'express';
-let router = express.Router();
+import { Router } from 'express';
+import actionLogin from './action.login';
+import actionLogout from './action.logout';
+import pageLogin from './page.login';
 
-const pageLogin = require('./page.login');
-const actionLogin = require('./action.login');
-const actionLogout = require('./action.logout');
+import center from './center';
+import role from './role';
+import user from './user';
+
+let router = Router();
 
 router.route('/login')
     .get(pageLogin)
@@ -11,5 +15,10 @@ router.route('/login')
 
 router.route('/logout')
     .get(actionLogout);
+
+center(router);
+role(router);
+user(router);
+
 
 module.exports = router;

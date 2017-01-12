@@ -1,0 +1,11 @@
+{% set title = "XX列表" %}
+{% extends "../../base.html" %}
+{% block headTitle %}
+    <title>新編採 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+    <section class="content">
+        {% include "./block.table.html" %}
+    </section>
+{% endblock %}
