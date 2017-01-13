@@ -1,16 +1,14 @@
 import Debug from 'debug';
+import { USER_STATUS } from '../../../util/constants';
 const debug = Debug('NOWnews-admin-website: controllers:auth:user:page.list');
 
 module.exports = async (req, res, next) => {
 
     try {
-        let userList = await new Promise((resolve, reject) => {
-            return resolve('controllers/auth/user/page.list.js');
-        });
 
-        debug('userList = %j', userList);
+        // let { data: userList } = await axios.get('/users');
 
-        userList = [{
+        let userList = [{
             id: 1,
             staffId: "NN00XXX",
             status: "NEWBIE",
@@ -28,11 +26,13 @@ module.exports = async (req, res, next) => {
             phone: "09xx123123"
         }];
 
+        debug('userList = %j', userList);
+
         return res.render('auth/user/page.list.html', {
+            USER_STATUS,
             userList,
         });
-    }
-    catch(err) {
+    } catch(err) {
         return next(err);
     }
 };

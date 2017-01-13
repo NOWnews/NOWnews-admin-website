@@ -1,3 +1,10 @@
+{% set action = {
+    "get": "讀取",
+    "post": "新增",
+    "put": "修改",
+    "delete": "刪除"
+}%}
+
 <div class="form-group">
     <label>角色名稱
         <span class="text-danger">*</span>
@@ -7,6 +14,13 @@
         required
         type="text"
         value="{{ role.name }}" />
+</div>
+<div class="form-group">
+    <label>描述</label>
+    <input class="form-control"
+        name="desc"
+        type="text"
+        value="{{ role.desc }}" />
 </div>
 <div class="form-group">
     <label>權限設定
@@ -29,9 +43,10 @@
                                 <input
                                     {{ checkedPolicies[policy._id] }}
                                     type="checkbox"
-                                    name="policies[]"
+                                    name="Policies"
+                                    required
                                     value="{{policy._id}}" />
-                                {{ policy.method }}
+                                {{ action[policy.method] }}
                             </label>
                         {%- endfor %}
                     </td>

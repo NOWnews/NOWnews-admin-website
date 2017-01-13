@@ -6,7 +6,6 @@
             <th>部門中心</th>
             <th>狀態</th>
             <th>信箱</th>
-            <th>電話</th>
             <th>編輯</th>
             <th>移除</th>
         </tr>
@@ -17,9 +16,8 @@
                 <td>{{ user.staffId }}</td>
                 <td>{{ user.name }}({{ user.nickname }})</td>
                 <td>{{ 'XX部門' }} - {{ 'XX中心' }}</td>
-                <td>{{ user.status }}</td>
+                <td>{{ USER_STATUS[user.status] }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.phone }}</td>
                 <td>
                     <a class="btn btn-info" href="/auth/user/{{user.id}}">
                         編輯
@@ -39,7 +37,6 @@
             <th>部門中心</th>
             <th>狀態</th>
             <th>信箱</th>
-            <th>電話</th>
             <th>編輯</th>
             <th>移除</th>
         </tr>
