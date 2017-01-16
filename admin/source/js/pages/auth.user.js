@@ -3,7 +3,7 @@ $(function() {
     $(document).ready(function() {
         $('#center-and-dept').select2();
 
-        $('#center-and-dept').on("select2:select", function (e) {
+        $('#center-and-dept').on('select2:select', function (e) {
             var departmentElm = $(e.params.data.element);
             var centerId = departmentElm.parent().attr('id');
             var departmentId = departmentElm.val();

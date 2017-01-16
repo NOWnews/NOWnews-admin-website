@@ -19,12 +19,12 @@
                 <td>{{ USER_STATUS[user.status] }}</td>
                 <td>{{ user.email }}</td>
                 <td>
-                    <a class="btn btn-info" href="/auth/user/{{user.id}}">
+                    <a class="btn btn-info" href="/auth/user/{{user._id}}">
                         編輯
                     </a>
                 </td>
                 <td>
-                    <input type="hidden" name="id" value="{{user.id}}">
+                    <input type="hidden" name="id" value="{{user._id}}">
                     <button class="btn btn-danger delete-user">移除</button>
                 </td>
             </tr>

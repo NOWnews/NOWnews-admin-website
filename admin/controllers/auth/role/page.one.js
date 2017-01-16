@@ -6,23 +6,15 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        // let { data: role } = await axios.get(`/roles/${req.params.id}`);
+        let { data: role } = await axios.get(`/roles/${req.params.id}`);
 
         let { data: defaultPolicies } = await axios.get('/policies/group');
 
-        let role = {
-            name: '總編輯',
-            polices: [
-                '510000000000000000000001',
-                '510000000000000000000003',
-            ],
-        };
-
-        // debug('role = %j', role);
+        debug('role = %j', role);
 
         // 方便前端 mapping
         let checkedPolicies = {};
-        forEach(role.polices, (policy) => {
+        forEach(role.Policies, (policy) => {
             checkedPolicies[policy] = "checked";
         });
 

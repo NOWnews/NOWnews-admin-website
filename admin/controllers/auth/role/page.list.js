@@ -5,9 +5,7 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        // let { data: roleList } = await axios.get('/roles');
-
-        let roleList = []
+        let { data: roleList } = await axios.get('/roles');
 
         debug('roleList = %j', roleList);
 
