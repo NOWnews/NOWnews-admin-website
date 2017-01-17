@@ -3,8 +3,7 @@ module.exports = async (req, res, next) => {
 
     try {
         let { data: centerList } = await axios.get('/centers');
-        // let { data: roleList } = await axios.get('/roles');
-        let roleList = [];
+        let { data: roleList } = await axios.get('/roles');
 
         return res.render('auth/user/page.create.html', {
             roleList,

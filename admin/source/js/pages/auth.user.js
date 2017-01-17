@@ -1,6 +1,7 @@
 $(function() {
 
     $(document).ready(function() {
+
         $('#center-and-dept').select2();
 
         $('#center-and-dept').on('select2:select', function (e) {

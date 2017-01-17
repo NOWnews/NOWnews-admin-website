@@ -9,6 +9,18 @@ module.exports = async (req, res, next) => {
         data.CreatedBy = userId;
         data.UpdatedBy = userId;
 
+        if (data.Center === "") {
+            delete data.Center;
+        }
+
+        if (data.Department === "") {
+            delete data.Department;
+        }
+
+        if (data.Role === "") {
+            delete data.Role;
+        }
+
         console.log(data);
 
         let { data: user } = await axios.post('/users', data);

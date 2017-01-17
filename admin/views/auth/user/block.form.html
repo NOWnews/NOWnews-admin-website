@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label>名稱
+            <label>姓名
                 <span class="text-danger">*</span>
             </label>
             <input class="form-control"
@@ -11,31 +11,26 @@
                 value="{{ user.name }}" />
         </div>
         <div class="form-group">
-            <label>員工編號
-                <span class="text-danger">*</span>
-            </label>
+            <label>員工編號</label>
             <input class="form-control"
                 name="staffId"
-                required
                 type="text"
                 placeholder="NNxxxxx"
                 value="{{ user.staffId }}" />
         </div>
         <div class="form-group">
-            <label>中心部門
-                <span class="text-danger">*</span>
-            </label>
-            <input name="Center" type="hidden" value="{{ user.Center }}"/>
-            <input name="Department" type="hidden" value="{{ user.Department }}"/>
+            <label>中心部門</label>
+            <input name="Center" type="hidden" value="{{ user.Center._id }}"/>
+            <input name="Department" type="hidden" value="{{ user.Department._id }}"/>
             <select class="form-control"
                 id="center-and-dept"
-                name="centerAndDept"
-                required>
+                name="centerAndDept">
                 <option value="">請選擇</option>
                 {% for center in centerList %}
                     <optgroup id="{{ center._id }}" label="{{ center.name }}">
                         {% for department in center.Departments %}
-                            <option value="{{ department.name }}">
+                            <option value="{{ department._id }}"
+                            {{ "selected" if department._id == user.Department._id }} >
                                 {{ department.name }}
                             </option>
                         {% endfor %}
@@ -62,8 +57,7 @@
                 value="{{ user.phone }}" />
         </div>
         <div class="form-group">
-            <label> 個人網站連結
-            </label>
+            <label>個人網站連結</label>
             <input class="form-control"
                 name="profileLink"
                 type="text"
@@ -79,6 +73,17 @@
                 type="text"
                 value="{{ user.nickname }}" />
         </div>
+        {% if not user %}
+            <div class="form-group">
+                <label> 密碼
+                    <span class="text-danger">*</span>
+                </label>
+                <input class="form-control"
+                    required
+                    name="password"
+                    type="password" />
+            </div>
+        {% endif %}
         <div class="form-group">
             <label>員工狀態
                 <span class="text-danger">*</span>
@@ -104,12 +109,9 @@
             </select>
         </div>
         <div class="form-group">
-            <label>職稱
-                <span class="text-danger">*</span>
-            </label>
+            <label>職稱</label>
             <input class="form-control"
                 name="jobTitle"
-                required
                 type="text"
                 value="{{ user.jobTitle }}" />
         </div>
@@ -117,9 +119,9 @@
             <label> 個人大頭貼
             </label>
             <input class="form-control"
-                name="avatar"
+                name="Avatar"
                 type="text"
-                value="{{ user.avatar }}" />
+                value="{{ user.Avatar }}" />
         </div>
     </div>
 </div>

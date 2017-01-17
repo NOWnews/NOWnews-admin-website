@@ -7,9 +7,9 @@
 {% block container %}
     <section class="content">
         <div class="box">
-            <form action="/auth/user/{{user.id}}" method="post">
+            <form action="/auth/user/{{user._id}}" method="post">
                 <div class="box-body">
-                    <input type="hidden" name="id" value="{{user.id}}">
+                    <input type="hidden" name="id" value="{{user._id}}">
                     <input type="hidden" name="_method" value="put">
                     {% include "./block.form.html" %}
                 </div>

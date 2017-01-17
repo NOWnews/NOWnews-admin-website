@@ -13,6 +13,18 @@ module.exports = async (req, res, next) => {
 
         let { data: user } = await axios.put(url, data);
 
+        if (data.Center === "") {
+            delete data.Center;
+        }
+
+        if (data.Department === "") {
+            delete data.Department;
+        }
+
+        if (data.Role === "") {
+            delete data.Role;
+        }
+
         debug('updatedUser = %j', user);
 
         return res.redirect(`/auth/user/${user._id}`);

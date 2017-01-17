@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th>員編</th>
-            <th>姓名(暱稱)</th>
+            <th>姓名/暱稱</th>
             <th>部門中心</th>
             <th>狀態</th>
             <th>信箱</th>
@@ -14,8 +14,8 @@
         {%- for user in userList %}
             <tr>
                 <td>{{ user.staffId }}</td>
-                <td>{{ user.name }}({{ user.nickname }})</td>
-                <td>{{ 'XX部門' }} - {{ 'XX中心' }}</td>
+                <td>{{ user.name }}/{{ user.nickname }}</td>
+                <td>{{ user.Center.name }} - {{ user.Department.name }}</td>
                 <td>{{ USER_STATUS[user.status] }}</td>
                 <td>{{ user.email }}</td>
                 <td>
