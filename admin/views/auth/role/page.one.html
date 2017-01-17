@@ -12,6 +12,8 @@
                     <input type="hidden" name="id" value="{{role._id}}">
                     <input type="hidden" name="_method" value="put">
                     {% include "./block.form.html" %}
+                    {% set formRecord = role %}
+                    {% include "../../blocks/form-edit-record.html" %}
                 </div>
                 <div class="box-footer">
                     <a href="/auth/role" class="btn btn-default">

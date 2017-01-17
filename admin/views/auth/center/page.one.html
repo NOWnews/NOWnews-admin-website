@@ -13,6 +13,8 @@
                     <input type="hidden" name="id" value="{{center._id}}">
                     <input type="hidden" name="_method" value="put">
                     {% include "./block.form.html" %}
+                    {% set formRecord = center %}
+                    {% include "../../blocks/form-edit-record.html" %}
                     <hr />
                     <label>部門/組別</label>
                     <button type="button"
