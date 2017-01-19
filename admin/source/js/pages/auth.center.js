@@ -29,7 +29,7 @@ $(function() {
             url: '/auth/center/' + id,
             type: 'DELETE',
             success: function(result) {
-                location.href = '/auth/center';
+                window.location.href = '/auth/center';
             }
         });
     });
@@ -39,7 +39,7 @@ $(function() {
         var url = $(this).attr('action');
         var data = $(this).serialize();
         $.post(url, data, function() {
-            location.reload();
+            window.location.reload();
         });
         return false;
     });
@@ -53,7 +53,7 @@ $(function() {
             type: 'PUT',
             data: 'name=' + name,
             success: function(data){
-                location.reload();
+                window.location.reload();
             }
         });
     });
@@ -66,7 +66,7 @@ $(function() {
             url: '/auth/department/' + id,
             type: 'DELETE',
             success: function(result) {
-                location.reload();
+                window.location.reload();
             }
         });
     });
