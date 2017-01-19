@@ -21,15 +21,6 @@ $(function() {
         }
     });
 
-    $('#center-table tbody').on('click', 'tr.group', function() {
-        var currentOrder = table.order()[0];
-        if (currentOrder[0] === 0 && currentOrder[1] === 'asc') {
-            table.order([0, 'desc']).draw();
-        } else {
-            table.order([0, 'asc']).draw();
-        }
-    });
-
     $('#delete-center').on('click', function() {
         var confirmed = confirm("您確定要刪除嗎？");
         if (!confirmed) { return; }
@@ -45,8 +36,8 @@ $(function() {
 
     // Department
     $('#creaet-departemnt-form').on('submit', function(e) {
-        let url = $(this).attr('action');
-        let data = $(this).serialize();
+        var url = $(this).attr('action');
+        var data = $(this).serialize();
         $.post(url, data, function() {
             location.reload();
         });

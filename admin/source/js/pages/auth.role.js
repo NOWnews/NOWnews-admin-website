@@ -4,7 +4,7 @@ $(function() {
     });
 
     $('form.role-form').on('submit', function(){
-        isEmptyForPolicies = $('input[name=Policies]:checked').length === 0;
+        var isEmptyForPolicies = $('input[name=Policies]:checked').length === 0;
         if (isEmptyForPolicies) {
             return false;
         }
