@@ -15,8 +15,6 @@ module.exports = async (req, res, next) => {
         data.UpdatedBy = userId;
         data.Policies = Policies;
 
-        console.log(data);
-
         let { data: role } = await axios.post('/roles', data);
 
         debug('createdRole = %j', role);

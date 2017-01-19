@@ -21,8 +21,6 @@ module.exports = async (req, res, next) => {
             delete data.Role;
         }
 
-        console.log(data);
-
         let { data: user } = await axios.post('/users', data);
 
         debug('createdUser = %j', user);

@@ -20,8 +20,6 @@ module.exports = async (req, res, next) => {
             UpdatedBy: userId,
         }
 
-        console.log(data);
-
         let { status, statusText, data: center } = await axios.put(url, data);
 
         console.log(status, statusText,  center);
