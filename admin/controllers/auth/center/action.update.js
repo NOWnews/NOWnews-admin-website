@@ -4,15 +4,19 @@ const debug = Debug('NOWnews-admin-website: controllers:auth:center:action.updat
 module.exports = async (req, res, next) => {
 
     try {
-        let result = await new Promise((resolve, reject) => {
-            return resolve('controllers/auth/center/action.update.js');
-        });
+        let data = req.body;
 
-        debug('updatedCenter = %j', result);
+        data.UpdatedBy = req.session.adminUser._id;
 
-        return res.json(result);
-    }
-    catch(err) {
+        let url = `/centers/${req.params.id}`;
+
+        let { data: center } = await axios.put(url, data);
+
+        debug('updatedCenter = %j', center);
+
+        return res.redirect(`/auth/center/${center._id}`);
+
+    } catch(err) {
         return next(err);
     }
 };

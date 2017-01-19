@@ -1,4 +1,4 @@
-{% set title = "XX列表" %}
+{% set title = "使用者" %}
 {% extends "../../base.html" %}
 {% block headTitle %}
     <title>新編採 | {{ title }}</title>
@@ -6,6 +6,13 @@
 
 {% block container %}
     <section class="content">
-        {% include "./block.table.html" %}
+        <div class="box">
+            <div class="box-header">
+                <a class="btn btn-success" href="/auth/user/create">新增使用者</a>
+            </div>
+            <div class="box-body">
+                {% include "./block.table.html" %}
+            </div>
+        </div>
     </section>
 {% endblock %}

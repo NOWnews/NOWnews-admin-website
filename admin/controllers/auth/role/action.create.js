@@ -4,15 +4,24 @@ const debug = Debug('NOWnews-admin-website: controllers:auth:role:action.create'
 module.exports = async (req, res, next) => {
 
     try {
-        let result = await new Promise((resolve, reject) => {
-            return resolve('controllers/auth/role/action.create.js');
-        });
+        let userId = req.session.adminUser._id;
+        let { Policies, ...data} = req.body;
 
-        debug('createdRole = %j', result);
+        if ( typeof Policies === "string") {
+            Policies = [Policies];
+        }
 
-        return res.json(result);
-    }
-    catch(err) {
+        data.CreatedBy = userId;
+        data.UpdatedBy = userId;
+        data.Policies = Policies;
+
+        let { data: role } = await axios.post('/roles', data);
+
+        debug('createdRole = %j', role);
+
+        return res.redirect(`/auth/role/${role._id}`);
+
+    } catch(err) {
         return next(err);
     }
 };

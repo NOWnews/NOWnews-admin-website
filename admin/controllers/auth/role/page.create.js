@@ -2,14 +2,13 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        let result = await new Promise((resolve, reject) => {
-            return resolve('controllers/auth/role/page.create.js');
+        let { data: defaultPolicies } = await axios.get('/policies/group');
+
+        return res.render('auth/role/page.create.html', {
+            defaultPolicies,
         });
 
-        console.log(result);
-        return res.render('auth/role/page.create.html');
-    }
-    catch(err) {
+    } catch (err) {
         return next(err);
     }
-};
+}

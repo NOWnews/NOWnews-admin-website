@@ -1,4 +1,4 @@
-{% set title = "新增XX" %}
+{% set title = "新增使用者" %}
 {% extends "../../base.html" %}
 {% block headTitle %}
     <title>新編採 | {{ title }}</title>
@@ -6,6 +6,20 @@
 
 {% block container %}
     <section class="content">
-        {% include "./block.form.html" %}
+        <div class="box">
+            <form action="/auth/user/create" method="post" class="user-form">
+                <div class="box-body">
+                    {% include "./block.form.html" %}
+                </div>
+                <div class="box-footer">
+                    <a href="/auth/user" class="btn btn-default">
+                        返回
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        送出
+                    </button>
+                </div>
+            </form>
+        </div>
     </section>
 {% endblock %}

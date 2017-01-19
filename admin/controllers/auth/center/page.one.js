@@ -5,14 +5,15 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        let result = await new Promise((resolve, reject) => {
-            return resolve('controllers/auth/center/page.one.js');
+        let { data: center } = await axios.get(`/centers/${req.params.id}`);
+
+        debug('center = %j', center);
+
+        return res.render('auth/center/page.one.html', {
+            center,
         });
 
-        debug('center = %j', result);
-        return res.render('auth/center/page.one.html');
-    }
-    catch(err) {
+    } catch (err) {
         return next(err);
     }
 };

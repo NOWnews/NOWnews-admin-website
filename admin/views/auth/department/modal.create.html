@@ -1,0 +1,17 @@
+{% extends "../../modal.form.html" %}
+{% set modalId = "create-departemnt" %}
+{% set modalTitle = "新增部門/組別" %}
+{% set formAction = "/auth/department" %}
+
+{% block body %}
+    <input type="hidden" name="centerId" value="{{ center._id }}" required/>
+    <div class="form-group">
+        <label>中心名稱
+            <span class="text-danger">*</span>
+        </label>
+        <input class="form-control"
+            name="name"
+            required
+            type="text" />
+    </div>
+{% endblock %}
