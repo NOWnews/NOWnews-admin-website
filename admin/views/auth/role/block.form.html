@@ -34,11 +34,11 @@
             </tr>
         </thead>
         <tbody>
-            {%- for menuPolicy in defaultPolicies %}
+            {% for menuPolicy in defaultPolicies %}
                 <tr>
                     <td width="15%">{{ menuPolicy._id }}</td>
                     <td>
-                        {%- for policy in menuPolicy.policies %}
+                        {% for policy in menuPolicy.policies %}
                             <label>
                                 <input
                                     {{ checkedPolicies[policy._id] }}
@@ -47,10 +47,10 @@
                                     value="{{policy._id}}" />
                                 {{ action[policy.method] }}
                             </label>
-                        {%- endfor %}
+                        {% endfor %}
                     </td>
                 </tr>
-            {%- endfor %}
+            {% endfor %}
         </tbody>
     </table>
 </div>
