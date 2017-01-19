@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
         let url = `/centers/${centerId}`;
 
         data = {
-            Departments: [department._id],
+            Departments: department._id,
             UpdatedBy: userId,
         }
 
