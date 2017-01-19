@@ -1,5 +1,5 @@
 import Debug from 'debug';
-import { forEach } from 'lodash';
+import _ from 'lodash';
 const debug = Debug('NOWnews-admin-website: controllers:auth:role:page.one');
 
 module.exports = async (req, res, next) => {
@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
 
         // 方便前端 mapping
         let checkedPolicies = {};
-        forEach(role.Policies, (policy) => {
+        _.forEach(role.Policies, (policy) => {
             checkedPolicies[policy] = "checked";
         });
 
