@@ -92,7 +92,10 @@
                 name="status"
                 required>
                 {% for key, status in USER_STATUS %}
-                    <option value="{{key}}">{{ status }}</option>
+                    <option value="{{key}}"
+                        {{ "selected" if key == user.status }}>
+                        {{ status }}
+                    </option>
                 {% endfor %}
             </select>
         </div>
@@ -104,7 +107,10 @@
                 name="Role"
                 required>
                 {% for role in roleList %}
-                    <option value="{{ role._id }}">{{ role.name }}</option>
+                    <option value="{{ role._id }}"
+                        {{ "selected" if role._id == user.Role._id }}>
+                        {{ role.name }}
+                    </option>
                 {% endfor %}
             </select>
         </div>
