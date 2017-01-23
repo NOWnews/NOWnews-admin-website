@@ -1,0 +1,36 @@
+<form action="/auth/user" method="get">
+    <div class="row">
+        <div class="form-group col-md-2">
+            <select class="form-control" name="Role">
+                <option value="">角色</option>
+                {% for role in roleList %}
+                    <option value="{{ role._id }}"
+                        {{ "selected" if role._id == query.Role }}>
+                        {{ role.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <select class="form-control" name="status">
+                <option value="">狀態</option>
+                {% for key, status in USER_STATUS %}
+                    <option value="{{key}}"
+                        {{ "selected" if key == query.status }}>
+                        {{ status }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <input class="form-control"
+                name="name"
+                placeholder="關鍵字：姓名"
+                type="text"
+                value="{{ query.name }}" />
+        </div>
+        <div class="form-group col-md-2">
+            <button class="btn btn-default" type="submit">查詢</button>
+        </div>
+    </div>
+</form>

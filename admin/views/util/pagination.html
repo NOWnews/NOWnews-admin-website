@@ -1,0 +1,23 @@
+<div class="dataTables_paginate">
+    {% if pageData.hasPrev %}
+        <a class="paginate_button previous" href="?page={{ pageData.prevPage }}">
+            Previous
+        </a>
+    {% else %}
+        <a class="paginate_button next disabled">Previous</a>
+    {% endif %}
+
+    <span>
+        <a class="paginate_button current">
+            {{ pageData.currentPage }}
+        </a>
+    </span>
+
+    {% if pageData.hasNext %}
+        <a class="paginate_button next" href="?page={{ pageData.prevPage }}">
+            Previous
+        </a>
+    {% else %}
+        <a class="paginate_button next disabled">Next</a>
+    {% endif %}
+</div>
