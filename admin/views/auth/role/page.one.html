@@ -1,3 +1,4 @@
+{% from "../../util/form-user-record.html" import formUserRecord %}
 {% set title = "編輯角色" %}
 {% extends "../../base.html" %}
 {% block headTitle %}
@@ -12,8 +13,7 @@
                     <input type="hidden" name="id" value="{{role._id}}">
                     <input type="hidden" name="_method" value="put">
                     {% include "./block.form.html" %}
-                    {% set formRecord = role %}
-                    {% include "../../blocks/form-edit-record.html" %}
+                    {{ formUserRecord(role) }}
                 </div>
                 <div class="box-footer">
                     <a href="/auth/role" class="btn btn-default">

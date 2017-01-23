@@ -1,0 +1,40 @@
+{% macro formUserRecord(formData) %}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>建立者</label>
+                <input class="form-control"
+                    type="text"
+                    disabled
+                    value="{{ formData.CreatedBy.name }}" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>建立日期</label>
+                <input class="form-control"
+                    type="text"
+                    disabled
+                    value="{{ formData.formatCreatedAt }}" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>最後更新者</label>
+                <input class="form-control"
+                    type="text"
+                    disabled
+                    value="{{ formData.UpdatedBy.name }}" />
+            </div>
+        </div>
+        <div class="col-md-3">
+                <div class="form-group">
+                <label>最後更新日期</label>
+                <input class="form-control"
+                    type="text"
+                    disabled
+                    value="{{ formData.formatUpdatedAt }}" />
+            </div>
+        </div>
+    </div>
+{% endmacro %}
