@@ -18,6 +18,19 @@ import pageNewsReviewList from './page.news.reviewList';
 import pageNewsCreate from './page.news.create';
 import pageNewsEdit from './page.news.edit';
 
+// 每日稿單 Route
+router.route('/dailyPlanList')
+    .get(pageDailyPlanList);
+
+router.route('/dailyPlan/create')
+    .get(pageDailyPlanCreate)
+    .post(actionDailyPlanCreate);
+
+router.route('/dailyPlan/:id')
+    .delete(actionDailyPlanRemove)
+    .get(pageDailyPlanEdit)
+    .put(actionDailyPlanUpdate);
+
 // 新聞 Route
 router.route('/myList')
     .get(pageNewsMyList);
@@ -33,18 +46,5 @@ router.route('/:id')
     .delete(actionNewsRemove)
     .get(pageNewsEdit)
     .put(actionNewsUpdate);
-
-// 每日稿單 Route
-router.route('/dailyPlan')
-    .get(pageDailyPlanList);
-
-router.route('/dailyPlan/create')
-    .get(pageDailyPlanCreate)
-    .post(actionDailyPlanCreate);
-
-router.route('/dailyPlan/:id')
-    .delete(actionDailyPlanRemove)
-    .get(pageDailyPlanEdit)
-    .put(actionDailyPlanUpdate);
 
 module.exports = router;
