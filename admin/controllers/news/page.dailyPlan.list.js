@@ -1,15 +1,15 @@
 import Debug from 'debug';
-const debug = Debug('NOWnews-admin-website: controllers:news:page.myList');
+const debug = Debug('NOWnews-admin-website: controllers:news:page.dailyPlan.list');
 
 module.exports = async (req, res, next) => {
 
     try {
         let result = await new Promise((resolve, reject) => {
-            return resolve('controllers/news/page.myList.js');
+            return resolve('controllers/news/page.dailyPlanList.js');
         });
 
         debug('newsList = %j', result);
-        return res.render('news/page.my-list.html');
+        return res.render('news/page.dailyPlan.list.html');
     }
     catch(err) {
         return next(err);

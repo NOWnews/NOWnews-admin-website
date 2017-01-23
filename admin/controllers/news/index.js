@@ -1,33 +1,50 @@
 import express from 'express';
 let router = express.Router();
 
-import actionCreate from './action.create';
-import actionRemove from './action.remove';
-import actionUpdate from './action.update';
+import actionNewsCreate from './action.news.create';
+import actionNewsRemove from './action.news.remove';
+import actionNewsUpdate from './action.news.update';
 
-import pageCreate from './page.create';
-import pageDailyPlanList from './page.dailyPlanList';
-import pageMyList from './page.myList';
-import pageOne from './page.one';
-import pageReviewList from './page.reviewList';
+import actionDailyPlanCreate from './action.dailyPlan.create';
+import actionDailyPlanRemove from './action.dailyPlan.remove';
+import actionDailyPlanUpdate from './action.dailyPlan.update';
 
-router.route('/create')
-    .get(pageCreate)
-    .post(actionCreate);
+import pageDailyPlanList from './page.dailyPlan.list';
+import pageDailyPlanCreate from './page.dailyPlan.create';
+import pageDailyPlanEdit from './page.dailyPlan.edit';
 
-router.route('/dailyPlanList')
-    .get(pageDailyPlanList);
+import pageNewsMyList from './page.news.myList';
+import pageNewsReviewList from './page.news.reviewList';
+import pageNewsCreate from './page.news.create';
+import pageNewsEdit from './page.news.edit';
 
+// 新聞 Route
 router.route('/myList')
-    .get(pageMyList);
+    .get(pageNewsMyList);
 
 router.route('/reviewList')
-    .get(pageReviewList);
+    .get(pageNewsReviewList);
+
+router.route('/create')
+    .get(pageNewsCreate)
+    .post(actionNewsCreate);
 
 router.route('/:id')
-    .delete(actionRemove)
-    .get(pageOne)
-    .put(actionUpdate);
+    .delete(actionNewsRemove)
+    .get(pageNewsEdit)
+    .put(actionNewsUpdate);
 
+// 每日稿單 Route
+router.route('/dailyPlan')
+    .get(pageDailyPlanList);
+
+router.route('/dailyPlan/create')
+    .get(pageDailyPlanCreate)
+    .post(actionDailyPlanCreate);
+
+router.route('/dailyPlan/:id')
+    .delete(actionDailyPlanRemove)
+    .get(pageDailyPlanEdit)
+    .put(actionDailyPlanUpdate);
 
 module.exports = router;
