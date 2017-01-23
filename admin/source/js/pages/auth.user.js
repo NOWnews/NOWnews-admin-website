@@ -1,6 +1,10 @@
 $(function() {
 
     $(document).ready(function() {
+        $('#user-table').DataTable({
+            "paging": false,
+            "searching": false,
+        });
 
         $('#center-and-dept').select2();
 
