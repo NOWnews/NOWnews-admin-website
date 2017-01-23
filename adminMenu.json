@@ -98,7 +98,7 @@
     "auth": {
         "url": "#",
         "name": "權限控管",
-        "icon": "fa-file-video-o",
+        "icon": "fa-user",
         "children": [{
             "url": "/auth/center",
             "name": "中心部門"

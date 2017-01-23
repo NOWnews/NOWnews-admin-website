@@ -1,16 +1,28 @@
 import Debug from 'debug';
+import _ from 'lodash';
 const debug = Debug('NOWnews-admin-website: controllers:auth:role:page.one');
 
 module.exports = async (req, res, next) => {
 
     try {
 
-        let result = await new Promise((resolve, reject) => {
-            return resolve('controllers/auth/role/page.one.js');
+        let { data: role } = await axios.get(`/roles/${req.params.id}`);
+
+        let { data: defaultPolicies } = await axios.get('/policies/group');
+
+        debug('role = %j', role);
+
+        // 方便前端 mapping
+        let checkedPolicies = {};
+        _.forEach(role.Policies, (policy) => {
+            checkedPolicies[policy] = "checked";
         });
 
-        debug('role = %j', result);
-        return res.render('auth/role/page.one.html');
+        return res.render('auth/role/page.one.html', {
+            checkedPolicies,
+            defaultPolicies,
+            role,
+        });
     }
     catch(err) {
         return next(err);

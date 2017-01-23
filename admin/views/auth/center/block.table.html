@@ -1,46 +1,42 @@
-<div class="box">
-    <div class="box-body">
-        <table id="center-table" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>名稱</th>
-                    <th>編輯</th>
-                    <th>移除</th>
+<table id="center-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="th-group">中心</th>
+            <th width="15%">中心</th>
+            <th>部門/組別</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for center in centerList %}
+            {% if center.Departments.length == 0 %}
+                 <tr>
+                    <td>
+                        <a href="/auth/center/{{center._id}}">
+                            {{ center.name }}
+                        </a>
+                    </td>
+                    <td>-</td>
+                    <td><span class="text-danger">待新增</span></td>
                 </tr>
-            </thead>
-            <tbody>
-                {% set arr = [1,2,3,4,5,6,7,8,9] %}
-                {%- for index in arr %}
-                    <tr>
-                        <td>
-                            <a href="#">
-                                影／台灣唯一入選　周子瑜再登百大美女奪第八
-                            </a>
-                        </td>
-                        <td>
-                            <a class="btn btn-info"
-                                href="/center/{{index}}">
-                                編輯
-                            </a>
-                        </td>
-                        <td>
-                            <button class="btn btn-danger">移除</button>
-                        </td>
-                    </tr>
-                {%- endfor %}
-            </tbody>
-            <tfoot>
+            {% endif %}
+            {% for department in center.Departments %}
                 <tr>
-                    <th>名稱</th>
-                    <th>編輯</th>
-                    <th>移除</th>
+                    <td>
+                        <a href="/auth/center/{{center._id}}">
+                            {{ center.name }}
+                        </a>
+                    </td>
+                    <td>-</td>
+                    <td>{{ department.name }}</td>
                 </tr>
-            </tfoot>
-        </table>
-    </div>
-</div>
-<script>
-  $(function () {
-    $("#center-table").DataTable();
-  });
-</script>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>中心</th>
+            <th>中心</th>
+            <th>部門/組別</th>
+        </tr>
+    </tfoot>
+</table>

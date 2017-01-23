@@ -1,11 +1,55 @@
-{% set title = "編輯XX" %}
+{% set title = "編輯中心部門" %}
 {% extends "../../base.html" %}
 {% block headTitle %}
     <title>新編採 | {{ title }}</title>
 {% endblock %}
 
 {% block container %}
+    {% include "../department/modal.create.html" %}
     <section class="content">
-        {% include "./block.form.html" %}
+        <div class="box">
+            <form action="/auth/center/{{center._id}}" method="post">
+                <div class="box-body">
+                    <input type="hidden" name="id" value="{{center._id}}">
+                    <input type="hidden" name="_method" value="put">
+                    {% include "./block.form.html" %}
+                    {% set formRecord = center %}
+                    {% include "../../blocks/form-edit-record.html" %}
+                    <hr />
+                    <label>部門/組別</label>
+                    <button type="button"
+                        class="fa fa-plus"
+                        data-toggle="modal"
+                        data-target="#create-departemnt">
+                    </button>
+                    <ul id="deaprtment-list">
+                        {% for department in center.Departments %}
+                            <li>
+                                <input type="text" value="{{department.name}}" required>
+                                <button type="button"
+                                    class="fa fa-save save-department"></button>
+                                <input type="hidden" value="{{department._id}}" required>
+                                <button type="button"
+                                    class="fa fa-trash delete-department"></button>
+                            </li>
+
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="box-footer">
+                    <a href="/auth/center" class="btn btn-default">
+                        返回
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        送出
+                    </button>
+                    <button id="delete-center"
+                        type="button"
+                        class="btn btn-danger">
+                        刪除
+                    </button>
+                </div>
+            </form>
+        </div>
     </section>
 {% endblock %}

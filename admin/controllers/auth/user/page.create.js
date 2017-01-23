@@ -1,15 +1,17 @@
+import { USER_STATUS } from '../../../util/constants';
 module.exports = async (req, res, next) => {
 
     try {
+        let { data: centerList } = await axios.get('/centers');
+        let { data: roleList } = await axios.get('/roles');
 
-        let result = await new Promise((resolve, reject) => {
-            return resolve('controllers/auth/user/page.create.js');
+        return res.render('auth/user/page.create.html', {
+            roleList,
+            centerList,
+            USER_STATUS,
         });
 
-        console.log(result);
-        return res.render('auth/user/page.create.html');
-    }
-    catch(err) {
+    } catch(err) {
         return next(err);
     }
 };

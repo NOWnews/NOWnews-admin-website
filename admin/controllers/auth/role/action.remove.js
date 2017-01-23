@@ -4,15 +4,19 @@ const debug = Debug('NOWnews-admin-website: controllers:auth:role:action.remove'
 module.exports = async (req, res, next) => {
 
     try {
-        let result = await new Promise((resolve, reject) => {
-            return resolve('controllers/auth/role/action.remove.js');
-        });
 
-        debug('removedRole = %j', result);
+        let data = {
+            UpdatedBy: req.session.adminUser._id,
+        };
 
-        return res.json(result);
-    }
-    catch(err) {
+        let url = `/roles/${req.params.id}`;
+
+        let { data: role } = await axios.delete(url, { data });
+
+        debug('removedRole = %j', role);
+
+        return res.json({ role });
+    } catch(err) {
         return next(err);
     }
 };
