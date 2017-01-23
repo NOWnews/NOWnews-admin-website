@@ -5,7 +5,7 @@
 <title>新編採 | {{ title }}</title>
 {% endblock %} {% block container %}
 <section class="content">
-    <form>
+    <form action="." method="get">
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">作者: ${Name}</h3>
@@ -23,15 +23,13 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="control-label">新聞的來源</label>
-                            <select class="form-control select2">
-                                <option selected="selected">NOWnews</option>
-                            </select>
+                            <p>NOWnews</p>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="control-label">新聞主分類</label>
-                            <select class="form-control select2">
+                            <select name="subMenu" class="form-control select2">
                                 <option selected="selected">娛樂王國</option>
                             </select>
                         </div>
@@ -54,9 +52,9 @@
                         <div class="form-group">
                             <label class="control-label">新聞的作者</label>
                             <select name="type" class="form-control select2">
-                                <option selected="selected">阿發</option>
-                                <option>離心力</option>
-                                <option>龍哥</option>
+                                {% for user in userList %}
+                                    <option value="{{ user.sn }}">{{ user.name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -64,9 +62,9 @@
                         <div class="form-group">
                             <label class="control-label">新聞的類別</label>
                             <select name="type" class="form-control select2">
-                                <option selected="selected">一般新聞</option>
-                                <option>影音新聞</option>
-                                <option>圖片新聞</option>
+                                {% for key, type in NEWS_TYPES %}
+                                    <option name="{{ key }}">{{ type }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -89,7 +87,7 @@
         </div>
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">標題: ${Title}</h3>
+                <h3 class="box-title"></h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -248,7 +246,7 @@
             </div>
         </div>
         <div class="edit-footer text-center">
-            <button type="button" class="btn bg-olive btn-flat margin">送出</button>
+            <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
             <button type="button" class="btn bg-orange btn-flat margin">預覽</button>
             <button type="button" class="btn bg-maroon btn-flat margin">取消</button>
         </div>
