@@ -1,32 +1,17 @@
-import co from 'co';
-// import Promise from 'bluebird';
-// const models = require('../../../models');
-// const libs = require('../../../libs');
-
 const debug = require('debug')('NOWnewsAdmin:controllers:auth:action.login');
 
-module.exports = function(req, res, next) {
+module.exports = async (req, res, next) => {
 
-    let data = req.body;
+    try {
 
-    co(function*() {
+        let { data: loginUser } = await axios.post('/users/login', req.body);
 
-        // let loginUser = yield models.adminUser.findOne()
-        //     .where('email').equals(data.email)
-        //     .where('password').equals(libs.hashPwd(data.password))
-        //     .execAsync();
 
-        // if(!loginUser){
-        //     return Promise.reject(new Error('找不到 USER'));
-        // }
+        if (!loginUser){
+            new Error('找不到 USER');
+        }
 
-        // debug('login user= %j', loginUser);
-
-        let loginUser = {
-            _id: '530000000000000000000001',
-            name: 'admin',
-        };
-
+        debug('login user= %j', loginUser);
 
         if (!req.session) {
             req.session = {};
@@ -35,6 +20,8 @@ module.exports = function(req, res, next) {
         req.session.adminUser = loginUser;
 
         return res.redirect('/');
-    })
-    .catch(next);
+
+    } catch(err) {
+        return next(err);
+    }
 };
