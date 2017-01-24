@@ -1,4 +1,5 @@
-{% set title = "編輯使用者" %}
+{% from "../../util/form-user-record.html" import formUserRecord %}
+{% set title = "編輯角色" %}
 {% extends "../../base.html" %}
 {% block headTitle %}
     <title>新編採 | {{ title }}</title>
@@ -7,16 +8,15 @@
 {% block container %}
     <section class="content">
         <div class="box">
-            <form action="/auth/user/{{user._id}}" method="post">
+            <form action="/auth/role/{{role._id}}" class="role-form" method="post">
                 <div class="box-body">
-                    <input type="hidden" name="id" value="{{user._id}}">
+                    <input type="hidden" name="id" value="{{role._id}}">
                     <input type="hidden" name="_method" value="put">
                     {% include "./block.form.html" %}
-                    {% set formRecord = user %}
-                    {% include "../../blocks/form-edit-record.html" %}
+                    {{ formUserRecord(role) }}
                 </div>
                 <div class="box-footer">
-                    <a href="/auth/user" class="btn btn-default">
+                    <a href="/auth/role" class="btn btn-default">
                         返回
                     </a>
                     <button type="submit" class="btn btn-primary">

@@ -4,7 +4,7 @@ import actionUpdate from './action.update';
 
 import pageCreate from './page.create';
 import pageList from './page.list';
-import pageOne from './page.one';
+import pageEdit from './page.edit';
 
 module.exports = (router) => {
     router.route('/user/')
@@ -16,6 +16,6 @@ module.exports = (router) => {
 
     router.route('/user/:id')
         .delete(actionRemove)
-        .get(pageOne)
+        .get(pageEdit)
         .put(actionUpdate);
 };

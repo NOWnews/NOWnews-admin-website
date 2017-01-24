@@ -1,6 +1,6 @@
 import Debug from 'debug';
 import { USER_STATUS } from '../../../util/constants';
-const debug = Debug('NOWnews-admin-website: controllers:auth:user:page.one');
+const debug = Debug('NOWnews-admin-website: controllers:auth:user:page.edit');
 
 module.exports = async (req, res, next) => {
 
@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
 
         debug('user = %j', user);
 
-        return res.render('auth/user/page.one.html', {
+        return res.render('auth/user/page.edit.html', {
             centerList,
             roleList,
             user,
