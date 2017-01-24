@@ -13,6 +13,7 @@ module.exports = () => {
         let pathname = req._parsedUrl.pathname.split('/')[1];
         res.locals.adminMenu = adminMenu;
         res.locals.pathname = pathname;
+        res.locals.currentUser = req.session.adminUser;
 
         return next();
     };

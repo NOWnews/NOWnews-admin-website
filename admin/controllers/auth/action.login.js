@@ -1,4 +1,6 @@
-const debug = require('debug')('NOWnewsAdmin:controllers:auth:action.login');
+import moment from 'moment-timezone';
+import Debug from 'debug';
+const debug = Debug('NOWnews-admin-website: controllers:auth:action.login');
 
 module.exports = async (req, res, next) => {
 
@@ -6,18 +8,46 @@ module.exports = async (req, res, next) => {
 
         let { data: loginUser } = await axios.post('/users/login', req.body);
 
-
         if (!loginUser){
             new Error('找不到 USER');
         }
-
-        debug('login user= %j', loginUser);
 
         if (!req.session) {
             req.session = {};
         }
 
-        req.session.adminUser = loginUser;
+        // 處理不將沒必要的欄位存在
+        let {
+            createdAt,
+            CreatedBy,
+            updatedAt,
+            UpdatedBy,
+            Center,
+            Department,
+            Role,
+            ...adminUser
+        } = loginUser;
+
+        adminUser.Center = {
+            _id: Center._id,
+            name: Center.name,
+        };
+
+        adminUser.Department = {
+            _id: Department._id,
+            name: Department.name,
+        };
+
+        adminUser.Role = {
+            _id: Role._id,
+            name: Role.name,
+        };
+
+        adminUser.loginedTime = moment().tz('Asia/Taipei').format('YYYY-MM-DD HH:mm');
+
+        debug('login user= %j', adminUser);
+
+        req.session.adminUser = adminUser;
 
         return res.redirect('/');
 
