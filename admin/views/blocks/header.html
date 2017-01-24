@@ -128,14 +128,14 @@
                         <li class="user-header">
                             <img src="{{ currentUser.Avatar.img }}" class="img-circle" alt="User Image">
                             <p>
-                                {{ currentUser.name }} - {{ currentUser.jobTitile }}
+                                {{ currentUser.name }} - {{ currentUser.Role.name }}
                                 <small>登入: {{ currentUser.loginedTime}}</small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">個人設定</a>
+                                <a href="/auth/me" class="btn btn-default btn-flat">個人設定</a>
                             </div>
                             <div class="pull-right">
                                 <a href="/auth/logout" class="btn btn-default btn-flat">登出</a>

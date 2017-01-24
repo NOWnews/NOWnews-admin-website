@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>姓名
+                <span class="text-danger">*</span>
+            </label>
+            <p>{{ user.name }}</p>
+        </div>
+        <div class="form-group">
+            <label>員工編號</label>
+            <p>{{ user.staffId }}</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>員工狀態
+                <span class="text-danger">*</span>
+            </label>
+            <p>{{ USER_STATUS[user.status] }}</p>
+        </div>
+        <div class="form-group">
+            <label>中心部門</label>
+            <p>{{ user.Center.name }}-{{ user.Department.name }}</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>角色
+                <span class="text-danger">*</span>
+            </label>
+            <p>{{ user.Role.name }}</p>
+        </div>
+        <div class="form-group">
+            <label>信箱
+                <span class="text-danger">*</span>
+            </label>
+            <p>{{ user.email }}</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>密碼</label>
+            <input class="form-control"
+                name="password"
+                type="text" />
+        </div>
+        <div class="form-group">
+            <label>電話
+            </label>
+            <input class="form-control"
+                name="phone"
+                type="text"
+                value="{{ user.phone }}" />
+        </div>
+        <div class="form-group">
+            <label> 個人大頭貼
+            </label>
+            <input class="form-control"
+                name="Avatar"
+                type="text"
+                value="{{ user.Avatar }}" />
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>暱稱</label>
+            <input class="form-control"
+                name="nickname"
+                type="text"
+                value="{{ user.nickname }}" />
+        </div>
+        <div class="form-group">
+            <label>職稱</label>
+            <input class="form-control"
+                name="jobTitle"
+                type="text"
+                value="{{ user.jobTitle }}" />
+        </div>
+        <div class="form-group">
+            <label>個人網站連結</label>
+            <input class="form-control"
+                name="profileLink"
+                type="text"
+                value="{{ user.profileLink }}" />
+        </div>
+    </div>
+</div>
