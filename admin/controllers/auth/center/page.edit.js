@@ -1,5 +1,5 @@
 import Debug from 'debug';
-const debug = Debug('NOWnews-admin-website: controllers:auth:center:page.one');
+const debug = Debug('NOWnews-admin-website: controllers:auth:center:page.edit');
 
 module.exports = async (req, res, next) => {
 
@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
 
         debug('center = %j', center);
 
-        return res.render('auth/center/page.one.html', {
+        return res.render('auth/center/page.edit.html', {
             center,
         });
 

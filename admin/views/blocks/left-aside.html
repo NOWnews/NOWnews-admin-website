@@ -4,7 +4,6 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar Menu -->
-        <script></script>
         <ul class="sidebar-menu">
             <li class="header">系統選單</li>
             {% for key, value in adminMenu %}
@@ -16,7 +15,6 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="{{value.url}}">列表</a></li>
                             {% for child in value.children %}
                                 <li><a href="{{child.url}}">{{child.name}}</a></li>
                             {% endfor %}

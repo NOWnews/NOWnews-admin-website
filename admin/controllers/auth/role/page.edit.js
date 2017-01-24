@@ -1,6 +1,6 @@
 import Debug from 'debug';
 import _ from 'lodash';
-const debug = Debug('NOWnews-admin-website: controllers:auth:role:page.one');
+const debug = Debug('NOWnews-admin-website: controllers:auth:role:page.edit');
 
 module.exports = async (req, res, next) => {
 
@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
             checkedPolicies[policy] = "checked";
         });
 
-        return res.render('auth/role/page.one.html', {
+        return res.render('auth/role/page.edit.html', {
             checkedPolicies,
             defaultPolicies,
             role,

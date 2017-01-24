@@ -8,10 +8,16 @@
     <section class="content">
         <div class="box">
             <div class="box-header">
-                <a class="btn btn-success" href="/auth/user/create">新增使用者</a>
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <a class="btn btn-success" href="/auth/user/create">新增使用者</a>
+                    </div>
+                </div>
+                {% include "./block.query-form.html" %}
             </div>
-            <div class="box-body">
+            <div class="box-body dataTables_wrapper">
                 {% include "./block.table.html" %}
+                {% include "../../util/pagination.html" %}
             </div>
         </div>
     </section>

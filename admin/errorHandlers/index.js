@@ -12,7 +12,8 @@ module.exports = function(app) {
         console.log('-------------- ERROR --------------');
 
         res.status(400);
-        return res.send('系統忙碌中');
+        return res.json(errObject);
+        // return res.send('系統忙碌中');
     });
 
     return function(req, res, next) {

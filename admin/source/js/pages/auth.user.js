@@ -1,6 +1,10 @@
 $(function() {
 
     $(document).ready(function() {
+        $('#user-table').DataTable({
+            "paging": false,
+            "searching": false,
+        });
 
         $('#center-and-dept').select2();
 
@@ -12,10 +16,6 @@ $(function() {
             $('input[name=Department]').val(departmentId);
         });
 
-    });
-
-    $('#user-table').DataTable({
-        displayLength: 50,
     });
 
     $('.delete-user').on('click', function(){
