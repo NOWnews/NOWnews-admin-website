@@ -13,13 +13,13 @@
                 <td>{{ role.name }}</td>
                 <td>{{ role.desc }}</td>
                 <td>
-                    <a class="btn btn-info" href="/auth/role/{{role._id}}">
+                    <a class="btn btn-info btn-flat" href="/auth/role/{{role._id}}">
                         編輯
                     </a>
                 </td>
                 <td>
                     <input type="hidden" name="id" value="{{role._id}}">
-                    <button class="btn btn-danger delete-role">移除</button>
+                    <button class="btn btn-danger btn-flat delete-role">移除</button>
                 </td>
             </tr>
         {% endfor %}
