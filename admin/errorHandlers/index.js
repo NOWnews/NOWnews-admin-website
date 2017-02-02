@@ -2,7 +2,8 @@
 module.exports = function(app) {
 
     app.use(function(err, req, res, next) {
-        let { data } = err.response;
+        let { data } = err.response ? err.response : err;
+
         var errObject = {
             ...data, //include meesage & status code
             stack: err.stack.split('\n')
