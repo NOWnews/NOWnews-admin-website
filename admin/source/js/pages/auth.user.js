@@ -31,9 +31,6 @@ $(function() {
         });
     });
 
-
-
-
     // Import image
     var myImage = $('#my-image');
     var inputImage = $('#input-image');
