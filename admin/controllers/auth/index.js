@@ -5,7 +5,6 @@ import pageLogin from './page.login';
 
 import center from './center';
 import department from './department';
-import me from './me';
 import role from './role';
 import user from './user';
 
@@ -24,7 +23,6 @@ router.route('/logout')
 
 center(router);
 department(router);
-me(router);
 role(router);
 user(router);
 

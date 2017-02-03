@@ -11,7 +11,8 @@
             <form action="/auth/me" method="post">
                 <div class="box-body">
                     <input type="hidden" name="_method" value="put">
-                    {% include "./block.form.html" %}
+                    {% include "./block.me-form.html" %}
+                    {% include "./block.avatar.html" %}
                 </div>
                 <div class="box-footer text-center">
                     <button type="submit" class="btn bg-olive btn-flat margin">送出</button>

@@ -56,13 +56,6 @@
                 type="text"
                 value="{{ user.phone }}" />
         </div>
-        <div class="form-group">
-            <label>個人網站連結</label>
-            <input class="form-control"
-                name="profileLink"
-                type="text"
-                value="{{ user.profileLink }}" />
-        </div>
     </div>
 
     <div class="col-md-6">
@@ -122,12 +115,11 @@
                 value="{{ user.jobTitle }}" />
         </div>
         <div class="form-group">
-            <label> 個人大頭貼
-            </label>
+            <label>個人網站連結</label>
             <input class="form-control"
-                name="Avatar"
-                type="text"
-                value="{{ user.Avatar }}" />
+                name="profileLink"
+                type="url"
+                value="{{ user.profileLink }}" />
         </div>
     </div>
 </div>

@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="form-group">
+            <p>
+                <label>個人大頭貼</label>
+                <label class="btn btn-default btn-flat fa fa-folder-open-o" for="input-image">
+                    <input type="file" class="sr-only" id="input-image" name="file" accept=".jpg,.jpeg,.png,.gif">
+                </label>
+                <button class="btn btn-primary btn-flat fa fa-upload"
+                    type="button" id="upload-file"></button>
+            </p>
+            <img id="my-image"
+                style="border: 1px solid; max-height: 360px; max-width: 100%;"
+                src="{{ user.Avatar.url }}" />
+            <input id="username" type="hidden" value="{{user.name}}"/>
+            <input id="userId" type="hidden" value="{{user._id}}"/>
+            <input id="avatar" name="Avatar" type="hidden"
+                value="{{ user.Avatar }}" />
+        </div>
+    </div>
+</div>
