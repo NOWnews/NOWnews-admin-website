@@ -8,7 +8,8 @@ module.exports = (input, allowed) =>{
     allowed = (((allowed || '') + '').toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
     let tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
     return input
-        .replace(/[\n,\r]/g,'').replace(/&nbsp;/ig, '')
+        .replace(/[\n,\r,\s]/g,'')
+        .replace(/&nbsp;/ig, '')
         .replace(tags, function ($0, $1) {
             return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
         });
