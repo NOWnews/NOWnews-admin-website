@@ -26,7 +26,7 @@ router.route('/dailyPlan/create')
     .get(pageDailyPlanCreate)
     .post(actionDailyPlanCreate);
 
-router.route('/dailyPlan/:id')
+router.route('/dailyPlan/:dailyPlanId')
     .delete(actionDailyPlanRemove)
     .get(pageDailyPlanEdit)
     .put(actionDailyPlanUpdate);
@@ -42,7 +42,7 @@ router.route('/create')
     .get(pageNewsCreate)
     .post(actionNewsCreate);
 
-router.route('/:id')
+router.route('/:newsId')
     .delete(actionNewsRemove)
     .get(pageNewsEdit)
     .put(actionNewsUpdate);
