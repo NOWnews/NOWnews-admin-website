@@ -118,26 +118,24 @@
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <!-- The user image in the navbar-->
+                        <!-- The user icon in the navbar-->
                         <i class="fa fa-address-book-o"></i>
-                        <!--<img src="/static/img/user2-160x160.jpg" class="user-image" alt="User Image">-->
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">Alexander Pierce</span>
+                        <span class="hidden-xs">{{ currentUser.name }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            <img src="/static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
+                            <img src="{{ currentUser.Avatar.url }}" class="img-circle" alt="User Image">
                             <p>
-                                Alexander Pierce - Web Developer
-                                <small>登入: 2016-12-21 12:49</small>
+                                {{ currentUser.name }} - {{ currentUser.Role.name }}
+                                <small>登入: {{ currentUser.loginedTime}}</small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">個人設定</a>
+                                <a href="/auth/me" class="btn btn-default btn-flat">個人設定</a>
                             </div>
                             <div class="pull-right">
                                 <a href="/auth/logout" class="btn btn-default btn-flat">登出</a>

@@ -1,5 +1,5 @@
 {% from "../../util/form-user-record.html" import formUserRecord %}
-{% set title = "編輯使用者" %}
+{% set title = "個人設定" %}
 {% extends "../../base.html" %}
 {% block headTitle %}
     <title>新編採 | {{ title }}</title>
@@ -8,21 +8,14 @@
 {% block container %}
     <section class="content">
         <div class="box">
-            <form action="/auth/user/{{user._id}}" method="post">
+            <form action="/auth/me" method="post">
                 <div class="box-body">
-                    <input type="hidden" name="id" value="{{user._id}}">
                     <input type="hidden" name="_method" value="put">
-                    {% include "./block.form.html" %}
+                    {% include "./block.me-form.html" %}
                     {% include "./block.avatar.html" %}
-                    {{ formUserRecord(user) }}
                 </div>
                 <div class="box-footer text-center">
-                    <a href="/auth/user" class="btn btn-flat btn-default">
-                        返回
-                    </a>
-                    <button type="submit" class="btn btn-flat bg-olive">
-                        送出
-                    </button>
+                    <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
                 </div>
             </form>
         </div>
