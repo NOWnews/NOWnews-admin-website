@@ -5,8 +5,25 @@
     <title>新編採 | {{ title }}</title>
 {% endblock %}
 
+{% import "./macro.compare.html" as compare %}
+
 {% block container %}
     <section class="content">
-        {% include "./block.table.html" %}
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="row">
+                    {{ compare.text('標題', before.title, after.title) }}
+                </div>
+            </div>
+            <div class="diff-content box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>新聞內文</label>
+
+                        {{ content | safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 {% endblock %}

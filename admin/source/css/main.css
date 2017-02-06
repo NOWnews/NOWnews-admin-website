@@ -1,0 +1,8 @@
+.diff-content del {
+    background:#ffe6e6;
+}
+
+.diff-content ins {
+    background:#e6ffe6;
+    text-decoration:none;
+}

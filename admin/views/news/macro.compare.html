@@ -1,0 +1,15 @@
+{% macro text(name, before, after) %}
+<div class="col-md-4">
+    <div class="form-group">
+        <label>{{ name }}</label>
+        {% if before == after %}
+            <p>{{ before }}</p>
+        {% else %}
+            <p>
+                <del class="text-danger">{{ before }}</del>
+                <span class="text-success">{{ after }}</span>
+            </p>
+        {% endif %}
+    </div>
+</div>
+{% endmacro %}
