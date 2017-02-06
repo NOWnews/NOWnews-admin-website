@@ -58,22 +58,15 @@ $(function() {
                     blobURL = URL.createObjectURL(file);
                     myImage.one('built.cropper', function () {
 
-                    // Revoke when load complete
-                    URL.revokeObjectURL(blobURL);
-                    }).cropper('reset').cropper('replace', blobURL);
-
-                    inputImage.val('');
-                    blobURL = URL.createObjectURL(file);
-                    myImage.one('built.cropper', function () {
-
                         // Revoke when load complete
                         URL.revokeObjectURL(blobURL);
 
                     }).cropper('reset').cropper('replace', blobURL);
 
                     inputImage.val('');
+
                 } else {
-                  window.alert('Please choose an image file.');
+                  window.alert('請選擇一張圖片');
                 }
           }
         });
