@@ -1,0 +1,12 @@
+{% set title = "編輯紀錄比較" %}
+{% set subtitle = "" %}
+{% extends "../base.html" %}
+{% block headTitle %}
+    <title>新編採 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+    <section class="content">
+        {% include "./block.table.html" %}
+    </section>
+{% endblock %}
