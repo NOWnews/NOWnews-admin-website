@@ -1,68 +1,61 @@
-<div class="box">
-    <div class="box-body">
-        <table id="news-table" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>標題</th>
-                    <th>類別</th>
-                    <th>作者</th>
-                    <th>今日PV</th>
-                    <th>狀態</th>
-                    <th>初次發布日期</th>
-                    <th>版面值</th>
-                    <th>編輯</th>
-                    <th>移除</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% set arr = [1,2,3,4,5,6,7,8,9] %}
-                {% for index in arr %}
-                    <tr>
-                        <td>
-                            <a href="#">
-                                影／台灣唯一入選　周子瑜再登百大美女奪第八
-                            </a>
-                        </td>
-                        <td>News</td>
-                        <td>
-                            <a href="#">
-                            裘千呎
-                            </a>
-                        </td>
-                        <td>0</td>
-                        <td>發布</td>
-                        <td>2017-01-01 00:00:00</td>
-                        <td>16000</td>
-                        <td>
-                            <a class="btn btn-info"
-                                href="/news/{{index}}">
-                                編輯
-                            </a>
-                        </td>
-                        <td>
-                            <button class="btn btn-danger">移除</button>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>標題</th>
-                    <th>類別</th>
-                    <th>作者</th>
-                    <th>今日PV</th>
-                    <th>狀態</th>
-                    <th>初次發布日期</th>
-                    <th>版面值</th>
-                    <th>編輯</th>
-                    <th>移除</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-</div>
+<table id="news-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>標題</th>
+            <th>類別</th>
+            <th>作者</th>
+            <th>今日PV</th>
+            <th>狀態</th>
+            <th>初次發布日期</th>
+            <th>版面值</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set arr = [1,2,3,4,5,6,7,8,9] %}
+        {% for value in newsListInfo.newsList %}
+            <tr>
+                <td>
+                    <a href="#">
+                        {{ value.title }}
+                    </a>
+                </td>
+                <td>{{ value.type }}</td>
+                <td>
+                    <a href="#">
+                    {{ value.Author.name }}
+                    </a>
+                </td>
+                <td>0</td>
+                <td>{{ value.status }}</td>
+                <td>{{ value.startedAt }}</td>
+                <td>16000</td>
+                <td>
+                    <a class="btn btn-info"
+                        href="/news/{{value._id}}">
+                        編輯
+                    </a>
+                </td>
+                <td>
+                    <button class="btn btn-danger">移除</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>標題</th>
+            <th>類別</th>
+            <th>作者</th>
+            <th>今日PV</th>
+            <th>狀態</th>
+            <th>初次發布日期</th>
+            <th>版面值</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </tfoot>
+</table>
 <script>
-  $(function () {
-    $("#news-table").DataTable();
-  });
 </script>

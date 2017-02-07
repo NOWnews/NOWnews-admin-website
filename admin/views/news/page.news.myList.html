@@ -7,6 +7,51 @@
 
 {% block container %}
     <section class="content">
-        {% include "./block.table.html" %}
+        <div class="box">
+            <div class="box-header">
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <a class="btn btn-success" href="/news/create">新增新聞</a>
+                    </div>
+                </div>
+                {% include "./block.query-form.html" %}
+                {% include "./block.table.html" %}
+            </div>
+            <div class="box-body dataTables_wrapper">
+                {% include "../util/pagination.html" %}
+            </div>
+        </div>
     </section>
+    <script>
+        $(document).ready(function() {
+            $('#news-table').DataTable({
+                "paging": false,
+                "searching": false,
+            });
+
+            $('#center-and-dept').select2();
+
+            $('#center-and-dept').on('select2:select', function (e) {
+                var departmentElm = $(e.params.data.element);
+                var centerId = departmentElm.parent().attr('id');
+                var departmentId = departmentElm.val();
+                $('input[name=Center]').val(centerId);
+                $('input[name=Department]').val(departmentId);
+            });
+
+        });
+
+        $('.delete-user').on('click', function(){
+            var confirmed = confirm('您確定要刪除嗎？');
+            if (!confirmed) { return; }
+            var id = $(this).prev().val();
+            $.ajax({
+                url: '/auth/user/' + id,
+                type: 'DELETE',
+                success: function(result) {
+                    location.reload();
+                }
+            });
+        });
+    </script>
 {% endblock %}
