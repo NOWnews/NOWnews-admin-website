@@ -5,10 +5,11 @@ import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
 module.exports = async (req, res, next) => {
 
     try {
-
+        let userId = req.session.adminUser._id;
         let { data: newsListInfo } = await axios.get('/news', {
             params: {
-                status: 'REVIEW'
+                status: 'REVIEW',
+                userId: userId
             }
         });
         let pageData = newsListInfo.pageData;
