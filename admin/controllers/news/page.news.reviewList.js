@@ -1,15 +1,24 @@
 import Debug from 'debug';
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.reviewList');
+import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
 
 module.exports = async (req, res, next) => {
 
     try {
-        let result = await new Promise((resolve, reject) => {
-            return resolve('controllers/news/page.myList.js');
+
+        let { data: newsListInfo } = await axios.get('/news', {
+            params: {
+                status: 'REVIEW'
+            }
         });
 
-        debug('newsList = %j', result);
-        return res.render('news/page.news.reviewList.html');
+        debug('newsListInfo = %j', newsListInfo );
+
+        return res.render('news/page.news.myList.html', {
+            NEWS_STATUS,
+            newsListInfo,
+        });
+
     }
     catch(err) {
         return next(err);
