@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        let { originAvatarId, ...data} = req.body;
+        let { avatarUrl, originAvatarId, ...data} = req.body;
 
         let userId = req.session.adminUser._id;
 
@@ -19,6 +19,8 @@ module.exports = async (req, res, next) => {
         let { data: user } = await axios.put(`/users/${userId}`, data);
 
         debug('updatedUser = %j', user);
+
+        req.session.adminUser.Avatar.url = avatarUrl;
 
         return res.redirect(`/auth/me`);
 

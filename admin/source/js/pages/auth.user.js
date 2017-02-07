@@ -47,7 +47,8 @@ $(function() {
             if (!previewImage.data('cropper')) {
                 previewImage.cropper({
                     aspectRatio: 1 / 1,
-                    viewMode: 0,
+                    viewMode: 1,
+                    zoomable: false,
                     minCropBoxHeight: 100,
                     minCropBoxWidth: 100,
                 });
@@ -120,7 +121,8 @@ $(function() {
             contentType: false,
             success: function (file) {
                 previewBlob = null;
-                $('#avatar').val(file._id);
+                $('input[name=Avatar]').val(file._id);
+                $('input[name=avatarUrl]').val(file.url);
                 $('#me-form').submit();
             },
             error: function (e) {
