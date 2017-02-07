@@ -28,28 +28,18 @@
                 "paging": false,
                 "searching": false,
             });
-
-            $('#center-and-dept').select2();
-
-            $('#center-and-dept').on('select2:select', function (e) {
-                var departmentElm = $(e.params.data.element);
-                var centerId = departmentElm.parent().attr('id');
-                var departmentId = departmentElm.val();
-                $('input[name=Center]').val(centerId);
-                $('input[name=Department]').val(departmentId);
-            });
-
         });
 
-        $('.delete-user').on('click', function(){
+        $('.delete-news').on('click', function(){
             var confirmed = confirm('您確定要刪除嗎？');
             if (!confirmed) { return; }
-            var id = $(this).prev().val();
+            var id = $(this).attr('item-id');
             $.ajax({
-                url: '/auth/user/' + id,
+                url: '/news/' + id,
                 type: 'DELETE',
                 success: function(result) {
-                    location.reload();
+                    console.log(result)
+                    // location.reload();
                 }
             });
         });

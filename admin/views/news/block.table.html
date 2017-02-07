@@ -13,7 +13,6 @@
         </tr>
     </thead>
     <tbody>
-        {% set arr = [1,2,3,4,5,6,7,8,9] %}
         {% for value in newsListInfo.newsList %}
             <tr>
                 <td>
@@ -38,7 +37,7 @@
                     </a>
                 </td>
                 <td>
-                    <button class="btn btn-danger">移除</button>
+                    <button item-id="{{value._id}}" class="btn btn-danger delete-news">移除</button>
                 </td>
             </tr>
         {% endfor %}
