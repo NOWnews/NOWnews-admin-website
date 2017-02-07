@@ -1,10 +1,10 @@
-<div class="box box-widget widget-user">
+<div class="box box-widget widget-user-2">
     <div class="widget-user-header bg-aqua-active">
-      <h3 class="widget-user-username">{{ user.name }}</h3>
-      <h5 class="widget-user-desc">{{ USER_STATUS[user.status] }} / {{ user.Role.name }}</h5>
-    </div>
-    <div class="widget-user-image">
-      <img class="img-circle" src="{{ user.Avatar.url }}" alt="User Avatar">
+        <div class="widget-user-image">
+            <img class="img-circle" src="{{ user.Avatar.url }}" alt="User Avatar">
+        </div>
+        <h3 class="widget-user-username">{{ user.name }}</h3>
+        <h5 class="widget-user-desc">{{ USER_STATUS[user.status] }} / {{ user.Role.name }}</h5>
     </div>
 </div>
 <div class="row">
