@@ -51,7 +51,7 @@
                             <label class="control-label">新聞的作者</label>
                             <select name="Author" class="form-control select2">
                                 {% for user in userList %}
-                                    <option value="{{ user.sn }}">{{ user.name }}</option>
+                                    <option value="{{ user._id }}">{{ user.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
