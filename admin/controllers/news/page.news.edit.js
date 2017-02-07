@@ -10,13 +10,15 @@ module.exports = async (req, res, next) => {
         let { newsId } = req.params;
 
         let { data: news } = await axios.get(`/news/${newsId}`);
+        let { data: { users: userList, pageData } } = await axios.get('/users');
 
         debug('news = %j', news);
 
         return res.render('news/page.news.edit.html', {
             NEWS_TYPES,
             NEWS_STATUS,
-            news
+            news,
+            userList
         });
 
     }
