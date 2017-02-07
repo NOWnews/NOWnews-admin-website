@@ -22,7 +22,7 @@ module.exports = async (req, res, next) => {
 
         debug('createdNews = %j', news);
 
-        return res.redirect(`/news/${data.id}`);
+        return res.redirect(`/news/${news._id}`);
     }
     catch(err) {
         return next(err);
