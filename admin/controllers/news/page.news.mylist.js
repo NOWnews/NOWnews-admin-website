@@ -5,12 +5,14 @@ module.exports = async (req, res, next) => {
 
     try {
         let { data: newsListInfo } = await axios.get('/news');
+        let pageData = newsListInfo.pageData;
 
         debug('newsListInfo = %j', newsListInfo );
 
         return res.render('news/page.news.myList.html', {
             NEWS_STATUS,
             newsListInfo,
+            pageData
         });
     }
     catch(err) {

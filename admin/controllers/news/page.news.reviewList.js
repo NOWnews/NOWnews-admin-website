@@ -11,12 +11,14 @@ module.exports = async (req, res, next) => {
                 status: 'REVIEW'
             }
         });
+        let pageData = newsListInfo.pageData;
 
         debug('newsListInfo = %j', newsListInfo );
 
         return res.render('news/page.news.myList.html', {
             NEWS_STATUS,
             newsListInfo,
+            pageData
         });
 
     }
