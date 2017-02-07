@@ -8,6 +8,11 @@ module.exports = async (req, res, next) => {
         let userId = req.session.adminUser._id;
         let data = req.body;
 
+        debug('req.body = %j', data);
+
+        data.isDeliver = data.isDeliver ? data.isDeliver : false ;
+        data.isAdult = data.isDeliver ? data.isDeliver : false ;
+
         data.UpdatedBy = userId;
 
         let newsStatus = data.status.toLowerCase();
