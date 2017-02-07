@@ -20,7 +20,9 @@
                         {{ value.title }}
                     </a>
                 </td>
-                <td>{{ value.type }}</td>
+                <td>
+                    {{ NEWS_TYPES[value.type] }}
+                </td>
                 <td>
                     <a href="#">
                     {{ value.Author.name }}

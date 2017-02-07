@@ -17,6 +17,7 @@ module.exports = async (req, res, next) => {
 
         return res.render('news/page.news.myList.html', {
             NEWS_STATUS,
+            NEWS_TYPES,
             newsListInfo,
             pageData
         });
