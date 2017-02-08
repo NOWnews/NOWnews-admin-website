@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
         // let { data: { users: userList, pageData } } = await axios.get('/users');
 
         // // return res.json(userList);
-        return res.render('menu/page.menu.create.html');
+        return res.render('menu/page.sort.html');
     }
     catch(err) {
         return next(err);
