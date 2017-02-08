@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
         let { data: newsListInfo } = await axios.get('/news', {
             params: {
                 status: 'REVIEW',
-                userId: userId
+                userId
             }
         });
         let pageData = newsListInfo.pageData;
