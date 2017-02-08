@@ -155,7 +155,7 @@
                 </div>
             </div>
         </div>
-        <div class="box">
+        <div class="box publish-setting">
             <div class="box-header with-border">
                 <h3 class="box-title">發稿設定</h3>
                 <div class="box-tools pull-right">
@@ -212,13 +212,13 @@
                         </div>
                         <div class="form-group">
                             <label>
-                                <input type="checkbox" class="minimal">
+                                <input id="reservation-checkbox" type="checkbox" class="minimal">
                                 立即
                             </label>
                         </div>
                         <div class="form-group">
                             <div class='input-group date'>
-                                <input id='datetimepicker1' type='text' class="form-control input" />
+                                <input id="reservation-datetimepicker" type='text' class="form-control input" />
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -238,7 +238,7 @@
                     </button>
                 </div>
             </div>
-            <div class="box-body ">
+            <!--<div class="box-body ">
                 <div class="box-comments">
                     <div class="box-comment">
                         <div class="comment-text">
@@ -261,9 +261,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="box-footer">
-                <!-- .img-push is used to add margin to elements next to floating images -->
                 <div class="img-push">
                     <input type="text" name="memo" class="form-control input-sm input" placeholder="Press enter to post comment">
                 </div>
@@ -328,7 +327,7 @@
             // event.preventDefault();
         });
 
-        $('#datetimepicker1').daterangepicker({
+        $('#reservation-datetimepicker').daterangepicker({
             "singleDatePicker": true,
             "timePicker": true,
             "locale": {
@@ -337,6 +336,42 @@
         });
 
         $(".select2").select2();
+
+        // 發稿設定
+        var status = null;
+        var publishSetting = function (status) {
+            switch (status) {
+                case 'DRAFT':
+                    $('select[name="LastReviewer"]').prop('disabled', true);
+                    $('#reservation-checkbox').prop('disabled', true);
+                    $('#reservation-datetimepicker').prop('disabled', true);
+                    break;
+                case 'REVIEW':
+                    $('select[name="LastReviewer"]').prop('disabled', false);
+                    $('#reservation-checkbox').prop('disabled', false);
+                    $('#reservation-datetimepicker').prop('disabled', false);
+                    break;
+                case 'RELEASE':
+                    $('select[name="LastReviewer"]').prop('disabled', true);
+                    $('#reservation-checkbox').prop('disabled', true);
+                    $('#reservation-datetimepicker').prop('disabled', true);
+                    break;
+                case 'CLOSE':
+                    $('select[name="LastReviewer"]').prop('disabled', true);
+                    $('#reservation-checkbox').prop('disabled', true);
+                    $('#reservation-datetimepicker').prop('disabled', true);
+                    break;
+                default:
+                    return false;
+            }
+        };
+        publishSetting($('input[name="status"]:checked', '.publish-setting').attr('value'));
+        $('input[name="status"]', '.publish-setting').on('click', function(){
+            if (status === $(this).attr('value') ) return false;
+
+            status = $(this).attr('value');
+            publishSetting(status);
+        });
     });
 </script>
 {% endblock %}
