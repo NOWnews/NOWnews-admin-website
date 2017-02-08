@@ -5,10 +5,15 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        // let { data: { users: userList, pageData } } = await axios.get('/users');
+        let userId = req.session.adminUser._id;
+        let data = req.body;
 
-        // // return res.json(userList);
-        return res.render('menu/page.menu.create.html');
+        let { data: menu } = await axios.post('/menu', data);
+
+        debug('createdMenu = %j', menu);
+
+        return res.redirect(`/menu/${menu._id}`);
+
     }
     catch(err) {
         return next(err);
