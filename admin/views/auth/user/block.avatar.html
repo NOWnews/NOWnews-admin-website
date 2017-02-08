@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            {# -- 隱藏欄位：供表單送出使用 --#}
+            <input id="username" type="hidden" value="{{user.name}}"/>
+            <input id="userId" type="hidden" value="{{user._id}}"/>
+            <input name="originAvatarId" type="hidden" value="{{user.Avatar._id}}"/>
+            <input name="avatarUrl" type="hidden" value="{{user.Avatar.url}}"/>
+            <input name="Avatar" type="hidden" value="{{ user.Avatar._id }}" />
+            {# -- 隱藏欄位：供表單送出使用 --#}
+
+            <p>
+                <label>更新個人大頭貼</label>
+                <label class="btn btn-default btn-flat fa fa-folder-open-o" for="input-image">
+                    <input type="file" class="sr-only" id="input-image" name="file" accept=".jpg,.jpeg,.png,.gif">
+                </label>
+            </p>
+
+            <div class="row text-center">
+                <img id="preview-image" class="cropper-hidden" width="200" height="200" style="border:1px solid;"/>
+                <br />
+                <button id="crop-and-upload-file"
+                    class="hidden btn btn-primary btn-flat fa fa-crop"
+                    type="button"> 確認裁切</button>
+                <br />
+                <span class="text-warning">
+                    小提醒：圖片裁切完，點選下方【送出】才算完成哦！
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

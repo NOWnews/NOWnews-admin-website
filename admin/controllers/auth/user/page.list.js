@@ -9,6 +9,10 @@ module.exports = async (req, res, next) => {
 
         let queryString = req._parsedUrl.query;
 
+        if (queryString === null) {
+            queryString = "";
+        }
+
         let { data: roleList } = await axios.get('/roles');
 
         let { data: { users: userList, pageData } } = await axios.get(`/users?${queryString}`);

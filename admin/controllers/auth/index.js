@@ -14,6 +14,10 @@ router.route('/login')
     .get(pageLogin)
     .post(actionLogin);
 
+router.route('/login')
+    .get(pageLogin)
+    .post(actionLogin);
+
 router.route('/logout')
     .get(actionLogout);
 

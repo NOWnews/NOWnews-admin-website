@@ -1,40 +1,57 @@
-import co from 'co';
-// import Promise from 'bluebird';
-// const models = require('../../../models');
-// const libs = require('../../../libs');
+import moment from 'moment-timezone';
+import Debug from 'debug';
+const debug = Debug('NOWnews-admin-website: controllers:auth:action.login');
 
-const debug = require('debug')('NOWnewsAdmin:controllers:auth:action.login');
+module.exports = async (req, res, next) => {
 
-module.exports = function(req, res, next) {
+    try {
 
-    let data = req.body;
+        let { data: loginUser } = await axios.post('/users/login', req.body);
 
-    co(function*() {
-
-        // let loginUser = yield models.adminUser.findOne()
-        //     .where('email').equals(data.email)
-        //     .where('password').equals(libs.hashPwd(data.password))
-        //     .execAsync();
-
-        // if(!loginUser){
-        //     return Promise.reject(new Error('找不到 USER'));
-        // }
-
-        // debug('login user= %j', loginUser);
-
-        let loginUser = {
-            _id: '530000000000000000000001',
-            name: 'admin',
-        };
-
+        if (!loginUser){
+            new Error('找不到 USER');
+        }
 
         if (!req.session) {
             req.session = {};
         }
 
-        req.session.adminUser = loginUser;
+        // 處理不將沒必要的欄位存在
+        let {
+            createdAt,
+            CreatedBy,
+            updatedAt,
+            UpdatedBy,
+            Center,
+            Department,
+            Role,
+            ...adminUser
+        } = loginUser;
+
+        adminUser.Center = {
+            _id: Center._id,
+            name: Center.name,
+        };
+
+        adminUser.Department = {
+            _id: Department._id,
+            name: Department.name,
+        };
+
+        adminUser.Role = {
+            _id: Role._id,
+            name: Role.name,
+        };
+
+        adminUser.loginedTime = moment().tz('Asia/Taipei').format('YYYY-MM-DD HH:mm');
+
+        debug('login user= %j', adminUser);
+
+        req.session.adminUser = adminUser;
 
         return res.redirect('/');
-    })
-    .catch(next);
+
+    } catch(err) {
+        return next(err);
+    }
 };
