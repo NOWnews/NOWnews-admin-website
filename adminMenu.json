@@ -89,7 +89,7 @@
         "icon": "fa-calendar-check-o",
         "children": [{
             "url": "/menu",
-            "name": "選單設定"
+            "name": "選單列表"
         },{
             "url": "/menu/create",
             "name": "選單建立"
