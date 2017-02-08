@@ -190,14 +190,8 @@
                             <label class="control-label">預約發稿</label>
                         </div>
                         <div class="form-group">
-                            <label>
-                                <input id="reservation-checkbox" type="checkbox" class="minimal">
-                                立即
-                            </label>
-                        </div>
-                        <div class="form-group">
                             <div class='input-group date'>
-                                <input id="reservation-datetimepicker" type='text' class="form-control input" />
+                                <input id="reservation-datetimepicker" name="startedAt" type='text' class="form-control input" />
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -305,11 +299,13 @@
             $('[name=freeContent]').val(freeContent);
         });
 
-        $('#datetimepicker1').daterangepicker({
+        $('#reservation-datetimepicker').daterangepicker({
+            "timePicker24Hour": true,
             "singleDatePicker": true,
             "timePicker": true,
+            "startDate": new Date(),
             "locale": {
-                format: 'MM/DD/YYYY h:mm A'
+                format: 'YYYY-MM-DD HH:mm:ss'
             }
         });
 
@@ -321,22 +317,18 @@
             switch (status) {
                 case 'DRAFT':
                     $('select[name="LastReviewer"]').prop('disabled', true);
-                    $('#reservation-checkbox').prop('disabled', true);
                     $('#reservation-datetimepicker').prop('disabled', true);
                     break;
                 case 'REVIEW':
                     $('select[name="LastReviewer"]').prop('disabled', false);
-                    $('#reservation-checkbox').prop('disabled', false);
                     $('#reservation-datetimepicker').prop('disabled', false);
                     break;
                 case 'RELEASE':
                     $('select[name="LastReviewer"]').prop('disabled', true);
-                    $('#reservation-checkbox').prop('disabled', true);
                     $('#reservation-datetimepicker').prop('disabled', true);
                     break;
                 case 'CLOSE':
                     $('select[name="LastReviewer"]').prop('disabled', true);
-                    $('#reservation-checkbox').prop('disabled', true);
                     $('#reservation-datetimepicker').prop('disabled', true);
                     break;
                 default:
