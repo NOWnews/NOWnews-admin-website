@@ -8,6 +8,8 @@ module.exports = async (req, res, next) => {
         let userId = req.session.adminUser._id;
         let data = req.body;
 
+        data.createdBy = userId;
+
         let { data: menu } = await axios.post('/menu', data);
 
         debug('createdMenu = %j', menu);
