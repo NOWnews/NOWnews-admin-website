@@ -12,6 +12,9 @@ module.exports = async (req, res, next) => {
 
         data.CreatedBy = userId;
         data.UpdatedBy = userId;
+
+        data.isDeliver = data.isDeliver ? true : false ;
+        data.isAdult = data.isAdult ? true : false ;
         // 摘要大概是 120 - 150 字
         data.summary = htmlToText(data.content).slice(0,135);
 

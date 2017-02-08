@@ -10,8 +10,8 @@ module.exports = async (req, res, next) => {
 
         debug('req.body = %j', data);
 
-        data.isDeliver = data.isDeliver ? data.isDeliver : false ;
-        data.isAdult = data.isDeliver ? data.isDeliver : false ;
+        data.isDeliver = data.isDeliver ? true : false ;
+        data.isAdult = data.isAdult ? true : false ;
 
         data.UpdatedBy = userId;
 
