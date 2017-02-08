@@ -1,6 +1,8 @@
 import Debug from 'debug';
 const debug = Debug('NOWnews-admin-website: controllers:news:action.news.update');
 
+import htmlToText from '../../util/htmlToText';
+
 module.exports = async (req, res, next) => {
 
     try {
