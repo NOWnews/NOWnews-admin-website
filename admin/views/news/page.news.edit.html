@@ -1,14 +1,16 @@
-{% set title = "新增新聞" %}
+{% set title = "編輯新聞" %}
 {% extends "../base.html" %}
 
 {% block headTitle %}
-<title>新編採 | {{ title }}</title>
-{% endblock %} {% block container %}
+    <title>新編採 | {{ title }}</title>
+{% endblock %}
+{% block container %}
 <section class="content">
-    <form>
+    <form action="/news/{{news._id}}" method="post">
+        <input type="hidden" name="_method" value="put">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">作者: ${Name}</h3>
+                <h3 class="box-title">作者: {{ news.Author.name }}</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -20,15 +22,13 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="control-label">新聞的來源</label>
-                            <select class="form-control select2">
-                                <option selected="selected">NOWnews</option>
-                            </select>
+                            <p>NOWnews</p>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="control-label">新聞主分類</label>
-                            <select class="form-control select2">
+                            <select name="subMenu" class="form-control select2">
                                 <option selected="selected">娛樂王國</option>
                             </select>
                         </div>
@@ -36,12 +36,20 @@
                     <div class="col-sm-4">
                         <div class="checkbox">
                             <label>
-                                <input name="isAdult" type="checkbox"> 成人新聞
+                                {% if news.isAdult %}
+                                    <input name="isAdult" type="checkbox" checked> 成人新聞
+                                {% else %}
+                                    <input name="isAdult" type="checkbox"> 成人新聞
+                                {% endif %}
                             </label>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input name="isDeliver" type="checkbox"> 不可外送
+                                {% if news.isDeliver %}
+                                    <input name="isDeliver" type="checkbox" checked> 不可外送
+                                {% else %}
+                                    <input name="isDeliver" type="checkbox"> 不可外送
+                                {% endif %}
                             </label>
                         </div>
                     </div>
@@ -50,10 +58,14 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="control-label">新聞的作者</label>
-                            <select name="type" class="form-control select2">
-                                <option selected="selected">阿發</option>
-                                <option>離心力</option>
-                                <option>龍哥</option>
+                            <select name="Author" class="form-control select2">
+                                {% for user in userList %}
+                                    {% if user.sn == Author.sn %}
+                                        <option value="{{ user._id }}" selected>{{ user.name }}</option>
+                                    {% else %}
+                                        <option value="{{ user._id }}">{{ user.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -61,9 +73,13 @@
                         <div class="form-group">
                             <label class="control-label">新聞的類別</label>
                             <select name="type" class="form-control select2">
-                                <option selected="selected">一般新聞</option>
-                                <option>影音新聞</option>
-                                <option>圖片新聞</option>
+                                {% for key, type in NEWS_TYPES %}
+                                    {% if news.type == type %}
+                                        <option value="{{ key }}" selected>{{ type }}</option>
+                                    {% else %}
+                                        <option value="{{ key }}">{{ type }}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -72,13 +88,13 @@
                     <div class="col-sm-7">
                         <div class="form-group">
                             <label for="title" class="control-label">長標</label>
-                            <input type="text" id="title" name="title" class="form-control" placeholder="限制字數為 26">
+                            <input type="text" id="title" name="title" value="{{news.title}}" class="input form-control" placeholder="限制字數為 26">
                         </div>
                     </div>
                     <div class="col-sm-5">
                         <div class="form-group">
                             <label for="shortTitle" class="control-label">短標</label>
-                            <input type="text" id="shortTitle" name="shortTitle" class="form-control" placeholder="限制字數為 16">
+                            <input type="text" id="shortTitle" value="{{news.shortTitle}}" name="shortTitle" class="input form-control" placeholder="限制字數為 16">
                         </div>
                     </div>
                 </div>
@@ -86,7 +102,7 @@
         </div>
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">標題: ${Title}</h3>
+                <h3 class="box-title"></h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -115,15 +131,15 @@
                 </div>
                 <div class="form-group">
                     <label>內文</label>
-                    <textarea id="editor1" class="form-control" name="content" rows="5" placeholder="Enter ..."></textarea>
+                    <textarea id="editor1" class="form-control" name="content" rows="5" placeholder="Enter ...">{{news.content}}</textarea>
                 </div>
                 <div class="form-group">
                     <label>自由欄位</label>
-                    <textarea id="editor2" class="form-control" name="freeContent" rows="5" placeholder="Enter ..."></textarea>
+                    <textarea id="editor2" class="form-control" name="freeContent" rows="5" placeholder="Enter ...">{{news.freeContent}}</textarea>
                 </div>
                 <div class="form-group">
                     <label>追蹤碼</label>
-                    <textarea class="form-control" name="traceCode" rows="5" placeholder="Enter ..."></textarea>
+                    <textarea class="form-control" name="traceCode" rows="5" placeholder="Enter ...">{{news.traceCode}}</textarea>
                 </div>
                 <div class="form-group">
                     <label>關鍵字</label>
@@ -139,7 +155,7 @@
                 </div>
             </div>
         </div>
-        <div class="box">
+        <div class="box publish-setting">
             <div class="box-header with-border">
                 <h3 class="box-title">發稿設定</h3>
                 <div class="box-tools pull-right">
@@ -154,20 +170,26 @@
                         <div class="form-group text-center">
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="status" id="status-draft" value="DRAFT" checked="">
+                                    <input type="radio" name="status" id="status-draft" value="DRAFT" {{ "checked" if news.status == 'DRAFT' }}>
                                     草稿
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="status" id="status-review" value="REVIEW">
+                                    <input type="radio" name="status" id="status-review" value="REVIEW" {{ "checked" if news.status == 'REVIEW' }}>
                                     送審
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="status" id="status-release" value="RELEASE">
+                                    <input type="radio" name="status" id="status-release" value="RELEASE" {{ "checked" if news.status == 'RELEASE' }}>
                                     發布
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="status" id="status-close" value="CLOSE" {{ "checked" if news.status == 'CLOSE' }}>
+                                    關閉
                                 </label>
                             </div>
                         </div>
@@ -175,23 +197,22 @@
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">指定送審人</label>
-                            <select name="type" class="form-control select2">
-                                <option selected="selected">阿裔</option>
-                                <option>龍發</option>
-                                <option>麒麟</option>
+                            <select name="LastReviewer" class="form-control select2">
+                                {% for user in userList %}
+                                    {% if user.sn == news.LastReviewer.sn %}
+                                        <option value="{{ user._id }}" selected>{{ user.name }}</option>
+                                    {% else %}
+                                        <option value="{{ user._id }}">{{ user.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group">
                             <label class="control-label">預約發稿</label>
-                        <div class="form-group">
-                            <label>
-                                <input type="checkbox" class="minimal">
-                                立即
-                            </label>
                         </div>
                         <div class="form-group">
                             <div class='input-group date'>
-                                <input id='datetimepicker1' type='text' class="form-control" />
+                                <input id="reservation-datetimepicker" value="{{ news.formatCreatedAt }}" type='text' class="form-control input" />
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -201,7 +222,8 @@
                 </div>
             </div>
         </div>
-        <div class="box">
+
+        <div class="box memo-box">
             <div class="box-header with-border">
                 <h3 class="box-title">撰稿備忘錄</h3>
                 <div class="box-tools pull-right">
@@ -210,33 +232,37 @@
                     </button>
                 </div>
             </div>
-            <div class="box-body">
-                <div class="form-group">
-                    <textarea name="memo" class="form-control" rows="5" placeholder="Enter ..."></textarea>
+            <!--<div class="box-body ">
+                <div class="box-comments">
+                    <div class="box-comment">
+                        <div class="comment-text">
+                            <span class="username">
+                                Maria Gonzales
+                                <span class="text-muted pull-right">8:03 PM Today</span>
+                            </span>
+                            It is a long established fact that a reader will be distracted
+                            by the readable content of a page when looking at its layout.
+                        </div>
+                    </div>
+                    <div class="box-comment">
+                        <div class="comment-text">
+                            <span class="username">
+                                Maria Gonzales
+                                <span class="text-muted pull-right">8:03 PM Today</span>
+                            </span>
+                            It is a long established fact that a reader will be distracted
+                            by the readable content of a page when looking at its layout.
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <div class="box-footer">
+                <div class="img-push">
+                    <input type="text" name="memo" class="form-control input-sm input" placeholder="Press enter to post comment">
                 </div>
             </div>
         </div>
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">注意事項</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body">
-                <p>存成草稿：會出現個人工作區，只有自己看見。</p>
-                <p>存成送審：會出現在新聞列表，並同部門的同事都會看見。</p>
-                <p>存成發佈：可在板主管理(新聞)剛剛有貼的版面裡找到，或是在我的新聞裡找的到。</p>
-                <p>傳給特定長官或同事：把處理者改成該同事，並把狀態改成"草稿"，這樣才會出現在他的個人工作區裡。</p>
-            </div>
-        </div>
-        <div class="edit-footer text-center">
-            <button type="button" class="btn bg-olive btn-flat margin">送出</button>
-            <button type="button" class="btn bg-orange btn-flat margin">預覽</button>
-            <button type="button" class="btn bg-maroon btn-flat margin">取消</button>
-        </div>
+        {% include "./block.notice.html" %}
     </form>
 </section>
 
@@ -248,7 +274,7 @@
 
 {#  script 暫時放這   #}
 <!-- Select2 -->
-<script src="/static/js/select2/select2.full.min.js"></script>
+<!--<script src="/static/js/select2/select2.full.min.js"></script>-->
 <!-- CK Editor -->
 <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 
@@ -257,6 +283,11 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/daterangepicker.min.js"></script>
 
+<style>
+    .memo-box .box-comments{
+        background: #fff;
+    }
+</style>
 <script>
     $(function () {
         // Replace the <textarea id="editor1"> with a CKEditor
@@ -264,15 +295,74 @@
         CKEDITOR.replace('editor1');
         CKEDITOR.replace('editor2');
 
-        $('#datetimepicker1').daterangepicker({
+        var data = CKEDITOR.instances.editor1.getData();
+        function strip_tags (input, allowed) {
+            allowed = (((allowed || '') + '').toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
+            var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
+            return input.replace(tags, function ($0, $1) {
+                return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : ''
+            });
+        }
+
+        // 讓 input 按 enter 沒有效果
+        $('.input').keypress(function(e) {
+            var code = e.keyCode ? e.keyCode : e.which;
+            if(code == 13) {
+                e.preventDefault();
+            }
+        });
+        $( "form" ).submit(function( event ) {
+            var content = CKEDITOR.instances.editor1.getData();
+            var freeContent = CKEDITOR.instances.editor2.getData();
+
+            $('[name=content]').val(content);
+            $('[name=freeContent]').val(freeContent);
+            console.log($('form').serializeArray())
+            // event.preventDefault();
+        });
+
+        $('#reservation-datetimepicker').daterangepicker({
+            "timePicker24Hour": true,
             "singleDatePicker": true,
             "timePicker": true,
             "locale": {
-                format: 'MM/DD/YYYY h:mm A'
+                format: 'YYYY-MM-DD HH:mm:ss'
             }
         });
 
         $(".select2").select2();
+
+        // 發稿設定
+        var status = null;
+        var publishSetting = function (status) {
+            switch (status) {
+                case 'DRAFT':
+                    $('select[name="LastReviewer"]').prop('disabled', true);
+                    $('#reservation-datetimepicker').prop('disabled', true);
+                    break;
+                case 'REVIEW':
+                    $('select[name="LastReviewer"]').prop('disabled', false);
+                    $('#reservation-datetimepicker').prop('disabled', false);
+                    break;
+                case 'RELEASE':
+                    $('select[name="LastReviewer"]').prop('disabled', true);
+                    $('#reservation-datetimepicker').prop('disabled', true);
+                    break;
+                case 'CLOSE':
+                    $('select[name="LastReviewer"]').prop('disabled', true);
+                    $('#reservation-datetimepicker').prop('disabled', true);
+                    break;
+                default:
+                    return false;
+            }
+        };
+        publishSetting($('input[name="status"]:checked', '.publish-setting').attr('value'));
+        $('input[name="status"]', '.publish-setting').on('click', function(){
+            if (status === $(this).attr('value') ) return false;
+
+            status = $(this).attr('value');
+            publishSetting(status);
+        });
     });
 </script>
 {% endblock %}

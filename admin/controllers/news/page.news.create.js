@@ -1,3 +1,4 @@
+
 import Debug from 'debug';
 import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.create');
@@ -8,7 +9,6 @@ module.exports = async (req, res, next) => {
 
         let { data: { users: userList, pageData } } = await axios.get('/users');
 
-        // return res.json(userList);
         return res.render('news/page.news.create.html', {
             userList,
             NEWS_TYPES,
