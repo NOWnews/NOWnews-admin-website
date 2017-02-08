@@ -13,6 +13,9 @@ module.exports = async (req, res, next) => {
         data.isDeliver = data.isDeliver ? true : false ;
         data.isAdult = data.isAdult ? true : false ;
 
+        // 摘要大概是 120 - 150 字
+        data.summary = htmlToText(data.content).slice(0,135);
+
         data.UpdatedBy = userId;
 
         let newsStatus = data.status.toLowerCase();
