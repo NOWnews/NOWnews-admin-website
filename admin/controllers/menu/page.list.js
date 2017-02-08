@@ -1,3 +1,5 @@
+import Debug from 'debug';
+const debug = Debug('NOWnews-admin-website: controllers:menu:page.list');
 
 module.exports = async (req, res, next) => {
 
