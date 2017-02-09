@@ -8,7 +8,7 @@
     <form action="." method="get">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">建立分類</h3>
+                <h3 class="box-title">建立選單</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -17,18 +17,11 @@
             </div>
             <div class="box-body">
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label class="control-label">新聞的來源</label>
-                            <p>NOWnews</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-5">
-                        <div class="form-group">
-                            <label for="title" class="control-label">選單名稱</label>
-                            <input type="text" id="categoryname" name="name" class="form-control" placeholder="選單名稱">
+                        <div class="checkbox">
+                            <label>
+                                <input name="isExternal" type="checkbox"> 外部連結
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -39,12 +32,18 @@
                             <input type="text" name="url" class="form-control" placeholder="範例  https://m.nownews.com">
                         </div>
                     </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="title" class="control-label">選單名稱</label>
+                            <input type="text" id="categoryname" name="name" class="form-control" placeholder="選單名稱">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">發稿設定</h3>
+                <h3 class="box-title">層數設定</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -54,47 +53,53 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-sm-4">
-                        <div class="form-group text-center">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="status" id="status-draft" value="DRAFT" checked="">
-                                    草稿
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="status" id="status-review" value="REVIEW">
-                                    送審
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="status" id="status-release" value="RELEASE">
-                                    發布
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="form-group">
-                            <label class="control-label">指定送審人</label>
-                            <select name="type" class="form-control select2">
-                                <option selected="selected">阿裔</option>
-                                <option>龍發</option>
-                                <option>麒麟</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">預約發稿</label>
-                        <div class="form-group">
+                        <div class="checkbox">
                             <label>
-                                <input type="checkbox" class="minimal">
-                                立即
+                                <input name="hasChild" type="checkbox"> 是否有子層
                             </label>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="parentId" class="control-label">父層的ID</label>
+                            <input id="parentId" type="text" name="ParentId" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="level" class="control-label">哪一個層級</label>
+                            <input id="level" type="text" name="level" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">走期設定</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="checkbox">
+                            <label>
+                                <input name="isPermanented" type="checkbox"> 永久
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <div class='input-group date'>
-                                <input id='datetimepicker1' type='text' class="form-control" />
+                                <input id='menuTimepicker' type='text' class="form-control" />
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -104,45 +109,33 @@
                 </div>
             </div>
         </div>
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">注意事項</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body">
-                <p>存成草稿：會出現個人工作區，只有自己看見。</p>
-                <p>存成送審：會出現在新聞列表，並同部門的同事都會看見。</p>
-                <p>存成發佈：可在板主管理(新聞)剛剛有貼的版面裡找到，或是在我的新聞裡找的到。</p>
-                <p>傳給特定長官或同事：把處理者改成該同事，並把狀態改成"草稿"，這樣才會出現在他的個人工作區裡。</p>
-            </div>
-        </div>
         <div class="edit-footer text-center">
-            <button type="submit" class="btn bg-olive btn-flat margin">建立</button>
+            <button type="submit" class="btn bg-olive btn-flat margin">儲存</button>
             <button type="button" class="btn bg-maroon btn-flat margin">取消</button>
         </div>
     </form>
 </section>
 
 {#  style 暫時放這   #}
-<!-- Select2 -->
-<link rel="stylesheet" href="/static/css/select2.min.css">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/daterangepicker.min.css" />
 
 {#  script 暫時放這   #}
-<!-- Select2 -->
-<script src="/static/js/select2/select2.full.min.js"></script>
-<!-- CK Editor -->
-<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 
 <!-- moment -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/moment.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/daterangepicker.min.js"></script>
 
+<script>
+    $(function () {
+        $('#menuTimepicker').daterangepicker({
+            "locale": {
+                format: 'YYYY-MM-DD'
+            }
+        });
+    });
+
+</script>
 
 {% endblock %}
