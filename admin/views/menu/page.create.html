@@ -5,7 +5,7 @@
 <title>新編採 | {{ title }}</title>
 {% endblock %} {% block container %}
 <section class="content">
-    <form action="." method="get">
+    <form action="/menu/create" method="post">
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">建立選單</h3>
@@ -55,7 +55,7 @@
                     <div class="col-sm-4">
                         <div class="checkbox">
                             <label>
-                                <input name="hasChild" type="checkbox"> 是否有子層
+                                <input name="hasChild" type="checkbox" disabled> 是否有子層
                             </label>
                         </div>
                     </div>
@@ -64,13 +64,13 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="parentId" class="control-label">父層的ID</label>
-                            <input id="parentId" type="text" name="ParentId" class="form-control" placeholder="">
+                            <input id="parentId" type="text" name="ParentId" class="form-control" placeholder="" disabled>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="level" class="control-label">哪一個層級</label>
-                            <input id="level" type="text" name="level" class="form-control" placeholder="">
+                            <input id="level" type="text" name="level" class="form-control" placeholder="" disabled>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
         </div>
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">走期設定</h3>
+                <h3 class="box-title">狀態設定</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -88,21 +88,18 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-sm-4">
-                        <div class="checkbox">
-                            <label>
-                                <input name="isPermanented" type="checkbox"> 永久
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
                         <div class="form-group">
-                            <div class='input-group date'>
-                                <input id='menuTimepicker' type='text' class="form-control" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="status" id="status1" value="open">
+                                    開啟
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="status" id="status2" value="close" checked>
+                                    關閉
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -130,6 +127,7 @@
 <script>
     $(function () {
         $('#menuTimepicker').daterangepicker({
+            "startDate": new Date(),
             "locale": {
                 format: 'YYYY-MM-DD'
             }
