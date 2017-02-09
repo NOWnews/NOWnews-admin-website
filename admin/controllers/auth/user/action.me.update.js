@@ -5,17 +5,22 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        let data = req.body;
+        let { avatarUrl, originAvatarId, ...data} = req.body;
 
         let userId = req.session.adminUser._id;
 
         data.UpdatedBy = userId;
 
-        let url = `/users/${userId}`;
+        // 清除舊的圖片
+        if (originAvatarId && originAvatarId !== data.Avatar) {
+            await axios.delete(`/images/${originAvatarId}/realRemove`);
+        }
 
-        let { data: user } = await axios.put(url, data);
+        let { data: user } = await axios.put(`/users/${userId}`, data);
 
         debug('updatedUser = %j', user);
+
+        req.session.adminUser.Avatar.url = avatarUrl;
 
         return res.redirect(`/auth/me`);
 

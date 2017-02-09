@@ -4,13 +4,14 @@ const debug = Debug('NOWnews-admin-website: controllers:news:action.news.remove'
 module.exports = async (req, res, next) => {
 
     try {
-        let result = await new Promise((resolve, reject) => {
-            return resolve('controllers/news/action.remove.js');
-        });
 
-        debug('removedNews = %j', result);
+        let { newsId } = req.params;
 
-        return res.json(result);
+        let { data: news } = await axios.delete( `/news/${newsId}` );
+
+        debug('removedNews = %j', news);
+
+        return res.json({ news });
     }
     catch(err) {
         return next(err);

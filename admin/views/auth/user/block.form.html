@@ -10,6 +10,17 @@
                 type="text"
                 value="{{ user.name }}" />
         </div>
+        {% if not user %}
+            <div class="form-group">
+                <label> 密碼
+                    <span class="text-danger">*</span>
+                </label>
+                <input class="form-control"
+                    required
+                    name="password"
+                    type="password" />
+            </div>
+        {% endif %}
         <div class="form-group">
             <label>員工編號</label>
             <input class="form-control"
@@ -66,17 +77,6 @@
                 type="text"
                 value="{{ user.nickname }}" />
         </div>
-        {% if not user %}
-            <div class="form-group">
-                <label> 密碼
-                    <span class="text-danger">*</span>
-                </label>
-                <input class="form-control"
-                    required
-                    name="password"
-                    type="password" />
-            </div>
-        {% endif %}
         <div class="form-group">
             <label>員工狀態
                 <span class="text-danger">*</span>
