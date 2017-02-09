@@ -8,11 +8,18 @@ module.exports = async (req, res, next) => {
         let userId = req.session.adminUser._id;
         let data = req.body;
 
+        data.isExternal = data.isExternal ? true: false;
         data.createdBy = userId;
 
-        let { data: menu } = await axios.post('/menu', data);
+        // 暫時設定永遠開啟
+        data.isPermanented = true;
+        // 建立的權重都為 0
+        data.weight = 0;
 
-        debug('createdMenu = %j', menu);
+        console.log(data)
+        // let { data: menu } = await axios.post('/menu', data);
+
+        // debug('createdMenu = %j', menu);
 
         return res.redirect(`/menu/${menu._id}`);
 
