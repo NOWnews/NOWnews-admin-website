@@ -2,13 +2,16 @@
 {% extends "../base.html" %}
 
 {% block headTitle %}
-<title>新編採 | {{ title }}</title>
-{% endblock %} {% block container %}
+    <title>新編採 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
 <section class="content">
-    <form action="/menu/{{ }}" method="put">
+    <form action="/menu/{{ menu.id }}" method="post">
+        <input type="hidden" name="_method" value="put">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">建立選單</h3>
+                <h3 class="box-title">選單設定</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -20,7 +23,11 @@
                     <div class="col-sm-5">
                         <div class="checkbox">
                             <label>
-                                <input name="isExternal" type="checkbox"> 外部連結
+                                {% if menu.isExternal %}
+                                    <input name="isExternal" type="checkbox" checked> 外部連結
+                                {% else %}
+                                    <input name="isExternal" type="checkbox" > 外部連結
+                                {% endif %}
                             </label>
                         </div>
                     </div>
@@ -29,13 +36,13 @@
                     <div class="col-sm-5">
                         <div class="form-group">
                             <label for="shortTitle" class="control-label">連結</label>
-                            <input type="text" name="url" class="form-control" placeholder="範例  https://m.nownews.com">
+                            <input type="text" name="url" value="{{ menu.url }}" class="form-control" placeholder="範例  https://m.nownews.com">
                         </div>
                     </div>
                     <div class="col-sm-5">
                         <div class="form-group">
                             <label for="title" class="control-label">選單名稱</label>
-                            <input type="text" id="categoryname" name="name" class="form-control" placeholder="選單名稱">
+                            <input type="text" id="categoryname" name="name" value="{{ menu.name }}" class="form-control" placeholder="選單名稱">
                         </div>
                     </div>
                 </div>
@@ -55,7 +62,11 @@
                     <div class="col-sm-4">
                         <div class="checkbox">
                             <label>
-                                <input name="hasChild" type="checkbox" disabled> 是否有子層
+                                {% if menu.hasChild %}
+                                    <input name="hasChild" type="checkbox" disabled checked> 是否有子層
+                                {% else %}
+                                    <input name="hasChild" type="checkbox" disabled> 是否有子層
+                                {% endif %}
                             </label>
                         </div>
                     </div>
@@ -64,13 +75,13 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="parentId" class="control-label">父層的ID</label>
-                            <input id="parentId" type="text" name="ParentId" class="form-control" placeholder="" disabled>
+                            <input id="parentId" type="text" value="{{ menu.ParentId }}" name="ParentId" class="form-control" placeholder="" disabled>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="level" class="control-label">哪一個層級</label>
-                            <input id="level" type="text" name="level" class="form-control" placeholder="" disabled>
+                            <input id="level" type="text" value="{{ menu.level }}" name="level" class="form-control" placeholder="" disabled>
                         </div>
                     </div>
                 </div>
@@ -89,18 +100,69 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="status" id="status1" value="OPEN">
-                                    開啟
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="status" id="status2" value="CLOSE" checked>
-                                    關閉
-                                </label>
-                            </div>
+                            {% if menu.status == 'OPEN' %}
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="status" id="status1" value="OPEN" checked> 開啟
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="status" id="status2" value="CLOSE"> 關閉
+                                    </label>
+                                </div>
+                            {% else %}
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="status" id="status1" value="OPEN"> 開啟
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="status" id="status2" value="CLOSE" checked> 關閉
+                                    </label>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">建立資訊</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="UpdatedBy" class="control-label">最後一次更新者</label>
+                            <input id="UpdatedBy" type="text" value="{{ menu.UpdatedBy.name }}" class="form-control" placeholder="" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="CreatedBy" class="control-label">建立者</label>
+                            <input id="CreatedBy" type="text" value="{{ menu.CreatedBy.name }}" class="form-control" placeholder="" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="formatUpdatedAt" class="control-label">上次修改日期</label>
+                            <input id="formatUpdatedAt" type="text" value="{{ menu.formatUpdatedAt }}" class="form-control" placeholder="" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="formatCreatedAt" class="control-label">建立日期</label>
+                            <input id="formatCreatedAt" type="text" value="{{ menu.formatCreatedAt }}" class="form-control" placeholder="" disabled>
                         </div>
                     </div>
                 </div>

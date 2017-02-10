@@ -5,10 +5,15 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        // let { data: { users: userList, pageData } } = await axios.get('/users');
+        let { menuId } = req.params;
 
-        // // return res.json(userList);
-        return res.render('menu/page.edit.html');
+        let { data: menu } = await axios.get(`/menus/${menuId}`);
+
+        debug('menu = %j', menu);
+
+        return res.render('menu/page.edit.html', {
+            menu
+        });
     }
     catch(err) {
         return next(err);
