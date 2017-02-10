@@ -5,9 +5,6 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        // let { data: { users: userList, pageData } } = await axios.get('/users');
-
-        // // return res.json(userList);
         return res.render('menu/page.create.html');
     }
     catch(err) {

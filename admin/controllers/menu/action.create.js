@@ -9,17 +9,16 @@ module.exports = async (req, res, next) => {
         let data = req.body;
 
         data.isExternal = data.isExternal ? true: false;
-        data.createdBy = userId;
+        data.CreatedBy = userId;
 
         // 暫時設定永遠開啟
         data.isPermanented = true;
         // 建立的權重都為 0
         data.weight = 0;
 
-        console.log(data)
-        // let { data: menu } = await axios.post('/menu', data);
+        let { data: menu } = await axios.post('/menus', data);
 
-        // debug('createdMenu = %j', menu);
+        debug('createdMenu = %j', menu);
 
         return res.redirect(`/menu/${menu._id}`);
 
