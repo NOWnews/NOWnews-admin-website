@@ -48,21 +48,18 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label">新聞主分類</label>
-                            <select name="subMenu" class="form-control select2">
+                            <label for="MainMenu" class="control-label">新聞主分類</label>
+                            <select id="MainMenu" name="MainMenu" multiple="multiple">
                                 {% for m in menus %}
-                                    <option value="{{ m._id }}" selected="selected">{{ m.name }}</option>
+                                    <option value="{{ m._id }}">{{ m.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="subMenu" class="control-label">新聞次分類</label>
-                            <!--<select name="subMenu" class="form-control select2">
-                                <option selected="selected">娛樂王國</option>
-                            </select>-->
-                            <select id='subMenu' multiple="multiple">
+                            <label for="Menus" class="control-label">新聞次分類</label>
+                            <select id='Menus' name="Menus" multiple="multiple">
                                 {% for menu in menus %}
                                     <optgroup label="{{ menu.name }}">
                                         {% for child in menu.child %}
@@ -320,6 +317,8 @@
 
             $('[name=content]').val(content);
             $('[name=freeContent]').val(freeContent);
+            $('[name=MainMenu]').val($("#MainMenu").multipleSelect("getSelects"));
+            $('[name=Menus]').val($("#Menus").multipleSelect("getSelects"));
         });
 
         $('#reservation-datetimepicker').daterangepicker({
@@ -366,11 +365,20 @@
             publishSetting(status);
         });
 
-        $('#subMenu').multipleSelect({
+        $('#MainMenu').multipleSelect({
+            filter: true,
+            // multiple: true,
+            width: '100%',
+            selectAll: false,
+            allSelected: false
+            // multipleWidth: 100
+        });
+        $('#Menus').multipleSelect({
             filter: true,
             multiple: true,
             width: '100%',
             selectAll: false,
+            allSelected: false
             // multipleWidth: 100
         });
     });
