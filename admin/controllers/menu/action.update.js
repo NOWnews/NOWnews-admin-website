@@ -9,6 +9,7 @@ module.exports = async (req, res, next) => {
         let userId = req.session.adminUser._id;
         let data = req.body;
 
+        data.isExternal = data.isExternal ? true : false ;
         data.UpdatedBy = userId;
 
         debug('req.body = %j', data);
