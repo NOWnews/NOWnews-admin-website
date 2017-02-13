@@ -25,36 +25,7 @@
                             <p>NOWnews</p>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="control-label">新聞主分類</label>
-                            <select name="subMenu" class="form-control select2">
-                                <option selected="selected">娛樂王國</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="checkbox">
-                            <label>
-                                {% if news.isAdult %}
-                                    <input name="isAdult" type="checkbox" checked> 成人新聞
-                                {% else %}
-                                    <input name="isAdult" type="checkbox"> 成人新聞
-                                {% endif %}
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                {% if news.isDeliver %}
-                                    <input name="isDeliver" type="checkbox" checked> 不可外送
-                                {% else %}
-                                    <input name="isDeliver" type="checkbox"> 不可外送
-                                {% endif %}
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
+
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="control-label">新聞的作者</label>
@@ -81,6 +52,60 @@
                                     {% endif %}
                                 {% endfor %}
                             </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="MainMenu" class="control-label">新聞主分類</label>
+                            <select id="MainMenu" name="MainMenu" multiple="multiple">
+                                {% for m in menus %}
+                                    {% if m._id == news.MainMenu._id %}
+                                        <option value="{{ m._id }}" selected="selected">{{ m.name }}</option>
+                                    {% else %}
+                                        <option value="{{ m._id }}">{{ m.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="Menus" class="control-label">新聞次分類</label>
+                            <select id='Menus' name="Menus" multiple="multiple">
+                                {% for menu in menus %}
+                                    <optgroup label="{{ menu.name }}">
+                                        {% for child in menu.child %}
+                                            {% if child.select %}
+                                                <option value='{{ child._id }}' selected="selected">{{ child.name }}</option>
+                                            {% else %}
+                                                <option value='{{ child._id }}'>{{ child.name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </optgroup>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="checkbox">
+                            <label>
+                                {% if news.isAdult %}
+                                    <input name="isAdult" type="checkbox" checked> 成人新聞
+                                {% else %}
+                                    <input name="isAdult" type="checkbox"> 成人新聞
+                                {% endif %}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                {% if news.isDeliver %}
+                                    <input name="isDeliver" type="checkbox" checked> 不可外送
+                                {% else %}
+                                    <input name="isDeliver" type="checkbox"> 不可外送
+                                {% endif %}
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -283,6 +308,10 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/daterangepicker.min.js"></script>
 
+<!-- multiple-select -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.0/multiple-select.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.0/multiple-select.min.js"></script>
+
 <style>
     .memo-box .box-comments{
         background: #fff;
@@ -317,7 +346,8 @@
 
             $('[name=content]').val(content);
             $('[name=freeContent]').val(freeContent);
-            console.log($('form').serializeArray())
+            $('[name=MainMenu]').val($("#MainMenu").multipleSelect("getSelects"));
+            $('[name=Menus]').val($("#Menus").multipleSelect("getSelects"));
             // event.preventDefault();
         });
 
@@ -362,6 +392,20 @@
 
             status = $(this).attr('value');
             publishSetting(status);
+        });
+
+        $('#MainMenu').multipleSelect({
+            filter: true,
+            width: '100%',
+            selectAll: false,
+            allSelected: false
+        });
+        $('#Menus').multipleSelect({
+            filter: true,
+            multiple: true,
+            width: '100%',
+            selectAll: false,
+            allSelected: false
         });
     });
 </script>
