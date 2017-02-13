@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
 
         debug('req.body = %j', data);
 
-        let { data: menu } = await axios.put(`/menu/${menuId}`, data);
+        let { data: menu } = await axios.put(`/menus/${menuId}`, data);
 
         debug('updatedMenu = %j', menu);
 
