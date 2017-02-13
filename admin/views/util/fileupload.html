@@ -1,0 +1,141 @@
+<div class="content">
+    <div>
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">上傳</a>
+        </li>
+        <li role="presentation">
+            <a href="#library" aria-controls="library" role="tab" data-toggle="tab">圖庫</a>
+        </li>
+      </ul>
+      <br />
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+            <form id="fileupload" action="#" method="POST" enctype="multipart/form-data">
+                <input id="userId" type="hidden" value="{{ currentUser._id }}" />
+
+                <div class="row fileupload-buttonbar">
+                    <div class="col-md-7">
+                        <label class="btn btn-success fileinput-button" for="image-file">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span>新增檔案</span>
+                            <input id="image-file" type="file" name="files[]" multiple class="sr-only">
+                        </label>
+                        <button type="submit" class="btn btn-primary start">
+                            <i class="glyphicon glyphicon-upload"></i>
+                            <span>全部上傳</span>
+                        </button>
+                        <!-- The global file processing state -->
+                        <span class="fileupload-process"></span>
+                    </div>
+                    <!-- The global progress state -->
+                    <div class="col-md-5 fileupload-progress fade">
+                        <!-- The global progress bar -->
+                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                        </div>
+                        <!-- The extended global progress state -->
+                        <div class="progress-extended">&nbsp;</div>
+                    </div>
+                </div>
+                <!-- The table listing the files available for upload/download -->
+                <table role="presentation" class="table table-striped">
+                    <tbody class="files"></tbody>
+                </table>
+            </form>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="library">
+            <form id="image-library-query" method="get">
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <input name="startDate" type="date" value="2016-12-09" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input name="endDate" type="date" max="2017-02-09" value="2017-02-09" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input name="keyword" type="text" placeholder="關鍵字" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <button class="btn btn-default btn-flat" type="submit">查詢</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script id="template-upload" type="text/x-custom-template">
+    <tr class="template-upload fade">
+        <td>
+            <span class="preview"></span>
+            <p class="name hidden"></p>
+            <p>
+                <input name="desc" type="text" placeholder="圖說" />
+            </p>
+            <strong class="error text-danger"></strong>
+        </td>
+        <td class="hidden-xs">
+            <p class="size">處理中...</p>
+            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+            </div>
+        </td>
+        <td>
+            <button class="btn btn-default">
+                <i class="fa fa-crop"></i>
+                <span>裁切</span>
+            </button>
+            <button class="btn btn-primary start" >
+                <i class="glyphicon glyphicon-upload"></i>
+                <span>上傳</span>
+            </button>
+            <button class="btn btn-warning cancel">
+                <i class="glyphicon glyphicon-ban-circle"></i>
+                <span>取消</span>
+            </button>
+        </td>
+    </tr>
+</script>
+
+<script id="template-download" type="text/x-custom-template">
+    <tr class="template-download fade">
+        <td>
+            <span class="preview">
+                <img style="width:150px; max-height: 100%" />
+            </span>
+            <p class="desc"></p>
+            <strong class="error text-danger"></strong>
+        </td>
+        <td>
+            <button class="btn btn-danger delete" data-id="">
+                <i class="glyphicon glyphicon-trash"></i>
+                <span>刪除</span>
+            </button>
+        </td>
+    </tr>
+</script>
+
+
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="/static/js/file/jquery.ui.widget.js"></script>
+
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+
+<!-- The basic File Upload plugin -->
+<script src="/static/js/file/jquery.fileupload.js"></script>
+<!-- The File Upload processing plugin -->
+<script src="/static/js/file/jquery.fileupload-process.js"></script>
+
+<!-- The File Upload image preview & resize plugin -->
+<script src="/static/js/file/jquery.fileupload-image.js"></script>
+
+<!-- The File Upload user interface plugin -->
+<script src="/static/js/file/jquery.fileupload-ui.js"></script>
+
+<!-- The main application script -->
+<script src="/static/js/file/main.js"></script>
