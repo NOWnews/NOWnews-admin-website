@@ -293,7 +293,20 @@
 
         $('.deleteMenu').click(function() {
             var id = $(this).attr('data-id');
-            $('#menuItem_' + id).remove();
+            var r = confirm("確認刪除？！！");
+            if (r == true) {
+                $.ajax({
+                    url: '/menu/'+id,
+                    type: 'DELETE',
+                    success: function(result) {
+                        console.log('刪資料', 'L300')
+                    }
+                });
+            } else {
+                return false
+            }
+
+            // $('#menuItem_' + id).remove();
         });
 
         $('#serialize').click(function() {
@@ -324,19 +337,24 @@
             var getSort = $('ol.sortable').nestedSortable('toHierarchy', {
                 startDepthCount: 0
             });
-            confirm("確認送出排序？前台選單順序會依照您剛設定的做排序！！！")
+            var r = confirm("確認送出排序？前台選單順序會依照您剛設定的做排序！！！");
             console.log(getSort, 'L523');
-            $.ajax({
-                type: 'PUT',
-                contentType: "application/json; charset=utf-8",
-                url: '/menu/sort',
-                data: JSON.stringify(getSort),
-                dataType: "json",
-                success: function (data) {
-                    console.log('success')
-                    window.location.reload();
-                }
-            });
+            if (r == true) {
+                $.ajax({
+                    type: 'PUT',
+                    contentType: "application/json; charset=utf-8",
+                    url: '/menu/sort',
+                    data: JSON.stringify(getSort),
+                    dataType: "json",
+                    success: function (data) {
+                        console.log('success')
+                        window.location.reload();
+                    }
+                });
+             } else {
+                return false
+             }
+
         });
 
     });

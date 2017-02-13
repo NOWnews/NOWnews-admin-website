@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
     try {
         let { menuId } = req.params;
 
-        let { data: menu } = await axios.delete( `/menu/${menuId}` );
+        let { data: menu } = await axios.delete( `/menus/${menuId}` );
 
         debug('removedMenu = %j', menu);
 
