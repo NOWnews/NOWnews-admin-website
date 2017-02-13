@@ -4,11 +4,14 @@ const debug = Debug('NOWnews-admin-website: controllers:menu:page.sort');
 module.exports = async (req, res, next) => {
 
     try {
+        let userId = req.session.adminUser._id;
+        let { data: struction } = await axios.get('/menus/struction');
 
-        // let { data: { users: userList, pageData } } = await axios.get('/users');
+        debug('menuSort = %j', struction );
 
-        // // return res.json(userList);
-        return res.render('menu/page.sort.html');
+        return res.render('menu/page.sort.html', {
+            struction
+        });
     }
     catch(err) {
         return next(err);
