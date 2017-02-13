@@ -5,24 +5,18 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        let query = req.query;
-
         let queryString = req._parsedUrl.query;
 
         if (queryString === null) {
             queryString = "";
         }
 
+        let { data: { images } } = await axios.get(`/images?limit=24&${queryString}`);
 
-        let { data: imageList } = await axios.get('/images');
-
-        // let { data: { users: userList, pageData } } = await axios.get(`/users?${queryString}`);
-
-        debug('imageList = %j', imageList);
+        debug('images = %j', images);
 
         return res.json({
-            imageList,
-            // pageData,
+            images,
         });
     }
     catch(err) {
