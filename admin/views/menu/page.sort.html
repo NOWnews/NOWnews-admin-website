@@ -2,282 +2,84 @@
 {% block headTitle %}<title>新編採 | 選單管理</title>{% endblock %}
 
 {% block container %}
-    <section id="demo" class="content">
-        <ol class="sortable ui-sortable mjs-nestedSortable-branch mjs-nestedSortable-expanded">
-            <li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="menuItem_2" data-foo="bar">
-                <div class="menuDiv">
-                    <i class="handle fa-2x fa fa-arrows ico-droppable"></i>
-                    <span title="Click to show/hide children" class="disclose fa fa-chevron-down">
-                        <span></span>
-                    </span>
-                    <!-- <span title="Click to show/hide item editor" data-id="2" class="expandEditor ui-icon ui-icon-triangle-1-n"> -->
-                        <span></span>
-                    </span>
-                    <span>
-                        <span data-id="2" class="itemTitle">娛樂</span>
-                        <div class="pull-right">
-                            <button title="" class="btn btn-primary  btn-xs category-edit" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
-                            <span title="Click to delete item." data-id="2" class="deleteMenu btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i>
-                                <span></span>
-                            </span>
+        <section>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <div class="col-md-6">
+                                <i class="fa fa-check-square"></i>
+                                <h3 class="box-title">啟用</h3>
+                                <span class="label alert-info">分類</span>
+                            </div>
+                            <div class="col-md-6">
+                                <i class="fa fa-warning"></i>
+                                <h3 class="box-title">未啟用</h3>
+                                <span class="label alert-warning">分類</span>
+                            </div>
                         </div>
-                    </span>
-                    <div id="menuEdit2" class="menuEdit">
-                        <div class="box box-success">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">娛樂</h3>
+                  </div>
+                  <!-- /.box -->
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        </section>
+        <section id="demo" class="content">
+        <ol class="sortable">
+            {% for level0 in struction %}
+                <li id="menuItem_{{ level0._id }}">
+                    <div class="menuDiv {{ "alert-warning" if level0.status == 'CLOSE' else "alert-info" }}">
+                        <i class="handle fa-2x fa fa-arrows ico-droppable"></i>
+                        <span title="Click to show/hide children" class="disclose {{ "fa fa-chevron-down" if level0.hasChild == true else "" }}">
+                            <span></span>
+                        </span>
+                        <span>
+                            <span data-id="{{ level0._id }}" class="itemTitle">{{ level0.name }}</span>
+                            <div class="pull-right">
+                                <button title="" class="btn btn-primary  btn-xs category-edit" data-original-title="Edit"><a href="/menu/{{level0._id}}"><i class="fa fa-pencil"></i></a></button>
+                                <span title="Click to delete item." data-id="{{ level0._id }}" class="deleteMenu btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i>
+                                    <span></span>
+                                </span>
                             </div>
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-2 control-label">分類名稱</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="text" placeholder="分類名稱" value="娛樂">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.box-body -->
-                            <div class="box-footer">
-                                <div class="pull-right">
-                                    <button type="button" class="btn btn-primary">儲存</button>
-                                    <button type="button" class="btn btn-default menuEditClose">取消</button>
-                                </div>
-                            </div>
+                        </span>
+                        <div id="menuEdit{{ level0._id }}" class="menuEdit">
                         </div>
                     </div>
-                </div>
-                <ol>
-                    <li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="menuItem_4" data-foo="baz">
-                        <div class="menuDiv">
-                            <i class="handle fa-2x fa fa-arrows ico-droppable"></i>
-                            <span title="Click to show/hide children" class="disclose fa fa-chevron-down">
-                                <span></span>
-                            </span>
-                            <!-- <span title="Click to show/hide item editor" data-id="4" class="expandEditor ui-icon ui-icon-triangle-1-n"> -->
-                                <span></span>
-                            </span>
-                            <span>
-                                <span data-id="4" class="itemTitle">娛樂最前線</span>
-                                <div class="pull-right">
-                                    <button title="" class="btn btn-primary  btn-xs category-edit" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
-                                    <span title="Click to delete item." data-id="4" class="deleteMenu btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i>
-                                        <span></span>
-                                    </span>
-                                </div>
-                            </span>
-                            <div id="menuEdit4" class="menuEdit">
-                                <div class="box box-success">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">娛樂最前線</h3>
-                            </div>
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-2 control-label">分類名稱</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="text" placeholder="分類名稱" value="娛樂最前線">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.box-body -->
-                            <div class="box-footer">
-                                <div class="pull-right">
-                                    <button type="button" class="btn btn-primary">儲存</button>
-                                    <button type="button" class="btn btn-default menuEditClose">取消</button>
-                                </div>
-                            </div>
-                        </div>
-                            </div>
-                        </div>
-                        <ol>
-                            <li class="mjs-nestedSortable-leaf" id="menuItem_6">
-                                <div class="menuDiv">
+
+                    <ol>
+                        {% for level1 in level0.child %}
+                            <li id="menuItem_{{ level1._id }}">
+                                <div class="menuDiv {{ "alert-warning" if level1.status == 'CLOSE' else "alert-info" }}">
                                     <i class="handle fa-2x fa fa-arrows ico-droppable"></i>
-                                    <span title="Click to show/hide children" class="disclose fa fa-chevron-down">
-                                        <span></span>
-                                    </span>
-                                    <!-- <span title="Click to show/hide item editor" data-id="6" class="expandEditor ui-icon ui-icon-triangle-1-n"> -->
+                                    <span title="Click to show/hide children" class="disclose {{ "fa fa-chevron-down" if level1.hasChild == true else "" }}">
                                         <span></span>
                                     </span>
                                     <span>
-                                        <span data-id="6" class="itemTitle">娛樂最後面</span>
+                                        <span data-id="{{ level1._id }}" class="itemTitle">{{ level1.name }}</span>
                                         <div class="pull-right">
-                                            <button title="" class="btn btn-primary  btn-xs category-edit" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
-                                            <span title="Click to delete item." data-id="6" class="deleteMenu btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i>
+                                            <button title="" class="btn btn-primary  btn-xs category-edit" data-original-title="Edit"><a href="/menu/{{ level1._id }}"><i class="fa fa-pencil"></i></a></button>
+                                            <span title="Click to delete item." data-id="{{ level1._id }}" class="deleteMenu btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i>
                                                 <span></span>
                                             </span>
                                         </div>
                                     </span>
-                                    <div id="menuEdit6" class="menuEdit">
-                                        <div class="box box-success">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">娛樂最後面</h3>
-                            </div>
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-2 control-label">分類名稱</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="text" placeholder="分類名稱" value="娛樂最後面">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.box-body -->
-                            <div class="box-footer">
-                                <div class="pull-right">
-                                    <button type="button" class="btn btn-primary">儲存</button>
-                                    <button type="button" class="btn btn-default menuEditClose">取消</button>
-                                </div>
-                            </div>
-                        </div>
+                                    <div id="menuEdit{{ level1._id }}" class="menuEdit">
                                     </div>
                                 </div>
                             </li>
-                        </ol>
-                    </li>
-                    <li style="display: list-item;" class="mjs-nestedSortable-leaf" id="menuItem_5">
-                        <div class="menuDiv">
-                            <i class="handle fa-2x fa fa-arrows ico-droppable"></i>
-                            <span title="Click to show/hide children" class="disclose fa fa-chevron-down">
-                                <span></span>
-                            </span>
-                            <!-- <span title="Click to show/hide item editor" data-id="5" class="expandEditor ui-icon ui-icon-triangle-1-n"> -->
-                                <span></span>
-                            </span>
-                            <span>
-                                <span data-id="5" class="itemTitle">娛樂中線</span>
-                                <div class="pull-right">
-                                    <button title="" class="btn btn-primary  btn-xs category-edit" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
-                                    <span title="Click to delete item." data-id="5" class="deleteMenu btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i>
-                                        <span></span>
-                                    </span>
-                                </div>
-                            </span>
-                            <div id="menuEdit5" class="menuEdit">
-                                <div class="box box-success">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">娛樂中線</h3>
-                            </div>
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-2 control-label">分類名稱</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="text" placeholder="分類名稱" value="娛樂中線">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.box-body -->
-                            <div class="box-footer">
-                                <div class="pull-right">
-                                    <button type="button" class="btn btn-primary">儲存</button>
-                                    <button type="button" class="btn btn-default menuEditClose">取消</button>
-                                </div>
-                            </div>
-                        </div>
-                            </div>
-                        </div>
-                    </li>
-                </ol>
-            </li>
-            <li style="display: list-item;" class="mjs-nestedSortable-leaf" id="menuItem_7">
-                <div class="menuDiv">
-                    <i class="handle fa-2x fa fa-arrows ico-droppable"></i>
-                    <span title="Click to show/hide children" class="disclose fa fa-chevron-down">
-                        <span></span>
-                    </span>
-                    <!-- <span title="Click to show/hide item editor" data-id="7" class="expandEditor ui-icon ui-icon-triangle-1-n"> -->
-                        <span></span>
-                    </span>
-                    <span>
-                        <span data-id="7" class="itemTitle">政治</span>
-                        <div class="pull-right">
-                            <button title="" class="btn btn-primary btn-xs category-edit" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
-                            <span title="Click to delete item." data-id="7" class="deleteMenu btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i>
-                                <span></span>
-                            </span>
-                        </div>
-                    </span>
-                    <div id="menuEdit7" class="menuEdit">
-                        <div class="box box-success">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">政治</h3>
-                            </div>
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-2 control-label">分類名稱</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="text" placeholder="分類名稱" value="政治">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.box-body -->
-                            <div class="box-footer">
-                                <div class="pull-right">
-                                    <button type="button" class="btn btn-primary">儲存</button>
-                                    <button type="button" class="btn btn-default menuEditClose">取消</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="mjs-nestedSortable-leaf" id="menuItem_3">
-                <div class="menuDiv">
-                    <i class="handle fa-2x fa fa-arrows ico-droppable"></i>
-                    <span title="Click to show/hide children" class="disclose fa fa-chevron-down">
-                        <span></span>
-                    </span>
-                    <!-- <span title="Click to show/hide item editor" data-id="3" class="expandEditor ui-icon ui-icon-triangle-1-n"> -->
-                        <span></span>
-                    </span>
-                    <span>
-                        <span data-id="3" class="itemTitle">體育</span>
-                        <div class="pull-right">
-                            <button title="" class="btn btn-primary  btn-xs category-edit" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
-                            <span title="Click to delete item." data-id="3" class="deleteMenu btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i>
-                                <span></span>
-                            </span>
-                        </div>
-                    </span>
-                    <div id="menuEdit3" class="menuEdit">
-                        <div class="box box-success">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">體育</h3>
-                            </div>
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-2 control-label">分類名稱</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="text" placeholder="分類名稱" value="體育">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.box-body -->
-                            <div class="box-footer">
-                                <div class="pull-right">
-                                    <button type="button" class="btn btn-primary">儲存</button>
-                                    <button type="button" class="btn btn-default menuEditClose">取消</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
+                        {% endfor %}
+                    </ol>
+                </li>
+            {% endfor %}
         </ol>
-        <h3>Try the custom methods:</h3>
+
         <p>
-            <br>
-            <input id="serialize" name="serialize" type="submit" value="Serialize">
+            <div class="edit-footer text-center ">
+                <input id="buttoninfo" name="toHierarchy" class="center-block btn bg-olive btn-flat margin" type="submit" value="送出排序" style="display:none">
+            </div>
         </p>
-        <pre id="serializeOutput">
-        </pre>
-        <p>
-            <input id="toArray" name="toArray" type="submit" value="To array">
-        </p>
-        <pre id="toArrayOutput">
-        </pre>
-        <p>
-            <input id="toHierarchy" name="toHierarchy" type="submit" value="To hierarchy">
-        </p>
-        <pre id="toHierarchyOutput">
-        </pre>
     </section>
     <!-- END #demo -->
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
@@ -439,16 +241,20 @@
     .pull-right > button {
         margin-right: 5px;
     }
+    .category-edit a {
+        color: #fff;
+    }
     </style>
     <script>
     $().ready(function() {
+
         //edit div toggle
-        $('.menuDiv .category-edit').click(function() {
-           $(this).parents('.menuDiv').find('.menuEdit').toggle('fast');
-        });
-        $('.menuEditClose').click(function() {
-           $(this).parents('.menuDiv').find('.menuEdit').toggle('fast');
-        });
+        // $('.menuDiv .category-edit').click(function() {
+        //    $(this).parents('.menuDiv').find('.menuEdit').toggle('fast');
+        // });
+        // $('.menuEditClose').click(function() {
+        //    $(this).parents('.menuDiv').find('.menuEdit').toggle('fast');
+        // });
         var ns = $('ol.sortable').nestedSortable({
             forcePlaceholderSize: true,
             handle: 'div',
@@ -460,12 +266,13 @@
             tabSize: 25,
             tolerance: 'pointer',
             toleranceElement: '> div',
-            maxLevels: 4,
+            maxLevels: 2,
             isTree: true,
             expandOnHover: 700,
             startCollapsed: false,
             change: function() {
                 console.log('Relocated item');
+                $('#buttoninfo').css("display", "block");
             }
         });
 
@@ -498,20 +305,40 @@
             hiered = $('ol.sortable').nestedSortable('toHierarchy', {
                 startDepthCount: 0
             });
+            console.log(hiered, 'L349')
             hiered = dump(hiered);
             (typeof($('#toHierarchyOutput')[0].textContent) != 'undefined') ?
             $('#toHierarchyOutput')[0].textContent = hiered: $('#toHierarchyOutput')[0].innerText = hiered;
-        })
+        });
 
         $('#toArray').click(function(e) {
             arraied = $('ol.sortable').nestedSortable('toArray', {
                 startDepthCount: 0
             });
-            console.log(arraied, 'L243');
             arraied = dump(arraied);
             (typeof($('#toArrayOutput')[0].textContent) != 'undefined') ?
             $('#toArrayOutput')[0].textContent = arraied: $('#toArrayOutput')[0].innerText = arraied;
         });
+        //取得排序資料
+        $('#buttoninfo').click(function(e) {
+            var getSort = $('ol.sortable').nestedSortable('toHierarchy', {
+                startDepthCount: 0
+            });
+            confirm("確認送出排序？前台選單順序會依照您剛設定的做排序！！！")
+            console.log(getSort, 'L523');
+            $.ajax({
+                type: 'PUT',
+                contentType: "application/json; charset=utf-8",
+                url: '/menu/sort',
+                data: JSON.stringify(getSort),
+                dataType: "json",
+                success: function (data) {
+                    console.log('success')
+                    window.location.reload();
+                }
+            });
+        });
+
     });
 
     function dump(arr, level) {
