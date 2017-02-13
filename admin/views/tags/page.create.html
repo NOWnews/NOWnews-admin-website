@@ -1,0 +1,47 @@
+{% set title = "新增關鍵字" %}
+{% extends "../base.html" %}
+
+{% block headTitle %}
+    <title>新編採 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+<section class="content">
+    <form action="/tags/create" method="post">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">關鍵字設定</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="tagsName" class="control-label">名稱</label>
+                            <input id="tagsName" type="text" name="name" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="tagsType" class="control-label">類別</label>
+                            <select id="tagsType" class="form-control" name="type">
+                                <option value="NEWS">新聞關鍵字</option>
+                                <option value="IMAGE">圖片關鍵字</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-footer text-center">
+            <button type="submit" class="btn bg-olive btn-flat margin">儲存</button>
+            <button type="button" class="btn bg-maroon btn-flat margin">取消</button>
+        </div>
+    </form>
+</section>
+
+{% endblock %}
