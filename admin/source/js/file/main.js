@@ -2,7 +2,7 @@
 
 $(function () {
     'use strict';
-
+    var URL = window.URL || window.webkitURL;
     var fileuploadElm = $('#fileupload');
     // 預設查詢日期
     var today = moment().format('YYYY-MM-DD');
@@ -22,10 +22,11 @@ $(function () {
         downloadTemplateId: null,
         uploadTemplate: function (o) {
             var rows = $();
-
             $.each(o.files, function (index, file) {
+                var blobURL = URL.createObjectURL(file);
                 var row = $($('#template-upload').html());
                 row.find('.name').text(file.name);
+                row.find('button.crop').attr('data-blobURL', blobURL);
                 if (file.error) {
                     row.find('.error').text(file.error);
                 }
@@ -81,9 +82,40 @@ $(function () {
         $('.zoom').zoom();
     });
 
+
+
+    $('tbody.files').on('click', 'button.crop', function(){
+        var cropButton = $(this);
+        var cropRow = $($('#template-crop').html());
+        var cropImgElm = cropRow.find('img');
+        var imageRow = cropButton.parent().parent();
+        cropRow.insertAfter(imageRow);
+
+        cropImgElm.attr('src', cropButton.attr('data-blobURL'));
+        cropImgElm.cropper({
+            aspectRatio: 16 / 9,
+            viewMode: 1,
+            zoomable: false,
+        });
+
+    });
+
+    $('tbody.files').on('click', 'button.confirm', function(){
+        var confirmButton = $(this);
+        var imageRow = confirmButton.closest('#crop-row').prev();
+        var cropImgElm = confirmButton.parent().parent().find('#crop-img');
+        cropImgElm.cropper('getCroppedCanvas').toBlob(function (blob) {
+            var blobURL = URL.createObjectURL(blob);
+            $('.template-upload').data('data').files[0] = blob;
+            imageRow.find('.upload-img').attr('src', blobURL);
+            imageRow.find('canvas').remove();
+            $('#crop-row').remove();
+            return;
+        });
+    });
+
     imageLibQueryForm.submit(function(e) {
         $('.image-blocks').html("");
-
 
         $.get('/image?' + $(this).serialize(), function(result) {
             $('.zoom').trigger('zoom.destroy');
@@ -99,7 +131,6 @@ $(function () {
         });
         return false;
     });
-
 
     $('.image-blocks').on('click', '.fa-trash', function(e, c) {
         // 從 library 取得是假刪除

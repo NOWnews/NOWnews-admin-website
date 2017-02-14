@@ -68,10 +68,28 @@
     </div>
 </div>
 
+<script id="template-crop" type="text/x-custom-template">
+    <tr id="crop-row">
+        <td colspan="3">
+            <div>
+                <img id="crop-img"/>
+            </div>
+            <div class="text-center">
+                <button type="button" class="confirm btn btn-primary" data-blobURL=>
+                    <i class="fa fa-crop"></i>
+                    <span>確認裁切</span>
+                </button>
+            </div>
+        </td>
+    </tr>
+</script>
+
 <script id="template-upload" type="text/x-custom-template">
     <tr class="template-upload fade">
         <td>
-            <span class="preview"></span>
+            <span class="preview">
+                <img class="upload-img" />
+            </span>
             <p class="name hidden"></p>
             <p>
                 <input name="desc" type="text" placeholder="圖說" />
@@ -85,7 +103,7 @@
             </div>
         </td>
         <td>
-            <button class="btn btn-default">
+            <button type="button" class="crop btn btn-default" data-blobURL=>
                 <i class="fa fa-crop"></i>
                 <span>裁切</span>
             </button>
