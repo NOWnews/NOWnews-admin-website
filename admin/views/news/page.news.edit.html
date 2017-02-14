@@ -316,6 +316,13 @@
     .memo-box .box-comments{
         background: #fff;
     }
+    .ms-drop ul>li.group {
+        font-size: 16px;
+        text-align: center;
+    }
+    .ms-drop ul>li.group input{
+        display: none;
+    }
 </style>
 <script>
     $(function () {
@@ -396,9 +403,8 @@
 
         $('#MainMenu').multipleSelect({
             filter: true,
-            width: '100%',
-            selectAll: false,
-            allSelected: false
+            single: true,
+            width: '100%'
         });
         $('#Menus').multipleSelect({
             filter: true,
