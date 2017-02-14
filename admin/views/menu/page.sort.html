@@ -187,33 +187,6 @@
         cursor: pointer;
     }
 
-    h1 {
-        font-size: 2em;
-        margin-bottom: 0;
-    }
-
-    h2 {
-        font-size: 1.2em;
-        font-weight: 400;
-        font-style: italic;
-        margin-top: .2em;
-        margin-bottom: 1.5em;
-    }
-
-    h3 {
-        font-size: 1em;
-        margin: 1em 0 .3em;
-    }
-
-    p,
-    ol,
-    ul,
-    pre,
-    form {
-        margin-top: 0;
-        margin-bottom: 1em;
-    }
-
     dl {
         margin: 0;
     }
@@ -271,7 +244,6 @@
             expandOnHover: 700,
             startCollapsed: false,
             change: function() {
-                console.log('Relocated item');
                 $('#buttoninfo').css("display", "block");
             }
         });
@@ -294,19 +266,17 @@
         $('.deleteMenu').click(function() {
             var id = $(this).attr('data-id');
             var r = confirm("確認刪除？！！");
-            if (r == true) {
+            if (!r) {
+                return;
+            }
                 $.ajax({
                     url: '/menu/'+id,
                     type: 'DELETE',
                     success: function(result) {
-                        console.log('刪資料', 'L300')
+                        window.location.reload();
                     }
                 });
-            } else {
-                return false
-            }
 
-            // $('#menuItem_' + id).remove();
         });
 
         $('#serialize').click(function() {
@@ -318,7 +288,6 @@
             hiered = $('ol.sortable').nestedSortable('toHierarchy', {
                 startDepthCount: 0
             });
-            console.log(hiered, 'L349')
             hiered = dump(hiered);
             (typeof($('#toHierarchyOutput')[0].textContent) != 'undefined') ?
             $('#toHierarchyOutput')[0].textContent = hiered: $('#toHierarchyOutput')[0].innerText = hiered;
@@ -338,8 +307,9 @@
                 startDepthCount: 0
             });
             var r = confirm("確認送出排序？前台選單順序會依照您剛設定的做排序！！！");
-            console.log(getSort, 'L523');
-            if (r == true) {
+            if (!r) {
+                return;
+            }
                 $.ajax({
                     type: 'PUT',
                     contentType: "application/json; charset=utf-8",
@@ -347,41 +317,36 @@
                     data: JSON.stringify(getSort),
                     dataType: "json",
                     success: function (data) {
-                        console.log('success')
                         window.location.reload();
                     }
                 });
-             } else {
-                return false
-             }
-
         });
 
     });
 
     function dump(arr, level) {
-        var dumped_text = "";
+        var dumpedText = "";
         if (!level) level = 0;
 
         //The padding given at the beginning of the line.
         var level_padding = "";
         for (var j = 0; j < level + 1; j++) level_padding += "    ";
 
-        if (typeof(arr) == 'object') { //Array/Hashes/Objects
+        if (typeof(arr) === 'object') { //Array/Hashes/Objects
             for (var item in arr) {
                 var value = arr[item];
 
                 if (typeof(value) == 'object') { //If it is an array,
-                    dumped_text += level_padding + "'" + item + "' ...\n";
-                    dumped_text += dump(value, level + 1);
+                    dumpedText += level_padding + "'" + item + "' ...\n";
+                    dumpedText += dump(value, level + 1);
                 } else {
-                    dumped_text += level_padding + "'" + item + "' => \"" + value + "\"\n";
+                    dumpedText += level_padding + "'" + item + "' => \"" + value + "\"\n";
                 }
             }
         } else { //Strings/Chars/Numbers etc.
-            dumped_text = "===>" + arr + "<===(" + typeof(arr) + ")";
+            dumpedText = "===>" + arr + "<===(" + typeof(arr) + ")";
         }
-        return dumped_text;
+        return dumpedText;
     }
     </script>
 

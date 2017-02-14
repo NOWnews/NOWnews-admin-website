@@ -1,5 +1,6 @@
 {% set title = "編輯選單" %}
 {% extends "../base.html" %}
+{% from "../util/form-user-record.html" import formUserRecord %}
 
 {% block headTitle %}
     <title>新編採 | {{ title }}</title>
@@ -138,34 +139,7 @@
                 </div>
             </div>
             <div class="box-body">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="UpdatedBy" class="control-label">最後一次更新者</label>
-                            <input id="UpdatedBy" type="text" value="{{ menu.UpdatedBy.name }}" class="form-control" placeholder="" disabled>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="CreatedBy" class="control-label">建立者</label>
-                            <input id="CreatedBy" type="text" value="{{ menu.CreatedBy.name }}" class="form-control" placeholder="" disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="formatUpdatedAt" class="control-label">上次修改日期</label>
-                            <input id="formatUpdatedAt" type="text" value="{{ menu.formatUpdatedAt }}" class="form-control" placeholder="" disabled>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="formatCreatedAt" class="control-label">建立日期</label>
-                            <input id="formatCreatedAt" type="text" value="{{ menu.formatCreatedAt }}" class="form-control" placeholder="" disabled>
-                        </div>
-                    </div>
-                </div>
+                {{ formUserRecord(menu) }}
             </div>
         </div>
         <div class="edit-footer text-center">
