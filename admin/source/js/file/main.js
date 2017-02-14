@@ -42,6 +42,8 @@ $(function () {
                 row.find('img').attr('src', file.url);
 
                 if (file.error) {
+                    row.find('.delete').addClass("hidden");
+                    row.find('.cancel').removeClass("hidden");
                     row.find('.error').text(file.error);
                 }
                 rows = rows.add(row);
