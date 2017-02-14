@@ -269,13 +269,14 @@
             if (!r) {
                 return;
             }
-                $.ajax({
-                    url: '/menu/'+id,
-                    type: 'DELETE',
-                    success: function(result) {
-                        window.location.reload();
-                    }
-                });
+
+            $.ajax({
+                url: '/menu/'+id,
+                type: 'DELETE',
+                success: function(result) {
+                    window.location.reload();
+                }
+            });
 
         });
 
@@ -306,20 +307,22 @@
             var getSort = $('ol.sortable').nestedSortable('toHierarchy', {
                 startDepthCount: 0
             });
+
             var r = confirm("確認送出排序？前台選單順序會依照您剛設定的做排序！！！");
             if (!r) {
                 return;
             }
-                $.ajax({
-                    type: 'PUT',
-                    contentType: "application/json; charset=utf-8",
-                    url: '/menu/sort',
-                    data: JSON.stringify(getSort),
-                    dataType: "json",
-                    success: function (data) {
-                        window.location.reload();
-                    }
-                });
+
+            $.ajax({
+                type: 'PUT',
+                contentType: "application/json; charset=utf-8",
+                url: '/menu/sort',
+                data: JSON.stringify(getSort),
+                dataType: "json",
+                success: function (data) {
+                    window.location.reload();
+                }
+            });
         });
 
     });
@@ -329,18 +332,20 @@
         if (!level) level = 0;
 
         //The padding given at the beginning of the line.
-        var level_padding = "";
-        for (var j = 0; j < level + 1; j++) level_padding += "    ";
+        var levelPadding = "";
+        for (var j = 0; j < level + 1; j++) {
+            levelPadding += "    ";
+        }
 
         if (typeof(arr) === 'object') { //Array/Hashes/Objects
             for (var item in arr) {
                 var value = arr[item];
 
                 if (typeof(value) == 'object') { //If it is an array,
-                    dumpedText += level_padding + "'" + item + "' ...\n";
+                    dumpedText += levelPadding + "'" + item + "' ...\n";
                     dumpedText += dump(value, level + 1);
                 } else {
-                    dumpedText += level_padding + "'" + item + "' => \"" + value + "\"\n";
+                    dumpedText += levelPadding + "'" + item + "' => \"" + value + "\"\n";
                 }
             }
         } else { //Strings/Chars/Numbers etc.
