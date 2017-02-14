@@ -9,8 +9,13 @@ module.exports = async (req, res, next) => {
 
         let { data: { users: userList, pageData } } = await axios.get('/users');
 
+        let { data: menus } = await axios.get('/menus/struction');
+
+        // return res.json(menus);
+
         return res.render('news/page.news.create.html', {
             userList,
+            menus,
             NEWS_TYPES,
             NEWS_STATUS
         });
