@@ -3,7 +3,8 @@
 $(function () {
     'use strict';
 
-    // 預設日期
+    var fileuploadElm = $('#fileupload');
+    // 預設查詢日期
     var today = moment().format('YYYY-MM-DD');
     var prev2Month = moment().subtract(2, 'months').format('YYYY-MM-DD');
     var imageLibQueryForm = $('#image-library-query-form');
@@ -14,7 +15,7 @@ $(function () {
 
 
     // Initialize the jQuery File Upload widget:
-    $('#fileupload').fileupload({
+    fileuploadElm.fileupload({
         url: 'http://61.67.121.56:10000/images/upload',
         paramName: 'image',
         uploadTemplateId: null,
@@ -72,10 +73,17 @@ $(function () {
         },
     });
 
+    fileuploadElm.bind('fileuploadcompleted', function (e, data) {
+        $('.zoom').trigger('zoom.destroy');
+        $('.zoom').zoom();
+    });
+
     imageLibQueryForm.submit(function(e) {
         $('.image-blocks').html("");
 
+
         $.get('/image?' + $(this).serialize(), function(result) {
+            $('.zoom').trigger('zoom.destroy');
             $.each(result.images, function(index, image) {
                 var block = $($('#template-image-block').html());
                 block.find('img').attr('src', image.url);
@@ -83,9 +91,12 @@ $(function () {
                 block.find('.fa-trash').attr('data-id', image._id);
                 $('.image-blocks').append(block);
             });
+            $('.zoom').zoom();
+
         });
         return false;
     });
+
 
     $('.image-blocks').on('click', '.fa-trash', function(e,c) {
         var confirmed = confirm('您確定要刪除嗎？');
