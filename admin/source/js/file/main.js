@@ -50,6 +50,7 @@ $(function () {
         },
         destroy: function (e, data) {
             var that = this;
+            // 自己上傳的當下可以真刪除
             $.ajax({
                 url: '/image/' + data.id + '/realRemove',
                 type: 'DELETE',
@@ -98,9 +99,12 @@ $(function () {
     });
 
 
-    $('.image-blocks').on('click', '.fa-trash', function(e,c) {
+    $('.image-blocks').on('click', '.fa-trash', function(e, c) {
+        // 從 library 取得是假刪除
         var confirmed = confirm('您確定要刪除嗎？');
-        if (!confirmed) { return; }
+        if (!confirmed) {
+            return;
+        }
         var deleteBtn = $(this);
         $.ajax({
             url: '/image/' + deleteBtn.attr('data-id'),
