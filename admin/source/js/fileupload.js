@@ -63,12 +63,17 @@ $(function () {
             return [data.result];
         },
         submit: function (e, data) {
+            var nextRow = $(data.context).next();
             var desc = $(data.context).find('input[name=desc]').val();
             data.formData = {
                 desc: desc,
                 type: 'NEWS',
                 CreatedBy: $('#userId').val(),
             };
+
+            if (nextRow.attr('id') === 'crop-row') {
+                nextRow.remove();
+            }
         },
         uploadTemplate: function (o) {
             var rows = $();
@@ -100,6 +105,8 @@ $(function () {
         var cropImgElm = cropRow.find('img');
         var imageRow = cropButton.parent().parent();
         cropRow.insertAfter(imageRow);
+        cropButton.addClass('hidden');
+        imageRow.find('.cancel').addClass('hidden');
 
         cropImgElm.attr('src', cropButton.attr('data-blobURL'));
         cropImgElm.cropper({
@@ -118,6 +125,8 @@ $(function () {
             var blobURL = URL.createObjectURL(blob);
             $('.template-upload').data('data').files[0] = blob;
             imageRow.find('.upload-img').attr('src', blobURL);
+            imageRow.find('.upload-img').removeClass('hidden');
+            imageRow.find('.cancel').removeClass('hidden');
             imageRow.find('canvas').remove();
             $('#crop-row').remove();
             return;
