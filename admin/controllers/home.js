@@ -2,7 +2,7 @@ import co from 'co';
 import express from 'express';
 let router = express.Router();
 
-const debug = require('debug')('NOWmobile:controllers:home');
+const debug = require('debug')('NOWnews-admin-website:controllers:home');
 // 驗證是否登入
 const isLogin = require('../middlewares/isLogin');
 
