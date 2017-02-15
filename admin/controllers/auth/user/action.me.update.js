@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
 
         debug('updatedUser = %j', user);
 
-        req.session.adminUser.Avatar.url = avatarUrl;
+        req.session.adminUser.avatarUrl = avatarUrl;
 
         return res.redirect(`/auth/me`);
 

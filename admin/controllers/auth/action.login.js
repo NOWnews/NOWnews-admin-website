@@ -18,6 +18,7 @@ module.exports = async (req, res, next) => {
 
         // 處理不將沒必要的欄位存在
         let {
+            Avatar,
             createdAt,
             CreatedBy,
             updatedAt,
@@ -27,6 +28,8 @@ module.exports = async (req, res, next) => {
             Role,
             ...adminUser
         } = loginUser;
+
+        adminUser.avatarUrl = Avatar ? Avatar.url : null ;
 
         adminUser.Center = {
             _id: Center._id,

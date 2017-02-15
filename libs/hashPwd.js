@@ -1,4 +1,4 @@
-const debug = require('debug')('NOWmobile:libs:hasPwd');
+const debug = require('debug')('NOWnews-admin-website:libs:hasPwd');
 
 const crypto = require('crypto');
 const constString = '$nownews@rss.';

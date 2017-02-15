@@ -96,15 +96,18 @@
         }]
     },
     "menu": {
-        "url": "/menu",
+        "url": "#",
         "name": "選單設定",
         "icon": "fa-calendar-check-o",
         "children": [{
-            "url": "#",
-            "name": "Link in level 2"
+            "url": "/menu",
+            "name": "選單列表"
         },{
-            "url": "#",
-            "name": "Link in level 2"
+            "url": "/menu/create",
+            "name": "選單建立"
+        },{
+            "url": "/menu/sort",
+            "name": "選單排序"
         }]
     },
     "auth": {

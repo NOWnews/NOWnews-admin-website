@@ -1,0 +1,174 @@
+{% set title = "編輯選單" %}
+{% extends "../base.html" %}
+{% from "../util/form-user-record.html" import formUserRecord %}
+
+{% block headTitle %}
+    <title>新編採 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+<section class="content">
+    <form action="/menu/{{ menu.id }}" method="post">
+        <input type="hidden" name="_method" value="put">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">選單設定</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="checkbox">
+                            <label>
+                                {% if menu.isExternal %}
+                                    <input name="isExternal" type="checkbox" checked> 外部連結
+                                {% else %}
+                                    <input name="isExternal" type="checkbox" > 外部連結
+                                {% endif %}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="shortTitle" class="control-label">連結</label>
+                            <input type="text" name="url" value="{{ menu.url }}" class="form-control" placeholder="範例  https://m.nownews.com">
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="title" class="control-label">選單名稱</label>
+                            <input type="text" id="categoryname" name="name" value="{{ menu.name }}" class="form-control" placeholder="選單名稱">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">層數設定</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="checkbox">
+                            <label>
+                                {% if menu.hasChild %}
+                                    <input name="hasChild" type="checkbox" disabled checked> 是否有子層
+                                {% else %}
+                                    <input name="hasChild" type="checkbox" disabled> 是否有子層
+                                {% endif %}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="parentId" class="control-label">父層的ID</label>
+                            <input id="parentId" type="text" value="{{ menu.ParentId }}" name="ParentId" class="form-control" placeholder="" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="level" class="control-label">哪一個層級</label>
+                            <input id="level" type="text" value="{{ menu.level }}" name="level" class="form-control" placeholder="" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">狀態設定</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            {% if menu.status == 'OPEN' %}
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="status" id="status1" value="OPEN" checked> 開啟
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="status" id="status2" value="CLOSE"> 關閉
+                                    </label>
+                                </div>
+                            {% else %}
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="status" id="status1" value="OPEN"> 開啟
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="status" id="status2" value="CLOSE" checked> 關閉
+                                    </label>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">建立資訊</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                {{ formUserRecord(menu) }}
+            </div>
+        </div>
+        <div class="edit-footer text-center">
+            <button type="submit" class="btn bg-olive btn-flat margin">儲存</button>
+            <button type="button" class="btn bg-maroon btn-flat margin">取消</button>
+        </div>
+    </form>
+</section>
+
+{#  style 暫時放這   #}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/daterangepicker.min.css" />
+
+{#  script 暫時放這   #}
+
+<!-- moment -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/moment.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/daterangepicker.min.js"></script>
+
+<script>
+    $(function () {
+        $('#menuTimepicker').daterangepicker({
+            "startDate": new Date(),
+            "locale": {
+                format: 'YYYY-MM-DD'
+            }
+        });
+    });
+</script>
+
+{% endblock %}

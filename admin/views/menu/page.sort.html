@@ -1,0 +1,358 @@
+{% extends "../base.html" %}
+{% block headTitle %}<title>新編採 | 選單管理</title>{% endblock %}
+
+{% block container %}
+        <section>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <div class="col-md-6">
+                                <i class="fa fa-check-square"></i>
+                                <h3 class="box-title">啟用</h3>
+                                <span class="label alert-info">分類</span>
+                            </div>
+                            <div class="col-md-6">
+                                <i class="fa fa-warning"></i>
+                                <h3 class="box-title">未啟用</h3>
+                                <span class="label alert-warning">分類</span>
+                            </div>
+                        </div>
+                  </div>
+                  <!-- /.box -->
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        </section>
+        <section id="demo" class="content">
+        <ol class="sortable">
+            {% for level0 in struction %}
+                <li id="menuItem_{{ level0._id }}">
+                    <div class="menuDiv {{ "alert-warning" if level0.status == 'CLOSE' else "alert-info" }}">
+                        <i class="handle fa-2x fa fa-arrows ico-droppable"></i>
+                        <span title="Click to show/hide children" class="disclose {{ "fa fa-chevron-down" if level0.hasChild == true else "" }}">
+                            <span></span>
+                        </span>
+                        <span>
+                            <span data-id="{{ level0._id }}" class="itemTitle">{{ level0.name }}</span>
+                            <div class="pull-right">
+                                <button title="" class="btn btn-primary  btn-xs category-edit" data-original-title="Edit"><a href="/menu/{{level0._id}}"><i class="fa fa-pencil"></i></a></button>
+                                <span title="Click to delete item." data-id="{{ level0._id }}" class="deleteMenu btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i>
+                                    <span></span>
+                                </span>
+                            </div>
+                        </span>
+                        <div id="menuEdit{{ level0._id }}" class="menuEdit">
+                        </div>
+                    </div>
+
+                    <ol>
+                        {% for level1 in level0.child %}
+                            <li id="menuItem_{{ level1._id }}">
+                                <div class="menuDiv {{ "alert-warning" if level1.status == 'CLOSE' else "alert-info" }}">
+                                    <i class="handle fa-2x fa fa-arrows ico-droppable"></i>
+                                    <span title="Click to show/hide children" class="disclose {{ "fa fa-chevron-down" if level1.hasChild == true else "" }}">
+                                        <span></span>
+                                    </span>
+                                    <span>
+                                        <span data-id="{{ level1._id }}" class="itemTitle">{{ level1.name }}</span>
+                                        <div class="pull-right">
+                                            <button title="" class="btn btn-primary  btn-xs category-edit" data-original-title="Edit"><a href="/menu/{{ level1._id }}"><i class="fa fa-pencil"></i></a></button>
+                                            <span title="Click to delete item." data-id="{{ level1._id }}" class="deleteMenu btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i>
+                                                <span></span>
+                                            </span>
+                                        </div>
+                                    </span>
+                                    <div id="menuEdit{{ level1._id }}" class="menuEdit">
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </li>
+            {% endfor %}
+        </ol>
+
+        <p>
+            <div class="edit-footer text-center ">
+                <input id="buttoninfo" name="toHierarchy" class="center-block btn bg-olive btn-flat margin" type="submit" value="送出排序" style="display:none">
+            </div>
+        </p>
+    </section>
+    <!-- END #demo -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nestedSortable/2.0.0/jquery.mjs.nestedSortable.min.js"></script>
+    <style type="text/css">
+    pre,
+    code {
+        font-size: 12px;
+    }
+
+    pre {
+        width: 100%;
+        overflow: auto;
+    }
+
+    small {
+        font-size: 90%;
+    }
+
+    small code {
+        font-size: 11px;
+    }
+
+    .placeholder {
+        outline: 1px dashed #4183C4;
+    }
+
+    .mjs-nestedSortable-error {
+        background: #fbe3e4;
+        border-color: transparent;
+    }
+
+    #tree {
+        width: 550px;
+        margin: 0;
+    }
+
+    ol {
+        /*max-width: 450px;*/
+        padding-left: 25px;
+    }
+
+    ol.sortable,
+    ol.sortable ol {
+        list-style-type: none;
+    }
+    .sortable li div.menuDiv {
+        border: 1px solid #d4d4d4;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        cursor: move;
+        border-color: #D4D4D4 #D4D4D4 #BCBCBC;
+        margin: 0;
+        padding: 3px;
+    }
+    .sortable li {
+        margin-top:10px;
+    }
+    li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
+        border-color: #999;
+    }
+
+    .disclose,
+    .expandEditor {
+        cursor: pointer;
+        width: 20px;
+        display: none;
+    }
+
+    .sortable li.mjs-nestedSortable-collapsed > ol {
+        display: none;
+    }
+
+    .sortable li.mjs-nestedSortable-branch > div > .disclose {
+        display: inline-block;
+    }
+
+    .sortable span.ui-icon {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .menuDiv {
+        background: #EBEBEB;
+    }
+
+    .menuEdit {
+        background: #FFF;
+        display: none;
+    }
+
+    .itemTitle {
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    .deleteMenu {
+        float: right;
+        cursor: pointer;
+    }
+
+    dl {
+        margin: 0;
+    }
+
+    dd {
+        margin: 0;
+        padding: 0 0 0 1.5em;
+    }
+
+    code {
+        background: #e5e5e5;
+    }
+
+    input {
+        vertical-align: text-bottom;
+    }
+
+    .notice {
+        color: #c33;
+    }
+    .pull-right {
+        float: right;
+        border:none!important;
+    }
+    .pull-right > button {
+        margin-right: 5px;
+    }
+    .category-edit a {
+        color: #fff;
+    }
+    </style>
+    <script>
+    $().ready(function() {
+
+        //edit div toggle
+        // $('.menuDiv .category-edit').click(function() {
+        //    $(this).parents('.menuDiv').find('.menuEdit').toggle('fast');
+        // });
+        // $('.menuEditClose').click(function() {
+        //    $(this).parents('.menuDiv').find('.menuEdit').toggle('fast');
+        // });
+        var ns = $('ol.sortable').nestedSortable({
+            forcePlaceholderSize: true,
+            handle: 'div',
+            helper: 'clone',
+            items: 'li',
+            opacity: .6,
+            placeholder: 'placeholder',
+            revert: 250,
+            tabSize: 25,
+            tolerance: 'pointer',
+            toleranceElement: '> div',
+            maxLevels: 2,
+            isTree: true,
+            expandOnHover: 700,
+            startCollapsed: false,
+            change: function() {
+                $('#buttoninfo').css("display", "block");
+            }
+        });
+
+        $('.expandEditor').attr('title', 'Click to show/hide item editor');
+        $('.disclose').attr('title', 'Click to show/hide children');
+        $('.deleteMenu').attr('title', 'Click to delete item.');
+
+        $('.disclose').on('click', function() {
+            $(this).closest('li').toggleClass('mjs-nestedSortable-collapsed').toggleClass('mjs-nestedSortable-expanded');
+            $(this).toggleClass('fa fa-chevron-right').toggleClass('fa fa-chevron-down');
+        });
+
+        $('.expandEditor, .itemTitle').click(function() {
+            var id = $(this).attr('data-id');
+            $('#menuEdit' + id).toggle();
+            $(this).toggleClass('ui-icon-triangle-1-n').toggleClass('ui-icon-triangle-1-s');
+        });
+
+        $('.deleteMenu').click(function() {
+            var id = $(this).attr('data-id');
+            var r = confirm("確認刪除？！！");
+            if (!r) {
+                return;
+            }
+
+            $.ajax({
+                url: '/menu/'+id,
+                type: 'DELETE',
+                success: function(result) {
+                    window.location.reload();
+                }
+            });
+
+        });
+
+        $('#serialize').click(function() {
+            serialized = $('ol.sortable').nestedSortable('serialize');
+            $('#serializeOutput').text(serialized + '\n\n');
+        })
+
+        $('#toHierarchy').click(function(e) {
+            hiered = $('ol.sortable').nestedSortable('toHierarchy', {
+                startDepthCount: 0
+            });
+            hiered = dump(hiered);
+            (typeof($('#toHierarchyOutput')[0].textContent) != 'undefined') ?
+            $('#toHierarchyOutput')[0].textContent = hiered: $('#toHierarchyOutput')[0].innerText = hiered;
+        });
+
+        $('#toArray').click(function(e) {
+            arraied = $('ol.sortable').nestedSortable('toArray', {
+                startDepthCount: 0
+            });
+            arraied = dump(arraied);
+            (typeof($('#toArrayOutput')[0].textContent) != 'undefined') ?
+            $('#toArrayOutput')[0].textContent = arraied: $('#toArrayOutput')[0].innerText = arraied;
+        });
+        //取得排序資料
+        $('#buttoninfo').click(function(e) {
+            var getSort = $('ol.sortable').nestedSortable('toHierarchy', {
+                startDepthCount: 0
+            });
+
+            var r = confirm("確認送出排序？前台選單順序會依照您剛設定的做排序！！！");
+            if (!r) {
+                return;
+            }
+
+            $.ajax({
+                type: 'PUT',
+                contentType: "application/json; charset=utf-8",
+                url: '/menu/sort',
+                data: JSON.stringify(getSort),
+                dataType: "json",
+                success: function (data) {
+                    window.location.reload();
+                }
+            });
+        });
+
+    });
+
+    function dump(arr, level) {
+        var dumpedText = "";
+        if (!level) level = 0;
+
+        //The padding given at the beginning of the line.
+        var levelPadding = "";
+        for (var j = 0; j < level + 1; j++) {
+            levelPadding += "    ";
+        }
+
+        if (typeof(arr) === 'object') { //Array/Hashes/Objects
+            for (var item in arr) {
+                var value = arr[item];
+
+                if (typeof(value) == 'object') { //If it is an array,
+                    dumpedText += levelPadding + "'" + item + "' ...\n";
+                    dumpedText += dump(value, level + 1);
+                } else {
+                    dumpedText += levelPadding + "'" + item + "' => \"" + value + "\"\n";
+                }
+            }
+        } else { //Strings/Chars/Numbers etc.
+            dumpedText = "===>" + arr + "<===(" + typeof(arr) + ")";
+        }
+        return dumpedText;
+    }
+    </script>
+
+{% endblock %}

@@ -2,13 +2,13 @@
 {% block headTitle %}{% endblock %}
 
 {% block container %}
-    <div class="content-wrapper">
-        <!-- Main content -->
-        <section class="content">
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
 
             <!-- Your Page Content Here -->
-
-        </section>
-        <!-- /.content -->
-    </div>
+            {% include "../util/fileupload.html" %}
+        </div>
+    </section>
+    <!-- /.content -->
 {% endblock %}
