@@ -29,7 +29,7 @@ module.exports = async (req, res, next) => {
             ...adminUser
         } = loginUser;
 
-        adminUser.avatarUrl = Avatar.url;
+        adminUser.avatarUrl = Avatar ? Avatar.url : '';
 
         adminUser.Center = {
             _id: Center._id,
