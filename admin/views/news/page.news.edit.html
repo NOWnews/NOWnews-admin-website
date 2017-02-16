@@ -107,6 +107,15 @@
                                 {% endif %}
                             </label>
                         </div>
+                        <div class="checkbox">
+                            <label>
+                                {% if news.isSponsored %}
+                                    <input name="isSponsored" type="checkbox" checked> 業配文
+                                {% else %}
+                                    <input name="isSponsored" type="checkbox"> 業配文
+                                {% endif %}
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
