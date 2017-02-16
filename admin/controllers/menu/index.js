@@ -28,7 +28,4 @@ router.route('/:menuId')
     .put(actionUpdate)
     .get(pageEdit);
 
-// router.route('/create')
-//     .get(pageMenuCreate);
-
 module.exports = router;

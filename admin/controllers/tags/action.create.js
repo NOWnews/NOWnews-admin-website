@@ -7,20 +7,14 @@ module.exports = async (req, res, next) => {
 
         let userId = req.session.adminUser._id;
         let data = req.body;
-
-        data.isExternal = data.isExternal ? true: false;
+        data.tags = _.isString(data.name) ?data.name.split(','): data.name;
         data.CreatedBy = userId;
-
-        // 暫時設定永遠開啟
-        data.isPermanented = true;
-        // 建立的權重都為 0
-        data.weight = 0;
 
         let { data: tags } = await axios.post('/tags', data);
 
         debug('createdTags = %j', tags);
 
-        return res.redirect(`/tags/${tags._id}`);
+        return res.redirect(`/tags`);
 
     }
     catch(err) {

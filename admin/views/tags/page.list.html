@@ -24,22 +24,22 @@
     </section>
     <script>
         $(document).ready(function() {
-            $('#menus-table').DataTable({
+            $('#tags-table').DataTable({
                 "paging": false,
                 "searching": false,
             });
         });
 
-        $('.delete-menu').on('click', function(){
+        $('.delete-tags').on('click', function(){
             var confirmed = confirm('您確定要刪除嗎？');
             if (!confirmed) { return; }
             var id = $(this).attr('item-id');
             $.ajax({
-                url: '/menu/' + id,
+                url: '/tags/' + id,
                 type: 'DELETE',
                 success: function(result) {
                     console.log(result)
-                    // location.reload();
+                    location.reload();
                 }
             });
         });

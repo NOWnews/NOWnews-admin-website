@@ -8,6 +8,7 @@ module.exports = async (req, res, next) => {
         let { data: tags } = await axios.get('/tags');
 
         let pageData = tags.pageData;
+        tags = tags.tags;
 
         debug('tagsList = %j', tags );
 

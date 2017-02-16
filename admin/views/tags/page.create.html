@@ -22,7 +22,7 @@
                     <div class="col-sm-5">
                         <div class="form-group">
                             <label for="tagsName" class="control-label">名稱</label>
-                            <input id="tagsName" type="text" name="name" class="form-control" placeholder="">
+                            <textarea id="tagsName" name="name"></textarea>
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -44,8 +44,21 @@
     </form>
 </section>
 
-<!-- tag-it JS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tag-it/2.0/css/jquery.tagit.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tag-it/2.0/js/tag-it.min.js"></script>
+<!-- tagEditor JS -->
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tag-editor/1.0.20/jquery.tag-editor.css" />
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/caret/1.0.0/jquery.caret.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tag-editor/1.0.20/jquery.tag-editor.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#tagsName").tagEditor({
+            delimiter: ',',
+            placeholder: 'Enter 加入關鍵字 ...',
+            // maxTags: 7
+        });
+    });
+</script>
 {% endblock %}
