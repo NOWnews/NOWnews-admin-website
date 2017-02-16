@@ -26,6 +26,11 @@ module.exports = async (req, res, next) => {
             });
         });
 
+        news.Tags = _.map( news.Tags, (value) => {
+            return value.name;
+        })
+        news.tags = news.Tags.join(',')
+
         debug('news = %j', news);
 
         return res.render('news/page.news.edit.html', {
