@@ -22,6 +22,21 @@ module.exports = async (req, res, next) => {
         // 暫時還沒有圖片功能
         delete data.MainPhoto;
 
+        // Tags 的處理
+        let tags;
+        if (data.tags !== ''){
+            data.tags = {
+                tags: data.tags.split(','),
+                type: 'NEWS',
+                CreatedBy: userId
+            }
+            tags = await axios.post('/tags', data.tags);
+        }
+
+        data.Tags = _.forEach(tags.data, (value) => {
+            return value.id;
+        });
+
         let { data: news } = await axios.post('/news', data);
 
         debug('createdNews = %j', news);
