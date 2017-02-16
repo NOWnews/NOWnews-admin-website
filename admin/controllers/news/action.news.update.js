@@ -21,6 +21,21 @@ module.exports = async (req, res, next) => {
 
         data.UpdatedBy = userId;
 
+        // Tags 的處理
+        let tags;
+        if (data.tags !== ''){
+            data.tags = {
+                tags: data.tags.split(','),
+                type: 'NEWS',
+                CreatedBy: userId
+            }
+            tags = await axios.post('/tags', data.tags);
+        }
+
+        data.Tags = _.forEach(tags.data, (value) => {
+            return value.id;
+        });
+
         let newsStatus = data.status.toLowerCase();
         let { data: news } = await axios.put(`/news/${newsId}/${newsStatus}`, data);
 
