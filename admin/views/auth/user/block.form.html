@@ -10,17 +10,6 @@
                 type="text"
                 value="{{ user.name }}" />
         </div>
-        {% if not user %}
-            <div class="form-group">
-                <label> 密碼
-                    <span class="text-danger">*</span>
-                </label>
-                <input class="form-control"
-                    required
-                    name="password"
-                    type="password" />
-            </div>
-        {% endif %}
         <div class="form-group">
             <label>員工編號</label>
             <input class="form-control"
@@ -67,9 +56,27 @@
                 type="text"
                 value="{{ user.phone }}" />
         </div>
+        <div class="form-group">
+            <label>個人網站連結</label>
+            <input class="form-control"
+                name="profileLink"
+                type="url"
+                value="{{ user.profileLink }}" />
+        </div>
     </div>
 
     <div class="col-md-6">
+        {% if not user %}
+            <div class="form-group">
+                <label> 密碼
+                    <span class="text-danger">*</span>
+                </label>
+                <input class="form-control"
+                    required
+                    name="password"
+                    type="password" />
+            </div>
+        {% endif %}
         <div class="form-group">
             <label>暱稱</label>
             <input class="form-control"
@@ -108,18 +115,26 @@
             </select>
         </div>
         <div class="form-group">
+            <label>預設主分類
+                <span class="text-danger">*</span>
+            </label>
+            <select class="form-control"
+                name="defaultMenu"
+                required>
+                {% for menu in menuList %}
+                    <option value="{{ menu._id }}"
+                        {{ "selected" if menu._id == user.defaultSettings.Menu }}>
+                        {{ menu.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
             <label>職稱</label>
             <input class="form-control"
                 name="jobTitle"
                 type="text"
                 value="{{ user.jobTitle }}" />
-        </div>
-        <div class="form-group">
-            <label>個人網站連結</label>
-            <input class="form-control"
-                name="profileLink"
-                type="url"
-                value="{{ user.profileLink }}" />
         </div>
     </div>
 </div>
