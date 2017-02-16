@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-sm-5">
                         <div class="form-group">
-                            <label for="tagsName" class="control-label">名稱</label>
+                            <label for="tagsName" class="control-label">名稱(一次最多建立七個)</label>
                             <textarea id="tagsName" name="name"></textarea>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
         $("#tagsName").tagEditor({
             delimiter: ',',
             placeholder: 'Enter 加入關鍵字 ...',
-            // maxTags: 7
+            maxTags: 7
         });
     });
 </script>
