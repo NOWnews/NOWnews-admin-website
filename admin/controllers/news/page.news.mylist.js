@@ -7,7 +7,6 @@ module.exports = async (req, res, next) => {
         let userId = req.session.adminUser._id;
         let { data: newsListInfo } = await axios.get('/news', {
             params: {
-                status: 'REVIEW',
                 userId
             }
         });

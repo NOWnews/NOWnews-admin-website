@@ -13,6 +13,7 @@ module.exports = async (req, res, next) => {
         debug('req.body = %j', data);
 
         data.isDeliver = data.isDeliver ? true : false ;
+        data.isSponsored = data.isSponsored ? true : false ;
         data.isAdult = data.isAdult ? true : false ;
 
         // 摘要大概是 120 - 150 字
