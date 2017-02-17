@@ -23,6 +23,18 @@
             "name": "待審新聞"
         }]
     },
+    "tags": {
+        "url": "#",
+        "name": "關鍵字",
+        "icon": "fa-newspaper-o",
+        "children": [{
+            "url": "/tags",
+            "name": "關鍵字列表"
+        },{
+            "url": "/tags/create",
+            "name": "建立關鍵字"
+        }]
+    },
     "layout": {
         "url": "/layout",
         "name": "版面調整",

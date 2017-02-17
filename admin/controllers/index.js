@@ -10,6 +10,7 @@ let adminPageRouter = {
     dashboard: require('./dashboard'),
     layout: require('./layout'),
     menu: require('./menu'),
+    tags: require('./tags'),
     moderator: require('./moderator'),
     news: require('./news'),
     picture: require('./picture'),
