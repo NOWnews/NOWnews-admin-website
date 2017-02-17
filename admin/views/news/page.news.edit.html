@@ -146,22 +146,7 @@
             <div class="box-body">
                 <div class="form-group">
                     <label>首圖</label>
-                    <ul class="mailbox-attachments clearfix">
-                        <li>
-                            <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
-                            <div class="mailbox-attachment-info">
-                                <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
-                                <span class="mailbox-attachment-size">
-                                    1,245 KB
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="btn btn-default btn-file">
-                        <i class="fa fa-paperclip"></i> 上傳檔案
-                        <input type="file" name="MainPhoto">
-                    </div>
-                    <p class="help-block">Max. 32MB</p>
+                    {% include './newsBlock/mainPhoto.html' %}
                 </div>
                 <div class="form-group">
                     <label>內文</label>
