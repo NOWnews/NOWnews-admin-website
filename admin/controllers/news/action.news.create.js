@@ -33,7 +33,7 @@ module.exports = async (req, res, next) => {
             tags = await axios.post('/tags', data.tags);
         }
 
-        data.Tags = _.forEach(tags.data, (value) => {
+        data.Tags = _.map(tags.data, (value) => {
             return value.id;
         });
 

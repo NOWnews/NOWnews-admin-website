@@ -5,10 +5,7 @@ module.exports = async (req, res, next) => {
 
     try{
         let userId = req.session.adminUser._id;
-        let { data: tags } = await axios.get('/tags');
-
-        let pageData = tags.pageData;
-        tags = tags.tags;
+        let { data: {tags, pageData} } = await axios.get('/tags');
 
         debug('tagsList = %j', tags );
 
