@@ -62,7 +62,7 @@
                     <input name="desc" type="text" placeholder="關鍵字" />
                 </div>
                 <div class="form-group col-md-1">
-                    <button type="button" class="btn btn-default btn-flat imageLibQueryForm">查詢</button>
+                    <button type="button" class="btn btn-default imageLibQueryForm">查詢</button>
                 </div>
                 <div class="form-group col-md-2">
                     <button type="button" class="btn bg-navy copy">
@@ -73,7 +73,9 @@
 
 
             </div>
-            <div class="row image-blocks"></div>
+            <div class="row image-blocks"> 
+
+            </div>
         </div>
     </div>
 </div>
@@ -159,6 +161,12 @@
 
 <script id="template-image-block" type="text/x-custom-template">
     <div class="col-md-3 image-block">
+        <div class="text-right">
+            <button class="btn bg-purple btn-xs fa fa-check"
+                type="button">設為主圖</button>
+            <button class="btn btn-danger btn-xs fa fa-trash"
+                type="button"></button>
+        </div>
         <div class="zoom">
             <img class="image" />
         </div>
@@ -166,8 +174,6 @@
             <input type="checkbox" name="libForClipboard" /> 
             <span class="desc"></span>  
         </label>
-        <button type="button" class="btn bg-purple btn-xs fa fa-check">設為主圖</button>
-        <button type="button" class="btn btn-danger btn-xs fa fa-trash"></button>
     </div>
 </script>
 
@@ -199,10 +205,11 @@
 <script src="/static/js/fileupload.js "></script>
 
 <style type="text/css">
-    .zoom .image-preview {
+    .zoom, .image-preview {
         min-width: 200px;
         max-width: 400px;
     }
+
 
     .zoom .image {
         max-width: 100%;
@@ -210,7 +217,12 @@
     }
 
     .image-block {
+        border: 1px solid;
+        height: 220px;
         margin-bottom: 5px;
+        .zoom {
+            padding: 5px;
+        }
     }
 
 </style>

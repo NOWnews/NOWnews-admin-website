@@ -207,7 +207,7 @@ $(function () {
             url: '/image/' + deleteBtn.attr('data-id'),
             type: 'DELETE',
         }).done(function(result) {
-            deleteBtn.parent().remove();
+            deleteBtn.parent().parent().remove();
         });
     });
 
