@@ -167,7 +167,7 @@
             <button class="btn btn-danger btn-xs fa fa-trash"
                 type="button"></button>
         </div>
-        <div class="zoom">
+        <div class="zoom text-center">
             <img class="image" />
         </div>
         <label>
@@ -206,23 +206,26 @@
 
 <style type="text/css">
     .zoom, .image-preview {
-        min-width: 200px;
-        max-width: 400px;
+        min-width: 160px;
+        max-width: 320px;
+        max-height: 180px;
     }
 
-
-    .zoom .image {
+    .image  {
+        height: auto;
+        max-height: 180px;
         max-width: 100%;
-        width: 100%;
     }
 
     .image-block {
-        border: 1px solid;
-        height: 220px;
+        background: #d2d6de;
+        border: 1px solid #fff;
+        height: 250px;
         margin-bottom: 5px;
-        .zoom {
-            padding: 5px;
-        }
+    }
+
+    .image-block .text-right {
+        padding-bottom: 3px;
     }
 
 </style>

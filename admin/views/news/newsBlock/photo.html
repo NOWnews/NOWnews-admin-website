@@ -9,10 +9,10 @@
     </div>
     <div class="box-body">
         <div class="form-group">
-            <label>首圖</label>
+            <label>主圖</label>
             <div class="image-preview">
                 <input type="hidden" name="MainPhoto" value="{{news.MainPhoto._id}}" />
-                <img name="MainPhoto" src="{{news.MainPhoto.url}}" />
+                <img class="image" name="MainPhoto" src="{{news.MainPhoto.url}}" />
             </div>
             {% include '../../util/fileupload.html' %}
         </div>

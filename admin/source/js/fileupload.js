@@ -132,7 +132,7 @@ $(function () {
         $('.zoom').zoom();
     });
 
-    // 設為首圖
+    // 設為主圖
     fileRows.on('click', 'button.setMainPhoto', function(){
         setMainPhoto($(this));
     });
