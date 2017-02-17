@@ -21,7 +21,34 @@ $(function () {
         endElm.attr('max', today);
     }
 
+    $('button.copy').on('click', function() {
+        var doc = $('iframe#clipboard-source').contents()[0];
+        var downloadForClipboard = $('input:checkbox[name=downloadForClipboard]:checked');
+        var libForClipboard = $('input:checkbox[name=libForClipboard]:checked');
+        var htmlString = '';
 
+        function generateString (index, input) {
+            var parentBlock = $(input).parent().parent();
+            var url = parentBlock.find('img.image').attr('src');
+            var desc = parentBlock.find('.desc').html();           
+            var layout = "<p><img src='@URL@'/><br/><span>@DESC@</span></p>";
+            layout = layout.replace('@URL@', url);
+            htmlString += layout.replace('@DESC@', desc);
+        }
+
+
+        $.each(libForClipboard, generateString);
+        $.each(downloadForClipboard, generateString);
+
+        doc.write(htmlString);
+        doc.execCommand("SelectAll", true);
+        doc.execCommand("Copy", true);
+        doc.execCommand("Delete", true);
+        doc.close('')
+        doc.write('');
+    });
+
+    
     // Setting Image To MainPhoto / Content
     function setMainPhoto (setBtn) {
         $('input[name=MainPhoto]').val(setBtn.attr('data-id'));
@@ -109,6 +136,7 @@ $(function () {
     fileRows.on('click', 'button.setMainPhoto', function(){
         setMainPhoto($(this));
     });
+
 
     // 上傳前的圖片切割
     fileRows.on('click', 'button.crop', function(){
