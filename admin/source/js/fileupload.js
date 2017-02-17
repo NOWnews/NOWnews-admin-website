@@ -2,12 +2,10 @@
 
 $(function () {
     'use strict';
-
     var apiServ = 'http://61.67.121.56:10000/';
     var fileuploadElm = $('#fileupload');
     var fileRows = $('tbody.files');
     var imageBlocks = $('.image-blocks');
-    var imageLibQueryForm = $('#image-library-query-form');
     var URL = window.URL || window.webkitURL;
 
     initQueryFrom();
@@ -15,14 +13,21 @@ $(function () {
     function initQueryFrom() {
         var today = moment().format('YYYY-MM-DD');
         var prev2Month = moment().subtract(2, 'months').format('YYYY-MM-DD');
-        var startElm = imageLibQueryForm.find('input[name=startedAt]');
-        var endElm = imageLibQueryForm.find('input[name=endedAt]');
+        var startElm = $('input[name=startedAt]');
+        var endElm = $('input[name=endedAt]');
         startElm.val(prev2Month);
         startElm.attr('max', today);
         endElm.val(today);
         endElm.attr('max', today);
     }
 
+
+    // Setting Image To MainPhoto / Content
+
+    function setMainPhoto (setBtn) {
+        $('input[name=MainPhoto]').val(setBtn.attr('data-id'));
+        $('img[name=MainPhoto]').attr('src', setBtn.attr('data-url'));
+    }
 
     // Initialize the jQuery File Upload widget:
     fileuploadElm.fileupload({
@@ -47,10 +52,13 @@ $(function () {
             $.each(o.files, function (index, file) {
                 var row = $($('#template-download').html());
                 row.find('.delete').attr('data-id', file._id);
+                row.find('.setMainPhoto').attr('data-id', file._id);
+                row.find('.setMainPhoto').attr('data-url', file.url);
                 row.find('.desc').text(file.desc);
                 row.find('img').attr('src', file.url);
 
                 if (file.error) {
+                    row.find('.setMainPhoto').addClass('hidden');
                     row.find('.delete').addClass('hidden');
                     row.find('.cancel').removeClass('hidden');
                     row.find('.error').text(file.error);
@@ -98,6 +106,11 @@ $(function () {
         $('.zoom').zoom();
     });
 
+    // 設為首圖
+    fileRows.on('click', 'button.setMainPhoto', function(){
+        setMainPhoto($(this));
+    });
+
     // 上傳前的圖片切割
     fileRows.on('click', 'button.crop', function(){
         var cropButton = $(this);
@@ -135,25 +148,28 @@ $(function () {
 
 
     // Image Library
-    imageLibQueryForm.submit(function(e) {
+    $('.imageLibQueryForm').on('click', function(e) {
         imageBlocks.html('');
-
-        $.get('/image?' + $(this).serialize(), function(result) {
+        var queryString = 'startedAt=' + $('input[name=startedAt]').val();
+        queryString += '&endedAt=' + $('input[name=endedAt]').val();
+        queryString += '&desc=' + $('input[name=desc]').val();
+        var desc = $('input[name=desc]').val();
+        $.get('/image?' + queryString, function(result) {
             $('.zoom').trigger('zoom.destroy');
             $.each(result.images, function(index, image) {
                 var block = $($('#template-image-block').html());
                 block.find('img').attr('src', image.url);
                 block.find('.desc').text(image.desc);
                 block.find('.fa-trash').attr('data-id', image._id);
+                block.find('.fa-check').attr('data-id', image._id);
+                block.find('.fa-check').attr('data-url', image.url);
                 imageBlocks.append(block);
             });
             $('.zoom').zoom();
-
         });
-        return false;
     });
 
-    imageBlocks.on('click', '.fa-trash', function(e, c) {
+    imageBlocks.on('click', 'button.fa-trash', function(e, c) {
         // 從 library 取得是假刪除
         var confirmed = confirm('您確定要刪除嗎？');
         if (!confirmed) {
@@ -166,5 +182,9 @@ $(function () {
         }).done(function(result) {
             deleteBtn.parent().remove();
         });
+    });
+
+    imageBlocks.on('click', 'button.fa-check', function(e, c) {
+        setMainPhoto($(this));
     });
 });
