@@ -11,8 +11,8 @@
         <div class="form-group">
             <label>首圖</label>
             <div class="zoom">
-                <input name="MainPhoto" value="{{news.MainPhoto._id}}" />
-                <img name="MainPhoto" src="{{news.MainPhoto.url}}" />
+                <input type="hidden" name="MainPhoto" value="{{news.MainPhoto._id}}" />
+                <img class="image" name="MainPhoto" src="{{news.MainPhoto.url}}" />
             </div>
             {% include '../../util/fileupload.html' %}
         </div>

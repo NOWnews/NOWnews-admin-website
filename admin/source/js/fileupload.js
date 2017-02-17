@@ -23,7 +23,6 @@ $(function () {
 
 
     // Setting Image To MainPhoto / Content
-
     function setMainPhoto (setBtn) {
         $('input[name=MainPhoto]').val(setBtn.attr('data-id'));
         $('img[name=MainPhoto]').attr('src', setBtn.attr('data-url'));

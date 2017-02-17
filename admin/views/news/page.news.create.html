@@ -307,7 +307,7 @@
                 e.preventDefault();
             }
         });
-        $( "form" ).submit(function( event ) {
+        $("form").submit(function( event ) {
             var content = CKEDITOR.instances.editor1.getData();
             var freeContent = CKEDITOR.instances.editor2.getData();
 
@@ -315,6 +315,9 @@
             $('[name=freeContent]').val(freeContent);
             $('[name=MainMenu]').val($("#MainMenu").multipleSelect("getSelects"));
             $('[name=Menus]').val($("#Menus").multipleSelect("getSelects"));
+
+            // 原設定是給圖片上傳使用，更新新聞時需要切換回 from 模式
+            $(this).attr("enctype", "application/x-www-form-urlencoded")
         });
 
         $('#reservation-datetimepicker').daterangepicker({
