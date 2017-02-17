@@ -55,6 +55,21 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
+            <label>預設主分類
+                <span class="text-danger">*</span>
+            </label>
+            <select class="form-control"
+                name="defaultMenu"
+                required>
+                {% for menu in menuList %}
+                    <option value="{{ menu._id }}"
+                        {{ "selected" if menu._id == user.defaultSettings.Menu }}>
+                        {{ menu.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
             <label>暱稱</label>
             <input class="form-control"
                 name="nickname"
