@@ -17,18 +17,15 @@
             <div class="row fileupload-buttonbar">
                 <div class="col-md-7">
                     <label class="btn btn-success fileinput-button" for="image-file">
-                    <i class="fa fa-plus"></i>
-                    <span>新增檔案</span>
-                    <input id="image-file" type="file" name="files[]" multiple class="sr-only">
-                </label>
-                <button type="button" class="btn btn-primary start">
-                    <i class="fa fa-upload"></i>
-                    <span>全部上傳</span>
-                </button>
-                <button type="type" class="btn bg-navy start">
-                    <i class="fa fa-copy"></i>
-                    <span>複製（供內文用）</span>
-                </button>
+                        <i class="fa fa-plus"></i>
+                        <span>新增檔案</span>
+                        <input id="image-file" type="file" name="files[]" multiple class="sr-only">
+                    </label>
+                    <button type="button" class="btn btn-primary start">
+                        <i class="fa fa-upload"></i>
+                        <span>全部上傳</span>
+                    </button>
+
                     <!-- The global file processing state -->
                     <span class="fileupload-process"></span>
                 </div>
@@ -59,7 +56,7 @@
                     <input name="desc" type="text" placeholder="關鍵字" />
                 </div>
                 <div class="form-group col-md-2">
-                    <button class="btn btn-default btn-flat imageLibQueryForm" type="button">查詢</button>
+                    <button type="button" class="btn btn-default btn-flat imageLibQueryForm">查詢</button>
                 </div>
 
             </div>
@@ -75,7 +72,7 @@
                 <img width="200" id="crop-img"/>
             </div>
             <div class="text-center">
-                <button type="button" class="confirm btn btn-primary" data-blobURL=>
+                <button type="button" class="confirm btn btn-primary" data-blobURL>
                     <i class="fa fa-crop"></i>
                     <span>確認裁切</span>
                 </button>
@@ -106,11 +103,11 @@
                 <i class="fa fa-crop"></i>
                 <span class="hidden-xs">裁切</span>
             </button>
-            <button class="btn btn-primary start">
+            <button type="button" class="btn btn-primary start">
                 <i class="fa fa-upload"></i>
                 <span class="hidden-xs">上傳</span>
             </button>
-            <button class="btn btn-warning cancel">
+            <button type="button" class="btn btn-warning cancel">
                 <i class="fa fa-ban"></i>
                 <span class="hidden-xs">取消</span>
             </button>
@@ -120,8 +117,7 @@
 
 <script id="template-download" type="text/x-custom-template">
     <tr class="template-download fade">
-        <td><input type="checkbox" value="name" /></td>
-        <td>
+        <td colspan="2">
             <div class="preview zoom">
                 <img class="image"/>
             </div>
@@ -133,11 +129,11 @@
                 <i class="fa fa-ok"></i>
                 <span class="hidden-xs">設為主圖</span>
             </button>
-            <button class="btn btn-danger delete" data-id="">
+            <button type="button" class="btn btn-danger delete" data-id="">
                 <i class="fa fa-trash"></i>
                 <span class="hidden-xs">刪除</span>
             </button>
-            <button class="btn btn-warning cancel hidden">
+            <button type="button" class="btn btn-warning cancel hidden">
                 <i class="fa fa-ban-circle"></i>
                 <span class="hidden-xs">取消</span>
             </button>
@@ -151,8 +147,8 @@
             <img class="image" />
         </div>
         <label class="desc"></label>
-        <button type="button" class="btn btn-danger btn-xs fa fa-trash"></button>
         <button type="button" class="btn bg-purple btn-xs fa fa-check">設為主圖</button>
+        <button type="button" class="btn btn-danger btn-xs fa fa-trash"></button>
     </div>
 </script>
 
