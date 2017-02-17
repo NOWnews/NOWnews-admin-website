@@ -10,9 +10,6 @@
         "name": "新聞",
         "icon": "fa-newspaper-o",
         "children": [{
-            "url": "/news/dailyPlanList",
-            "name": "每日稿單"
-        },{
             "url": "/news/myList",
             "name": "我的新聞"
         },{
