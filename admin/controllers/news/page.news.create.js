@@ -11,7 +11,8 @@ module.exports = async (req, res, next) => {
 
         let { data: menus } = await axios.get('/menus/struction');
 
-        // return res.json(menus);
+        debug('userList = %j', userList);
+        debug('news = %j', menus);
 
         return res.render('news/page.news.create.html', {
             userList,
