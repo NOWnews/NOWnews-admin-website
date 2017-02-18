@@ -10,8 +10,10 @@ module.exports = async (req, res, next) => {
         let { newsId } = req.params;
 
         let { data: news } = await axios.get(`/news/${newsId}`);
-        let { data: { users: userList, pageData } } = await axios.get('/users');
 
+        debug('news = %j', news);
+
+        let { data: { users: userList, pageData } } = await axios.get('/users');
         let { data: menus } = await axios.get('/menus/struction');
 
         let selectMenus = _.map( news.Menus, (menu) => {
@@ -29,7 +31,17 @@ module.exports = async (req, res, next) => {
         news.Tags = _.map( news.Tags, (value) => {
             return value.name;
         })
-        news.tags = news.Tags.join(',')
+        news.tags = news.Tags.join(',');
+
+        // Map 設定
+        // TODO 之後在加google API
+        // let latlng = _.reverse(news.location);
+        // let { data: { address } } = await axios.get( `/map/location`, {
+        //     params: {
+        //         latlng: latlng.join(',')
+        //     }
+        // });
+        // news.location = address;
 
         debug('news = %j', news);
 

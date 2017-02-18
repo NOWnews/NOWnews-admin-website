@@ -33,7 +33,14 @@ module.exports = async (req, res, next) => {
             });
         }
 
-
+        // Map 設定
+        let { data: { lat, lng } } = await axios.get( `/map/location`, {
+            params: {
+                latlng: '',
+                address: data.location
+            }
+        });
+        data.location = [ lng, lat ];
 
         let { data: news } = await axios.post('/news', data);
 
