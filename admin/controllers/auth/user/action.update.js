@@ -13,6 +13,10 @@ module.exports = async (req, res, next) => {
 
         let { data: user } = await axios.put(url, data);
 
+        if (data.defaultMenu === "") {
+            data.defaultMenu = null ;
+        }
+
         if (data.Center === "") {
             delete data.Center;
         }

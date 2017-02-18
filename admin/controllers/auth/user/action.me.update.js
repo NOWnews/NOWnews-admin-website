@@ -11,6 +11,10 @@ module.exports = async (req, res, next) => {
 
         data.UpdatedBy = userId;
 
+        if (data.defaultMenu === "") {
+            data.defaultMenu = null ;
+        }
+
         // 清除舊的圖片
         if (originAvatarId && originAvatarId !== data.Avatar) {
             await axios.delete(`/images/${originAvatarId}/realRemove`);
