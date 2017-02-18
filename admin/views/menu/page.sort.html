@@ -10,12 +10,12 @@
                             <div class="col-md-6">
                                 <i class="fa fa-check-square"></i>
                                 <h3 class="box-title">啟用</h3>
-                                <span class="label alert-info">分類</span>
+                                <span class="label bg-green color-palette">分類</span>
                             </div>
                             <div class="col-md-6">
                                 <i class="fa fa-warning"></i>
                                 <h3 class="box-title">未啟用</h3>
-                                <span class="label alert-warning">分類</span>
+                                <span class="label bg-gray color-palette">分類</span>
                             </div>
                         </div>
                   </div>
@@ -30,7 +30,7 @@
         <ol class="sortable">
             {% for level0 in struction %}
                 <li id="menuItem_{{ level0._id }}">
-                    <div class="menuDiv {{ "alert-warning" if level0.status == 'CLOSE' else "alert-info" }}">
+                    <div class="menuDiv {{ "bg-gray color-palette" if level0.status == 'CLOSE' else "bg-green color-palette" }}">
                         <i class="handle fa-2x fa fa-arrows ico-droppable"></i>
                         <span title="Click to show/hide children" class="disclose {{ "fa fa-chevron-down" if level0.hasChild == true else "" }}">
                             <span></span>
@@ -38,6 +38,11 @@
                         <span>
                             <span data-id="{{ level0._id }}" class="itemTitle">{{ level0.name }}</span>
                             <div class="pull-right">
+                                {% if level0.isAdult %}
+                                    <span title="18禁止" class="btn btn-danger btn-xs"><i class="fa fa-ban">18</i>
+                                        <span></span>
+                                    </span>
+                                {% endif %}
                                 <button title="" class="btn btn-primary  btn-xs category-edit" data-original-title="Edit"><a href="/menu/{{level0._id}}"><i class="fa fa-pencil"></i></a></button>
                                 <span title="Click to delete item." data-id="{{ level0._id }}" class="deleteMenu btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i>
                                     <span></span>
@@ -51,7 +56,7 @@
                     <ol>
                         {% for level1 in level0.child %}
                             <li id="menuItem_{{ level1._id }}">
-                                <div class="menuDiv {{ "alert-warning" if level1.status == 'CLOSE' else "alert-info" }}">
+                                <div class="menuDiv {{ "bg-gray color-palette" if level1.status == 'CLOSE' else "bg-green color-palette" }}">
                                     <i class="handle fa-2x fa fa-arrows ico-droppable"></i>
                                     <span title="Click to show/hide children" class="disclose {{ "fa fa-chevron-down" if level1.hasChild == true else "" }}">
                                         <span></span>
@@ -59,6 +64,11 @@
                                     <span>
                                         <span data-id="{{ level1._id }}" class="itemTitle">{{ level1.name }}</span>
                                         <div class="pull-right">
+                                            {% if level1.isAdult %}
+                                                <span title="18禁止" class="btn btn-danger btn-xs"><i class="fa fa-ban">18</i>
+                                                    <span></span>
+                                                </span>
+                                            {% endif %}
                                             <button title="" class="btn btn-primary  btn-xs category-edit" data-original-title="Edit"><a href="/menu/{{ level1._id }}"><i class="fa fa-pencil"></i></a></button>
                                             <span title="Click to delete item." data-id="{{ level1._id }}" class="deleteMenu btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i>
                                                 <span></span>

@@ -10,6 +10,8 @@ module.exports = async (req, res, next) => {
         let data = req.body;
 
         data.isExternal = data.isExternal ? true : false ;
+        data.isAdult = data.isAdult ? true: false;
+
         data.UpdatedBy = userId;
 
         debug('req.body = %j', data);
