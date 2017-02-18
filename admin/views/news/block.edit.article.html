@@ -16,6 +16,28 @@
         <div class="form-group">
             <label>關鍵字</label>
             <textarea name="tags" id="keywords">{{ news.tags }}</textarea>
+            <br>
+            <p> Google 推薦關鍵字:</p>
+            <div id="suggest-box"></div>
+        </div>
+        <div class="form-group">
+            <label for="location" class="control-label">地區設定</label>
+            <input name="location" id="location" class="input form-control" value="{{ news.location }}" placeholder="例如: 台北市堤頂大道" />
         </div>
     </div>
+    <script>
+        $(function(){
+            $.get( "/trend/google")
+                .success(function(data){
+                    var suggestElement = '';
+                    data.google.map(function(value){
+                        suggestElement = suggestElement + '<a class="suggest-btn btn btn-info">' + value.keyword + '</a>'
+                    });
+                    $('#suggest-box').html(suggestElement);
+                })
+            $('#suggest-box').on('click', '.suggest-btn', function(e, a){
+                $('#keywords').tagEditor('addTag', $(e.currentTarget).text());
+            });
+        });
+    </script>
 </div>
