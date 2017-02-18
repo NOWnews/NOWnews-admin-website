@@ -30,11 +30,10 @@ module.exports = async (req, res, next) => {
                 CreatedBy: userId
             }
             tags = await axios.post('/tags', data.tags);
+            data.Tags = _.forEach(tags.data, (value) => {
+                return value.id;
+            });
         }
-
-        data.Tags = _.map(tags.data, (value) => {
-            return value.id;
-        });
 
         let newsStatus = data.status.toLowerCase();
         let { data: news } = await axios.put(`/news/${newsId}/${newsStatus}`, data);
