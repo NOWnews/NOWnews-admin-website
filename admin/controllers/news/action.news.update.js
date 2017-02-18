@@ -36,13 +36,15 @@ module.exports = async (req, res, next) => {
         }
 
         // Map 設定
-        let { data: { location } } = await axios.get( `/map/location`, {
-            params: {
-                latlng: '',
-                address: data.location
-            }
-        });
-        data.location = location;
+        if (data.location !== ''){
+            let { data: { location } } = await axios.get( `/map/location`, {
+                params: {
+                    address: data.location
+                }
+            });
+            let [ lng, lat ] = location;
+            data.location = [ lng, lat ];
+        }
 
         let newsStatus = data.status.toLowerCase();
         let { data: news } = await axios.put(`/news/${newsId}/${newsStatus}`, data);

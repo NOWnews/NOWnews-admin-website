@@ -34,14 +34,15 @@ module.exports = async (req, res, next) => {
         }
 
         // Map 設定
-        let { data: { lat, lng } } = await axios.get( `/map/location`, {
-            params: {
-                latlng: '',
-                address: data.location
-            }
-        });
-        data.location = [ lng, lat ];
-
+        if (data.location !== ''){
+            let { data: { location } } = await axios.get( `/map/location`, {
+                params: {
+                    address: data.location
+                }
+            });
+            let [ lng, lat ] = location;
+            data.location = [ lng, lat ];
+        }
         let { data: news } = await axios.post('/news', data);
 
         debug('createdNews = %j', news);
