@@ -51,7 +51,11 @@
                             <label for="MainMenu" class="control-label">新聞主分類</label>
                             <select id="MainMenu" name="MainMenu" multiple="multiple">
                                 {% for m in menus %}
-                                    <option value="{{ m._id }}">{{ m.name }}</option>
+                                    {% if m._id == currentUser.defaultSettings.Menu %}
+                                        <option value="{{ m._id }}" selected="selected">{{ m.name }}</option>
+                                    {% else %}
+                                        <option value="{{ m._id }}">{{ m.name }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>

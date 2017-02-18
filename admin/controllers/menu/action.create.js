@@ -9,6 +9,7 @@ module.exports = async (req, res, next) => {
         let data = req.body;
 
         data.isExternal = data.isExternal ? true: false;
+        data.isAdult = data.isAdult ? true: false;
         data.CreatedBy = userId;
 
         // 暫時設定永遠開啟

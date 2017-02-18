@@ -116,11 +116,10 @@
         </div>
         <div class="form-group">
             <label>預設主分類
-                <span class="text-danger">*</span>
             </label>
             <select class="form-control"
-                name="defaultMenu"
-                required>
+                name="defaultMenu">
+                <option value="">請選擇</option>
                 {% for menu in menuList %}
                     <option value="{{ menu._id }}"
                         {{ "selected" if menu._id == user.defaultSettings.Menu }}>

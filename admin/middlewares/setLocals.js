@@ -3,7 +3,7 @@
  */
 import config from 'config';
 import adminMenu from '../../adminMenu.json';
-let apiServer = config.get('apiServer');
+let apiServer = config.get('apiServer.public');
 
 module.exports = () => {
 

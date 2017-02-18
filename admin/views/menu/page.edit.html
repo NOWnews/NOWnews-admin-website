@@ -31,6 +31,15 @@
                                 {% endif %}
                             </label>
                         </div>
+                        <div class="checkbox">
+                            <label>
+                                {% if menu.isAdult %}
+                                    <input name="isAdult" type="checkbox" checked> 是否為成人
+                                {% else %}
+                                    <input name="isAdult" type="checkbox" > 是否為成人
+                                {% endif %}
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
