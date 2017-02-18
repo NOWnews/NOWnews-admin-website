@@ -11,6 +11,10 @@ module.exports = async (req, res, next) => {
 
         data.UpdatedBy = userId;
 
+        if (data.defaultMenu === "") {
+            data.defaultMenu = null ;
+        }
+
         // 清除舊的圖片
         if (originAvatarId && originAvatarId !== data.Avatar) {
             await axios.delete(`/images/${originAvatarId}/realRemove`);
@@ -21,6 +25,12 @@ module.exports = async (req, res, next) => {
         debug('updatedUser = %j', user);
 
         req.session.adminUser.avatarUrl = avatarUrl;
+
+        if (!req.session.adminUser.defaultSettings) {
+            req.session.adminUser.defaultSettings = {};
+        }
+
+        req.session.adminUser.defaultSettings.Menu = data.defaultMenu;
 
         return res.redirect(`/auth/me`);
 

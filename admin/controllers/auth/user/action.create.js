@@ -9,6 +9,11 @@ module.exports = async (req, res, next) => {
         data.CreatedBy = userId;
         data.UpdatedBy = userId;
 
+
+        if (data.defaultMenu === "") {
+            data.defaultMenu = null ;
+        }
+
         if (data.Center === "") {
             delete data.Center;
         }
