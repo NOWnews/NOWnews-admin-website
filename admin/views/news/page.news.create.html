@@ -104,37 +104,16 @@
                 </div>
             </div>
         </div>
-        {% include './newsBlock/photo.html' %}
 
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title"></h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
+        {# 主圖設定 #}
+        {% include "./newsBlock/photo.html" %}
 
-            <div class="box-body">
-                <div class="form-group">
-                    <label>內文</label>
-                    <textarea id="editor1" class="form-control" name="content" rows="5" placeholder="Enter ..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>自由欄位</label>
-                    <textarea id="editor2" class="form-control" name="freeContent" rows="5" placeholder="Enter ..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>追蹤碼</label>
-                    <textarea class="form-control" name="traceCode" rows="5" placeholder="Enter ..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>關鍵字</label>
-                    <textarea name="tags" id="keywords"></textarea>
-                </div>
-            </div>
-        </div>
+        {# 文章設定 #}
+        {% include "./block.create.article.html" %}
+
+        {# 業務欄位 #}
+        {% include "./block.create.sponsored.html" %}
+
         <div class="box publish-setting">
             <div class="box-header with-border">
                 <h3 class="box-title">發稿設定</h3>
