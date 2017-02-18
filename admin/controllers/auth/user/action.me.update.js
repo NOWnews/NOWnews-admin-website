@@ -22,6 +22,12 @@ module.exports = async (req, res, next) => {
 
         req.session.adminUser.avatarUrl = avatarUrl;
 
+        if (!req.session.adminUser.defaultSettings) {
+            req.session.adminUser.defaultSettings = {};
+        }
+
+        req.session.adminUser.defaultSettings.Menu = data.defaultMenu;
+
         return res.redirect(`/auth/me`);
 
     } catch(err) {
