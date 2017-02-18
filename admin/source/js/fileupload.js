@@ -1,15 +1,25 @@
 /* global $, window */
-
+/*
+程式碼結構：
+- 公用變數
+- 初始化
+- 共用
+- 上傳
+- 圖庫
+*/
 $(function () {
     'use strict';
+
+    /* 公用變數 */
     var apiServ = 'http://61.67.121.56:10000/';
     var fileuploadElm = $('#fileupload');
     var fileRows = $('tbody.files');
     var imageBlocks = $('.image-blocks');
     var URL = window.URL || window.webkitURL;
 
-    initQueryFrom();
 
+    /* 初始化 */
+    initQueryFrom();
     function initQueryFrom() {
         var today = moment().format('YYYY-MM-DD');
         var prev2Month = moment().subtract(2, 'months').format('YYYY-MM-DD');
@@ -21,6 +31,10 @@ $(function () {
         endElm.attr('max', today);
     }
 
+
+    /* 共用 */
+    
+    // Setting Image To Content
     $('button.copy').on('click', function() {
         var doc = $('iframe#clipboard-source').contents()[0];
         var downloadForClipboard = $('input:checkbox[name=downloadForClipboard]:checked');
@@ -47,14 +61,15 @@ $(function () {
         doc.close('')
         doc.write('');
     });
-
     
-    // Setting Image To MainPhoto / Content
+    // Setting Image To MainPhoto
     function setMainPhoto (setBtn) {
         $('input[name=MainPhoto]').val(setBtn.attr('data-id'));
         $('img[name=MainPhoto]').attr('src', setBtn.attr('data-url'));
     }
 
+
+    /* 上傳 */
     // Initialize the jQuery File Upload widget:
     fileuploadElm.fileupload({
         downloadTemplateId: null,
@@ -137,7 +152,6 @@ $(function () {
         setMainPhoto($(this));
     });
 
-
     // 上傳前的圖片切割
     fileRows.on('click', 'button.crop', function(){
         var cropButton = $(this);
@@ -154,9 +168,9 @@ $(function () {
             viewMode: 1,
             zoomable: false,
         });
-
     });
 
+    // 圖片切割確認
     fileRows.on('click', 'button.confirm', function(){
         var confirmButton = $(this);
         var imageRow = confirmButton.closest('#crop-row').prev();
@@ -174,7 +188,7 @@ $(function () {
     });
 
 
-    // Image Library
+    /* 圖庫 */
     $('.imageLibQueryForm').on('click', function(e) {
         imageBlocks.html('');
         var queryString = 'startedAt=' + $('input[name=startedAt]').val();
