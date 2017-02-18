@@ -12,58 +12,70 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
-            <form id="fileupload" action="#" method="POST" enctype="multipart/form-data">
-                <input id="userId" type="hidden" value="{{ currentUser._id }}" />
+        
+            <!-- Hidden -->
+            <input id="userId" type="hidden" value="{{ currentUser._id }}" />
+            <iframe id="clipboard-source" class="hidden"></iframe>
 
-                <div class="row fileupload-buttonbar">
-                    <div class="col-md-7">
-                        <label class="btn btn-success fileinput-button" for="image-file">
-                        <i class="glyphicon glyphicon-plus"></i>
+            <div class="row fileupload-buttonbar">
+                <div class="col-md-7">
+                    <label class="btn btn-success fileinput-button" for="image-file">
+                        <i class="fa fa-plus"></i>
                         <span>新增檔案</span>
                         <input id="image-file" type="file" name="files[]" multiple class="sr-only">
                     </label>
-                        <button type="submit" class="btn btn-primary start">
-                        <i class="glyphicon glyphicon-upload"></i>
+                    <button type="button" class="btn btn-primary start">
+                        <i class="fa fa-upload"></i>
                         <span>全部上傳</span>
                     </button>
-                        <!-- The global file processing state -->
-                        <span class="fileupload-process"></span>
-                    </div>
-                    <!-- The global progress state -->
-                    <div class="col-md-5 fileupload-progress fade">
-                        <!-- The global progress bar -->
-                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-                        </div>
-                        <!-- The extended global progress state -->
-                        <div class="progress-extended">&nbsp;</div>
-                    </div>
+                    <button type="button" class="btn bg-navy copy">
+                        <i class="fa fa-copy"></i>
+                        <span>複製（供內文用）</span>
+                    </button>
+                    <!-- The global file processing state -->
+                    <span class="fileupload-process"></span>
                 </div>
-                <!-- The table listing the files available for upload/download -->
-                <table role="presentation" class="table table-striped">
-                    <tbody class="files"></tbody>
-                </table>
-            </form>
+                <!-- The global progress state -->
+                <div class="col-md-5 fileupload-progress fade">
+                    <!-- The global progress bar -->
+                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                    </div>
+                    <!-- The extended global progress state -->
+                    <div class="progress-extended">&nbsp;</div>
+                </div>
+            </div>
+            <!-- The table listing the files available for upload/download -->
+            <table role="presentation" class="table table-striped">
+                <tbody class="files"></tbody>
+            </table>
         </div>
         <div role="tabpanel" class="tab-pane" id="library">
-            <form id="image-library-query-form" method="get">
-                <div class="row">
-                    <div class="form-group col-md-2">
-                        <input name="startedAt" type="date" />
-                    </div>
-                    <div class="form-group col-md-2">
-                        <input name="endedAt" type="date" />
-                    </div>
-                    <div class="form-group col-md-2">
-                        <input name="desc" type="text" placeholder="關鍵字" />
-                    </div>
-                    <div class="form-group col-md-2">
-                        <button class="btn btn-default btn-flat" type="submit">查詢</button>
-                    </div>
-
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <input name="startedAt" type="date" />
                 </div>
-                <div class="row image-blocks"></div>
-            </form>
+                <div class="form-group col-md-2">
+                    <input name="endedAt" type="date" />
+                </div>
+                <div class="form-group col-md-2">
+                    <input name="desc" type="text" placeholder="關鍵字" />
+                </div>
+                <div class="form-group col-md-1">
+                    <button type="button" class="btn btn-default imageLibQueryForm">查詢</button>
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="button" class="btn bg-navy copy">
+                        <i class="fa fa-copy"></i>
+                        <span>複製（供內文用）</span>
+                    </button>
+                </div>
+
+
+            </div>
+            <div class="row image-blocks"> 
+
+            </div>
         </div>
     </div>
 </div>
@@ -75,7 +87,7 @@
                 <img width="200" id="crop-img"/>
             </div>
             <div class="text-center">
-                <button type="button" class="confirm btn btn-primary" data-blobURL=>
+                <button type="button" class="confirm btn btn-primary" data-blobURL>
                     <i class="fa fa-crop"></i>
                     <span>確認裁切</span>
                 </button>
@@ -91,7 +103,7 @@
                 <img class="upload-img hidden" width="80" height="40"/>
             </span>
             <p>
-                <input name="desc" type="text" placeholder="圖說" />
+                <input name="desc" style="width: 100%" type="text" placeholder="圖說" />
             </p>
             <strong class="error text-danger"></strong>
         </td>
@@ -106,12 +118,12 @@
                 <i class="fa fa-crop"></i>
                 <span class="hidden-xs">裁切</span>
             </button>
-            <button class="btn btn-primary start">
-                <i class="glyphicon glyphicon-upload"></i>
+            <button type="button" class="btn btn-primary start">
+                <i class="fa fa-upload"></i>
                 <span class="hidden-xs">上傳</span>
             </button>
-            <button class="btn btn-warning cancel">
-                <i class="glyphicon glyphicon-ban-circle"></i>
+            <button type="button" class="btn btn-warning cancel">
+                <i class="fa fa-ban"></i>
                 <span class="hidden-xs">取消</span>
             </button>
         </td>
@@ -120,20 +132,27 @@
 
 <script id="template-download" type="text/x-custom-template">
     <tr class="template-download fade">
-        <td colspan="2">
+        <td>
+            <input type="checkbox" name="downloadForClipboard" /> 
+        </td>
+        <td>
             <div class="preview zoom">
-                <img class="image" />
+                <img class="image"/>
             </div>
             <p class="desc"></p>
             <strong class="error text-danger"></strong>
         </td>
         <td>
-            <button class="btn btn-danger delete" data-id="">
-                <i class="glyphicon glyphicon-trash"></i>
+            <button type="button" class="btn bg-purple setMainPhoto" data-id="">
+                <i class="fa fa-check"></i>
+                <span class="hidden-xs">設為主圖</span>
+            </button>
+            <button type="button" class="btn btn-danger delete" data-id="">
+                <i class="fa fa-trash"></i>
                 <span class="hidden-xs">刪除</span>
             </button>
-            <button class="btn btn-warning cancel hidden">
-                <i class="glyphicon glyphicon-ban-circle"></i>
+            <button type="button" class="btn btn-warning cancel hidden">
+                <i class="fa fa-ban"></i>
                 <span class="hidden-xs">取消</span>
             </button>
         </td>
@@ -142,11 +161,19 @@
 
 <script id="template-image-block" type="text/x-custom-template">
     <div class="col-md-3 image-block">
-        <div class="zoom">
+        <div class="text-right">
+            <button class="btn bg-purple btn-xs fa fa-check"
+                type="button">設為主圖</button>
+            <button class="btn btn-danger btn-xs fa fa-trash"
+                type="button"></button>
+        </div>
+        <div class="zoom text-center">
             <img class="image" />
         </div>
-        <label class="desc"></label>
-        <button type="button" class="fa btn-flat fa-trash" "></button>
+        <label>
+            <input type="checkbox" name="libForClipboard" /> 
+            <span class="desc"></span>  
+        </label>
     </div>
 </script>
 
@@ -178,17 +205,27 @@
 <script src="/static/js/fileupload.js "></script>
 
 <style type="text/css">
-    .zoom {
-        min-width: 200px;
-        max-width: 400px;
+    .zoom, .image-preview {
+        min-width: 160px;
+        max-width: 320px;
+        max-height: 180px;
     }
 
-    .zoom .image {
+    .image  {
+        height: auto;
+        max-height: 180px;
         max-width: 100%;
-        width: 100%;
     }
+
     .image-block {
+        background: #d2d6de;
+        border: 1px solid #fff;
+        height: 250px;
         margin-bottom: 5px;
+    }
+
+    .image-block .text-right {
+        padding-bottom: 3px;
     }
 
 </style>

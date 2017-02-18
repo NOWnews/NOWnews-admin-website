@@ -19,9 +19,6 @@ module.exports = async (req, res, next) => {
         // 摘要大概是 120 - 150 字
         data.summary = htmlToText(data.content).slice(0,135);
 
-        // 暫時還沒有圖片功能
-        delete data.MainPhoto;
-
         // Tags 的處理
         let tags;
         if (data.tags !== ''){
@@ -33,7 +30,7 @@ module.exports = async (req, res, next) => {
             tags = await axios.post('/tags', data.tags);
         }
 
-        data.Tags = _.forEach(tags.data, (value) => {
+        data.Tags = _.map(tags.data, (value) => {
             return value.id;
         });
 

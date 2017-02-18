@@ -1,22 +1,30 @@
 /* global $, window */
-
+/*
+程式碼結構：
+- 公用變數
+- 初始化
+- 共用
+- 上傳
+- 圖庫
+*/
 $(function () {
     'use strict';
 
-    var apiServ = 'http://61.67.121.56:10000/';
+    /* 公用變數 */
+    var api = $('input[name=apiServer]').val();
     var fileuploadElm = $('#fileupload');
     var fileRows = $('tbody.files');
     var imageBlocks = $('.image-blocks');
-    var imageLibQueryForm = $('#image-library-query-form');
     var URL = window.URL || window.webkitURL;
 
-    initQueryFrom();
 
+    /* 初始化 */
+    initQueryFrom();
     function initQueryFrom() {
         var today = moment().format('YYYY-MM-DD');
         var prev2Month = moment().subtract(2, 'months').format('YYYY-MM-DD');
-        var startElm = imageLibQueryForm.find('input[name=startedAt]');
-        var endElm = imageLibQueryForm.find('input[name=endedAt]');
+        var startElm = $('input[name=startedAt]');
+        var endElm = $('input[name=endedAt]');
         startElm.val(prev2Month);
         startElm.attr('max', today);
         endElm.val(today);
@@ -24,11 +32,48 @@ $(function () {
     }
 
 
+    /* 共用 */
+
+    // Setting Image To Content
+    $('button.copy').on('click', function() {
+        var doc = $('iframe#clipboard-source').contents()[0];
+        var downloadForClipboard = $('input:checkbox[name=downloadForClipboard]:checked');
+        var libForClipboard = $('input:checkbox[name=libForClipboard]:checked');
+        var htmlString = '';
+
+        function generateString (index, input) {
+            var parentBlock = $(input).parent().parent();
+            var url = parentBlock.find('img.image').attr('src');
+            var desc = parentBlock.find('.desc').html();
+            var layout = "<p><img src='@URL@'/><br/><span>@DESC@</span></p>";
+            layout = layout.replace('@URL@', url);
+            htmlString += layout.replace('@DESC@', desc);
+        }
+
+
+        $.each(libForClipboard, generateString);
+        $.each(downloadForClipboard, generateString);
+
+        doc.write(htmlString);
+        doc.close('')
+        doc.execCommand("SelectAll", true);
+        doc.execCommand("Copy", true);
+        doc.write('');
+    });
+
+    // Setting Image To MainPhoto
+    function setMainPhoto (setBtn) {
+        $('input[name=MainPhoto]').val(setBtn.attr('data-id'));
+        $('img[name=MainPhoto]').attr('src', setBtn.attr('data-url'));
+    }
+
+
+    /* 上傳 */
     // Initialize the jQuery File Upload widget:
     fileuploadElm.fileupload({
         downloadTemplateId: null,
         paramName: 'image',
-        url: apiServ + 'images/upload',
+        url: api + '/images/upload',
         uploadTemplateId: null,
         destroy: function (e, data) {
             var that = this;
@@ -47,10 +92,13 @@ $(function () {
             $.each(o.files, function (index, file) {
                 var row = $($('#template-download').html());
                 row.find('.delete').attr('data-id', file._id);
+                row.find('.setMainPhoto').attr('data-id', file._id);
+                row.find('.setMainPhoto').attr('data-url', file.url);
                 row.find('.desc').text(file.desc);
                 row.find('img').attr('src', file.url);
 
                 if (file.error) {
+                    row.find('.setMainPhoto').addClass('hidden');
                     row.find('.delete').addClass('hidden');
                     row.find('.cancel').removeClass('hidden');
                     row.find('.error').text(file.error);
@@ -98,6 +146,11 @@ $(function () {
         $('.zoom').zoom();
     });
 
+    // 設為主圖
+    fileRows.on('click', 'button.setMainPhoto', function(){
+        setMainPhoto($(this));
+    });
+
     // 上傳前的圖片切割
     fileRows.on('click', 'button.crop', function(){
         var cropButton = $(this);
@@ -114,9 +167,9 @@ $(function () {
             viewMode: 1,
             zoomable: false,
         });
-
     });
 
+    // 圖片切割確認
     fileRows.on('click', 'button.confirm', function(){
         var confirmButton = $(this);
         var imageRow = confirmButton.closest('#crop-row').prev();
@@ -134,26 +187,29 @@ $(function () {
     });
 
 
-    // Image Library
-    imageLibQueryForm.submit(function(e) {
+    /* 圖庫 */
+    $('.imageLibQueryForm').on('click', function(e) {
         imageBlocks.html('');
-
-        $.get('/image?' + $(this).serialize(), function(result) {
+        var queryString = 'startedAt=' + $('input[name=startedAt]').val();
+        queryString += '&endedAt=' + $('input[name=endedAt]').val();
+        queryString += '&desc=' + $('input[name=desc]').val();
+        var desc = $('input[name=desc]').val();
+        $.get('/image?' + queryString, function(result) {
             $('.zoom').trigger('zoom.destroy');
             $.each(result.images, function(index, image) {
                 var block = $($('#template-image-block').html());
                 block.find('img').attr('src', image.url);
                 block.find('.desc').text(image.desc);
                 block.find('.fa-trash').attr('data-id', image._id);
+                block.find('.fa-check').attr('data-id', image._id);
+                block.find('.fa-check').attr('data-url', image.url);
                 imageBlocks.append(block);
             });
             $('.zoom').zoom();
-
         });
-        return false;
     });
 
-    imageBlocks.on('click', '.fa-trash', function(e, c) {
+    imageBlocks.on('click', 'button.fa-trash', function(e, c) {
         // 從 library 取得是假刪除
         var confirmed = confirm('您確定要刪除嗎？');
         if (!confirmed) {
@@ -164,7 +220,11 @@ $(function () {
             url: '/image/' + deleteBtn.attr('data-id'),
             type: 'DELETE',
         }).done(function(result) {
-            deleteBtn.parent().remove();
+            deleteBtn.parent().parent().remove();
         });
+    });
+
+    imageBlocks.on('click', 'button.fa-check', function(e, c) {
+        setMainPhoto($(this));
     });
 });

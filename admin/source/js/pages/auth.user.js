@@ -113,8 +113,8 @@ $(function() {
         formData.append('type', 'AVATAR');
         formData.append('CreatedBy', $('#userId').val());
         formData.append('image', previewBlob);
-
-        $.ajax('http://61.67.121.56:10000/images/upload', {
+        var api = $('input[name=apiServer]').val();
+        $.ajax( api + '/images/upload', {
             method: 'POST',
             data: formData,
             processData: false,
