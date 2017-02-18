@@ -5,7 +5,9 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        let { data: google } = await axios.get( `/trend/googleKeywords` );
+        let { data: google } = await axios.get( '/trend/googleKeywords', {
+            timeout: 5000
+        } );
 
         debug('googleKeywords = %j', google);
 
