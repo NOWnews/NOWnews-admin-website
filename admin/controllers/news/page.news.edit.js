@@ -34,8 +34,6 @@ module.exports = async (req, res, next) => {
         news.tags = news.Tags.join(',');
 
         // Map 設定
-        // TODO 之後在加google API
-        // let latlng = _.reverse(news.location);
         if (news.location !== ''){
             let [ lng, lat ] = news.location;
             console.log(lng, lat, 'L41')
@@ -46,13 +44,6 @@ module.exports = async (req, res, next) => {
             });
             news.location = address;
         }
-        // let [ lng, lat ] = location;
-        // let { data: { address } } = await axios.get( `/map/location`, {
-        //     params: {
-        //         latlng: []
-        //     }
-        // });
-        // news.location = address;
 
         debug('news = %j', news);
 
