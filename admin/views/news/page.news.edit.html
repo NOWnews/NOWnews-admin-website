@@ -300,7 +300,7 @@
     $(function () {
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
-        CKEDITOR.replace('editor1');
+        CKEDITOR.replace('editor1', {height:550});
         CKEDITOR.replace('editor2');
 
         var data = CKEDITOR.instances.editor1.getData();
