@@ -34,7 +34,7 @@
                                 新聞的作者
                                 <span class="text-danger">*</span>
                             </label>
-                            <select name="Author" class="form-control select2">
+                            <select name="Author" class="form-control select2" required>
                                 {% for user in userList %}
                                     {% if user.sn == Author.sn %}
                                         <option value="{{ user._id }}" selected>{{ user.name }}</option>
@@ -51,7 +51,7 @@
                                 新聞的類別
                                 <span class="text-danger">*</span>
                             </label>
-                            <select name="type" class="form-control select2">
+                            <select name="type" class="form-control select2" required>
                                 {% for key, type in NEWS_TYPES %}
                                     {% if news.type == type %}
                                         <option value="{{ key }}" selected>{{ type }}</option>
@@ -70,7 +70,7 @@
                                 新聞主分類
                                 <span class="text-danger">*</span>
                             </label>
-                            <select id="MainMenu" name="MainMenu" multiple="multiple" style="display: none;">
+                            <select id="MainMenu" name="MainMenu" multiple="multiple" style="display: none;" required>
                                 {% for m in menus %}
                                     {% if m._id == news.MainMenu._id %}
                                         <option value="{{ m._id }}" selected="selected">{{ m.name }}</option>
@@ -136,7 +136,7 @@
                                 長標
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" id="title" name="title" value="{{news.title}}" class="input form-control" placeholder="限制字數為 26">
+                            <input type="text" id="title" name="title" value="{{news.title}}" class="input form-control" placeholder="限制字數為 26" required>
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -145,7 +145,7 @@
                                 短標
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" id="shortTitle" value="{{news.shortTitle}}" name="shortTitle" class="input form-control" placeholder="限制字數為 16">
+                            <input type="text" id="shortTitle" value="{{news.shortTitle}}" name="shortTitle" class="input form-control" placeholder="限制字數為 16" required>
                         </div>
                     </div>
                 </div>

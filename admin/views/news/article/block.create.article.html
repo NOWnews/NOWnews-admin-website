@@ -24,8 +24,11 @@
             <div id="suggest-box"></div>
         </div>
         <div class="form-group">
-            <label for="location" class="control-label">地區設定</label>
-            <input name="location" id="location" class="input form-control" placeholder="例如: 台北市內湖區" />
+            <label for="location" class="control-label">
+                地區設定
+                <span class="text-danger">*</span>
+            </label>
+            <input name="location" id="location" class="input form-control" placeholder="例如: 台北市內湖區" required/>
         </div>
         <script>
             $(function(){

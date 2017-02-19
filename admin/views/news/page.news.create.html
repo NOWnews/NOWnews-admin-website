@@ -32,7 +32,7 @@
                                 新聞的作者
                                 <span class="text-danger">*</span>
                             </label>
-                            <select name="Author" class="form-control select2">
+                            <select name="Author" class="form-control select2" required>
                                 {% for user in userList %}
                                     <option value="{{ user._id }}">{{ user.name }}</option>
                                 {% endfor %}
@@ -45,7 +45,7 @@
                                 新聞的類別
                                 <span class="text-danger">*</span>
                             </label>
-                            <select name="type" class="form-control select2">
+                            <select name="type" class="form-control select2" required>
                                 {% for key, type in NEWS_TYPES %}
                                     <option value="{{ key }}">{{ type }}</option>
                                 {% endfor %}
@@ -60,7 +60,7 @@
                                 新聞主分類
                                 <span class="text-danger">*</span>
                             </label>
-                            <select id="MainMenu" name="MainMenu" multiple="multiple" style="display: none;">
+                            <select id="MainMenu" name="MainMenu" multiple="multiple" style="display: none;" required>
                                 {% for m in menus %}
                                     {% if m._id == currentUser.defaultSettings.Menu %}
                                         <option value="{{ m._id }}" selected="selected">{{ m.name }}</option>
@@ -110,7 +110,7 @@
                                 長標
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" id="title" name="title" class="input form-control" placeholder="限制字數為 26">
+                            <input type="text" id="title" name="title" class="input form-control" placeholder="限制字數為 26" required>
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -119,7 +119,7 @@
                                 短標
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" id="shortTitle" name="shortTitle" class="input form-control" placeholder="限制字數為 16">
+                            <input type="text" id="shortTitle" name="shortTitle" class="input form-control" placeholder="限制字數為 16" required>
                         </div>
                     </div>
                 </div>
