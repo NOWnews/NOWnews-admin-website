@@ -240,6 +240,9 @@
     .ms-drop ul>li.group input{
         display: none;
     }
+    .ui-widget-shadow {
+        opacity: 1;
+    }
 </style>
 <script>
     $(function () {
@@ -260,7 +263,7 @@
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
         CKEDITOR.replace('editor1', {height:550});
-        CKEDITOR.replace('editor2');
+        // CKEDITOR.replace('editor2');
 
         var data = CKEDITOR.instances.editor1.getData();
         function strip_tags (input, allowed) {
@@ -280,10 +283,10 @@
         });
         $("form").submit(function( event ) {
             var content = CKEDITOR.instances.editor1.getData();
-            var freeContent = CKEDITOR.instances.editor2.getData();
+            // var freeContent = CKEDITOR.instances.editor2.getData();
 
             $('[name=content]').val(content);
-            $('[name=freeContent]').val(freeContent);
+            // $('[name=freeContent]').val(freeContent);
             $('[name=MainMenu]').val($("#MainMenu").multipleSelect("getSelects"));
             $('[name=Menus]').val($("#Menus").multipleSelect("getSelects"));
 
