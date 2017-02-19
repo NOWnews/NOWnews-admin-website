@@ -61,12 +61,18 @@ $(function () {
         doc.write('');
     });
 
+    function countCopiedItems () {
+        var total = 0;
+        total += $('input:checkbox[name=downloadForClipboard]:checked').length;
+        total += $('input:checkbox[name=libForClipboard]:checked').length;
+        $('.copiedItem').html(total);
+    }
+
     // Setting Image To MainPhoto
     function setMainPhoto (setBtn) {
         $('input[name=MainPhoto]').val(setBtn.attr('data-id'));
         $('img[name=MainPhoto]').attr('src', setBtn.attr('data-url'));
     }
-
 
     /* 上傳 */
     // Initialize the jQuery File Upload widget:
@@ -87,6 +93,9 @@ $(function () {
                 }
             });
         },
+        destroyed: function (e, data) {
+            countCopiedItems();
+        },
         downloadTemplate: function (o) {
             var rows = $();
             $.each(o.files, function (index, file) {
@@ -96,6 +105,8 @@ $(function () {
                 row.find('.setMainPhoto').attr('data-url', file.url);
                 row.find('.desc').text(file.desc);
                 row.find('img').attr('src', file.url);
+                row.find('input:checkbox').on('change', countCopiedItems);
+
 
                 if (file.error) {
                     row.find('.setMainPhoto').addClass('hidden');
@@ -205,6 +216,8 @@ $(function () {
                 block.find('.fa-check').attr('data-url', image.url);
                 imageBlocks.append(block);
             });
+            $('input:checkbox[name=libForClipboard]').on('change', countCopiedItems);
+            countCopiedItems();
             $('.zoom').zoom();
         });
     });
@@ -221,6 +234,7 @@ $(function () {
             type: 'DELETE',
         }).done(function(result) {
             deleteBtn.parent().parent().remove();
+            countCopiedItems();
         });
     });
 
