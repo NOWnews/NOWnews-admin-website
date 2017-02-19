@@ -21,14 +21,19 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label">新聞的來源</label>
+                            <label class="control-label">
+                                新聞的來源
+                                <span class="text-danger">*</span>
+                            </label>
                             <p>NOWnews</p>
                         </div>
                     </div>
-
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label">新聞的作者</label>
+                            <label class="control-label">
+                                新聞的作者
+                                <span class="text-danger">*</span>
+                            </label>
                             <select name="Author" class="form-control select2">
                                 {% for user in userList %}
                                     {% if user.sn == Author.sn %}
@@ -42,7 +47,10 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label">新聞的類別</label>
+                            <label class="control-label">
+                                新聞的類別
+                                <span class="text-danger">*</span>
+                            </label>
                             <select name="type" class="form-control select2">
                                 {% for key, type in NEWS_TYPES %}
                                     {% if news.type == type %}
@@ -58,7 +66,10 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="MainMenu" class="control-label">新聞主分類</label>
+                            <label for="MainMenu" class="control-label">
+                                新聞主分類
+                                <span class="text-danger">*</span>
+                            </label>
                             <select id="MainMenu" name="MainMenu" multiple="multiple" style="display: none;">
                                 {% for m in menus %}
                                     {% if m._id == news.MainMenu._id %}
@@ -121,13 +132,19 @@
                 <div class="row">
                     <div class="col-sm-7">
                         <div class="form-group">
-                            <label for="title" class="control-label">長標</label>
+                            <label for="title" class="control-label">
+                                長標
+                                <span class="text-danger">*</span>
+                            </label>
                             <input type="text" id="title" name="title" value="{{news.title}}" class="input form-control" placeholder="限制字數為 26">
                         </div>
                     </div>
                     <div class="col-sm-5">
                         <div class="form-group">
-                            <label for="shortTitle" class="control-label">短標</label>
+                            <label for="shortTitle" class="control-label">
+                                短標
+                                <span class="text-danger">*</span>
+                            </label>
                             <input type="text" id="shortTitle" value="{{news.shortTitle}}" name="shortTitle" class="input form-control" placeholder="限制字數為 16">
                         </div>
                     </div>
