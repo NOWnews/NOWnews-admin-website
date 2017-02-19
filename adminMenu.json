@@ -1,10 +1,4 @@
 {
-    "dashboard": {
-        "url": "/dashboard",
-        "name": "控制台",
-        "icon": "fa-dashboard",
-        "children": null
-    },
     "news": {
         "url": "#",
         "name": "新聞",
@@ -30,66 +24,6 @@
         },{
             "url": "/tags/create",
             "name": "建立關鍵字"
-        }]
-    },
-    "layout": {
-        "url": "/layout",
-        "name": "版面調整",
-        "icon": "fa-object-ungroup",
-        "children": [{
-            "url": "#",
-            "name": "Link in level 2"
-        },{
-            "url": "#",
-            "name": "Link in level 2"
-        }]
-    },
-    "picture": {
-        "url": "/picture",
-        "name": "圖片",
-        "icon": "fa-file-image-o",
-        "children": [{
-            "url": "#",
-            "name": "Link in level 2"
-        },{
-            "url": "#",
-            "name": "Link in level 2"
-        }]
-    },
-    "video": {
-        "url": "/video",
-        "name": "影片",
-        "icon": "fa-file-video-o",
-        "children": [{
-            "url": "#",
-            "name": "Link in level 2"
-        },{
-            "url": "#",
-            "name": "Link in level 2"
-        }]
-    },
-    "analysis": {
-        "url": "/analysis",
-        "name": "統計",
-        "icon": "fa-heartbeat",
-        "children": [{
-            "url": "#",
-            "name": "Link in level 2"
-        },{
-            "url": "#",
-            "name": "Link in level 2"
-        }]
-    },
-    "moderator": {
-        "url": "/moderator",
-        "name": "版主",
-        "icon": "fa-group",
-        "children": [{
-            "url": "#",
-            "name": "Link in level 2"
-        },{
-            "url": "#",
-            "name": "Link in level 2"
         }]
     },
     "menu": {
