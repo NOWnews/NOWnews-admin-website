@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
 
         debug('newsListInfo = %j', newsListInfo );
 
-        return res.render('news/page.news.myList.html', {
+        return res.render('news/page.news.reviewList.html', {
             NEWS_STATUS,
             NEWS_TYPES,
             newsListInfo,
