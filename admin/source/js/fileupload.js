@@ -36,8 +36,8 @@ $(function () {
 
     // Setting Image To Content
     $('button.copy').on('click', function() {
-        var downloadForClipboard = $('input:checkbox[name=downloadForClipboard]:checked');
-        var libForClipboard = $('input:checkbox[name=libForClipboard]:checked');
+        var downloadForCopy = $('input:checkbox[name=downloadForCopy]:checked');
+        var libForCopy = $('input:checkbox[name=libForCopy]:checked');
         var htmlString = '';
 
         function generateString (index, input) {
@@ -50,17 +50,23 @@ $(function () {
 
         var originalData = CKEDITOR.instances['editor1'].getData();
 
-        $.each(libForClipboard, generateString);
-        $.each(downloadForClipboard, generateString);
+        $.each(libForCopy, generateString);
+        $.each(downloadForCopy, generateString);
         CKEDITOR.instances['editor1'].setData(htmlString + originalData);
     });
+
+    function countCopiedItems () {
+        var total = 0;
+        total += $('input:checkbox[name=downloadForCopy]:checked').length;
+        total += $('input:checkbox[name=libForCopy]:checked').length;
+        $('.copiedItem').html(total);
+    }
 
     // Setting Image To MainPhoto
     function setMainPhoto (setBtn) {
         $('input[name=MainPhoto]').val(setBtn.attr('data-id'));
         $('img[name=MainPhoto]').attr('src', setBtn.attr('data-url'));
     }
-
 
     /* 上傳 */
     // Initialize the jQuery File Upload widget:
@@ -81,6 +87,9 @@ $(function () {
                 }
             });
         },
+        destroyed: function (e, data) {
+            countCopiedItems();
+        },
         downloadTemplate: function (o) {
             var rows = $();
             $.each(o.files, function (index, file) {
@@ -90,7 +99,8 @@ $(function () {
                 row.find('.setMainPhoto').attr('data-id', file._id);
                 row.find('.setMainPhoto').attr('data-url', file.url);
                 row.find('.desc').text(file.desc);
-                img.attr('src', file.url);
+                row.find('img').attr('src', file.url);
+                row.find('input:checkbox[name=downloadForCopy]').on('change', countCopiedItems);
 
                 if (file.isDeliver) {
                     img.addClass('isDeliver');
@@ -176,8 +186,9 @@ $(function () {
     // 圖片切割確認
     fileRows.on('click', 'button.confirm', function(){
         var confirmButton = $(this);
-        var imageRow = confirmButton.closest('#crop-row').prev();
-        var cropImgElm = confirmButton.parent().parent().find('#crop-img');
+        var cropRow = confirmButton.closest('#crop-row');
+        var imageRow = cropRow.prev();
+        var cropImgElm = cropRow.find('#crop-img');
         cropImgElm.cropper('getCroppedCanvas').toBlob(function (blob) {
             var blobURL = URL.createObjectURL(blob);
             $('.template-upload').data('data').files[0] = blob;
@@ -185,11 +196,20 @@ $(function () {
             imageRow.find('.upload-img').removeClass('hidden');
             imageRow.find('.cancel').removeClass('hidden');
             imageRow.find('canvas').remove();
-            $('#crop-row').remove();
+            cropRow.remove();
             return;
         });
     });
 
+    // 圖片切割取消
+    fileRows.on('click', 'button.cancel-crop', function(){
+        var cropRow = $(this).closest('#crop-row');
+        var imageRow = cropRow.prev();
+        imageRow.find('.crop').removeClass('hidden');
+        imageRow.find('.cancel').removeClass('hidden');
+        cropRow.remove();
+        return;
+    });
 
     /* 圖庫 */
     $('.imageLibQueryForm').on('click', function(e) {
@@ -215,6 +235,8 @@ $(function () {
                 block.find('.fa-check').attr('data-url', image.url);
                 imageBlocks.append(block);
             });
+            $('input:checkbox[name=libForCopy]').on('change', countCopiedItems);
+            countCopiedItems();
             $('.zoom').zoom();
         });
     });
@@ -231,6 +253,7 @@ $(function () {
             type: 'DELETE',
         }).done(function(result) {
             deleteBtn.parent().parent().remove();
+            countCopiedItems();
         });
     });
 
