@@ -1,6 +1,8 @@
 import adminMenu from '../../adminMenu.json';
 import home from './home';
 import image from './image';
+import trend from './trend';
+import map from './map';
 import robot from './robot';
 import _ from 'lodash';
 
@@ -24,6 +26,8 @@ module.exports = function(app) {
 
     app.use('/robots.txt', robot);
     app.use('/image', image);
+    app.use('/trend', trend);
+    app.use('/map', map);
     app.use('/', home);
 
     return function(req, res, next) {

@@ -28,12 +28,21 @@ module.exports = async (req, res, next) => {
                 CreatedBy: userId
             }
             tags = await axios.post('/tags', data.tags);
+            data.Tags = _.map(tags.data, (value) => {
+                return value.id;
+            });
         }
 
-        data.Tags = _.map(tags.data, (value) => {
-            return value.id;
-        });
-
+        // Map 設定
+        if (data.location !== ''){
+            let { data: { location } } = await axios.get( `/map/location`, {
+                params: {
+                    address: data.location
+                }
+            });
+            let [ lng, lat ] = location;
+            data.location = [ lng, lat ];
+        }
         let { data: news } = await axios.post('/news', data);
 
         debug('createdNews = %j', news);
