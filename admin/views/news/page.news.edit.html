@@ -147,6 +147,7 @@
         {# 發稿設定 #}
         {% include "./releaseSet/block.edit.releaseSet.html" %}
 
+        {# 第一版先隱藏起來
         <div class="box memo-box">
             <div class="box-header with-border">
                 <h3 class="box-title">撰稿備忘錄</h3>
@@ -186,6 +187,7 @@
                 </div>
             </div>
         </div>
+        #}
 
         {# 注意事項 - 需要跟新聞部確認要注意的事項
         {% include "./block.notice.html" %}
@@ -288,20 +290,24 @@
         var publishSetting = function (status) {
             switch (status) {
                 case 'DRAFT':
-                    $('select[name="LastReviewer"]').prop('disabled', true);
-                    $('#reservation-datetimepicker').prop('disabled', true);
+                    $('.lastReviewer').css('visibility', 'hidden');
+                    $('.reservation').css('visibility', 'hidden');
                     break;
                 case 'REVIEW':
+                    $('.lastReviewer').css('visibility', 'inherit');
+                    $('.reservation').css('visibility', 'inherit');
                     $('select[name="LastReviewer"]').prop('disabled', false);
                     $('#reservation-datetimepicker').prop('disabled', false);
                     break;
                 case 'RELEASE':
+                    $('.lastReviewer').css('visibility', 'inherit');
+                    $('.reservation').css('visibility', 'inherit');
                     $('select[name="LastReviewer"]').prop('disabled', true);
                     $('#reservation-datetimepicker').prop('disabled', true);
                     break;
                 case 'CLOSE':
-                    $('select[name="LastReviewer"]').prop('disabled', true);
-                    $('#reservation-datetimepicker').prop('disabled', true);
+                    $('.lastReviewer').css('visibility', 'hidden');
+                    $('.reservation').css('visibility', 'hidden');
                     break;
                 default:
                     return false;

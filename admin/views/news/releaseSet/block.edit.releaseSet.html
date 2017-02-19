@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="col-sm-8">
-                <div class="form-group">
+                <div class="form-group lastReviewer">
                     <label class="control-label">指定送審人</label>
                     <select name="LastReviewer" class="form-control select2">
                         {% for user in userList %}
@@ -50,10 +50,8 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group reservation">
                     <label class="control-label">預約發稿</label>
-                </div>
-                <div class="form-group">
                     <div class='input-group date'>
                         <input id="reservation-datetimepicker" value="{{ news.formatCreatedAt }}" type='text' class="form-control input" />
                         <span class="input-group-addon">
