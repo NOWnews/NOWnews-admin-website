@@ -12,10 +12,9 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
-        
+
             <!-- Hidden -->
             <input id="userId" type="hidden" value="{{ currentUser._id }}" />
-            <iframe id="clipboard-source" class="hidden"></iframe>
 
             <div class="row fileupload-buttonbar">
                 <div class="col-md-7">
@@ -30,7 +29,7 @@
                     </button>
                     <button type="button" class="btn bg-navy copy">
                         <i class="fa fa-copy"></i>
-                        <span>複製（供內文用）</span>
+                        <span>複製到內文</span>
                     </button>
                     <!-- The global file processing state -->
                     <span class="fileupload-process"></span>
@@ -67,13 +66,13 @@
                 <div class="form-group col-md-2">
                     <button type="button" class="btn bg-navy copy">
                         <i class="fa fa-copy"></i>
-                        <span>複製（供內文用）</span>
+                        <span>複製到內文</span>
                     </button>
                 </div>
 
 
             </div>
-            <div class="row image-blocks"> 
+            <div class="row image-blocks">
 
             </div>
         </div>
@@ -103,6 +102,7 @@
                 <img class="upload-img hidden" width="80" height="40"/>
             </span>
             <p>
+                <label><input type="checkbox" name="isDeliver" checked="checked" />是否外送</label>
                 <input name="desc" style="width: 100%" type="text" placeholder="圖說" />
             </p>
             <strong class="error text-danger"></strong>
@@ -133,7 +133,7 @@
 <script id="template-download" type="text/x-custom-template">
     <tr class="template-download fade">
         <td>
-            <input type="checkbox" name="downloadForClipboard" /> 
+            <input type="checkbox" name="downloadForClipboard" />
         </td>
         <td>
             <div class="preview zoom">
@@ -143,6 +143,11 @@
             <strong class="error text-danger"></strong>
         </td>
         <td>
+            <div style="{position: relative;}">
+            <small class="label label-warning canNotDeliver">
+                <i class="fa fa-bin"></i>不可外送
+            </small>
+            </div>
             <button type="button" class="btn bg-purple setMainPhoto" data-id="">
                 <i class="fa fa-check"></i>
                 <span class="hidden-xs">設為主圖</span>
@@ -161,6 +166,9 @@
 
 <script id="template-image-block" type="text/x-custom-template">
     <div class="col-md-3 image-block">
+        <small class="label label-warning canNotDeliver">
+            <i class="fa fa-bin"></i>不可外送
+        </small>
         <div class="text-right">
             <button class="btn bg-purple btn-xs fa fa-check"
                 type="button">設為主圖</button>
@@ -171,8 +179,8 @@
             <img class="image" />
         </div>
         <label>
-            <input type="checkbox" name="libForClipboard" /> 
-            <span class="desc"></span>  
+            <input type="checkbox" name="libForClipboard" />
+            <span class="desc"></span>
         </label>
     </div>
 </script>
@@ -226,6 +234,11 @@
 
     .image-block .text-right {
         padding-bottom: 3px;
+    }
+
+    .image-block small.canNotDeliver {
+        position: absolute;
+        top: 3px;
     }
 
 </style>
