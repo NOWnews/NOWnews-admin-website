@@ -183,8 +183,9 @@ $(function () {
     // 圖片切割確認
     fileRows.on('click', 'button.confirm', function(){
         var confirmButton = $(this);
-        var imageRow = confirmButton.closest('#crop-row').prev();
-        var cropImgElm = confirmButton.parent().parent().find('#crop-img');
+        var cropRow = confirmButton.closest('#crop-row');
+        var imageRow = cropRow.prev();
+        var cropImgElm = cropRow.find('#crop-img');
         cropImgElm.cropper('getCroppedCanvas').toBlob(function (blob) {
             var blobURL = URL.createObjectURL(blob);
             $('.template-upload').data('data').files[0] = blob;
@@ -192,11 +193,20 @@ $(function () {
             imageRow.find('.upload-img').removeClass('hidden');
             imageRow.find('.cancel').removeClass('hidden');
             imageRow.find('canvas').remove();
-            $('#crop-row').remove();
+            cropRow.remove();
             return;
         });
     });
 
+    // 圖片切割取消
+    fileRows.on('click', 'button.cancel-crop', function(){
+        var cropRow = $(this).closest('#crop-row');
+        var imageRow = cropRow.prev();
+        imageRow.find('.crop').removeClass('hidden');
+        imageRow.find('.cancel').removeClass('hidden');
+        cropRow.remove();
+        return;
+    });
 
     /* 圖庫 */
     $('.imageLibQueryForm').on('click', function(e) {
