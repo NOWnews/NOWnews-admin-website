@@ -49,7 +49,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="MainMenu" class="control-label">新聞主分類</label>
-                            <select id="MainMenu" name="MainMenu" multiple="multiple">
+                            <select id="MainMenu" name="MainMenu" multiple="multiple" style="display: none;">
                                 {% for m in menus %}
                                     {% if m._id == currentUser.defaultSettings.Menu %}
                                         <option value="{{ m._id }}" selected="selected">{{ m.name }}</option>
@@ -63,7 +63,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="Menus" class="control-label">新聞次分類</label>
-                            <select id='Menus' name="Menus" multiple="multiple">
+                            <select id='Menus' name="Menus" multiple="multiple" style="display: none;">
                                 {% for menu in menus %}
                                     <optgroup label="{{ menu.name }}">
                                         {% for child in menu.child %}
@@ -213,6 +213,20 @@
 </style>
 <script>
     $(function () {
+
+        $('#MainMenu').multipleSelect({
+            filter: true,
+            single: true,
+            width: '100%'
+        });
+        $('#Menus').multipleSelect({
+            filter: true,
+            multiple: true,
+            width: '100%',
+            selectAll: false,
+            allSelected: false
+        });
+
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
         CKEDITOR.replace('editor1', {height:550});
@@ -289,19 +303,6 @@
 
             status = $(this).attr('value');
             publishSetting(status);
-        });
-
-        $('#MainMenu').multipleSelect({
-            filter: true,
-            single: true,
-            width: '100%'
-        });
-        $('#Menus').multipleSelect({
-            filter: true,
-            multiple: true,
-            width: '100%',
-            selectAll: false,
-            allSelected: false
         });
 
         $("#keywords").tagEditor({
