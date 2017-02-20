@@ -1,8 +1,8 @@
-{% set title = "我的新聞" %}
-{% set subtitle = "我的新聞列表，照時間排序，狀態有草稿、審核、...等等 的項目。" %}
+{% set title = listDescription.title %}
+{% set subtitle = listDescription.subtitle %}
 {% extends "../base.html" %}
 {% block headTitle %}
-    <title>新編採 | {{ title }}</title>
+    <title>大編輯台 | {{ title }}</title>
 {% endblock %}
 
 {% block container %}
@@ -39,7 +39,7 @@
                 type: 'DELETE',
                 success: function(result) {
                     console.log(result)
-                    // location.reload();
+                    location.reload();
                 }
             });
         });

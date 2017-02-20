@@ -2,7 +2,7 @@
 {% extends "../base.html" %}
 
 {% block headTitle %}
-    <title>新編採 | {{ title }}</title>
+    <title>大編輯台 | {{ title }}</title>
 {% endblock %}
 {% block container %}
 <section class="content">
@@ -282,6 +282,7 @@
 
         CKEDITOR.replace('editor1', {
             height:550,
+            removeButtons: 'Image,About',
             stylesSet: [{
                 name: 'isDeliver',
                 element: 'img',

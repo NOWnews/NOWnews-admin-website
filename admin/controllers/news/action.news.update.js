@@ -21,6 +21,11 @@ module.exports = async (req, res, next) => {
 
         data.UpdatedBy = userId;
 
+        // MainPhoto 是字串就不傳
+        if (data.MainPhoto === '') {
+            data.MainPhoto = null;
+        }
+
         // Tags 的處理
         let tags;
         if (data.tags !== ''){

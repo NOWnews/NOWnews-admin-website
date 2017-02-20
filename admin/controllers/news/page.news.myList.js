@@ -5,12 +5,13 @@ module.exports = async (req, res, next) => {
 
     try {
         let userId = req.session.adminUser._id;
-        let { data: newsListInfo } = await axios.get('/news', {
-            params: {
-                userId
-            }
-        });
+        let { data: newsListInfo } = await axios.get('/news');
+
         let pageData = newsListInfo.pageData;
+        let listDescription = {
+            title: '所有新聞',
+            subtitle: '新聞列表，照時間排序，狀態有草稿、審核、...等等 的項目。',
+        };
 
         debug('newsListInfo = %j', newsListInfo );
 
@@ -18,7 +19,8 @@ module.exports = async (req, res, next) => {
             NEWS_STATUS,
             NEWS_TYPES,
             newsListInfo,
-            pageData
+            pageData,
+            listDescription
         });
     }
     catch(err) {

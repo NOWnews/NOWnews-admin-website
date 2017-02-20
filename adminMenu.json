@@ -4,26 +4,32 @@
         "name": "新聞",
         "icon": "fa-newspaper-o",
         "children": [{
-            "url": "/news/myList",
-            "name": "我的新聞"
-        },{
             "url": "/news/create",
             "name": "新增新聞"
         },{
+            "url": "/news/myList",
+            "name": "所有新聞"
+        },{
+            "url": "/news/createList",
+            "name": "我建立的新聞"
+        },{
             "url": "/news/reviewList",
-            "name": "待審新聞"
+            "name": "待審中新聞"
+        },{
+            "url": "/news/takeMeReviewList",
+            "name": "待我審核新聞"
         }]
     },
     "tags": {
         "url": "#",
         "name": "關鍵字",
-        "icon": "fa-newspaper-o",
+        "icon": "fa-tags",
         "children": [{
-            "url": "/tags",
-            "name": "關鍵字列表"
-        },{
             "url": "/tags/create",
             "name": "建立關鍵字"
+         },{
+            "url": "/tags",
+            "name": "關鍵字列表"
         }]
     },
     "menu": {
@@ -31,9 +37,6 @@
         "name": "選單設定",
         "icon": "fa-calendar-check-o",
         "children": [{
-            "url": "/menu",
-            "name": "選單列表"
-        },{
             "url": "/menu/create",
             "name": "選單建立"
         },{

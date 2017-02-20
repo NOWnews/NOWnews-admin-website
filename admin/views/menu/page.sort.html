@@ -1,5 +1,5 @@
 {% extends "../base.html" %}
-{% block headTitle %}<title>新編採 | 選單管理</title>{% endblock %}
+{% block headTitle %}<title>大編輯台 | 選單管理</title>{% endblock %}
 
 {% block container %}
         <section>
@@ -7,15 +7,18 @@
                 <div class="col-md-12">
                     <div class="box box-default">
                         <div class="box-header with-border">
-                            <div class="col-md-6">
-                                <i class="fa fa-check-square"></i>
-                                <h3 class="box-title">啟用</h3>
-                                <span class="label bg-green color-palette">分類</span>
+                            <div class="form-group col-md-2">
+                               <a class="btn btn-success" href="/menu/create">新增選單</a>
                             </div>
-                            <div class="col-md-6">
-                                <i class="fa fa-warning"></i>
-                                <h3 class="box-title">未啟用</h3>
-                                <span class="label bg-gray color-palette">分類</span>
+                            <div class="col-md-5">
+                                <label>
+                                    說明：
+                                    <br/>
+                                    <span class="label bg-green color-palette">分類</span>
+                                    啟用
+                                    <span class="label bg-gray color-palette">分類</span>
+                                    未啟用
+                                </label>
                             </div>
                         </div>
                   </div>
