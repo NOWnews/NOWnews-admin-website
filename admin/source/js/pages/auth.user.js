@@ -111,6 +111,7 @@ $(function() {
         formData.append('title', username);
         formData.append('desc', username + '的AVATAR');
         formData.append('type', 'AVATAR');
+        formData.append('isDeliver', false);
         formData.append('CreatedBy', $('#userId').val());
         formData.append('image', previewBlob);
         var api = $('input[name=apiServer]').val();

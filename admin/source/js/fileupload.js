@@ -36,37 +36,37 @@ $(function () {
 
     // Setting Image To Content
     $('button.copy').on('click', function() {
-        var doc = $('iframe#clipboard-source').contents()[0];
-        var downloadForClipboard = $('input:checkbox[name=downloadForClipboard]:checked');
-        var libForClipboard = $('input:checkbox[name=libForClipboard]:checked');
+        var downloadForCopy = $('input:checkbox[name=downloadForCopy]:checked');
+        var libForCopy = $('input:checkbox[name=libForCopy]:checked');
         var htmlString = '';
 
         function generateString (index, input) {
             var parentBlock = $(input).parent().parent();
-            var url = parentBlock.find('img.image').attr('src');
-            var desc = parentBlock.find('.desc').html();
-            var layout = "<p><img src='@URL@'/><br/><span>@DESC@</span></p>";
-            layout = layout.replace('@URL@', url);
-            htmlString += layout.replace('@DESC@', desc);
+            var img = parentBlock.find('img.image')[0].outerHTML;
+            var desc = parentBlock.find('.desc')[0].outerHTML;
+            var layout = "<p>" + img + "<br/>" + desc + "</p>";
+            htmlString += layout;
         }
 
+        var originalData = CKEDITOR.instances['editor1'].getData();
 
-        $.each(libForClipboard, generateString);
-        $.each(downloadForClipboard, generateString);
-
-        doc.write(htmlString);
-        doc.close('')
-        doc.execCommand("SelectAll", true);
-        doc.execCommand("Copy", true);
-        doc.write('');
+        $.each(libForCopy, generateString);
+        $.each(downloadForCopy, generateString);
+        CKEDITOR.instances['editor1'].setData(htmlString + originalData);
     });
+
+    function countCopiedItems () {
+        var total = 0;
+        total += $('input:checkbox[name=downloadForCopy]:checked').length;
+        total += $('input:checkbox[name=libForCopy]:checked').length;
+        $('.copiedItem').html(total);
+    }
 
     // Setting Image To MainPhoto
     function setMainPhoto (setBtn) {
         $('input[name=MainPhoto]').val(setBtn.attr('data-id'));
         $('img[name=MainPhoto]').attr('src', setBtn.attr('data-url'));
     }
-
 
     /* 上傳 */
     // Initialize the jQuery File Upload widget:
@@ -87,15 +87,25 @@ $(function () {
                 }
             });
         },
+        destroyed: function (e, data) {
+            countCopiedItems();
+        },
         downloadTemplate: function (o) {
             var rows = $();
             $.each(o.files, function (index, file) {
                 var row = $($('#template-download').html());
+                var img = row.find('img');
                 row.find('.delete').attr('data-id', file._id);
                 row.find('.setMainPhoto').attr('data-id', file._id);
                 row.find('.setMainPhoto').attr('data-url', file.url);
                 row.find('.desc').text(file.desc);
                 row.find('img').attr('src', file.url);
+                row.find('input:checkbox[name=downloadForCopy]').on('change', countCopiedItems);
+
+                if (file.isDeliver) {
+                    img.addClass('isDeliver');
+                    row.find('.canNotDeliver').remove();
+                }
 
                 if (file.error) {
                     row.find('.setMainPhoto').addClass('hidden');
@@ -112,10 +122,14 @@ $(function () {
         },
         submit: function (e, data) {
             var nextRow = $(data.context).next();
-            var desc = $(data.context).find('input[name=desc]').val();
+            var submitRow = $(data.context);
+            var isDeliver = submitRow.find('input[name=isDeliver]:checked').length === 1;
+            var desc = submitRow.find('input[name=desc]').val();
+
             data.formData = {
                 desc: desc,
                 type: 'NEWS',
+                isDeliver: isDeliver,
                 CreatedBy: $('#userId').val(),
             };
 
@@ -172,8 +186,9 @@ $(function () {
     // 圖片切割確認
     fileRows.on('click', 'button.confirm', function(){
         var confirmButton = $(this);
-        var imageRow = confirmButton.closest('#crop-row').prev();
-        var cropImgElm = confirmButton.parent().parent().find('#crop-img');
+        var cropRow = confirmButton.closest('#crop-row');
+        var imageRow = cropRow.prev();
+        var cropImgElm = cropRow.find('#crop-img');
         cropImgElm.cropper('getCroppedCanvas').toBlob(function (blob) {
             var blobURL = URL.createObjectURL(blob);
             $('.template-upload').data('data').files[0] = blob;
@@ -181,11 +196,20 @@ $(function () {
             imageRow.find('.upload-img').removeClass('hidden');
             imageRow.find('.cancel').removeClass('hidden');
             imageRow.find('canvas').remove();
-            $('#crop-row').remove();
+            cropRow.remove();
             return;
         });
     });
 
+    // 圖片切割取消
+    fileRows.on('click', 'button.cancel-crop', function(){
+        var cropRow = $(this).closest('#crop-row');
+        var imageRow = cropRow.prev();
+        imageRow.find('.crop').removeClass('hidden');
+        imageRow.find('.cancel').removeClass('hidden');
+        cropRow.remove();
+        return;
+    });
 
     /* 圖庫 */
     $('.imageLibQueryForm').on('click', function(e) {
@@ -199,12 +223,20 @@ $(function () {
             $.each(result.images, function(index, image) {
                 var block = $($('#template-image-block').html());
                 block.find('img').attr('src', image.url);
+
+                if (image.isDeliver) {
+                    block.find('img').addClass('isDeliver');
+                    block.find('.canNotDeliver').remove();
+                }
+
                 block.find('.desc').text(image.desc);
                 block.find('.fa-trash').attr('data-id', image._id);
                 block.find('.fa-check').attr('data-id', image._id);
                 block.find('.fa-check').attr('data-url', image.url);
                 imageBlocks.append(block);
             });
+            $('input:checkbox[name=libForCopy]').on('change', countCopiedItems);
+            countCopiedItems();
             $('.zoom').zoom();
         });
     });
@@ -221,6 +253,7 @@ $(function () {
             type: 'DELETE',
         }).done(function(result) {
             deleteBtn.parent().parent().remove();
+            countCopiedItems();
         });
     });
 
