@@ -42,7 +42,7 @@
                     <div class="col-sm-5">
                         <div class="form-group">
                             <label for="title" class="control-label">選單名稱</label>
-                            <input type="text" id="categoryname" maxlength name="name" class="form-control" placeholder="選單名稱">
+                            <input type="text" id="categoryname" maxlength="6" name="name" class="form-control" placeholder="限制字數為6">
                         </div>
                     </div>
                 </div>
@@ -141,16 +141,6 @@
                 format: 'YYYY-MM-DD'
             }
         });
-    });
-    $( "[maxlength]" ).keyup(function() {
-        //設定限制文字數量||6 目前設定6個
-        var limitLength = $( this ).attr( "maxlength" ) || 6;
-        var curLength = $( this ).val().length;
-        if (curLength > limitLength) {
-            var str = $( this ).val().substr(0, limitLength);
-            $( this ).val(str);
-            alert("名稱超過字數6個限制，多出的文字無法保留。");
-        }
     });
 </script>
 
