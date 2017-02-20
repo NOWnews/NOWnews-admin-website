@@ -23,7 +23,7 @@ module.exports = async (req, res, next) => {
 
         // MainPhoto 是字串就不傳
         if (data.MainPhoto === '') {
-            delete data.MainPhoto;
+            data.MainPhoto = null;
         }
 
         // Tags 的處理
