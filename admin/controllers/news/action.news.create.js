@@ -48,6 +48,11 @@ module.exports = async (req, res, next) => {
             let [ lng, lat ] = location;
             data.location = [ lng, lat ];
         }
+
+        if (data.location === '') {
+            data.location = null;
+        }
+
         let { data: news } = await axios.post('/news', data);
 
         debug('createdNews = %j', news);

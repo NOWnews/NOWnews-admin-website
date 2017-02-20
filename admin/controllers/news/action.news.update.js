@@ -51,6 +51,10 @@ module.exports = async (req, res, next) => {
             data.location = [ lng, lat ];
         }
 
+        if (data.location === '') {
+            data.location = null;
+        }
+
         let newsStatus = data.status.toLowerCase();
         let { data: news } = await axios.put(`/news/${newsId}/${newsStatus}`, data);
 

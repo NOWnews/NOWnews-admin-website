@@ -340,22 +340,30 @@
                 case 'DRAFT':
                     $('.lastReviewer').css('visibility', 'hidden');
                     $('.reservation').css('visibility', 'hidden');
+                    $('#location').prop('required', false);
+                    $('#shortTitle').prop('required', false);
                     break;
                 case 'REVIEW':
                     $('.lastReviewer').css('visibility', 'inherit');
                     $('.reservation').css('visibility', 'inherit');
                     $('select[name="LastReviewer"]').prop('disabled', false);
                     $('#reservation-datetimepicker').prop('disabled', false);
+                    $('#location').prop('required', true);
+                    $('#shortTitle').prop('required', true);
                     break;
                 case 'RELEASE':
                     $('.lastReviewer').css('visibility', 'inherit');
                     $('.reservation').css('visibility', 'inherit');
                     $('select[name="LastReviewer"]').prop('disabled', true);
                     $('#reservation-datetimepicker').prop('disabled', true);
+                    $('#location').prop('required', true);
+                    $('#shortTitle').prop('required', true);
                     break;
                 case 'CLOSE':
                     $('.lastReviewer').css('visibility', 'hidden');
                     $('.reservation').css('visibility', 'hidden');
+                    $('#location').prop('required', false);
+                    $('#shortTitle').prop('required', true);
                     break;
                 default:
                     return false;
