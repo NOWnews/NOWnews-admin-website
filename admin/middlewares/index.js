@@ -10,6 +10,7 @@ import nunjucks from 'nunjucks';
 import methodOverride from 'method-override';
 
 import setLocals from './setLocals';
+import isLogin from './isLogin';
 
 module.exports = function(app) {
 
@@ -48,6 +49,7 @@ module.exports = function(app) {
     }));
 
     app.use(logger('dev'));
+    app.use(isLogin);
     app.use(setLocals());
 
     return function(req, res, next) {
