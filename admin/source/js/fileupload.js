@@ -16,6 +16,8 @@ $(function () {
     var fileRows = $('tbody.files');
     var imageBlocks = $('.image-blocks');
     var URL = window.URL || window.webkitURL;
+    var startElm = $('input[name=imgStartedAt]');
+    var endElm = $('input[name=imgEndedAt]');
 
 
     /* 初始化 */
@@ -23,8 +25,6 @@ $(function () {
     function initQueryFrom() {
         var today = moment().format('YYYY-MM-DD');
         var prev2Month = moment().subtract(2, 'months').format('YYYY-MM-DD');
-        var startElm = $('input[name=startedAt]');
-        var endElm = $('input[name=endedAt]');
         startElm.val(prev2Month);
         startElm.attr('max', today);
         endElm.val(today);
@@ -214,10 +214,10 @@ $(function () {
     /* 圖庫 */
     $('.imageLibQueryForm').on('click', function(e) {
         imageBlocks.html('');
-        var queryString = 'startedAt=' + $('input[name=startedAt]').val();
-        queryString += '&endedAt=' + $('input[name=endedAt]').val();
+        var queryString = 'startedAt=' + startElm.val();
+        queryString += '&endedAt=' + endElm.val();
         queryString += '&desc=' + $('input[name=desc]').val();
-        var desc = $('input[name=desc]').val();
+        var desc = $('#library input[name=desc]').val();
         $.get('/image?' + queryString, function(result) {
             $('.zoom').trigger('zoom.destroy');
             $.each(result.images, function(index, image) {

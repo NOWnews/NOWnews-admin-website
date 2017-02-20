@@ -31,15 +31,29 @@ module.exports = async (req, res, next) => {
 
         adminUser.avatarUrl = Avatar ? Avatar.url : null ;
 
-        adminUser.Center = {
-            _id: Center._id,
-            name: Center.name,
-        };
+        // adminUser.Center = {
+        //     _id: Center._id,
+        //     name: Center.name,
+        // };
+        adminUser.Center = null;
+        if(Center) {
+            adminUser.Center = {
+                _id: Center._id,
+                name: Center.name,
+            };
+        }
 
-        adminUser.Department = {
-            _id: Department._id,
-            name: Department.name,
-        };
+        // adminUser.Department = {
+        //     _id: Department._id,
+        //     name: Department.name,
+        // };
+        adminUser.Department = null;
+        if(Department) {
+            adminUser.Department = {
+                _id: Department._id,
+                name: Department.name,
+            };
+        }
 
         adminUser.Role = {
             _id: Role._id,

@@ -1,0 +1,125 @@
+{
+    "dashboard": {
+        "url": "/dashboard",
+        "name": "控制台",
+        "icon": "fa-dashboard",
+        "children": null
+    },
+    "news": {
+        "url": "#",
+        "name": "新聞",
+        "icon": "fa-newspaper-o",
+        "children": [{
+            "url": "/news/myList",
+            "name": "我的新聞"
+        },{
+            "url": "/news/create",
+            "name": "新增新聞"
+        },{
+            "url": "/news/reviewList",
+            "name": "待審新聞"
+        }]
+    },
+    "tags": {
+        "url": "#",
+        "name": "關鍵字",
+        "icon": "fa-newspaper-o",
+        "children": [{
+            "url": "/tags",
+            "name": "關鍵字列表"
+        },{
+            "url": "/tags/create",
+            "name": "建立關鍵字"
+        }]
+    },
+    "layout": {
+        "url": "/layout",
+        "name": "版面調整",
+        "icon": "fa-object-ungroup",
+        "children": [{
+            "url": "#",
+            "name": "Link in level 2"
+        },{
+            "url": "#",
+            "name": "Link in level 2"
+        }]
+    },
+    "picture": {
+        "url": "/picture",
+        "name": "圖片",
+        "icon": "fa-file-image-o",
+        "children": [{
+            "url": "#",
+            "name": "Link in level 2"
+        },{
+            "url": "#",
+            "name": "Link in level 2"
+        }]
+    },
+    "video": {
+        "url": "/video",
+        "name": "影片",
+        "icon": "fa-file-video-o",
+        "children": [{
+            "url": "#",
+            "name": "Link in level 2"
+        },{
+            "url": "#",
+            "name": "Link in level 2"
+        }]
+    },
+    "analysis": {
+        "url": "/analysis",
+        "name": "統計",
+        "icon": "fa-heartbeat",
+        "children": [{
+            "url": "#",
+            "name": "Link in level 2"
+        },{
+            "url": "#",
+            "name": "Link in level 2"
+        }]
+    },
+    "moderator": {
+        "url": "/moderator",
+        "name": "版主",
+        "icon": "fa-group",
+        "children": [{
+            "url": "#",
+            "name": "Link in level 2"
+        },{
+            "url": "#",
+            "name": "Link in level 2"
+        }]
+    },
+    "menu": {
+        "url": "#",
+        "name": "選單設定",
+        "icon": "fa-calendar-check-o",
+        "children": [{
+            "url": "/menu",
+            "name": "選單列表"
+        },{
+            "url": "/menu/create",
+            "name": "選單建立"
+        },{
+            "url": "/menu/sort",
+            "name": "選單排序"
+        }]
+    },
+    "auth": {
+        "url": "#",
+        "name": "權限控管",
+        "icon": "fa-user",
+        "children": [{
+            "url": "/auth/center",
+            "name": "中心部門"
+        },{
+            "url": "/auth/role",
+            "name": "角色管理"
+        },{
+            "url": "/auth/user",
+            "name": "使用者管理"
+        }]
+    }
+}

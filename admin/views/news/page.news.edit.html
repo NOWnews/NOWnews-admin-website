@@ -21,15 +21,20 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label">新聞的來源</label>
+                            <label class="control-label">
+                                新聞的來源
+                                <span class="text-danger">*</span>
+                            </label>
                             <p>NOWnews</p>
                         </div>
                     </div>
-
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label">新聞的作者</label>
-                            <select name="Author" class="form-control select2">
+                            <label class="control-label">
+                                新聞的作者
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select name="Author" class="form-control select2" required>
                                 {% for user in userList %}
                                     {% if user.sn == Author.sn %}
                                         <option value="{{ user._id }}" selected>{{ user.name }}</option>
@@ -42,8 +47,11 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label">新聞的類別</label>
-                            <select name="type" class="form-control select2">
+                            <label class="control-label">
+                                新聞的類別
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select name="type" class="form-control select2" required>
                                 {% for key, type in NEWS_TYPES %}
                                     {% if news.type == type %}
                                         <option value="{{ key }}" selected>{{ type }}</option>
@@ -58,8 +66,11 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="MainMenu" class="control-label">新聞主分類</label>
-                            <select id="MainMenu" name="MainMenu" multiple="multiple">
+                            <label for="MainMenu" class="control-label">
+                                新聞主分類
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select id="MainMenu" name="MainMenu" multiple="multiple" style="display: none;" required>
                                 {% for m in menus %}
                                     {% if m._id == news.MainMenu._id %}
                                         <option value="{{ m._id }}" selected="selected">{{ m.name }}</option>
@@ -73,7 +84,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="Menus" class="control-label">新聞次分類</label>
-                            <select id='Menus' name="Menus" multiple="multiple">
+                            <select id='Menus' name="Menus" multiple="multiple" style="display: none;">
                                 {% for menu in menus %}
                                     <optgroup label="{{ menu.name }}">
                                         {% for child in menu.child %}
@@ -121,14 +132,20 @@
                 <div class="row">
                     <div class="col-sm-7">
                         <div class="form-group">
-                            <label for="title" class="control-label">長標</label>
-                            <input type="text" id="title" name="title" value="{{news.title}}" class="input form-control" placeholder="限制字數為 26">
+                            <label for="title" class="control-label">
+                                長標
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" id="title" name="title" value="{{news.title}}" class="input form-control" placeholder="限制字數為 26" required>
                         </div>
                     </div>
                     <div class="col-sm-5">
                         <div class="form-group">
-                            <label for="shortTitle" class="control-label">短標</label>
-                            <input type="text" id="shortTitle" value="{{news.shortTitle}}" name="shortTitle" class="input form-control" placeholder="限制字數為 16">
+                            <label for="shortTitle" class="control-label">
+                                短標
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" id="shortTitle" value="{{news.shortTitle}}" name="shortTitle" class="input form-control" placeholder="限制字數為 16" required>
                         </div>
                     </div>
                 </div>
@@ -139,79 +156,16 @@
         {% include "./newsBlock/photo.html" %}
 
         {# 文章設定 #}
-        {% include "./block.edit.article.html" %}
+        {% include "./article/block.edit.article.html" %}
 
-        {# 業務欄位 #}
-        {% include "./block.edit.sponsored.html" %}
+        {# 業務欄位 第一版先隱藏起來
+        {% include "./sponsored/block.edit.sponsored.html" %}
+        #}
 
-        <div class="box publish-setting">
-            <div class="box-header with-border">
-                <h3 class="box-title">發稿設定</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group text-center">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="status" id="status-draft" value="DRAFT" {{ "checked" if news.status == 'DRAFT' }}>
-                                    草稿
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="status" id="status-review" value="REVIEW" {{ "checked" if news.status == 'REVIEW' }}>
-                                    送審
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="status" id="status-release" value="RELEASE" {{ "checked" if news.status == 'RELEASE' }}>
-                                    發布
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="status" id="status-close" value="CLOSE" {{ "checked" if news.status == 'CLOSE' }}>
-                                    關閉
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="form-group">
-                            <label class="control-label">指定送審人</label>
-                            <select name="LastReviewer" class="form-control select2">
-                                {% for user in userList %}
-                                    {% if user.sn == news.LastReviewer.sn %}
-                                        <option value="{{ user._id }}" selected>{{ user.name }}</option>
-                                    {% else %}
-                                        <option value="{{ user._id }}">{{ user.name }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">預約發稿</label>
-                        </div>
-                        <div class="form-group">
-                            <div class='input-group date'>
-                                <input id="reservation-datetimepicker" value="{{ news.formatCreatedAt }}" type='text' class="form-control input" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {# 發稿設定 #}
+        {% include "./releaseSet/block.edit.releaseSet.html" %}
 
+        {# 第一版先隱藏起來
         <div class="box memo-box">
             <div class="box-header with-border">
                 <h3 class="box-title">撰稿備忘錄</h3>
@@ -251,7 +205,15 @@
                 </div>
             </div>
         </div>
+        #}
+
+        {# 注意事項 - 需要跟新聞部確認要注意的事項
         {% include "./block.notice.html" %}
+        #}
+        <div class="edit-footer text-center">
+            <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
+            <a href="/news/myList" class="btn bg-maroon btn-flat margin">取消</a>
+        </div>
     </form>
 </section>
 
@@ -295,19 +257,38 @@
     .ms-drop ul>li.group input{
         display: none;
     }
+    .ui-widget-shadow {
+        opacity: 1;
+    }
 </style>
 <script>
     $(function () {
+
+        $('#MainMenu').multipleSelect({
+            filter: true,
+            single: true,
+            width: '100%'
+        });
+        $('#Menus').multipleSelect({
+            filter: true,
+            multiple: true,
+            width: '100%',
+            selectAll: false,
+            allSelected: false
+        });
+
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
+
         CKEDITOR.replace('editor1', {
+            height:550,
             stylesSet: [{
                 name: 'isDeliver',
                 element: 'img',
                 attributes: { 'class': 'isDeliver' },
             }],
         });
-        CKEDITOR.replace('editor2');
+        // CKEDITOR.replace('editor2');
 
         var data = CKEDITOR.instances.editor1.getData();
         function strip_tags (input, allowed) {
@@ -327,10 +308,10 @@
         });
         $("form").submit(function( event ) {
             var content = CKEDITOR.instances.editor1.getData();
-            var freeContent = CKEDITOR.instances.editor2.getData();
+            // var freeContent = CKEDITOR.instances.editor2.getData();
 
             $('[name=content]').val(content);
-            $('[name=freeContent]').val(freeContent);
+            // $('[name=freeContent]').val(freeContent);
             $('[name=MainMenu]').val($("#MainMenu").multipleSelect("getSelects"));
             $('[name=Menus]').val($("#Menus").multipleSelect("getSelects"));
 
@@ -356,20 +337,24 @@
         var publishSetting = function (status) {
             switch (status) {
                 case 'DRAFT':
-                    $('select[name="LastReviewer"]').prop('disabled', true);
-                    $('#reservation-datetimepicker').prop('disabled', true);
+                    $('.lastReviewer').css('visibility', 'hidden');
+                    $('.reservation').css('visibility', 'hidden');
                     break;
                 case 'REVIEW':
+                    $('.lastReviewer').css('visibility', 'inherit');
+                    $('.reservation').css('visibility', 'inherit');
                     $('select[name="LastReviewer"]').prop('disabled', false);
                     $('#reservation-datetimepicker').prop('disabled', false);
                     break;
                 case 'RELEASE':
+                    $('.lastReviewer').css('visibility', 'inherit');
+                    $('.reservation').css('visibility', 'inherit');
                     $('select[name="LastReviewer"]').prop('disabled', true);
                     $('#reservation-datetimepicker').prop('disabled', true);
                     break;
                 case 'CLOSE':
-                    $('select[name="LastReviewer"]').prop('disabled', true);
-                    $('#reservation-datetimepicker').prop('disabled', true);
+                    $('.lastReviewer').css('visibility', 'hidden');
+                    $('.reservation').css('visibility', 'hidden');
                     break;
                 default:
                     return false;
@@ -381,19 +366,6 @@
 
             status = $(this).attr('value');
             publishSetting(status);
-        });
-
-        $('#MainMenu').multipleSelect({
-            filter: true,
-            single: true,
-            width: '100%'
-        });
-        $('#Menus').multipleSelect({
-            filter: true,
-            multiple: true,
-            width: '100%',
-            selectAll: false,
-            allSelected: false
         });
 
         $("#keywords").tagEditor({

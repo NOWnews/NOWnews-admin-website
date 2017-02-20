@@ -9,7 +9,10 @@
     </div>
     <div class="box-body">
         <div class="form-group">
-            <label>主圖</label>
+            <label>
+                主圖
+                <span class="text-danger">*</span>
+            </label>
             <div class="image-preview">
                 <input type="hidden" name="MainPhoto" value="{{news.MainPhoto._id}}" />
                 <img class="image" name="MainPhoto" src="{{news.MainPhoto.url}}" />

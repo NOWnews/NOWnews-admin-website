@@ -7,7 +7,17 @@
         <li role="presentation">
             <a href="#library" aria-controls="library" role="tab" data-toggle="tab">圖庫</a>
         </li>
+        <li>
+            <div class="copy-area">
+                <button type="button" class="btn bg-navy copy">
+                    <i class="fa fa-copy"></i>
+                    <span>複製到內文</span>
+                </button>
+                <lable>已勾選 <span class="copiedItem">0</span> 張</label>
+            </div>
+        </li>
     </ul>
+
     <br />
     <!-- Tab panes -->
     <div class="tab-content">
@@ -27,11 +37,6 @@
                         <i class="fa fa-upload"></i>
                         <span>全部上傳</span>
                     </button>
-                    <button type="button" class="btn bg-navy copy">
-                        <i class="fa fa-copy"></i>
-                        <span>複製到內文</span>
-                    </button>
-                    <lable>已勾選 <span class="copiedItem">0</span> 張</label>
                     <!-- The global file processing state -->
                     <span class="fileupload-process"></span>
                 </div>
@@ -53,10 +58,10 @@
         <div role="tabpanel" class="tab-pane" id="library">
             <div class="row">
                 <div class="form-group col-md-2">
-                    <input name="startedAt" type="date" />
+                    <input name="imgStartedAt" type="date" />
                 </div>
                 <div class="form-group col-md-2">
-                    <input name="endedAt" type="date" />
+                    <input name="imgEndedAt" type="date" />
                 </div>
                 <div class="form-group col-md-2">
                     <input name="desc" type="text" placeholder="關鍵字" />
@@ -64,13 +69,7 @@
                 <div class="form-group col-md-1">
                     <button type="button" class="btn btn-default imageLibQueryForm">查詢</button>
                 </div>
-                <div class="form-group col-md-4">
-                    <button type="button" class="btn bg-navy copy">
-                        <i class="fa fa-copy"></i>
-                        <span>複製到內文</span>
-                    </button>
-                    <lable>已勾選 <span class="copiedItem">0</span> 張</label>
-                </div>
+
 
 
             </div>
@@ -219,6 +218,10 @@
 <script src="/static/js/fileupload.js "></script>
 
 <style type="text/css">
+    .copy-area {
+        margin-left: 15px;
+    }
+
     .zoom, .image-preview {
         min-width: 160px;
         max-width: 320px;
