@@ -9,11 +9,18 @@ $(function() {
         $('#center-and-dept').select2();
 
         $('#center-and-dept').on('select2:select', function (e) {
-            var departmentElm = $(e.params.data.element);
-            var centerId = departmentElm.parent().attr('id');
-            var departmentId = departmentElm.val();
-            $('input[name=Center]').val(centerId);
-            $('input[name=Department]').val(departmentId);
+            var departmentOptionElm = $(e.params.data.element);
+            var departmentId = departmentOptionElm.val();
+            var departmentInput = $('input[name=Department]');
+            var centerInput = $('input[name=Center]');
+            departmentInput.val(departmentId);
+
+            if (departmentId === '') {
+                centerInput.val('');
+                return;
+            }
+            var centerId = departmentOptionElm.parent().attr('id');
+            centerInput.val(centerId);
         });
 
     });
