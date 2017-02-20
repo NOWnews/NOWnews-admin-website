@@ -35,6 +35,7 @@ module.exports = async (req, res, next) => {
         //     _id: Center._id,
         //     name: Center.name,
         // };
+        adminUser.Center = null;
         if(Center) {
             adminUser.Center = {
                 _id: Center._id,
@@ -46,6 +47,7 @@ module.exports = async (req, res, next) => {
         //     _id: Department._id,
         //     name: Department.name,
         // };
+        adminUser.Department = null;
         if(Department) {
             adminUser.Department = {
                 _id: Department._id,
