@@ -21,7 +21,7 @@ module.exports = async (req, res, next) => {
 
         debug('createdMenu = %j', menu);
 
-        return res.redirect(`/menu/${menu._id}`);
+        return res.redirect('/menu/sort');
 
     }
     catch(err) {
