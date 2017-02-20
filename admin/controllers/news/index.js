@@ -38,13 +38,13 @@ router.route('/myList')
     .get(pageNewsMyList);
 
 router.route('/createList')
-    .get(pageNewsReviewList);
+    .get(pageNewsCreateList);
 
 router.route('/reviewList')
     .get(pageNewsReviewList);
 
 router.route('/takeMeReviewList')
-    .get(pageNewsReviewList);
+    .get(pageNewsTakeMeReviewList);
 
 router.route('/create')
     .get(pageNewsCreate)
