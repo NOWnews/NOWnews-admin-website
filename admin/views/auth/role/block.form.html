@@ -46,7 +46,7 @@
                                     type="checkbox"
                                     name="Policies"
                                     value="{{policy._id}}" />
-                                {{ action[policy.method] }}
+                                {{ policy.desc if policy.desc != '' else action[policy.method]}}
                             </label>
                         {% endfor %}
                     </td>
