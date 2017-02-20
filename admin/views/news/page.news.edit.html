@@ -217,22 +217,10 @@
     </form>
 </section>
 
-{#  style 暫時放這   #}
-<!-- Select2 -->
-<link rel="stylesheet" href="/static/css/select2.min.css">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/daterangepicker.min.css" />
-
 {#  script 暫時放這   #}
-<!-- Select2 -->
-<!--<script src="/static/js/select2/select2.full.min.js"></script>-->
+
 <!-- CK Editor -->
 <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-
-<!-- moment -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/moment.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/daterangepicker.min.js"></script>
 
 <!-- multiple-select -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.0/multiple-select.min.css" />
@@ -264,6 +252,50 @@
 <script>
     $(function () {
 
+        // Replace the <textarea id="editor1"> with a CKEditor
+        var newsContent = CKEDITOR.replace('editor1', {
+            height:550,
+            removeButtons: 'Image,About',
+            stylesSet: [{
+                name: 'isDeliver',
+                element: 'img',
+                attributes: { 'class': 'isDeliver' },
+            }],
+        });
+
+        var defaultWarning = {
+            wine: {
+                label: '插入吸毒警語',
+                warning: '<p>※<a href="https://www.nownews.com/">【 NOWnews 今日新聞 】</a>提醒您　飲酒過量有礙健康！※</p>'
+            }, smoke: {
+                label: '插入吸菸警語',
+                warning: '<p>※行政院衛生署提醒您　吸菸能導致肺癌、心臟血管疾病！※</p>'
+            }, suicide: {
+                label: '插入自殺警語',
+                warning: '<p>※<a href="https://www.nownews.com/">【 NOWnews 今日新聞 】</a> 提醒您：<br />自殺不能解決問題，勇敢求救並非弱者，生命一定可以找到出路。透過守門123步驟-1<br />問2應3轉介，你我都可以成為自殺防治守門人。<br />※　安心專線：0800-788-995(0800-請幫幫-救救我)<br />※　張老師專線：1980<br />※　生命線專線：1995<br /></p>'
+            }, drog: {
+                label: '插入吸毒警語',
+                warning: '<p>※<a href="https://www.nownews.com/">【 NOWnews 今日新聞 】</a> 提醒您：<br />少一份毒品，多一分健康；吸毒一時，終身危害。<br />※　戒毒諮詢專線：0800-770-885(0800-請請您-幫幫我)<br />※　安心專線：0800-788-995(0800-請幫幫-救救我)<br />※　張老師專線：1980<br />※　生命線專線：1995<br /></p>'
+            }
+        };
+
+        $.each(defaultWarning, function(key, value) {
+            newsContent.addCommand(key, {
+            exec: function(edt) {
+                    var originalData = edt.getData();
+                    edt.setData(originalData + value.warning);
+                }
+            });
+
+            newsContent.ui.addButton(key, {
+                label: value.label,
+                command: key,
+                toolbar: 'insert',
+                icon: '/static/img/icon/' + key +'.png'
+            });
+        });
+        // CKEDITOR.replace('editor2');
+
         $('#MainMenu').multipleSelect({
             filter: true,
             single: true,
@@ -277,21 +309,6 @@
             allSelected: false
         });
 
-        // Replace the <textarea id="editor1"> with a CKEditor
-        // instance, using default configuration.
-
-        CKEDITOR.replace('editor1', {
-            height:550,
-            removeButtons: 'Image,About',
-            stylesSet: [{
-                name: 'isDeliver',
-                element: 'img',
-                attributes: { 'class': 'isDeliver' },
-            }],
-        });
-        // CKEDITOR.replace('editor2');
-
-        var data = CKEDITOR.instances.editor1.getData();
         function strip_tags (input, allowed) {
             allowed = (((allowed || '') + '').toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
             var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
