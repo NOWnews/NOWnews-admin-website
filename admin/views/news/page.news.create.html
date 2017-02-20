@@ -34,7 +34,11 @@
                             </label>
                             <select name="Author" class="form-control select2" required>
                                 {% for user in userList %}
-                                    <option value="{{ user._id }}">{{ user.name }}</option>
+                                    {% if userId == user._id %}
+                                        <option value="{{ user._id }}" selected>{{ user.name }}</option>
+                                    {% else %}
+                                        <option value="{{ user._id }}">{{ user.name }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>

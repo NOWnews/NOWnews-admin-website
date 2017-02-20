@@ -22,8 +22,6 @@ module.exports = async (req, res, next) => {
 
         let { status, statusText, data: center } = await axios.put(url, data);
 
-        console.log(status, statusText,  center);
-
         return res.redirect(`/auth/center/${centerId}`);
 
     } catch(err) {
