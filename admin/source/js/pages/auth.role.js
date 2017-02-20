@@ -6,6 +6,7 @@ $(function() {
     $('form.role-form').on('submit', function(){
         var isEmptyForPolicies = $('input[name=Policies]:checked').length === 0;
         if (isEmptyForPolicies) {
+            alert('未做權限設定！');
             return false;
         }
     });
