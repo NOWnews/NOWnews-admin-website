@@ -23,6 +23,7 @@
                         <div class="form-group">
                             <label for="tagsName" class="control-label">名稱(一次最多建立七個)</label>
                             <textarea id="tagsName" name="name"></textarea>
+                            <p class="help-block text-right">( 請用 Enter 或逗號加入關鍵字 ... )</p>
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -55,8 +56,8 @@
 <script>
     $(document).ready(function() {
         $("#tagsName").tagEditor({
-            delimiter: ' ',
-            placeholder: 'Enter 加入關鍵字 ...',
+            delimiter: ',',
+            placeholder: '請用 Enter 或逗號加入關鍵字 ...',
             maxTags: 7
         });
     });
