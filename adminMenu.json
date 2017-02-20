@@ -10,15 +10,20 @@
             "url": "/news/myList",
             "name": "所有新聞"
         },{
-
+            "url": "/news/createList",
+            "name": "我建立的新聞"
+        },{
             "url": "/news/reviewList",
-            "name": "待審新聞"
+            "name": "待審中新聞"
+        },{
+            "url": "/news/takeMeReviewList",
+            "name": "待我審核新聞"
         }]
     },
     "tags": {
         "url": "#",
         "name": "關鍵字",
-        "icon": "fa-newspaper-o",
+        "icon": "fa-tags",
         "children": [{
             "url": "/tags/create",
             "name": "建立關鍵字"

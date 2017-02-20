@@ -15,6 +15,8 @@ import pageDailyPlanEdit from './page.dailyPlan.edit';
 
 import pageNewsMyList from './page.news.myList';
 import pageNewsReviewList from './page.news.reviewList';
+import pageNewsCreateList from './page.news.createList';
+import pageNewsTakeMeReviewList from './page.news.takeMereviewList';
 import pageNewsCreate from './page.news.create';
 import pageNewsEdit from './page.news.edit';
 
@@ -35,7 +37,13 @@ router.route('/dailyPlan/:dailyPlanId')
 router.route('/myList')
     .get(pageNewsMyList);
 
+router.route('/createList')
+    .get(pageNewsReviewList);
+
 router.route('/reviewList')
+    .get(pageNewsReviewList);
+
+router.route('/takeMeReviewList')
     .get(pageNewsReviewList);
 
 router.route('/create')

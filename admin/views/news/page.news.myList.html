@@ -1,5 +1,5 @@
-{% set title = "我的新聞" %}
-{% set subtitle = "我的新聞列表，照時間排序，狀態有草稿、審核、...等等 的項目。" %}
+{% set title = listDescription.title %}
+{% set subtitle = listDescription.subtitle %}
 {% extends "../base.html" %}
 {% block headTitle %}
     <title>大編輯台 | {{ title }}</title>
