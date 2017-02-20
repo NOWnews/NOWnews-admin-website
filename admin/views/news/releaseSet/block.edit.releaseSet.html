@@ -20,12 +20,14 @@
                             草稿
                         </label>
                     </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="status" id="status-review" value="REVIEW" {{ "checked" if news.status == 'REVIEW' }}>
-                            送審
-                        </label>
-                    </div>
+                    {% if news.status != 'RELEASE' %}
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="status" id="status-review" value="REVIEW" {{ "checked" if news.status == 'REVIEW' }}>
+                                送審
+                            </label>
+                        </div>
+                    {% endif %}
                     <div class="radio">
                         <label>
                             <input type="radio" name="status" id="status-release" value="RELEASE" {{ "checked" if news.status == 'RELEASE' }}>
