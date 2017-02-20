@@ -16,7 +16,7 @@ import pageDailyPlanEdit from './page.dailyPlan.edit';
 import pageNewsMyList from './page.news.myList';
 import pageNewsReviewList from './page.news.reviewList';
 import pageNewsCreateList from './page.news.createList';
-import pageNewsTakeMeReviewList from './page.news.takeMereviewList';
+import pageNewsTakeMeReviewList from './page.news.takeMeReviewList';
 import pageNewsCreate from './page.news.create';
 import pageNewsEdit from './page.news.edit';
 
