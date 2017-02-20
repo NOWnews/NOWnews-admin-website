@@ -34,7 +34,11 @@
                             </label>
                             <select name="Author" class="form-control select2" required>
                                 {% for user in userList %}
-                                    <option value="{{ user._id }}">{{ user.name }}</option>
+                                    {% if userId == user._id %}
+                                        <option value="{{ user._id }}" selected>{{ user.name }}</option>
+                                    {% else %}
+                                        <option value="{{ user._id }}">{{ user.name }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
@@ -119,7 +123,7 @@
                                 短標
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" id="shortTitle" name="shortTitle" class="input form-control" placeholder="限制字數為 16" required>
+                            <input type="text" id="shortTitle" name="shortTitle" class="input form-control" placeholder="限制字數為 16">
                         </div>
                     </div>
                 </div>
@@ -183,7 +187,7 @@
         #}
 
         {# 注意事項 - 需要跟新聞部確認要注意的事項
-        {% include "./block.notice.html" %}
+        {% include "./newsBlock/notice.html" %}
         #}
         <div class="edit-footer text-center">
             <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
@@ -339,7 +343,7 @@
         });
 
         $("#keywords").tagEditor({
-            delimiter: ',',
+            delimiter: ' ',
             placeholder: 'Enter 加入關鍵字 ...',
             maxTags: 7
         });

@@ -34,9 +34,8 @@ module.exports = async (req, res, next) => {
         news.tags = news.Tags.join(',');
 
         // Map 設定
-        if (news.location !== ''){
+        if (news.location !== null ){
             let [ lng, lat ] = news.location;
-            console.log(lng, lat, 'L41')
             let { data: { address } } = await axios.get( `/map/location`, {
                 params: {
                     latlng: `${lat},${lng}`

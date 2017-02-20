@@ -25,6 +25,7 @@
 <div class="form-group">
     <label>權限設定
         <span class="text-danger">*</span>
+        <span class="text-warning">未來權限設定畫面如下（目前設定暫無效果）</span>
     </label>
     <table class="table table-bordered table-striped">
         <thead>
@@ -45,7 +46,7 @@
                                     type="checkbox"
                                     name="Policies"
                                     value="{{policy._id}}" />
-                                {{ action[policy.method] }}
+                                {{ policy.desc if policy.desc != '' else action[policy.method]}}
                             </label>
                         {% endfor %}
                     </td>
