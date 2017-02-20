@@ -6,7 +6,6 @@ module.exports = async (req, res, next) => {
             return resolve('controllers/auth/center/page.create.js');
         });
 
-        console.log(result);
         return res.render('auth/center/page.create.html');
     }
     catch(err) {
