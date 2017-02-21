@@ -105,7 +105,7 @@ $(function() {
         });
     });
 
-    function checkPassword () {
+    function checkPassword (event) {
         var confirmPwd= $('input[name=password]').val().trim();
         var pwd = $('input[name=confirmPassword]').val().trim();
 
@@ -114,11 +114,11 @@ $(function() {
         }
 
         alert('密碼不一致請再確認。');
-        return flase;
+        return event.preventDefault();
     }
 
-    $('.user-form').submit(function(e){
-        return checkPassword();
+    $('.user-form').submit(function(event){
+        return checkPassword(event);
     });
 
     $('#me-form').submit(function() {
