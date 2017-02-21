@@ -209,6 +209,10 @@
     .ui-widget-shadow {
         opacity: 1;
     }
+    /* 隱藏掉 ck image btn */
+    a.cke_button.cke_button__image {
+        display: none;
+    }
 </style>
 <script>
     $(function () {
@@ -223,7 +227,6 @@
                 attributes: { 'class': 'isDeliver' },
             }],
         });
-        $('.cke_button__image').hide();
 
         var defaultWarning = {
             wine: {
