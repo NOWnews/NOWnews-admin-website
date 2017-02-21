@@ -1,0 +1,56 @@
+ <div class="box publish-setting">
+    <div class="box-header with-border">
+        <h3 class="box-title">
+            影片設定
+            <span class="text-danger">*</span>
+        </h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-sm-12">
+                YouTube ID: <span id="myId"></span>
+                <br />
+                <br />
+                Embed code: <pre id="myCode"></pre>
+                <input type="text" name="urlid" value="" class="typeaa"><br>
+            </div>
+        </div>
+    </div>
+    <script>
+        var myId;
+function getId(url) {
+    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    var match = url.match(regExp);
+
+    if (match && match[2].length == 11) {
+        return match[2];
+    } else {
+        return 'error';
+    }
+}
+
+$('.typeaa').on('keyup', function() {
+     if (this.value.length > 1) {
+          var a= $("input[name='urlid']").val();
+					myId = getId(a);
+
+          setHtml();
+     }
+});
+
+
+//var myId = getId('http://www.youtube.com/watch?v=zbYf5_S7oJo');
+function setHtml (){
+	$('#myId').html(myId);
+console.log(myId)
+  $('#myCode').html('<iframe width="560" height="315" src="//www.youtube.com/embed/' + myId + '" frameborder="0" allowfullscreen></iframe>');
+}
+
+setHtml();
+    </script>
+</div>
