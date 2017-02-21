@@ -12,12 +12,10 @@
         {% for memo in newsMemos %}
         <div class="box-comments">
             <div class="box-comment">
-                {# 依據每個人的 unique id 產生不同的顏色（剪短取其前六數字） #}
-                {% set color = memo.CreatedBy._id | truncate(6, true, '') %}
                 {% set imgSrc = memo.CreatedBy.Avatar.url if (memo.CreatedBy.Avatar.url) else '/static/img/avatar.png'%}
                 <img src="{{imgSrc}}" alt="User Image" class="img-circle img-sm">
                 <div class="comment-text">
-                    <span class="username" style="color: {{ '#' + color}}">
+                    <span class="username" style="color: {{ memo.CreatedBy._id | transIdToColorCode }}">
                         {{ memo.CreatedBy.name }}
                         <span class="text-muted pull-right">{{ memo.formatCreatedAt }}</span>
                     </span>
