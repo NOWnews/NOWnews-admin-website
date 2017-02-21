@@ -121,12 +121,12 @@ $(function() {
         return checkPassword(event);
     });
 
-    $('#me-form').submit(function() {
+    $('#me-form').submit(function(event) {
 
         var isSamePassword = checkPassword();
 
         if (!isSamePassword) {
-            return false;
+            return event.preventDefault();
         }
 
         // 送出前確認有沒有上傳的圖片在做上傳，舊圖由後端做清除
@@ -159,7 +159,7 @@ $(function() {
             }
         });
 
-        return false;
+        return event.preventDefault();
 
     });
 
