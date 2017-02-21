@@ -4,10 +4,12 @@ module.exports = async (req, res, next) => {
     try {
         let { data: centerList } = await axios.get('/centers');
         let { data: roleList } = await axios.get('/roles');
+        let { data: menuList } = await axios.get('/menus?level=0');
 
         return res.render('auth/user/page.create.html', {
-            roleList,
             centerList,
+            menuList,
+            roleList,
             USER_STATUS,
         });
 

@@ -1,11 +1,14 @@
+<div class="box box-widget widget-user-2">
+    <div class="widget-user-header bg-aqua-active">
+        <div class="widget-user-image">
+            <img class="img-circle" src="{{ user.Avatar.url }}" alt="使用者圖片">
+        </div>
+        <h3 class="widget-user-username">{{ user.name }}</h3>
+        <h5 class="widget-user-desc">{{ USER_STATUS[user.status] }} / {{ user.Role.name }}</h5>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-4">
-        <div class="form-group">
-            <label>姓名
-                <span class="text-danger">*</span>
-            </label>
-            <p>{{ user.name }}</p>
-        </div>
         <div class="form-group">
             <label>員工編號</label>
             <p>{{ user.staffId }}</p>
@@ -13,23 +16,11 @@
     </div>
     <div class="col-md-4">
         <div class="form-group">
-            <label>員工狀態
-                <span class="text-danger">*</span>
-            </label>
-            <p>{{ USER_STATUS[user.status] }}</p>
-        </div>
-        <div class="form-group">
             <label>中心部門</label>
             <p>{{ user.Center.name }}-{{ user.Department.name }}</p>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="form-group">
-            <label>角色
-                <span class="text-danger">*</span>
-            </label>
-            <p>{{ user.Role.name }}</p>
-        </div>
         <div class="form-group">
             <label>信箱
                 <span class="text-danger">*</span>
@@ -63,6 +54,21 @@
         </div>
     </div>
     <div class="col-md-6">
+        <div class="form-group">
+            <label>預設主分類
+                <span class="text-danger">*</span>
+            </label>
+            <select class="form-control"
+                name="defaultMenu">
+                <option value="">請選擇</option>
+                {% for menu in menuList %}
+                    <option value="{{ menu._id }}"
+                        {{ "selected" if menu._id == user.defaultSettings.Menu }}>
+                        {{ menu.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
         <div class="form-group">
             <label>暱稱</label>
             <input class="form-control"

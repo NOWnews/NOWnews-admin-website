@@ -1,15 +1,22 @@
-{% set title = "新增新聞" %}
+{% set title = "編輯新聞" %}
 {% extends "../base.html" %}
 
 {% block headTitle %}
-<title>新編採 | {{ title }}</title>
-{% endblock %} {% block container %}
+    <title>大編輯台 | {{ title }}</title>
+{% endblock %}
+{% block container %}
 <section class="content">
-    <form>
+    <form id="fileupload" action="/news/{{news._id}}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="put">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">作者: ${Name}</h3>
+                <h3 class="box-title">作者: {{ news.Author.name }}</h3>
                 <div class="box-tools pull-right">
+                    <a class="btn bg-purple btn-flat"
+                        href="/news/{{news._id}}/logs"
+                        target="_blank">
+                        歷史紀錄
+                    </a>
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
                     </button>
@@ -19,260 +26,345 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label">新聞的來源</label>
-                            <select class="form-control select2">
-                                <option selected="selected">NOWnews</option>
+                            <label class="control-label">
+                                新聞的來源
+                                <span class="text-danger">*</span>
+                            </label>
+                            <p>NOWnews</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">
+                                新聞的作者
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select name="Author" class="form-control select2" required>
+                                {% for user in userList %}
+                                    {% if user.sn == Author.sn %}
+                                        <option value="{{ user._id }}" selected>{{ user.name }}</option>
+                                    {% else %}
+                                        <option value="{{ user._id }}">{{ user.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label">新聞主分類</label>
-                            <select class="form-control select2">
-                                <option selected="selected">娛樂王國</option>
+                            <label class="control-label">
+                                新聞的類別
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select name="type" class="form-control select2" required>
+                                {% for key, type in NEWS_TYPES %}
+                                    {% if news.type == type %}
+                                        <option value="{{ key }}" selected>{{ type }}</option>
+                                    {% else %}
+                                        <option value="{{ key }}">{{ type }}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="checkbox">
-                            <label>
-                                <input name="isAdult" type="checkbox"> 成人新聞
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input name="isDeliver" type="checkbox"> 不可外送
-                            </label>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label">新聞的作者</label>
-                            <select name="type" class="form-control select2">
-                                <option selected="selected">阿發</option>
-                                <option>離心力</option>
-                                <option>龍哥</option>
+                            <label for="MainMenu" class="control-label">
+                                新聞主分類
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select id="MainMenu" name="MainMenu" multiple="multiple" style="display: none;" required>
+                                {% for m in menus %}
+                                    {% if m._id == news.MainMenu._id %}
+                                        <option value="{{ m._id }}" selected="selected">{{ m.name }}</option>
+                                    {% else %}
+                                        <option value="{{ m._id }}">{{ m.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label">新聞的類別</label>
-                            <select name="type" class="form-control select2">
-                                <option selected="selected">一般新聞</option>
-                                <option>影音新聞</option>
-                                <option>圖片新聞</option>
+                            <label for="Menus" class="control-label">新聞次分類</label>
+                            <select id='Menus' name="Menus" multiple="multiple" style="display: none;">
+                                {% for menu in menus %}
+                                    <optgroup label="{{ menu.name }}">
+                                        {% for child in menu.child %}
+                                            {% if child.select %}
+                                                <option value='{{ child._id }}' selected="selected">{{ child.name }}</option>
+                                            {% else %}
+                                                <option value='{{ child._id }}'>{{ child.name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </optgroup>
+                                {% endfor %}
                             </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="checkbox">
+                            <label>
+                                {% if news.isAdult %}
+                                    <input name="isAdult" type="checkbox" checked> 成人新聞
+                                {% else %}
+                                    <input name="isAdult" type="checkbox"> 成人新聞
+                                {% endif %}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                {% if news.isDeliver %}
+                                    <input name="isDeliver" type="checkbox" checked> 不可外送
+                                {% else %}
+                                    <input name="isDeliver" type="checkbox"> 不可外送
+                                {% endif %}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                {% if news.isSponsored %}
+                                    <input name="isSponsored" type="checkbox" checked> 業配文
+                                {% else %}
+                                    <input name="isSponsored" type="checkbox"> 業配文
+                                {% endif %}
+                            </label>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-7">
                         <div class="form-group">
-                            <label for="title" class="control-label">長標</label>
-                            <input type="text" id="title" name="title" class="form-control" placeholder="限制字數為 26">
+                            <label for="title" class="control-label">
+                                長標
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" id="title" name="title" value="{{news.title}}" class="input form-control" placeholder="限制字數為 26" required>
                         </div>
                     </div>
                     <div class="col-sm-5">
                         <div class="form-group">
-                            <label for="shortTitle" class="control-label">短標</label>
-                            <input type="text" id="shortTitle" name="shortTitle" class="form-control" placeholder="限制字數為 16">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">標題: ${Title}</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="form-group">
-                    <label>首圖</label>
-                    <ul class="mailbox-attachments clearfix">
-                        <li>
-                            <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
-                            <div class="mailbox-attachment-info">
-                                <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
-                                <span class="mailbox-attachment-size">
-                                    1,245 KB
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="btn btn-default btn-file">
-                        <i class="fa fa-paperclip"></i> 上傳檔案
-                        <input type="file" name="MainPhoto">
-                    </div>
-                    <p class="help-block">Max. 32MB</p>
-                </div>
-                <div class="form-group">
-                    <label>內文</label>
-                    <textarea id="editor1" class="form-control" name="content" rows="5" placeholder="Enter ..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>自由欄位</label>
-                    <textarea id="editor2" class="form-control" name="freeContent" rows="5" placeholder="Enter ..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>追蹤碼</label>
-                    <textarea class="form-control" name="traceCode" rows="5" placeholder="Enter ..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>關鍵字</label>
-                    <select name="tags" class="form-control select2" multiple="multiple" data-placeholder="選擇關鍵字" style="width: 100%;">
-                        <option>達美航空</option>
-                        <option>失身酒</option>
-                        <option>林志穎</option>
-                        <option>伊藤千晃</option>
-                        <option>台塑</option>
-                        <option>告白</option>
-                        <option>蔡英九</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">發稿設定</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group text-center">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="status" id="status-draft" value="DRAFT" checked="">
-                                    草稿
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="status" id="status-review" value="REVIEW">
-                                    送審
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="status" id="status-release" value="RELEASE">
-                                    發布
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="form-group">
-                            <label class="control-label">指定送審人</label>
-                            <select name="type" class="form-control select2">
-                                <option selected="selected">阿裔</option>
-                                <option>龍發</option>
-                                <option>麒麟</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">預約發稿</label>
-                        <div class="form-group">
-                            <label>
-                                <input type="checkbox" class="minimal">
-                                立即
+                            <label for="shortTitle" class="control-label">
+                                短標
+                                <span class="text-danger">*</span>
                             </label>
-                        </div>
-                        <div class="form-group">
-                            <div class='input-group date'>
-                                <input id='datetimepicker1' type='text' class="form-control" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
+                            <input type="text" maxlength="16" id="shortTitle" value="{{news.shortTitle}}" name="shortTitle" class="input form-control" placeholder="限制字數為 16" required>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">撰稿備忘錄</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="form-group">
-                    <textarea name="memo" class="form-control" rows="5" placeholder="Enter ..."></textarea>
-                </div>
-            </div>
-        </div>
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">注意事項</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body">
-                <p>存成草稿：會出現個人工作區，只有自己看見。</p>
-                <p>存成送審：會出現在新聞列表，並同部門的同事都會看見。</p>
-                <p>存成發佈：可在板主管理(新聞)剛剛有貼的版面裡找到，或是在我的新聞裡找的到。</p>
-                <p>傳給特定長官或同事：把處理者改成該同事，並把狀態改成"草稿"，這樣才會出現在他的個人工作區裡。</p>
-            </div>
-        </div>
+
+        {# 主圖設定 #}
+        {% include "./newsBlock/photo.html" %}
+
+        {# 文章設定 #}
+        {% include "./article/block.edit.article.html" %}
+
+        {# 業務欄位 第一版先隱藏起來
+        {% include "./sponsored/block.edit.sponsored.html" %}
+        #}
+
+        {# 發稿設定 #}
+        {% include "./releaseSet/block.edit.releaseSet.html" %}
+
+        {# 新聞備忘錄 #}
+        {% include "./newsBlock/memo.html" %}
+
+        {# 注意事項 - 需要跟新聞部確認要注意的事項
+        {% include "./newsBlock/notice.html" %}
+        #}
         <div class="edit-footer text-center">
-            <button type="button" class="btn bg-olive btn-flat margin">送出</button>
-            <button type="button" class="btn bg-orange btn-flat margin">預覽</button>
-            <button type="button" class="btn bg-maroon btn-flat margin">取消</button>
+            <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
+            <a href="/news/myList" class="btn bg-maroon btn-flat margin">取消</a>
         </div>
     </form>
 </section>
 
-{#  style 暫時放這   #}
-<!-- Select2 -->
-<link rel="stylesheet" href="/static/css/select2.min.css">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/daterangepicker.min.css" />
-
 {#  script 暫時放這   #}
-<!-- Select2 -->
-<script src="/static/js/select2/select2.full.min.js"></script>
+
 <!-- CK Editor -->
 <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 
-<!-- moment -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/moment.min.js"></script>
+<!-- multiple-select -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.0/multiple-select.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.0/multiple-select.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/daterangepicker.min.js"></script>
+<!-- tagEditor JS -->
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tag-editor/1.0.20/jquery.tag-editor.css" />
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/caret/1.0.0/jquery.caret.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tag-editor/1.0.20/jquery.tag-editor.min.js"></script>
+
+<style>
+    .memo-box .box-comments{
+        background: #fff;
+    }
+    .ms-drop ul>li.group {
+        font-size: 16px;
+        text-align: center;
+    }
+    .ms-drop ul>li.group input{
+        display: none;
+    }
+    .ui-widget-shadow {
+        opacity: 1;
+    }
+</style>
 <script>
     $(function () {
-        // Replace the <textarea id="editor1"> with a CKEditor
-        // instance, using default configuration.
-        CKEDITOR.replace('editor1');
-        CKEDITOR.replace('editor2');
 
-        $('#datetimepicker1').daterangepicker({
+        // Replace the <textarea id="editor1"> with a CKEditor
+        var newsContent = CKEDITOR.replace('editor1', {
+            height:550,
+            removeButtons: 'Image,About',
+            stylesSet: [{
+                name: 'isDeliver',
+                element: 'img',
+                attributes: { 'class': 'isDeliver' },
+            }],
+        });
+
+        var defaultWarning = {
+            wine: {
+                label: '插入吸毒警語',
+                warning: '<p>※<a href="https://www.nownews.com/">【 NOWnews 今日新聞 】</a>提醒您　飲酒過量有礙健康！※</p>'
+            }, smoke: {
+                label: '插入吸菸警語',
+                warning: '<p>※行政院衛生署提醒您　吸菸能導致肺癌、心臟血管疾病！※</p>'
+            }, suicide: {
+                label: '插入自殺警語',
+                warning: '<p>※<a href="https://www.nownews.com/">【 NOWnews 今日新聞 】</a> 提醒您：<br />自殺不能解決問題，勇敢求救並非弱者，生命一定可以找到出路。透過守門123步驟-1<br />問2應3轉介，你我都可以成為自殺防治守門人。<br />※　安心專線：0800-788-995(0800-請幫幫-救救我)<br />※　張老師專線：1980<br />※　生命線專線：1995<br /></p>'
+            }, drog: {
+                label: '插入吸毒警語',
+                warning: '<p>※<a href="https://www.nownews.com/">【 NOWnews 今日新聞 】</a> 提醒您：<br />少一份毒品，多一分健康；吸毒一時，終身危害。<br />※　戒毒諮詢專線：0800-770-885(0800-請請您-幫幫我)<br />※　安心專線：0800-788-995(0800-請幫幫-救救我)<br />※　張老師專線：1980<br />※　生命線專線：1995<br /></p>'
+            }
+        };
+
+        $.each(defaultWarning, function(key, value) {
+            newsContent.addCommand(key, {
+            exec: function(edt) {
+                    var originalData = edt.getData();
+                    edt.setData(originalData + value.warning);
+                }
+            });
+
+            newsContent.ui.addButton(key, {
+                label: value.label,
+                command: key,
+                toolbar: 'insert',
+                icon: '/static/img/icon/' + key +'.png'
+            });
+        });
+        // CKEDITOR.replace('editor2');
+
+        $('#MainMenu').multipleSelect({
+            filter: true,
+            single: true,
+            width: '100%'
+        });
+        $('#Menus').multipleSelect({
+            filter: true,
+            multiple: true,
+            width: '100%',
+            selectAll: false,
+            allSelected: false
+        });
+
+        function strip_tags (input, allowed) {
+            allowed = (((allowed || '') + '').toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
+            var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
+            return input.replace(tags, function ($0, $1) {
+                return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : ''
+            });
+        }
+
+        // 讓 input 按 enter 沒有效果
+        $('.input').keypress(function(e) {
+            var code = e.keyCode ? e.keyCode : e.which;
+            if(code == 13) {
+                e.preventDefault();
+            }
+        });
+        $("form").submit(function( event ) {
+            var content = CKEDITOR.instances.editor1.getData();
+            // var freeContent = CKEDITOR.instances.editor2.getData();
+
+            $('[name=content]').val(content);
+            // $('[name=freeContent]').val(freeContent);
+            $('[name=MainMenu]').val($("#MainMenu").multipleSelect("getSelects"));
+            $('[name=Menus]').val($("#Menus").multipleSelect("getSelects"));
+
+            // event.preventDefault();
+
+            // 原設定是給圖片上傳使用，更新新聞時需要切換回 from 模式
+            $(this).attr("enctype", "application/x-www-form-urlencoded")
+        });
+
+        $('#reservation-datetimepicker').daterangepicker({
+            "timePicker24Hour": true,
             "singleDatePicker": true,
             "timePicker": true,
             "locale": {
-                format: 'MM/DD/YYYY h:mm A'
+                format: 'YYYY-MM-DD HH:mm:ss'
             }
         });
 
         $(".select2").select2();
+
+        // 發稿設定
+        var status = null;
+        var publishSetting = function (status) {
+            switch (status) {
+                case 'DRAFT':
+                    $('.lastReviewer').css('visibility', 'hidden');
+                    $('.reservation').css('visibility', 'hidden');
+                    $('#location').prop('required', false);
+                    $('#shortTitle').prop('required', false);
+                    break;
+                case 'REVIEW':
+                    $('.lastReviewer').css('visibility', 'inherit');
+                    $('.reservation').css('visibility', 'inherit');
+                    $('select[name="LastReviewer"]').prop('disabled', false);
+                    $('#reservation-datetimepicker').prop('disabled', false);
+                    $('#location').prop('required', true);
+                    $('#shortTitle').prop('required', true);
+                    break;
+                case 'RELEASE':
+                    $('.lastReviewer').css('visibility', 'inherit');
+                    $('.reservation').css('visibility', 'inherit');
+                    $('select[name="LastReviewer"]').prop('disabled', true);
+                    $('#reservation-datetimepicker').prop('disabled', true);
+                    $('#location').prop('required', true);
+                    $('#shortTitle').prop('required', true);
+                    break;
+                case 'CLOSE':
+                    $('.lastReviewer').css('visibility', 'hidden');
+                    $('.reservation').css('visibility', 'hidden');
+                    $('#location').prop('required', false);
+                    $('#shortTitle').prop('required', true);
+                    break;
+                default:
+                    return false;
+            }
+        };
+        publishSetting($('input[name="status"]:checked', '.publish-setting').attr('value'));
+        $('input[name="status"]', '.publish-setting').on('click', function(){
+            if (status === $(this).attr('value') ) return false;
+
+            status = $(this).attr('value');
+            publishSetting(status);
+        });
+
+        $("#keywords").tagEditor({
+            delimiter: ',',
+            placeholder: '請用 Enter 或逗號加入關鍵字 ...',
+            maxTags: 7
+        });
     });
 </script>
 {% endblock %}

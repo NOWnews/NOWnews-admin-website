@@ -2,7 +2,7 @@
 import co from 'co';
 import Promise from 'bluebird';
 
-const debug = require('debug')('NOWmobile:redis:setValue');
+const debug = require('debug')('NOWnews-admin-website:redis:setValue');
 const client = require('./client');
 const config = require('../config');
 

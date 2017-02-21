@@ -2,7 +2,7 @@
 <html>
     <head>
 
-        {% block head %}<title>新編採 | 首頁</title>{% endblock %}
+        {% block head %}<title>大編輯台 | 首頁</title>{% endblock %}
 
         {% include "./blocks/head-meta.html" %}
         {% include "./blocks/head-include.html" %}
@@ -12,7 +12,7 @@
     <body class="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo">
-                <b>新編採系統</b>
+                <b>大編輯台系統</b>
             </div>
             <p class="login-box-msg">年輕、公義、真相</p>
             <div class="login-box-body">
@@ -21,7 +21,7 @@
                         <input type="email"
                             class="form-control"
                             name="email"
-                            value="superuser@superuser.com"
+                            {# value="superuser@superuser.com" #}
                             placeholder="Email" >
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
@@ -29,7 +29,7 @@
                         <input type="password"
                             class="form-control"
                             name="password"
-                            value="superuser28331543"
+                            {# value="superuser28331543" #}
                             placeholder="Password">
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>

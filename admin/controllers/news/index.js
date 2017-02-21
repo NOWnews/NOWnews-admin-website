@@ -15,6 +15,8 @@ import pageDailyPlanEdit from './page.dailyPlan.edit';
 
 import pageNewsMyList from './page.news.myList';
 import pageNewsReviewList from './page.news.reviewList';
+import pageNewsCreateList from './page.news.createList';
+import pageNewsTakeMeReviewList from './page.news.takeMeReviewList';
 import pageNewsCreate from './page.news.create';
 import pageNewsEdit from './page.news.edit';
 import pageNewsCompare from './page.news.compare';
@@ -28,7 +30,7 @@ router.route('/dailyPlan/create')
     .get(pageDailyPlanCreate)
     .post(actionDailyPlanCreate);
 
-router.route('/dailyPlan/:id')
+router.route('/dailyPlan/:dailyPlanId')
     .delete(actionDailyPlanRemove)
     .get(pageDailyPlanEdit)
     .put(actionDailyPlanUpdate);
@@ -37,8 +39,14 @@ router.route('/dailyPlan/:id')
 router.route('/myList')
     .get(pageNewsMyList);
 
+router.route('/createList')
+    .get(pageNewsCreateList);
+
 router.route('/reviewList')
     .get(pageNewsReviewList);
+
+router.route('/takeMeReviewList')
+    .get(pageNewsTakeMeReviewList);
 
 router.route('/create')
     .get(pageNewsCreate)
@@ -47,10 +55,10 @@ router.route('/create')
 router.route('/compare')
     .get(pageNewsCompare);
 
-router.route('/:id/logs')
+router.route('/:newsId/logs')
     .get(pageNewsLogs);
 
-router.route('/:id')
+router.route('/:newsId')
     .delete(actionNewsRemove)
     .get(pageNewsEdit)
     .put(actionNewsUpdate);

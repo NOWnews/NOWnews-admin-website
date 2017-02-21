@@ -4,10 +4,10 @@ const debug = Debug('NOWnews-admin-website: controllers:news:page.news.logs');
 module.exports = async (req, res, next) => {
 
     try {
-        let { id } = req.params;
+        let { newsId } = req.params;
 
         let { data: newslogList } = await axios.get('/newslog', {
-            newsId: id,
+            newsId,
             sort: 'createdAt',
         });
 

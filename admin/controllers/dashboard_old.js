@@ -3,7 +3,7 @@ import express from 'express';
 import getApi from '../util/getApi';
 let router = express.Router();
 
-const debug = require('debug')('NOWmobile:controllers:home');
+const debug = require('debug')('NOWnews-admin-website:controllers:home');
 
 router.route('/dashboard')
     .get((req, res, next) => {

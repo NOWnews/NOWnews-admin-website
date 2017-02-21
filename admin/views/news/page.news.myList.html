@@ -1,12 +1,47 @@
-{% set title = "我的新聞" %}
-{% set subtitle = "我的新聞列表，照時間排序，狀態有草稿、審核、...等等 的項目。" %}
+{% set title = listDescription.title %}
+{% set subtitle = listDescription.subtitle %}
 {% extends "../base.html" %}
 {% block headTitle %}
-    <title>新編採 | {{ title }}</title>
+    <title>大編輯台 | {{ title }}</title>
 {% endblock %}
 
 {% block container %}
     <section class="content">
-        {% include "./block.table.html" %}
+        <div class="box">
+            <div class="box-header table-responsive">
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <a class="btn btn-success" href="/news/create">新增新聞</a>
+                    </div>
+                </div>
+                {% include "./block.query-form.html" %}
+                {% include "./block.table.html" %}
+            </div>
+            <div class="box-body dataTables_wrapper">
+                {% include "../util/pagination.html" %}
+            </div>
+        </div>
     </section>
+    <script>
+        $(document).ready(function() {
+            $('#news-table').DataTable({
+                "paging": false,
+                "searching": false,
+            });
+        });
+
+        $('.delete-news').on('click', function(){
+            var confirmed = confirm('您確定要刪除嗎？');
+            if (!confirmed) { return; }
+            var id = $(this).attr('item-id');
+            $.ajax({
+                url: '/news/' + id,
+                type: 'DELETE',
+                success: function(result) {
+                    console.log(result)
+                    location.reload();
+                }
+            });
+        });
+    </script>
 {% endblock %}

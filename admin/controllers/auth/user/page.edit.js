@@ -7,12 +7,14 @@ module.exports = async (req, res, next) => {
     try {
         let { data: centerList } = await axios.get('/centers');
         let { data: roleList } = await axios.get('/roles');
+        let { data: menuList } = await axios.get('/menus?level=0');
         let { data: user } = await axios.get(`/users/${req.params.id}`);
 
         debug('user = %j', user);
 
         return res.render('auth/user/page.edit.html', {
             centerList,
+            menuList,
             roleList,
             user,
             USER_STATUS,

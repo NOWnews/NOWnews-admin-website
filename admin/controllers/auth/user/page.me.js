@@ -9,10 +9,14 @@ module.exports = async function(req, res, next) {
 
         let { data: user } = await axios.get(`/users/${userId}`);
 
+        let { data: menuList } = await axios.get('/menus?level=0');
+
         debug('currentUser = %j', user);
+
 
         return res.render('auth/user/page.me.html', {
             user,
+            menuList,
             USER_STATUS,
         });
 

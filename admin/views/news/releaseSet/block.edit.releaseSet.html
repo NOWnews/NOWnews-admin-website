@@ -1,0 +1,70 @@
+<div class="box publish-setting">
+    <div class="box-header with-border">
+        <h3 class="box-title">
+            發稿設定
+            <span class="text-danger">*</span>
+        </h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group text-center">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="status" id="status-draft" value="DRAFT" {{ "checked" if news.status == 'DRAFT' }}>
+                            草稿
+                        </label>
+                    </div>
+                    {% if news.status != 'RELEASE' %}
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="status" id="status-review" value="REVIEW" {{ "checked" if news.status == 'REVIEW' }}>
+                                送審
+                            </label>
+                        </div>
+                    {% endif %}
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="status" id="status-release" value="RELEASE" {{ "checked" if news.status == 'RELEASE' }}>
+                            發布
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="status" id="status-close" value="CLOSE" {{ "checked" if news.status == 'CLOSE' }}>
+                            關閉
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="form-group lastReviewer">
+                    <label class="control-label">指定送審人</label>
+                    <select name="LastReviewer" class="form-control select2">
+                        {% for user in userList %}
+                            {% if user.sn == news.LastReviewer.sn %}
+                                <option value="{{ user._id }}" selected>{{ user.name }}</option>
+                            {% else %}
+                                <option value="{{ user._id }}">{{ user.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group reservation">
+                    <label class="control-label">預約發稿</label>
+                    <div class='input-group date'>
+                        <input id="reservation-datetimepicker" value="{{ news.formatCreatedAt }}" type='text' class="form-control input" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

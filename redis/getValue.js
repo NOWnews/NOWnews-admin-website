@@ -1,6 +1,6 @@
 import co from 'co';
 
-const debug = require('debug')('NOWmobile:redis:getValue');
+const debug = require('debug')('NOWnews-admin-website:redis:getValue');
 const client = require('./client');
 
 /*

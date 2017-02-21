@@ -1,0 +1,138 @@
+{% set title = "新增選單" %}
+{% extends "../base.html" %}
+
+{% block headTitle %}
+    <title>大編輯台 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+<section class="content">
+    <form action="/menu/create" method="post">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">選單設定</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="checkbox">
+                            <label>
+                                <input name="isExternal" type="checkbox"> 外部連結
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input name="isAdult" type="checkbox"> 是否為成人
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="shortTitle" class="control-label">連結</label>
+                            <input type="text" name="url" class="form-control" placeholder="範例  https://m.nownews.com" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="title" class="control-label">選單名稱</label>
+                            <input type="text" id="categoryname" maxlength="6" name="name" class="form-control" placeholder="限制字數為6" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# 第一版先隱藏起來
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">層數設定</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="checkbox">
+                            <label>
+                                <input name="hasChild" type="checkbox" disabled> 是否有子層
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="parentId" class="control-label">父層的ID</label>
+                            <input id="parentId" type="text" name="ParentId" class="form-control" placeholder="" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="level" class="control-label">哪一個層級</label>
+                            <input id="level" type="text" name="level" class="form-control" placeholder="" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        #}
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">狀態設定</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="status" id="status1" value="OPEN">
+                                    開啟
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="status" id="status2" value="CLOSE" checked>
+                                    關閉
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-footer text-center">
+            <button type="submit" class="btn bg-olive btn-flat margin">儲存</button>
+            <button type="button" class="btn bg-maroon btn-flat margin">取消</button>
+        </div>
+    </form>
+</section>
+
+
+{#  script 暫時放這   #}
+<script>
+    $(function () {
+        $('#menuTimepicker').daterangepicker({
+            "startDate": new Date(),
+            "locale": {
+                format: 'YYYY-MM-DD'
+            }
+        });
+    });
+</script>
+
+{% endblock %}

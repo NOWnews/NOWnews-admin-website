@@ -5,17 +5,32 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        let data = req.body;
+        let { avatarUrl, originAvatarId, ...data} = req.body;
 
         let userId = req.session.adminUser._id;
 
         data.UpdatedBy = userId;
 
-        let url = `/users/${userId}`;
+        if (data.defaultMenu === "") {
+            data.defaultMenu = null ;
+        }
 
-        let { data: user } = await axios.put(url, data);
+        // 清除舊的圖片
+        if (originAvatarId && originAvatarId !== data.Avatar) {
+            await axios.delete(`/images/${originAvatarId}/realRemove`);
+        }
+
+        let { data: user } = await axios.put(`/users/${userId}`, data);
 
         debug('updatedUser = %j', user);
+
+        req.session.adminUser.avatarUrl = avatarUrl;
+
+        if (!req.session.adminUser.defaultSettings) {
+            req.session.adminUser.defaultSettings = {};
+        }
+
+        req.session.adminUser.defaultSettings.Menu = data.defaultMenu;
 
         return res.redirect(`/auth/me`);
 

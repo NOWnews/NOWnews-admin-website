@@ -1,8 +1,9 @@
 /*
  * 設定變數到 nunjucks
  */
-
+import config from 'config';
 import adminMenu from '../../adminMenu.json';
+let apiServer = config.get('apiServer.public');
 
 module.exports = () => {
 
@@ -14,6 +15,7 @@ module.exports = () => {
         res.locals.adminMenu = adminMenu;
         res.locals.pathname = pathname;
         res.locals.currentUser = req.session.adminUser;
+        res.locals.apiServer = apiServer;
 
         return next();
     };
