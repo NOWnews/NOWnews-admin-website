@@ -143,48 +143,8 @@
         {# 發稿設定 #}
         {% include "./releaseSet/block.create.releaseSet.html" %}
 
-        {# 第一版先隱藏起來
-        <div class="box memo-box">
-            <div class="box-header with-border">
-                <h3 class="box-title">撰稿備忘錄</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <!--<div class="box-body ">
-                <div class="box-comments">
-                    <div class="box-comment">
-                        <div class="comment-text">
-                            <span class="username">
-                                Maria Gonzales
-                                <span class="text-muted pull-right">8:03 PM Today</span>
-                            </span>
-                            It is a long established fact that a reader will be distracted
-                            by the readable content of a page when looking at its layout.
-                        </div>
-                    </div>
-                    <div class="box-comment">
-                        <div class="comment-text">
-                            <span class="username">
-                                Maria Gonzales
-                                <span class="text-muted pull-right">8:03 PM Today</span>
-                            </span>
-                            It is a long established fact that a reader will be distracted
-                            by the readable content of a page when looking at its layout.
-                        </div>
-                    </div>
-                </div>
-            </div>-->
-            <div class="box-footer">
-                <!-- .img-push is used to add margin to elements next to floating images -->
-                <div class="img-push">
-                    <input type="text" name="memo" class="form-control input-sm input" placeholder="輸入你的留言">
-                </div>
-            </div>
-        </div>
-        #}
+        {# 新聞備忘錄 #}
+        {% include "./newsBlock/memo.html" %}
 
         {# 注意事項 - 需要跟新聞部確認要注意的事項
         {% include "./newsBlock/notice.html" %}

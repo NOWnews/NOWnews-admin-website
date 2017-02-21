@@ -1,0 +1,37 @@
+<div class="box memo-box">
+    <div class="box-header with-border">
+        <h3 class="box-title">撰稿備忘錄</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    {% if newsMemos.length > 0 %}
+    <div class="box-body ">
+        {% for memo in newsMemos %}
+        <div class="box-comments">
+            <div class="box-comment">
+                {# 依據每個人的 unique id 產生不同的顏色（剪短取其前六數字） #}
+                {% set color = memo.CreatedBy._id | truncate(6, true, '') %}
+                {% set imgSrc = memo.CreatedBy.Avatar.url if (memo.CreatedBy.Avatar.url) else '/static/img/avatar.png'%}
+                <img src="{{imgSrc}}" alt="User Image" class="img-circle img-sm">
+                <div class="comment-text">
+                    <span class="username" style="color: {{ '#' + color}}">
+                        {{ memo.CreatedBy.name }}
+                        <span class="text-muted pull-right">{{ memo.formatCreatedAt }}</span>
+                    </span>
+                    {{ memo.content }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="box-footer">
+        <!-- .img-push is used to add margin to elements next to floating images -->
+        <div class="img-push">
+            <input type="text" name="newsMemoContent" class="form-control input-sm input" placeholder="輸入你的留言">
+        </div>
+    </div>
+</div>

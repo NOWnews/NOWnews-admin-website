@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
 
     try {
         let userId = req.session.adminUser._id;
-        let data = req.body;
+        let { newsMemoContent, ...data } = req.body;
 
         data.CreatedBy = userId;
         data.UpdatedBy = userId;
@@ -54,6 +54,15 @@ module.exports = async (req, res, next) => {
         }
 
         let { data: news } = await axios.post('/news', data);
+
+        if (newsMemoContent.trim() !== '') {
+            let { data: newsMemo } = await axios.post('/newsmemo', {
+                News: news._id,
+                content: newsMemoContent,
+                CreatedBy: userId,
+            });
+            debug('createdNewsMemo = %j', newsMemo);
+        }
 
         debug('createdNews = %j', news);
 
