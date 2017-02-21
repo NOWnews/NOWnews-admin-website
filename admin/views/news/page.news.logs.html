@@ -16,7 +16,7 @@
                             <th>時間</th>
                             <th>標題</th>
                             <th>作者</th>
-                            <th>比較（會與按鈕該列的前一列比較）</th>
+                            <th>比較</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,9 +30,9 @@
                                     {% if loop.index0 == 0 %}
                                         --
                                     {% else %}
-                                        <a class="btn btn-info"
+                                        <a class="btn btn-success"
                                             href="/news/compare?beforeLogId={{newslogList[loop.index0 - 1]._id}}&afterLogId={{newslog._id}}">
-                                            比較
+                                            與 #{{ loop.index0 - 1 }} 比較
                                         </a>
                                     {% endif %}
                                 </td>
