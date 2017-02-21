@@ -1,0 +1,33 @@
+<div class="box memo-box">
+    <div class="box-header with-border">
+        <h3 class="box-title">撰稿備忘錄</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    {% if newsMemos.length > 0 %}
+    <div class="box-body ">
+        {% for memo in newsMemos %}
+        <div class="box-comments">
+            <div class="box-comment">
+                <div class="comment-text">
+                    <span class="username">
+                        {{ memo.CreatedBy.name }}
+                        <span class="text-muted pull-right">{{ memo.formatCreatedAt }}</span>
+                    </span>
+                    {{ memo.content }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="box-footer">
+        <!-- .img-push is used to add margin to elements next to floating images -->
+        <div class="img-push">
+            <input type="text" name="newsMemoContent" class="form-control input-sm input" placeholder="輸入你的留言">
+        </div>
+    </div>
+</div>

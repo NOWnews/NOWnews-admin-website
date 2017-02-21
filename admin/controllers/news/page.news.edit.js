@@ -15,6 +15,7 @@ module.exports = async (req, res, next) => {
 
         let { data: { users: userList, pageData } } = await axios.get('/users');
         let { data: menus } = await axios.get('/menus/struction');
+        let { data: newsMemos } = await axios.get(`/newsmemo?News=${newsId}&sort=createdAt`);
 
         let selectMenus = _.map( news.Menus, (menu) => {
             return menu._id;
@@ -50,6 +51,7 @@ module.exports = async (req, res, next) => {
             NEWS_TYPES,
             NEWS_STATUS,
             news,
+            newsMemos,
             menus,
             userList
         });
