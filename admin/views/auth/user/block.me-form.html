@@ -32,10 +32,20 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label>密碼</label>
-            <input class="form-control"
-                name="password"
-                type="text" />
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label>密碼</label>
+                    <input class="form-control"
+                        name="password"
+                        type="password" />
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>確認密碼</label>
+                    <input class="form-control"
+                        name="confirmPassword"
+                        type="password" />
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <label>電話
@@ -55,9 +65,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label>預設主分類
-                <span class="text-danger">*</span>
-            </label>
+            <label>預設主分類</label>
             <select class="form-control"
                 name="defaultMenu">
                 <option value="">請選擇</option>
