@@ -1,5 +1,6 @@
 import Debug from 'debug';
-import htmldiff from 'htmldiff/src/htmldiff.js';
+import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
+
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.compare');
 
 module.exports = async (req, res, next) => {
@@ -8,29 +9,15 @@ module.exports = async (req, res, next) => {
 
         let { beforeLogId, afterLogId } = req.query;
 
-        // let url = `/newslog/compare?beforeLogId=${beforeLogId}&afterLogId=${afterLogId}`;
+        let url = `/newslog/compare?beforeLogId=${beforeLogId}&afterLogId=${afterLogId}`;
 
-        // let { data: { before, after} } = await axios.get(url);
-
-        // temp code
-        let before = {
-            _id: 1,
-            title: 123,
-            content: '<p>this is some text 要消失的</p><br/><ul><li>1</li><li>增加</li></span>',
-        };
-
-        let after = {
-            _id: 2,
-            title: 456,
-            content: '<p>this is some 要增加的 text</p><br/><ul><li>增加</li></span>',
-        };
-
-        let content = htmldiff(before.content, after.content);
+        let { data: { after, before } } = await axios.get(url);
 
         let result = {
-            before,
             after,
-            content,
+            before,
+            NEWS_TYPES,
+            NEWS_STATUS,
         }
 
         debug('result = %j', result);
