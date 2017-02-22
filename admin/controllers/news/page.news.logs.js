@@ -13,18 +13,6 @@ module.exports = async (req, res, next) => {
 
         debug('newslogList = %j', newslogList);
 
-        newslogList = [{
-            formatCreatedAt: '123',
-            CreatedBy: {name: '楊過'},
-            title: 'title123',
-            _id: 123,
-        },{
-            formatCreatedAt: '456',
-            CreatedBy: {name: '小龍女'},
-            title: 'title456',
-            _id: 456,
-        }];
-
         return res.render('news/page.news.logs.html', {
             newslogList,
         });

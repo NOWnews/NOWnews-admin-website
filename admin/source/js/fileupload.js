@@ -124,7 +124,7 @@ $(function () {
             var nextRow = $(data.context).next();
             var submitRow = $(data.context);
             var isDeliver = submitRow.find('input[name=isDeliver]:checked').length === 1;
-            var desc = submitRow.find('input[name=desc]').val();
+            var desc = submitRow.find('textarea[name=desc]').val();
 
             data.formData = {
                 desc: desc,
