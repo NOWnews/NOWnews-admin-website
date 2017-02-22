@@ -33,5 +33,13 @@
     {% endif %}
 {% endmacro %}
 
+{% macro header(before, after) %}
+    {% if before == after %}
+        <h3> {{ after }}</h3>
+    {% else %}
+        <span class="h3 text-success">{{ after }}</span> /
+        <span class="h4 text-danger"><del>{{ before }}</del></span>
+    {% endif %}
+{% endmacro %}
 
 
