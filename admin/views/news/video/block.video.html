@@ -13,44 +13,48 @@
     <div class="box-body">
         <div class="row">
             <div class="col-sm-12">
-                YouTube ID: <span id="myId"></span>
-                <br />
-                <br />
-                Embed code: <pre id="myCode"></pre>
-                <input type="text" name="urlid" value="" class="typeaa"><br>
+                <div class="url-form">
+                    <label for="MainVideo">影片 URL</label>
+                    <div class="input-group ">
+                        <input id="MainVideo" name="MainVideo" type="text" value="http://vimeo.com/18150336" class="form-control">
+                        <div class="input-group-btn">
+                            <a class="btn btn-info">預覽影片</a>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div id="result" class="img-responsive"></div>
             </div>
         </div>
     </div>
+    <script src="http://cdn.embed.ly/jquery.embedly-3.1.1.min.js"></script>
+    <script type="text/javascript" src="//cdn.embed.ly/player-0.0.12.min.js"></script>
     <script>
-        var myId;
-function getId(url) {
-    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    var match = url.match(regExp);
+        $(function(){
+            var player = null;
+            var embed = function(url){
 
-    if (match && match[2].length == 11) {
-        return match[2];
-    } else {
-        return 'error';
-    }
-}
+                return $.embedly.oembed(url, {query: {scheme: 'http', maxwidth: '600'}})
+                .progress(function(obj){
 
-$('.typeaa').on('keyup', function() {
-     if (this.value.length > 1) {
-          var a= $("input[name='urlid']").val();
-					myId = getId(a);
+                    if (!obj.html){
+                        $('#result').html('');
+                        window.alert('影片的連結有問題！');
+                        return false;
+                    }
 
-          setHtml();
-     }
-});
+                    $('#result').html(obj.html);
+                });
+            };
 
+            // URL inpute
+            var $url = $('#MainVideo');
+            $('.url-form a').on('click', function(){
+                embed($url.val());
+                return false;
+            });
 
-//var myId = getId('http://www.youtube.com/watch?v=zbYf5_S7oJo');
-function setHtml (){
-	$('#myId').html(myId);
-console.log(myId)
-  $('#myCode').html('<iframe width="560" height="315" src="//www.youtube.com/embed/' + myId + '" frameborder="0" allowfullscreen></iframe>');
-}
-
-setHtml();
+        });
+        $.embedly.defaults.key = '3ee528c9eb4b4908b268ce1ace120c92';
     </script>
 </div>
