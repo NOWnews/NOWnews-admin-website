@@ -105,10 +105,31 @@ $(function() {
         });
     });
 
-    $('#me-form').submit(function() {
+    function checkPassword (event) {
+        var confirmPwd= $('input[name=password]').val().trim();
+        var pwd = $('input[name=confirmPassword]').val().trim();
+
+        if (confirmPwd === pwd) {
+            return true;
+        }
+
+        alert('密碼不一致請再確認。');
+        return event.preventDefault();
+    }
+
+    $('.user-form').submit(function(event){
+        return checkPassword(event);
+    });
+
+    $('#me-form').submit(function(event) {
+
+        var isSamePassword = checkPassword();
+
+        if (!isSamePassword) {
+            return event.preventDefault();
+        }
 
         // 送出前確認有沒有上傳的圖片在做上傳，舊圖由後端做清除
-
         if (!previewBlob) {
             return true;
         }
@@ -138,7 +159,7 @@ $(function() {
             }
         });
 
-        return false;
+        return event.preventDefault();
 
     });
 

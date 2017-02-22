@@ -187,6 +187,10 @@
     .ui-widget-shadow {
         opacity: 1;
     }
+    /* 隱藏掉 ck image btn */
+    a.cke_button.cke_button__image {
+        display: none;
+    }
 </style>
 
 <script>
@@ -195,7 +199,7 @@
         // Replace the <textarea id="editor1"> with a CKEditor
         var newsContent = CKEDITOR.replace('editor1', {
             height:550,
-            removeButtons: 'Image,About',
+            removeButtons: 'About',
             stylesSet: [{
                 name: 'isDeliver',
                 element: 'img',

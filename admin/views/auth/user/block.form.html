@@ -67,14 +67,25 @@
 
     <div class="col-md-6">
         {% if not user %}
-            <div class="form-group">
-                <label> 密碼
-                    <span class="text-danger">*</span>
-                </label>
-                <input class="form-control"
-                    required
-                    name="password"
-                    type="password" />
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label>密碼
+                        <span class="text-danger">*</span>
+                    </label>
+                    <input class="form-control"
+                        required
+                        name="password"
+                        type="password" />
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>確認密碼
+                        <span class="text-danger">*</span>
+                    </label>
+                    <input class="form-control"
+                        required
+                        name="confirmPassword"
+                        type="password" />
+                </div>
             </div>
         {% endif %}
         <div class="form-group">
