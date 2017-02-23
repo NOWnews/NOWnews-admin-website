@@ -25,9 +25,9 @@
                         <div class="checkbox">
                             <label>
                                 {% if menu.isExternal %}
-                                    <input name="isExternal" type="checkbox" checked> 外部連結
+                                    <input name="isExternal" type="checkbox" checked class="checkbox_link"> 外部連結
                                 {% else %}
-                                    <input name="isExternal" type="checkbox" > 外部連結
+                                    <input name="isExternal" type="checkbox"  class="checkbox_link"> 外部連結
                                 {% endif %}
                             </label>
                         </div>
@@ -44,9 +44,20 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-5">
-                        <div class="form-group">
-                            <label for="shortTitle" class="control-label">連結</label>
-                            <input type="text" name="url" value="{{ menu.url }}" class="form-control" placeholder="範例  https://m.nownews.com" required>
+                        <div class="form-group linkBox">
+                            <label for="shortTitle" class="control-label categoryLink">頻道連結</label>
+                            {% if menu.isExternal %}
+                            <div class="input-group col-sm-10">
+                                <span class="input-group-addon" style="display: none;">/cat/</span>
+                                <input type="text" name="url" value="{{ menu.url }}" class="form-control" placeholder="範例  https://m.nownews.com" required>
+                            </div>
+
+                            {% else %}
+                            <div class="input-group">
+                                <span class="input-group-addon">/cat/</span>
+                                <input type="text" name="categoryName" value="{{ menu.categoryName }}" class="form-control" placeholder="範例  sport" required>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -165,6 +176,28 @@
 <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 
 <script>
+    //給不同input 做 頻道建立 或者是外部連結建立使用
+    $('.checkbox_link').on('click', function() {
+        var checkLinkSelected = $('.checkbox_link').is(':checked');
+        if (!checkLinkSelected) {
+            $('.linkBox').find('input').attr({
+                placeholder: "範例  頻道名稱 sport",
+                name: "categoryName"
+            });
+
+            $('.linkBox').find(".categoryLink").text('頻道連結');
+            $('.linkBox').find(".input-group-addon").css('display','table-cell');
+        }
+        else {
+            $('.linkBox').find('input').attr({
+                placeholder: "範例  https://m.nownews.com",
+                name: "url"
+            });
+            $('.linkBox').find(".categoryLink").text('外部連結');
+            $('.linkBox').find('.input-group').addClass('col-sm-10');
+            $('.linkBox').find(".input-group-addon").css('display','none');
+        }
+    });
     $(function () {
         $('#menuTimepicker').daterangepicker({
             "startDate": new Date(),
