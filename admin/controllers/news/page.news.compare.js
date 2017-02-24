@@ -4,6 +4,17 @@ import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
 
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.compare');
 
+
+// 將 ArrayObject 轉成只有名字的字串 (ex: aa,bb,cc)
+const generateArrayString = (target, columnName) => {
+
+    let values = _.map(target[columnName], function(value) {
+        return value.name;
+    });
+    target[columnName] = null;
+    target[`${columnName}String`] = values.join(',');
+}
+
 module.exports = async (req, res, next) => {
 
     try {
@@ -13,16 +24,6 @@ module.exports = async (req, res, next) => {
         let url = `/newslog/compare?beforeLogId=${beforeLogId}&afterLogId=${afterLogId}`;
 
         let { data: { after, before } } = await axios.get(url);
-
-        // 將 ArrayObject 轉成只有名字的字串 (aa,bb,cc)
-        function generateArrayString (target, columnName) {
-
-            let values = _.map(target[columnName], function(value) {
-                return value.name;
-            });
-            target[columnName] = null;
-            target[`${columnName}String`] = values.join(',');
-        }
 
         generateArrayString(before, 'Tags');
         generateArrayString(after, 'Tags');
