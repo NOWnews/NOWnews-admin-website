@@ -38,7 +38,7 @@
 
                     {{ compare.text('主分類', before.MainMenu.name, after.MainMenu.name) }}
 
-                    {{ compare.text('次分類', before.menus, after.menus) }}
+                    {{ compare.text('次分類', before.MenusString, after.MenusString) }}
 
                     {{ compare.text('是否為成人', before.isAdult, after.isAdult) }}
 
@@ -56,7 +56,7 @@
                     {# 文章設定 #}
                     {{ compare.html('內文', 'content', before, after) }}
 
-                    {{ compare.text('關鍵字', before.tags, after.tags) }}
+                    {{ compare.text('關鍵字', before.TagsString, after.TagsString) }}
 
                     {{ compare.text('LBS 地址', before.location, after.location) }}
 
@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div class="box-footer text-center">
-                <a class="btn btn-info btn-flat" href="/news/{{after._id}}/logs">返回</a>
+                <a class="btn btn-info btn-flat" href="/news/{{before.newsId}}/logs">返回</a>
             </div>
         </div>
     </section>
