@@ -11,7 +11,9 @@ module.exports = async (req, res, next) => {
 
         data.isExternal = data.isExternal ? true : false ;
         data.isAdult = data.isAdult ? true: false;
-
+        if (!data.isExternal){
+             data.url = `/cat/${data.categoryName}`;
+        }
         data.UpdatedBy = userId;
 
         debug('req.body = %j', data);
