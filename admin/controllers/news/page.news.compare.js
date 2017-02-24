@@ -36,7 +36,7 @@ module.exports = async (req, res, next) => {
             before,
             NEWS_TYPES,
             NEWS_STATUS,
-        }
+        };
 
         debug('result = %j', result);
 
