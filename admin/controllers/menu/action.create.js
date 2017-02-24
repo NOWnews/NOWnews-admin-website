@@ -7,7 +7,6 @@ module.exports = async (req, res, next) => {
 
         let userId = req.session.adminUser._id;
         let data = req.body;
-        console.log(data);
         data.isExternal = data.isExternal ? true: false;
         data.isAdult = data.isAdult ? true: false;
         data.CreatedBy = userId;
