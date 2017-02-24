@@ -10,9 +10,6 @@
 {% block container %}
     <section class="content">
         <div class="box">
-            <div class="box-header">
-                {{ compare.header(before.title, after.title) }}
-            </div>
             <div class="diff-content box-body">
                 <div class="row">
                     <div class="col-md-12">
@@ -28,9 +25,13 @@
                             </tr>
                         </table>
                     </div>
-                </div>
-                <div class="row">
+
                     {# 共同表頭設定區 #}
+
+                    {{ compare.text('長標', before.title, after.title) }}
+
+                    {{ compare.text('短標', before.shortTitle, after.shortTitle) }}
+
                     {{ compare.text('作者', before.Author.name, after.Author.name) }}
 
                     {{ compare.text('新聞類別', NEWS_TYPES[before.type], NEWS_TYPES[after.type]) }}
@@ -44,9 +45,6 @@
                     {{ compare.text('是否可外送', before.isDeliver, after.isDeliver) }}
 
                     {{ compare.text('是否為業配文', before.isSponsored, after.isSponsored) }}
-
-                    {{ compare.text('短標', before.shortTitle, after.shortTitle) }}
-
 
 
                     {# 圖片設定上傳區 #}
@@ -92,12 +90,15 @@
         </div>
     </section>
     <script>
+
         diffUsingJS('content');
+
         // 第一版先隱藏起來
         // diffUsingJS('freeContent');
 
-        // 清除空白行 & 套件產生的 footer
+        // 清除空白行 & 套件產生的 header, footer
         $('td.equal').parent('tr').remove();
+        $('th.texttitle').parent('tr').remove();
         $('th.author').remove();
     </script>
 {% endblock %}

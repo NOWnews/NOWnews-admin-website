@@ -1,8 +1,7 @@
-.diff-content del {
-    background:#ffe6e6;
+.no-padding-left {
+    padding-left: 0;
 }
 
-.diff-content ins {
-    background:#e6ffe6;
-    text-decoration:none;
+.no-padding-right {
+    padding-right: 0;
 }

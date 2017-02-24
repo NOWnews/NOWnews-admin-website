@@ -1,5 +1,8 @@
 {% macro html(name, column, before, after) %}
-    <div class="col-md-12">
+    <div class="col-md-1 no-padding-right">
+        {{name}}
+    </div>
+    <div class="col-md-11 no-padding-left">
         <textarea id="df-{{column}}-before" class="hidden">{{before[column] | safe}}</textarea>
         <textarea id="df-{{column}}-after" class="hidden">{{after[column] |safe}}</textarea>
         <div id="df-{{column}}-output"></div>
@@ -9,21 +12,18 @@
 
 {% macro text(name, before, after) %}
     {% if before != after %}
-        <div class="col-md-12">
+        <div class="col-md-1 no-padding-right">
+            {{name}}
+        </div>
+        <div class="col-md-11 no-padding-left">
             <table class="diff inlinediff">
-                <thead>
-                    <tr>
-                        <th></th><th></th>
-                        <th>{{ name }}</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
-                        <th>1</th><th></th>
+                        <th></th>
                         <td class="delete">{{ before }}</td>
                     </tr>
                     <tr>
-                        <th></th><th>1</th>
+                        <th></th>
                         <td class="insert">{{ after }}</td>
                     </tr>
                 </tbody>
@@ -32,14 +32,3 @@
         </div>
     {% endif %}
 {% endmacro %}
-
-{% macro header(before, after) %}
-    {% if before == after %}
-        <h3> {{ after }}</h3>
-    {% else %}
-        <span class="h3 text-success">{{ after }}</span> /
-        <span class="h4 text-danger"><del>{{ before }}</del></span>
-    {% endif %}
-{% endmacro %}
-
-
