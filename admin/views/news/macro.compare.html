@@ -1,12 +1,14 @@
 {% macro html(name, column, before, after) %}
-    <div class="col-md-1 no-padding-right">
-        {{name}}
-    </div>
-    <div class="col-md-11 no-padding-left">
-        <textarea id="df-{{column}}-before" class="hidden">{{before[column] | safe}}</textarea>
-        <textarea id="df-{{column}}-after" class="hidden">{{after[column] |safe}}</textarea>
-        <div id="df-{{column}}-output"></div>
-        <br />
+    <div>
+        <div class="col-md-1 no-padding-right df-{{column}}-name">
+            {{name}}
+        </div>
+        <div class="col-md-11 no-padding-left">
+            <textarea id="df-{{column}}-before" class="hidden">{{before[column] | safe}}</textarea>
+            <textarea id="df-{{column}}-after" class="hidden">{{after[column] |safe}}</textarea>
+            <div id="df-{{column}}-output"></div>
+            <br />
+        </div>
     </div>
 {% endmacro %}
 

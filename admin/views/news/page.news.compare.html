@@ -100,6 +100,16 @@
         $('td.equal').parent('tr').remove();
         $('th.texttitle').parent('tr').remove();
         $('th.author').remove();
+
+
+        if ($('#df-content-output table tr').length === 0) {
+            $('.df-content-name').parent().remove();
+        }
+
+        // 第一版先隱藏起來
+        // if ($('#df-freeContent-output table tr').length === 0) {
+            // $('.df-freeContent-name').parent().remove();
+        // }
     </script>
 {% endblock %}
 
