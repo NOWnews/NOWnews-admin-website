@@ -73,7 +73,7 @@ $(function () {
     fileuploadElm.fileupload({
         downloadTemplateId: null,
         paramName: 'image',
-        url: api + '/images/upload',
+        url: '/image/upload',
         uploadTemplateId: null,
         destroy: function (e, data) {
             var that = this;
@@ -127,10 +127,10 @@ $(function () {
             var desc = submitRow.find('textarea[name=desc]').val();
 
             data.formData = {
+                title: desc,
                 desc: desc,
                 type: 'NEWS',
                 isDeliver: isDeliver,
-                CreatedBy: $('#userId').val(),
             };
 
             if (nextRow.attr('id') === 'crop-row') {
