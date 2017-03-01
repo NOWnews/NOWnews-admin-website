@@ -140,10 +140,8 @@ $(function() {
         formData.append('desc', username + '的AVATAR');
         formData.append('type', 'AVATAR');
         formData.append('isDeliver', false);
-        formData.append('CreatedBy', $('#userId').val());
         formData.append('image', previewBlob);
-        var api = $('input[name=apiServer]').val();
-        $.ajax( api + '/images/upload', {
+        $.ajax('/image/upload', {
             method: 'POST',
             data: formData,
             processData: false,
