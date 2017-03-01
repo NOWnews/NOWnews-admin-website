@@ -5,13 +5,7 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        let queryString = req._parsedUrl.query;
-
-        if (queryString === null) {
-            queryString = "";
-        }
-
-        let { data: { video } } = await axios.post(`/video/upload?limit=24&${queryString}`);
+        let { data: { video } } = await axios.post(`/video/upload`);
 
         debug('video = %j', video);
 
