@@ -141,7 +141,6 @@ $(function() {
         formData.append('type', 'AVATAR');
         formData.append('isDeliver', false);
         formData.append('image', previewBlob);
-        var api = $('input[name=apiServer]').val();
         $.ajax('/image/upload', {
             method: 'POST',
             data: formData,

@@ -11,7 +11,6 @@ $(function () {
     'use strict';
 
     /* 公用變數 */
-    var api = $('input[name=apiServer]').val();
     var fileuploadElm = $('#fileupload');
     var fileRows = $('tbody.files');
     var imageBlocks = $('.image-blocks');
