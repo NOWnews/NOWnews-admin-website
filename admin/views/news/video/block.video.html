@@ -13,23 +13,46 @@
     <div class="box-body">
         <div class="row">
             <div class="col-sm-12">
-                <div class="url-form">
-                    <label for="MainVideo">影片 URL</label>
-                    <div class="input-group ">
-                        <input id="MainVideo" name="MainVideo" type="text" value="http://vimeo.com/18150336" class="form-control">
-                        <div class="input-group-btn">
-                            <a class="btn btn-info">預覽影片</a>
+                <div class="content">
+                    <ul class="nav nav-tabs ui-sortable-handle">
+                        <li class="active"><a href="#video-url" data-toggle="tab">影片網址</a></li>
+                        <li class=""><a href="#video-upload" data-toggle="tab">影片上傳</a></li>
+                    </ul>
+                    <div class="tab-content no-padding">
+                        <div class="tab-pane active" id="video-url">
+                            <div class="url-form">
+                                <br>
+                                <label for="MainVideo">影片 URL</label>
+                                <div class="input-group">
+                                    <input id="MainVideo" name="MainVideo" type="text" value="http://vimeo.com/18150336" class="form-control">
+                                    <div class="input-group-btn">
+                                        <a class="btn btn-info">預覽影片</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div id="result" class="img-responsive text-center"></div>
+                        </div>
+                        <div class="tab-pane" id="video-upload">
+                            <input id="fileupload" type="file" name="files[]" data-url="/upload" multiple>
                         </div>
                     </div>
+
                 </div>
-                <br>
-                <div id="result" class="img-responsive"></div>
             </div>
         </div>
     </div>
+    {# 影片上傳 #}
+
+
+    {# 影片網址 #}
     <script src="http://cdn.embed.ly/jquery.embedly-3.1.1.min.js"></script>
     <script type="text/javascript" src="//cdn.embed.ly/player-0.0.12.min.js"></script>
-
+    <style>
+        #result > iframe {
+            width: 100%;
+        }
+    </style>
     <script>
         $(function(){
 
