@@ -3,7 +3,7 @@ let router = express.Router();
 
 import actionRemove from './action.remove';
 import actionRealRemove from './action.realRemove';
-import actionCreate from './action.create';
+import actionUpload from './action.upload';
 import actionFind from './action.find';
 
 router.route('/:id')
@@ -13,7 +13,7 @@ router.route('/:id/realremove')
     .delete(actionRealRemove);
 
 router.route('/')
-    .post(actionCreate)
+    .post(actionUpload)
     .get(actionFind);
 
 module.exports = router;
