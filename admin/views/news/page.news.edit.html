@@ -112,9 +112,9 @@
                         <div class="checkbox">
                             <label>
                                 {% if news.isDeliver %}
-                                    <input name="isDeliver" type="checkbox" checked> 不可外送
+                                    <input name="isDeliver" type="checkbox" checked> 可外送
                                 {% else %}
-                                    <input name="isDeliver" type="checkbox"> 不可外送
+                                    <input name="isDeliver" type="checkbox"> 可外送
                                 {% endif %}
                             </label>
                         </div>
@@ -224,14 +224,11 @@
 
         // Replace the <textarea id="editor1"> with a CKEditor
         var newsContent = CKEDITOR.replace('editor1', {
+            contentsCss: '/static/css/customCKEditor.css',
+            extraAllowedContent: 'img[data-isdeliver]',
             height:550,
-            removeButtons: 'About',
-            stylesSet: [{
-                name: 'isDeliver',
-                element: 'img',
-                attributes: { 'class': 'isDeliver' },
-            }],
             allowedContent: 'iframe[*]',
+            removeButtons: 'About'
         });
 
         var defaultWarning = {

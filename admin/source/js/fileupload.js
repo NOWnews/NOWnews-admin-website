@@ -32,39 +32,25 @@ $(function () {
 
 
     /* 共用 */
+    function copyIntoClipboard(targetBtn) {
+        var doc = $('iframe#clipboard-source').contents()[0];
 
-    // Setting Image To Content
-    $('button.copy').on('click', function() {
-        var downloadForCopy = $('input:checkbox[name=downloadForCopy]:checked');
-        var libForCopy = $('input:checkbox[name=libForCopy]:checked');
-        var htmlString = '';
-
-        function generateString (index, input) {
-            var parentBlock = $(input).parent().parent();
-            var img = parentBlock.find('img.image')[0].outerHTML;
-            var desc = parentBlock.find('.desc')[0].outerHTML;
-            var layout = "<p>" + img + "<br/>" + desc + "</p>";
-            htmlString += layout;
-        }
-
-        var originalData = CKEDITOR.instances['editor1'].getData();
-
-        $.each(libForCopy, generateString);
-        $.each(downloadForCopy, generateString);
-        CKEDITOR.instances['editor1'].setData(htmlString + originalData);
-    });
-
-    function countCopiedItems () {
-        var total = 0;
-        total += $('input:checkbox[name=downloadForCopy]:checked').length;
-        total += $('input:checkbox[name=libForCopy]:checked').length;
-        $('.copiedItem').html(total);
+        var parentBlock = targetBtn.parent().parent();
+        var img = parentBlock.find('img.image')[0].outerHTML;
+        var desc = parentBlock.find('.desc')[0].outerHTML;
+        var htmlString = "<p>" + img + "<br/>" + desc + "</p>";
+        doc.write(htmlString);
+        doc.close('');
+        doc.execCommand("SelectAll", true);
+        doc.execCommand("Copy", true);
     }
+
 
     // Setting Image To MainPhoto
     function setMainPhoto (setBtn) {
         $('input[name=MainPhoto]').val(setBtn.attr('data-id'));
         $('img[name=MainPhoto]').attr('src', setBtn.attr('data-url'));
+        $('.image-setting-area .btn-collapse').click();
     }
 
     /* 上傳 */
@@ -86,9 +72,6 @@ $(function () {
                 }
             });
         },
-        destroyed: function (e, data) {
-            countCopiedItems();
-        },
         downloadTemplate: function (o) {
             var rows = $();
             $.each(o.files, function (index, file) {
@@ -99,10 +82,10 @@ $(function () {
                 row.find('.setMainPhoto').attr('data-url', file.url);
                 row.find('.desc').text(file.desc);
                 row.find('img').attr('src', file.url);
-                row.find('input:checkbox[name=downloadForCopy]').on('change', countCopiedItems);
 
+
+                row.find('img').attr('data-isdeliver', file.isDeliver);
                 if (file.isDeliver) {
-                    img.addClass('isDeliver');
                     row.find('.canNotDeliver').remove();
                 }
 
@@ -164,6 +147,11 @@ $(function () {
         setMainPhoto($(this));
     });
 
+    // 複製
+    fileRows.on('click', 'button.copy', function(){
+        copyIntoClipboard($(this));
+    });
+
     // 上傳前的圖片切割
     fileRows.on('click', 'button.crop', function(){
         var cropButton = $(this);
@@ -222,9 +210,9 @@ $(function () {
             $.each(result.images, function(index, image) {
                 var block = $($('#template-image-block').html());
                 block.find('img').attr('src', image.url);
+                block.find('img').attr('data-isdeliver', image.isDeliver);
 
                 if (image.isDeliver) {
-                    block.find('img').addClass('isDeliver');
                     block.find('.canNotDeliver').remove();
                 }
 
@@ -234,8 +222,6 @@ $(function () {
                 block.find('.fa-check').attr('data-url', image.url);
                 imageBlocks.append(block);
             });
-            $('input:checkbox[name=libForCopy]').on('change', countCopiedItems);
-            countCopiedItems();
             $('.zoom').zoom();
         });
     });
@@ -252,11 +238,14 @@ $(function () {
             type: 'DELETE',
         }).done(function(result) {
             deleteBtn.parent().parent().remove();
-            countCopiedItems();
         });
     });
 
     imageBlocks.on('click', 'button.fa-check', function(e, c) {
         setMainPhoto($(this));
+    });
+
+    imageBlocks.on('click', 'button.fa-copy', function(e, c) {
+        copyIntoClipboard($(this));
     });
 });
