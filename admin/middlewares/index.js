@@ -33,6 +33,9 @@ module.exports = function(app) {
         autoescape: true,
         express: app,
         watch: true
+    }).addFilter('transIdToColorCode', function(str) {
+        // 依據 Unique Objectid 中擷取固定一段當顏色碼 (memo.html 人名用)
+        return `#${str.slice(18, 24)}`;
     });
 
     // 靜態檔案位置

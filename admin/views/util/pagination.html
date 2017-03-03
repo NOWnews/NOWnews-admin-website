@@ -1,10 +1,10 @@
 <div class="dataTables_paginate">
     {% if pageData.hasPrev %}
         <a class="paginate_button previous" href="?page={{ pageData.prevPage }}">
-            Previous
+            上一頁
         </a>
     {% else %}
-        <a class="paginate_button next disabled">Previous</a>
+        <a class="paginate_button next disabled">上一頁</a>
     {% endif %}
 
     <span>
@@ -14,10 +14,10 @@
     </span>
 
     {% if pageData.hasNext %}
-        <a class="paginate_button next" href="?page={{ pageData.prevPage }}">
-            Previous
+        <a class="paginate_button next" href="?page={{ pageData.nextPage }}">
+            下一頁
         </a>
     {% else %}
-        <a class="paginate_button next disabled">Next</a>
+        <a class="paginate_button next disabled">下一頁</a>
     {% endif %}
 </div>

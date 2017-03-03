@@ -19,6 +19,8 @@ import pageNewsCreateList from './page.news.createList';
 import pageNewsTakeMeReviewList from './page.news.takeMeReviewList';
 import pageNewsCreate from './page.news.create';
 import pageNewsEdit from './page.news.edit';
+import pageNewsCompare from './page.news.compare';
+import pageNewsLogs from './page.news.logs';
 
 // 每日稿單 Route
 router.route('/dailyPlanList')
@@ -49,6 +51,12 @@ router.route('/takeMeReviewList')
 router.route('/create')
     .get(pageNewsCreate)
     .post(actionNewsCreate);
+
+router.route('/compare')
+    .get(pageNewsCompare);
+
+router.route('/:newsId/logs')
+    .get(pageNewsLogs);
 
 router.route('/:newsId')
     .delete(actionNewsRemove)

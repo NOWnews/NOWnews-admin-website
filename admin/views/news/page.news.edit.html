@@ -173,6 +173,11 @@
         #}
         <div class="edit-footer text-center">
             <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
+            <a class="btn btn-info btn-flat margin"
+                href="/news/{{news._id}}/logs"
+                target="_blank">
+                歷史紀錄
+            </a>
             <a href="/news/myList" class="btn bg-maroon btn-flat margin">取消</a>
         </div>
     </form>
@@ -209,6 +214,10 @@
     .ui-widget-shadow {
         opacity: 1;
     }
+    /* 隱藏掉 ck image btn */
+    a.cke_button.cke_button__image {
+        display: none;
+    }
 </style>
 <script>
     $(function () {
@@ -216,12 +225,13 @@
         // Replace the <textarea id="editor1"> with a CKEditor
         var newsContent = CKEDITOR.replace('editor1', {
             height:550,
-            removeButtons: 'Image,About',
+            removeButtons: 'About',
             stylesSet: [{
                 name: 'isDeliver',
                 element: 'img',
                 attributes: { 'class': 'isDeliver' },
             }],
+            allowedContent: 'iframe[*]',
         });
 
         var defaultWarning = {

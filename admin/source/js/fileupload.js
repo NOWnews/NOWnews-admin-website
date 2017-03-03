@@ -11,7 +11,6 @@ $(function () {
     'use strict';
 
     /* 公用變數 */
-    var api = $('input[name=apiServer]').val();
     var fileuploadElm = $('#fileupload');
     var fileRows = $('tbody.files');
     var imageBlocks = $('.image-blocks');
@@ -73,7 +72,7 @@ $(function () {
     fileuploadElm.fileupload({
         downloadTemplateId: null,
         paramName: 'image',
-        url: api + '/images/upload',
+        url: '/image/upload',
         uploadTemplateId: null,
         destroy: function (e, data) {
             var that = this;
@@ -124,13 +123,13 @@ $(function () {
             var nextRow = $(data.context).next();
             var submitRow = $(data.context);
             var isDeliver = submitRow.find('input[name=isDeliver]:checked').length === 1;
-            var desc = submitRow.find('input[name=desc]').val();
+            var desc = submitRow.find('textarea[name=desc]').val();
 
             data.formData = {
+                title: desc,
                 desc: desc,
                 type: 'NEWS',
                 isDeliver: isDeliver,
-                CreatedBy: $('#userId').val(),
             };
 
             if (nextRow.attr('id') === 'crop-row') {

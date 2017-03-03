@@ -22,7 +22,7 @@
                     <div class="col-sm-5">
                         <div class="checkbox">
                             <label>
-                                <input name="isExternal" type="checkbox"> 外部連結
+                                <input name="isExternal" type="checkbox" class="checkbox_link"> 外部連結
                             </label>
                         </div>
                         <div class="checkbox">
@@ -34,9 +34,12 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-5">
-                        <div class="form-group">
-                            <label for="shortTitle" class="control-label">連結</label>
-                            <input type="text" name="url" class="form-control" placeholder="範例  https://m.nownews.com" required>
+                        <div class="form-group linkBox">
+                            <label for="shortTitle" class="control-label categoryLink">頻道連結</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">/cat/</span>
+                                <input type="text" name="categoryName" class="form-control" placeholder="範例  頻道名稱 sport" required>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -125,6 +128,28 @@
 
 {#  script 暫時放這   #}
 <script>
+    //給不同input 做 頻道建立 或者是外部連結建立使用
+    $('.checkbox_link').on('click', function() {
+        var checkLinkSelected = $('.checkbox_link').is(':checked');
+        if (!checkLinkSelected) {
+            $('.linkBox').find('input').attr({
+                placeholder: "範例  頻道名稱 sport",
+                name: "categoryName"
+            });
+
+            $('.linkBox').find(".categoryLink").text('頻道連結');
+            $('.linkBox').find(".input-group-addon").css('display','table-cell');
+        }
+        else {
+            $('.linkBox').find('input').attr({
+                placeholder: "範例  https://m.nownews.com",
+                name: "url"
+            });
+            $('.linkBox').find('.input-group').addClass('col-sm-10');
+            $('.linkBox').find(".categoryLink").text('外部連結');
+            $('.linkBox').find(".input-group-addon").css('display','none');
+        }
+    });
     $(function () {
         $('#menuTimepicker').daterangepicker({
             "startDate": new Date(),
