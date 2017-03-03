@@ -83,8 +83,9 @@ $(function () {
                 row.find('.desc').text(file.desc);
                 row.find('img').attr('src', file.url);
 
+
+                row.find('img').attr('data-isdeliver', file.isDeliver);
                 if (file.isDeliver) {
-                    img.addClass('isDeliver');
                     row.find('.canNotDeliver').remove();
                 }
 
@@ -209,9 +210,9 @@ $(function () {
             $.each(result.images, function(index, image) {
                 var block = $($('#template-image-block').html());
                 block.find('img').attr('src', image.url);
+                block.find('img').attr('data-isdeliver', image.isDeliver);
 
                 if (image.isDeliver) {
-                    block.find('img').addClass('isDeliver');
                     block.find('.canNotDeliver').remove();
                 }
 
