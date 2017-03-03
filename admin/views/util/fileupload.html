@@ -7,18 +7,10 @@
         <li role="presentation">
             <a href="#library" aria-controls="library" role="tab" data-toggle="tab">圖庫</a>
         </li>
-        <li>
-            <div class="copy-area">
-                <button type="button" class="btn bg-navy copy">
-                    <i class="fa fa-copy"></i>
-                    <span>複製到內文</span>
-                </button>
-                <lable>已勾選 <span class="copiedItem">0</span> 張</label>
-            </div>
-        </li>
     </ul>
 
     <br />
+    <iframe class="hidden" id="clipboard-source"></iframe>
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
@@ -136,9 +128,6 @@
 <script id="template-download" type="text/x-custom-template">
     <tr class="template-download fade">
         <td>
-            <input type="checkbox" name="downloadForCopy" />
-        </td>
-        <td>
             <div class="preview zoom">
                 <img class="image"/>
             </div>
@@ -154,6 +143,10 @@
             <button type="button" class="btn bg-purple setMainPhoto" data-id="">
                 <i class="fa fa-check"></i>
                 <span class="hidden-xs">設為主圖</span>
+            </button>
+            <button type="button" class="btn bg-navy copy" data-id="">
+                <i class="fa fa-copy"></i>
+                <span class="hidden-xs">到剪貼簿</span>
             </button>
             <button type="button" class="btn btn-danger delete" data-id="">
                 <i class="fa fa-trash"></i>
@@ -175,6 +168,8 @@
         <div class="text-right">
             <button class="btn bg-purple btn-xs fa fa-check"
                 type="button">設為主圖</button>
+            <button class="btn bg-navy btn-xs fa fa-copy"
+                type="button"></button>
             <button class="btn btn-danger btn-xs fa fa-trash"
                 type="button"></button>
         </div>
@@ -182,7 +177,6 @@
             <img class="image" />
         </div>
         <label>
-            <input type="checkbox" name="libForCopy" />
             <span class="desc"></span>
         </label>
     </div>
