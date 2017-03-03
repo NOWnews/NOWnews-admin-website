@@ -25,9 +25,6 @@
         "name": "關鍵字",
         "icon": "fa-tags",
         "children": [{
-            "url": "/tags/create",
-            "name": "建立關鍵字"
-         },{
             "url": "/tags",
             "name": "關鍵字列表"
         }]
