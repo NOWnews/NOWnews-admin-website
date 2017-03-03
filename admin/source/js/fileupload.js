@@ -39,7 +39,6 @@ $(function () {
         var img = parentBlock.find('img.image')[0].outerHTML;
         var desc = parentBlock.find('.desc')[0].outerHTML;
         var htmlString = "<p>" + img + "<br/>" + desc + "</p>";
-        console.log(htmlString);
         doc.write(htmlString);
         doc.close('');
         doc.execCommand("SelectAll", true);
