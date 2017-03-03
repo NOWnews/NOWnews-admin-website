@@ -11,7 +11,7 @@ $(function () {
     'use strict';
 
     /* 公用變數 */
-    var fileuploadElm = $('#fileupload');
+    var fileuploadElm = $('#image-file');
     var fileRows = $('tbody.files');
     var imageBlocks = $('.image-blocks');
     var URL = window.URL || window.webkitURL;
@@ -56,6 +56,7 @@ $(function () {
     /* 上傳 */
     // Initialize the jQuery File Upload widget:
     fileuploadElm.fileupload({
+        filesContainer: $('tbody.files'),
         downloadTemplateId: null,
         paramName: 'image',
         url: '/image/upload',
