@@ -1,10 +1,22 @@
 import Debug from 'debug';
 const debug = Debug('NOWnews-admin-website: controllers:auth:action.logout');
 
-module.exports = function(req, res, next) {
-    debug('req.session.adminUser = %j', req.session.adminUser);
+module.exports = async (req, res, next) => {
 
-    req.session = null;
+    try {
 
-    return res.redirect('/auth/login');
+        debug('req.session.adminUser = %j', req.session.adminUser);
+
+        await axios.post('/users/logout', {
+            userId: req.session.adminUser.id,
+        });
+
+        req.session = null;
+
+        return res.redirect('/auth/login');
+
+    } catch(err) {
+        return next(err);
+    }
+
 };
