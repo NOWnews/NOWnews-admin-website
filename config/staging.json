@@ -1,6 +1,7 @@
 {
     "mode": "staging",
     "apiServer": "http://api-admin.nownews.pri:10000",
+    "expiredDay": 3,
     "headers": {
         "X-NOWnews-API": ["NOWnewsIsFeature"]
     },
