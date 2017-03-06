@@ -130,6 +130,7 @@
 
 <script id="template-download" type="text/x-custom-template">
     <tr class="template-download fade">
+        <input name="imageId" type="hidden" />
         <td>
             <div class="preview zoom">
                 <img class="image"/>
@@ -143,15 +144,15 @@
                 <i class="fa fa-bin"></i>不可外送
             </small>
             </div>
-            <button type="button" class="btn bg-purple setMainPhoto" data-id="">
+            <button type="button" class="btn bg-purple setMainPhoto">
                 <i class="fa fa-check"></i>
                 <span class="hidden-xs">設為主圖</span>
             </button>
-            <button type="button" class="btn bg-navy copy" data-id="">
+            <button type="button" class="btn bg-navy copy">
                 <i class="fa fa-clipboard"></i>
                 <span class="hidden-xs">到剪貼簿</span>
             </button>
-            <button type="button" class="btn btn-danger delete" data-id="">
+            <button type="button" class="btn btn-danger delete">
                 <i class="fa fa-trash"></i>
                 <span class="hidden-xs">刪除</span>
             </button>

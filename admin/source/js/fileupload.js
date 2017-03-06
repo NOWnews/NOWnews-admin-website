@@ -48,7 +48,8 @@ $(function () {
 
     // Setting Image To MainPhoto
     function setMainPhoto (setBtn) {
-        $('input[name=MainPhoto]').val(setBtn.attr('data-id'));
+        var parentElm = setBtn.parent().parent();
+        $('input[name=MainPhoto]').val(parentElm.find('input[name=imageId]').val());
         $('img[name=MainPhoto]').attr('src', setBtn.attr('data-url'));
         $('.image-setting-area .btn-collapse').click();
     }
@@ -64,8 +65,9 @@ $(function () {
         destroy: function (e, data) {
             var that = this;
             // 自己上傳的當下可以真刪除
+            var imageId = data.context.find('input[name=imageId]').val();
             $.ajax({
-                url: '/image/' + data.id + '/realRemove',
+                url: '/image/' + imageId + '/realRemove',
                 type: 'DELETE',
                 success: function(result) {
                     // 再去呼叫原生 library destroy 該做的事情
@@ -78,8 +80,7 @@ $(function () {
             $.each(o.files, function (index, file) {
                 var row = $($('#template-download').html());
                 var img = row.find('img');
-                row.find('.delete').attr('data-id', file._id);
-                row.find('.setMainPhoto').attr('data-id', file._id);
+                row.find('input[name=imageId]').val(file._id);
                 row.find('.setMainPhoto').attr('data-url', file.url);
                 row.find('span.desc').text(file.desc);
                 row.find('img').attr('src', file.url);
@@ -223,9 +224,6 @@ $(function () {
                 block.find('input[name=imageId]').val(image._id);
                 block.find('span.desc').text(image.desc);
                 block.find('textarea[name=desc]').val(image.desc);
-                block.find('.fa-save').attr('data-id', image._id);
-                block.find('.fa-trash').attr('data-id', image._id);
-                block.find('.fa-check').attr('data-id', image._id);
                 block.find('.fa-check').attr('data-url', image.url);
                 imageBlocks.append(block);
             });
@@ -237,26 +235,27 @@ $(function () {
     $('.image-nav li.library').on('click', queryImageLibrary);
     $('.imageLibQueryForm').on('click', queryImageLibrary);
 
-    imageBlocks.on('click', 'button.fa-trash', function(e, c) {
+    imageBlocks.on('click', 'button.fa-trash', function() {
+
         // 從 library 取得是假刪除
         var confirmed = confirm('您確定要刪除嗎？');
         if (!confirmed) {
             return;
         }
-        var deleteBtn = $(this);
+        var parentBlock = $(this).parent().parent();
         $.ajax({
-            url: '/image/' + deleteBtn.attr('data-id'),
+            url: '/image/' + parentBlock.find('input[name=imageId]').val(),
             type: 'DELETE',
         }).done(function(result) {
-            deleteBtn.parent().parent().remove();
+            parentBlock.remove();
         });
     });
 
-    imageBlocks.on('click', 'button.fa-check', function(e, c) {
+    imageBlocks.on('click', 'button.fa-check', function() {
         setMainPhoto($(this));
     });
 
-    imageBlocks.on('click', 'button.fa-clipboard', function(e, c) {
+    imageBlocks.on('click', 'button.fa-clipboard', function() {
         copyIntoClipboard($(this));
     });
 
