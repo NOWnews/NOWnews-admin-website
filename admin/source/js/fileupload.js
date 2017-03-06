@@ -37,7 +37,7 @@ $(function () {
 
         var parentBlock = targetBtn.parent().parent();
         var img = parentBlock.find('img.image')[0].outerHTML;
-        var desc = parentBlock.find('.desc')[0].outerHTML;
+        var desc = parentBlock.find('span.desc')[0].outerHTML;
         var htmlString = "<p>" + img + "<br/>" + desc + "</p>";
         doc.write(htmlString);
         doc.close('');
@@ -80,7 +80,7 @@ $(function () {
                 row.find('.delete').attr('data-id', file._id);
                 row.find('.setMainPhoto').attr('data-id', file._id);
                 row.find('.setMainPhoto').attr('data-url', file.url);
-                row.find('.desc').text(file.desc);
+                row.find('span.desc').text(file.desc);
                 row.find('img').attr('src', file.url);
 
 
@@ -216,7 +216,10 @@ $(function () {
                     block.find('.canNotDeliver').remove();
                 }
 
-                block.find('.desc').text(image.desc);
+                block.find('input[name=imageId]').val(image._id);
+                block.find('span.desc').text(image.desc);
+                block.find('textarea[name=desc]').val(image.desc);
+                block.find('.fa-save').attr('data-id', image._id);
                 block.find('.fa-trash').attr('data-id', image._id);
                 block.find('.fa-check').attr('data-id', image._id);
                 block.find('.fa-check').attr('data-url', image.url);
@@ -245,7 +248,57 @@ $(function () {
         setMainPhoto($(this));
     });
 
-    imageBlocks.on('click', 'button.fa-copy', function(e, c) {
+    imageBlocks.on('click', 'button.fa-clipboard', function(e, c) {
         copyIntoClipboard($(this));
+    });
+
+    imageBlocks.on('click', 'button.fa-undo', function() {
+        var parentBlock = $(this).parent();
+        var newsDescElm = parentBlock.find('textarea[name=desc]');
+        var originDesc = parentBlock.find('span.desc').text();
+
+        newsDescElm.val(originDesc);
+        $(this).addClass('hidden');
+    });
+
+    imageBlocks.on('click', 'button.fa-save', function() {
+        var parentBlock = $(this).parent().parent();
+        var newsDesc = parentBlock.find('textarea[name=desc]').val().trim();
+        var originDescElm = parentBlock.find('span.desc');
+        var undoBtn =  parentBlock.find('button.fa-undo');
+        var imageIdInput =  parentBlock.find('input[name=imageId]');
+
+        if (newsDesc === originDescElm.text()) {
+            alert('圖說沒有更新！');
+            return;
+        }
+
+        var formData = {
+            desc: newsDesc
+        };
+
+        $.post('/image/' + imageIdInput.val() + '/clone',  formData)
+        .done(function(result) {
+            originDescElm.text(newsDesc);
+            imageIdInput.val(result._id);
+            undoBtn.addClass('hidden');
+        }).fail(function() {
+            alert('圖說更新失敗！');
+        });
+    });
+
+
+    imageBlocks.on('change', 'textarea[name=desc]', function(e, c) {
+        var parentBlock = $(this).parent();
+        var newsDesc = $(this).val().trim();
+        var originDesc = parentBlock.find('span.desc').text();
+        var undoBtn =  parentBlock.find('button.fa-undo');
+
+        if (originDesc === newsDesc) {
+            $(this).val(originDesc);
+            undoBtn.addClass('hidden');
+            return;
+        }
+        undoBtn.removeClass('hidden');
     });
 });
