@@ -58,7 +58,9 @@ $(function () {
     /* 上傳 */
     // Initialize the jQuery File Upload widget:
     fileuploadElm.fileupload({
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         downloadTemplateId: null,
+        maxFileSize: 999000,
         paramName: 'image',
         url: '/image/upload',
         uploadTemplateId: null,
