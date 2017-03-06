@@ -43,15 +43,17 @@
                                 <input id="fileupload-video" type="file" name="files[]" multiple>
                             </span>
                             <br>
+                            <br>
                             <!-- The global progress bar -->
                             <div id="progress-video" class="progress">
                                 <div class="progress-bar progress-bar-success"></div>
                             </div>
                             <!-- The container for the uploaded files -->
-                            <div id="files-video" class="files"></div>
+                            <table role="presentation" class="table table-striped">
+                                <tbody id="files-video"></tbody>
+                            </table>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -59,22 +61,12 @@
     {# 影片上傳 #}
     <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.17.0/css/jquery.fileupload.min.css">
-    <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-    <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-    <!-- The basic File Upload plugin -->
-    <!-- The File Upload processing plugin -->
-
-    <!-- The File Upload video preview plugin -->
-    <!--<script src="/static/js/file-upload/jquery.fileupload-video.js"></script>-->
-    <!-- The File Upload validation plugin -->
-    <!--<script src="js/jquery.fileupload-validate.js"></script>-->
-
 
     {# 影片網址 #}
     <script src="http://cdn.embed.ly/jquery.embedly-3.1.1.min.js"></script>
     <script type="text/javascript" src="//cdn.embed.ly/player-0.0.12.min.js"></script>
     <style>
-        #result > iframe {
+        #result iframe {
             width: 100%;
         }
     </style>
@@ -83,104 +75,100 @@
         /*global window, $ */
         $(function () {
             'use strict';
-            // Change this to the location of your server-side upload handler:
-            var url = '/video/',
-                uploadButton = $('<button/>')
-                    .addClass('btn btn-primary')
-                    .prop('disabled', true)
-                    .text('Processing...')
-                    .on('click', function () {
-                        var $this = $(this),
-                            data = $this.data();
-                        $this
-                            .off('click')
-                            .text('Abort')
-                            .on('click', function () {
-                                $this.remove();
-                                data.abort();
-                            });
-                        data.submit().always(function () {
-                            $this.remove();
-                        });
-                    });
-            console.log(123);
+
+            /* 公用變數 */
+            var URL = window.URL || window.webkitURL;
+            var uploadVideoUrl = '/video';
+            var removeVideoUrl = '/video/realRemove/';
+
+            /* 上傳 */
+            // Initialize the jQuery File Upload widget:
             $('#fileupload-video').fileupload({
-                url: url,
-                dataType: 'json',
-                autoUpload: false,
-                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-                maxFileSize: 999000,
-                // Enable image resizing, except for Android and Opera,
-                // which actually support image resizing, but fail to
-                // send Blob objects via XHR requests:
-                disableImageResize: /Android(?!.*Chrome)|Opera/
-                    .test(window.navigator.userAgent),
-                previewMaxWidth: 100,
-                previewMaxHeight: 100,
-                previewCrop: true
-            }).on('fileuploadadd', function (e, data) {
-                console.log(123)
-                data.context = $('<div/>').appendTo('#files-video');
-                $.each(data.files, function (index, file) {
-                    var node = $('<p/>')
-                            .append($('<span/>').text(file.name));
-                    if (!index) {
-                        node
-                            .append('<br>')
-                            .append(uploadButton.clone(true).data(data));
+                filesContainer: $('#files-video'),
+                downloadTemplateId: null,
+                paramName: 'video',
+                url: uploadVideoUrl,
+                uploadTemplateId: null,
+                destroy: function (e, data) {
+                    var that = this;
+                    // 自己上傳的當下可以真刪除
+                    $.ajax({
+                        url: removeVideoUrl + data.id,
+                        type: 'DELETE',
+                        success: function(result) {
+                            // 再去呼叫原生 library destroy 該做的事情
+                            $.blueimp.fileupload.prototype.options.destroy.call(that, e, data);
+                        }
+                    });
+                },
+                downloadTemplate: function (o) {
+                    console.log('downloadTemplate')
+                    var rows = $();
+                    $.each(o.files, function (index, file) {
+                        var row = $($('#template-download').html());
+                        var img = row.find('img');
+                        row.find('.delete').attr('data-id', file._id);
+                        row.find('.setMainPhoto').attr('data-id', file._id);
+                        row.find('.setMainPhoto').attr('data-url', file.url);
+                        row.find('.desc').text(file.desc);
+                        row.find('img').attr('src', file.url);
+
+
+                        row.find('img').attr('data-isdeliver', file.isDeliver);
+                        if (file.isDeliver) {
+                            row.find('.canNotDeliver').remove();
+                        }
+
+                        if (file.error) {
+                            row.find('.setMainPhoto').addClass('hidden');
+                            row.find('.delete').addClass('hidden');
+                            row.find('.cancel').removeClass('hidden');
+                            row.find('.error').text(file.error);
+                        }
+                        rows = rows.add(row);
+                    });
+                    return rows;
+                },
+                getFilesFromResponse: function (data) {
+                    console.log('getFilesFromResponse')
+                    return [data.result];
+                },
+                submit: function (e, data) {
+                    console.log('submit')
+                    var nextRow = $(data.context).next();
+                    var submitRow = $(data.context);
+                    var isDeliver = submitRow.find('input[name=isDeliver]:checked').length === 1;
+                    var desc = submitRow.find('textarea[name=desc]').val();
+
+                    data.formData = {
+                        title: desc,
+                        desc: desc,
+                        type: 'NEWS',
+                        isDeliver: isDeliver,
+                    };
+
+                    if (nextRow.attr('id') === 'crop-row') {
+                        nextRow.remove();
                     }
-                    node.appendTo(data.context);
-                });
-            }).on('fileuploadprocessalways', function (e, data) {
-                console.log(999)
-                var index = data.index,
-                    file = data.files[index],
-                    node = $(data.context.children()[index]);
-                if (file.preview) {
-                    node
-                        .prepend('<br>')
-                        .prepend(file.preview);
-                }
-                if (file.error) {
-                    node
-                        .append('<br>')
-                        .append($('<span class="text-danger"/>').text(file.error));
-                }
-                if (index + 1 === data.files.length) {
-                    data.context.find('button')
-                        .text('Upload')
-                        .prop('disabled', !!data.files.error);
-                }
-            }).on('fileuploadprogressall', function (e, data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $('#progress-video .progress-bar').css(
-                    'width',
-                    progress + '%'
-                );
-            }).on('fileuploaddone', function (e, data) {
-                $.each(data.result.files, function (index, file) {
-                    if (file.url) {
-                        var link = $('<a>')
-                            .attr('target', '_blank')
-                            .prop('href', file.url);
-                        $(data.context.children()[index])
-                            .wrap(link);
-                    } else if (file.error) {
-                        var error = $('<span class="text-danger"/>').text(file.error);
-                        $(data.context.children()[index])
-                            .append('<br>')
-                            .append(error);
-                    }
-                });
-            }).on('fileuploadfail', function (e, data) {
-                $.each(data.files, function (index) {
-                    var error = $('<span class="text-danger"/>').text('File upload failed.');
-                    $(data.context.children()[index])
-                        .append('<br>')
-                        .append(error);
-                });
-            }).prop('disabled', !$.support.fileInput)
-                .parent().addClass($.support.fileInput ? undefined : 'disabled');
+                },
+                uploadTemplate: function (o) {
+                    console.log('uploadTemplate')
+                    var rows = $();
+                    $.each(o.files, function (index, file) {
+                        var blobURL = URL.createObjectURL(file);
+                        var row = $($('#template-upload').html());
+                        row.find('button.crop').attr('data-blobURL', blobURL);
+                        if (file.error) {
+                            row.find('.crop').addClass('hidden');
+                            row.find('.start').addClass('hidden');
+                            row.find('.error').text(file.error);
+                        }
+                        rows = rows.add(row);
+                    });
+                    return rows;
+                },
+
+            });
         });
 
         $(function(){
