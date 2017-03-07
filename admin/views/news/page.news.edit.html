@@ -19,19 +19,26 @@
             </div>
             <div class="box-body">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="control-label">
-                                新聞的來源
+                            <label class="control-label">來源
                                 <span class="text-danger">*</span>
                             </label>
                             <p>NOWnews</p>
                         </div>
                     </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label">訊頭
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input class="input form-control" name="newsBy" type="text" value="{{ news.newsBy }}"/>
+                        </div>
+                    </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="control-label">
-                                新聞的作者
+                                作者
                                 <span class="text-danger">*</span>
                             </label>
                             <select name="Author" class="form-control select2" required>
@@ -48,7 +55,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="control-label">
-                                新聞的類別
+                                類別
                                 <span class="text-danger">*</span>
                             </label>
                             <select name="type" class="form-control select2" required>

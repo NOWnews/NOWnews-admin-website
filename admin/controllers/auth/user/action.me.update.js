@@ -32,6 +32,10 @@ module.exports = async (req, res, next) => {
 
         req.session.adminUser.defaultSettings.Menu = data.defaultMenu;
 
+        req.session.adminUser.defaultSettings.Author = data.defaultAuthor;
+
+        req.session.adminUser.defaultSettings.newsBy = data.defaultNewsBy;
+
         return res.redirect(`/auth/me`);
 
     } catch(err) {
