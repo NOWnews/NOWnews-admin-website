@@ -7,20 +7,17 @@ module.exports = async (req, res, next) => {
         let [
             { data: departmentList },
             { data: roleList },
-            { data: menuList },
-            { data: { users: userList } }
+            { data: menuList }
         ] = await Promise.all([
             axios.get('/departments'),
             axios.get('/roles'),
-            axios.get('/menus?level=0'),
-            axios.get('/users')
+            axios.get('/menus?level=0')
         ]);
 
         return res.render('auth/user/page.create.html', {
             departmentList,
             menuList,
             roleList,
-            userList,
             USER_STATUS,
         });
 

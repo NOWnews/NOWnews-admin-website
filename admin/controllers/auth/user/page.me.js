@@ -13,7 +13,7 @@ module.exports = async function(req, res, next) {
             { data: { users: userList, pageData } }
         ] = await Promise.all([
             axios.get(`/users/${userId}`),
-            axios.get('/users')
+            axios.get('/users?limit=10000')
         ]);
 
         debug('currentUser = %j', user);

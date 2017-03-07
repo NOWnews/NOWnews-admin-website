@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
             axios.get('/roles'),
             axios.get('/menus?level=0'),
             axios.get(`/users/${req.params.id}`),
-            axios.get('/users')
+            axios.get('/users?limit=10000')
         ]);
 
         debug('user = %j', user);

@@ -6,6 +6,8 @@ $(function() {
             "searching": false,
         });
 
+        $('.default-author').select2();
+
         $('#dept-and-center').select2();
 
         $('#dept-and-center').on('select2:select', function (e) {
