@@ -11,8 +11,8 @@ module.exports = async (req, res, next) => {
 
         data.UpdatedBy = userId;
 
-        if (data.defaultMenu === "") {
-            data.defaultMenu = null ;
+        if (data.defaultAuthor === "") {
+            data.defaultAuthor = null ;
         }
 
         // 清除舊的圖片

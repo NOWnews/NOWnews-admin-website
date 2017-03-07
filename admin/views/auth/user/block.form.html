@@ -69,6 +69,13 @@
                 {% endfor %}
             </select>
         </div>
+        <div class="form-group">
+            <label>預設訊頭</label>
+            <input class="form-control"
+                name="newsBy"
+                type="text"
+                value="{{ user.defaultSettings.newsBy }}" />
+        </div>
         {#<div class="form-group">
             <label>暱稱</label>
             <input class="form-control"
@@ -84,7 +91,6 @@
                 value="{{ user.profileLink }}" />
         </div>#}
     </div>
-
     <div class="col-md-6">
         {% if not user %}
             <div class="row">
@@ -138,6 +144,20 @@
                 name="phone"
                 type="text"
                 value="{{ user.phone }}" />
+        </div>
+        <div class="form-group">
+            <label>預設作者
+            </label>
+            <select class="form-control"
+                name="defaultAuthor">
+                <option value="">請選擇</option>
+                {% for user in userList %}
+                    <option value="{{ user._id }}"
+                        {{ "selected" if user._id == user.defaultSettings.Author }}>
+                        {{ user.name }}
+                    </option>
+                {% endfor %}
+            </select>
         </div>
         {#<div class="form-group">
             <label>職稱</label>

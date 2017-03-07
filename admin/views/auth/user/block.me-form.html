@@ -33,13 +33,13 @@
     <div class="col-md-6">
         <div class="form-group">
             <div class="row">
-                <div class="col-md-6 form-group">
+                <div class="col-md-6 form-group no-margin">
                     <label>密碼</label>
                     <input class="form-control"
                         name="password"
                         type="password" />
                 </div>
-                <div class="col-md-6 form-group">
+                <div class="col-md-6 form-group no-margin">
                     <label>確認密碼</label>
                     <input class="form-control"
                         name="confirmPassword"
@@ -48,12 +48,18 @@
             </div>
         </div>
         <div class="form-group">
-            <label>電話
+            <label>預設作者
             </label>
-            <input class="form-control"
-                name="phone"
-                type="text"
-                value="{{ user.phone }}" />
+            <select class="form-control"
+                name="defaultAuthor">
+                <option value="">請選擇</option>
+                {% for user in userList %}
+                    <option value="{{ user._id }}"
+                        {{ "selected" if user._id == user.defaultSettings.Author }}>
+                        {{ user.name }}
+                    </option>
+                {% endfor %}
+            </select>
         </div>
         {#<div class="form-group">
             <label>個人網站連結</label>
@@ -64,6 +70,21 @@
         </div>#}
     </div>
     <div class="col-md-6">
+        <div class="form-group">
+            <label>電話
+            </label>
+            <input class="form-control"
+                name="phone"
+                type="text"
+                value="{{ user.phone }}" />
+        </div>
+        <div class="form-group">
+            <label>預設訊頭</label>
+            <input class="form-control"
+                name="defaultNewsBy"
+                type="text"
+                value="{{ user.defaultSettings.newsBy }}" />
+        </div>
         {#<div class="form-group">
             <label>暱稱</label>
             <input class="form-control"

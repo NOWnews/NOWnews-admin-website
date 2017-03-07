@@ -9,6 +9,8 @@ module.exports = async (req, res, next) => {
         let { data: roleList } = await axios.get('/roles');
         let { data: menuList } = await axios.get('/menus?level=0');
         let { data: user } = await axios.get(`/users/${req.params.id}`);
+        let { data: { users: userList } } = await axios.get('/users');
+
 
         debug('user = %j', user);
 
@@ -17,6 +19,7 @@ module.exports = async (req, res, next) => {
             menuList,
             roleList,
             user,
+            userList,
             USER_STATUS,
         });
 
