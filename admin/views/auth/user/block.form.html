@@ -146,15 +146,14 @@
                 value="{{ user.phone }}" />
         </div>
         <div class="form-group">
-            <label>預設作者
-            </label>
+            <label>預設作者</label>
             <select class="form-control"
                 name="defaultAuthor">
                 <option value="">請選擇</option>
-                {% for user in userList %}
-                    <option value="{{ user._id }}"
-                        {{ "selected" if user._id == user.defaultSettings.Author }}>
-                        {{ user.name }}
+                {% for userData in userList %}
+                    <option value="{{ userData._id }}"
+                        {{ "selected" if userData._id == user.defaultSettings.Author }}>
+                        {{ userData.name }}
                     </option>
                 {% endfor %}
             </select>
