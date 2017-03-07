@@ -58,6 +58,40 @@
             </div>
         </div>
     </div>
+    {# 模板 #}
+    <script id="video-result-template" type="text/x-custom-template">
+        <tr class="template-download fade">
+            <td>
+                <div class="preview">
+                    <video width="400" controls>
+                        <source src="" type="">
+                    </video>
+                </div>
+                <span class="desc"></span>
+                <strong class="error text-danger"></strong>
+            </td>
+            <td>
+                <div style="{position: relative;}">
+                    <small class="label label-warning canNotDeliver">
+                        <i class="fa fa-bin"></i>不可外送
+                    </small>
+                </div>
+                <button type="button" class="btn bg-purple setMainVideo" data-id="">
+                    <i class="fa fa-check"></i>
+                    <span class="hidden-xs">設為主影片</span>
+                </button>
+                <button type="button" class="btn btn-danger delete" data-id="">
+                    <i class="fa fa-trash"></i>
+                    <span class="hidden-xs">刪除</span>
+                </button>
+                <button type="button" class="btn btn-warning cancel hidden">
+                    <i class="fa fa-ban"></i>
+                    <span class="hidden-xs">取消</span>
+                </button>
+            </td>
+        </tr>
+    </script>
+
     {# 影片上傳 #}
     <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.17.0/css/jquery.fileupload.min.css">
@@ -78,7 +112,8 @@
 
             /* 公用變數 */
             var URL = window.URL || window.webkitURL;
-            var uploadVideoUrl = '/video';
+            var uploadVideoUrl = '/video/upload';
+            var createVideoUrl = '/video';
             var removeVideoUrl = '/video/realRemove/';
 
             /* 上傳 */
@@ -102,16 +137,19 @@
                     });
                 },
                 downloadTemplate: function (o) {
-                    console.log('downloadTemplate')
+                    console.log('downloadTemplate', o)
                     var rows = $();
                     $.each(o.files, function (index, file) {
-                        var row = $($('#template-download').html());
-                        var img = row.find('img');
+                        console.log(file, "L147")
+                        var row = $($('#video-result-template').html());
                         row.find('.delete').attr('data-id', file._id);
-                        row.find('.setMainPhoto').attr('data-id', file._id);
-                        row.find('.setMainPhoto').attr('data-url', file.url);
+                        row.find('.setMainVideo').attr('data-id', file._id);
+                        row.find('.setMainVideo').attr('data-url', file.url);
                         row.find('.desc').text(file.desc);
-                        row.find('img').attr('src', file.url);
+                        row.find('source').attr({
+                            'src': file.url,
+                            'type': file.mimetype
+                        });
 
 
                         row.find('img').attr('data-isdeliver', file.isDeliver);
@@ -120,7 +158,7 @@
                         }
 
                         if (file.error) {
-                            row.find('.setMainPhoto').addClass('hidden');
+                            row.find('.setMainVideo').addClass('hidden');
                             row.find('.delete').addClass('hidden');
                             row.find('.cancel').removeClass('hidden');
                             row.find('.error').text(file.error);
