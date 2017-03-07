@@ -29,7 +29,10 @@ module.exports = async (req, res, next) => {
             ));
         });
 
-        let { data: video } = await axios.post('/videos/upload', formData, { headers });
+        let { data: video } = await axios.post('/videos/upload', formData, {
+            headers,
+            timeout: 200000
+        });
 
         debug('video = %j', video);
 
