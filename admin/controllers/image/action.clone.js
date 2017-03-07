@@ -4,8 +4,6 @@ const debug = Debug('NOWnews-admin-website: controllers:image:action.clone');
 module.exports = async (req, res, next) => {
     try {
 
-        console.log(req.body);
-
         let { data: newImage } = await axios.post('/images/clone', {
             id: req.params.id,
             desc: req.body.desc,
