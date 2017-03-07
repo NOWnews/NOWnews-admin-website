@@ -46,7 +46,7 @@ module.exports = async (req, res, next) => {
             });
         });
 
-        return res.json({ video });
+        return res.json( video );
     }
     catch(err) {
         return next(err);
