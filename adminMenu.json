@@ -46,8 +46,8 @@
         "name": "權限控管",
         "icon": "fa-user",
         "children": [{
-            "url": "/auth/center",
-            "name": "中心部門"
+            "url": "/auth/department",
+            "name": "部門中心"
         },{
             "url": "/auth/role",
             "name": "角色管理"

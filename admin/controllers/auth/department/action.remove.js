@@ -16,8 +16,8 @@ module.exports = async (req, res, next) => {
         debug('removedDepartment = %j', department);
 
         return res.json({ department });
-    }
-    catch(err) {
+
+    } catch(err) {
         return next(err);
     }
 };

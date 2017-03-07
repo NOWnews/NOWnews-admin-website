@@ -5,7 +5,7 @@ const debug = Debug('NOWnews-admin-website: controllers:auth:user:page.edit');
 module.exports = async (req, res, next) => {
 
     try {
-        let { data: centerList } = await axios.get('/centers');
+        let { data: departmentList } = await axios.get('/departments');
         let { data: roleList } = await axios.get('/roles');
         let { data: menuList } = await axios.get('/menus?level=0');
         let { data: user } = await axios.get(`/users/${req.params.id}`);
@@ -15,7 +15,7 @@ module.exports = async (req, res, next) => {
         debug('user = %j', user);
 
         return res.render('auth/user/page.edit.html', {
-            centerList,
+            departmentList,
             menuList,
             roleList,
             user,

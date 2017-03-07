@@ -36,19 +36,19 @@
             </select>
         </div>
         <div class="form-group">
-            <label>中心部門</label>
-            <input name="Center" type="hidden" value="{{ user.Center._id }}"/>
+            <label>部門中心</label>
             <input name="Department" type="hidden" value="{{ user.Department._id }}"/>
+            <input name="Center" type="hidden" value="{{ user.Center._id }}"/>
             <select class="form-control"
-                id="center-and-dept"
-                name="centerAndDept">
+                id="dept-and-center"
+                name="deptAndCenter">
                 <option value="">請選擇</option>
-                {% for center in centerList %}
-                    <optgroup id="{{ center._id }}" label="{{ center.name }}">
-                        {% for department in center.Departments %}
-                            <option value="{{ department._id }}"
-                            {{ "selected" if department._id == user.Department._id }} >
-                                {{ department.name }}
+                {% for department in departmentList %}
+                    <optgroup id="{{ department._id }}" label="{{ department.name }}">
+                        {% for center in department.Centers %}
+                            <option value="{{ center._id }}"
+                            {{ "selected" if center._id == user.Center._id }} >
+                                {{ center.name }}
                             </option>
                         {% endfor %}
                     </optgroup>
@@ -72,7 +72,7 @@
         <div class="form-group">
             <label>預設訊頭</label>
             <input class="form-control"
-                name="newsBy"
+                name="defaultNewsBy"
                 type="text"
                 value="{{ user.defaultSettings.newsBy }}" />
         </div>

@@ -1,7 +1,7 @@
 $(function() {
     // Group 列表、排序處理
     // https://datatables.net/examples/advanced_init/row_grouping.html
-    var table = $('#center-table').DataTable({
+    var table = $('#department-table').DataTable({
         columnDefs: [{ visible: false, targets: 0 }],
         order: [[0, 'asc']],
         displayLength: 50,
@@ -21,21 +21,21 @@ $(function() {
         }
     });
 
-    $('#delete-center').on('click', function() {
+    $('#delete-department').on('click', function() {
         var confirmed = confirm("您確定要刪除嗎？");
         if (!confirmed) { return; }
         var id = $('input[name=id]').val();
         $.ajax({
-            url: '/auth/center/' + id,
+            url: '/auth/department/' + id,
             type: 'DELETE',
             success: function(result) {
-                window.location.href = '/auth/center';
+                window.location.href = '/auth/department';
             }
         });
     });
 
-    // Department
-    $('#creaet-departemnt-form').on('submit', function(e) {
+    // Center
+    $('#creaet-center-form').on('submit', function(e) {
         var url = $(this).attr('action');
         var data = $(this).serialize();
         $.post(url, data, function() {
@@ -44,12 +44,12 @@ $(function() {
         return false;
     });
 
-    $('.save-department').on('click', function(e){
+    $('.save-center').on('click', function(e){
         var name = $(this).prev().val().trim();
         if (name.length === 0) return false;
-        var departmentId = $(this).next().val();
+        var centerId = $(this).next().val();
         $.ajax({
-            url: '/auth/department/' + departmentId,
+            url: '/auth/center/' + centerId,
             type: 'PUT',
             data: 'name=' + name,
             success: function(data){
@@ -58,12 +58,12 @@ $(function() {
         });
     });
 
-    $('.delete-department').on('click', function(){
+    $('.delete-center').on('click', function(){
         var confirmed = confirm("您確定要刪除嗎？");
         if (!confirmed) { return; }
         var id = $(this).prev().val();
         $.ajax({
-            url: '/auth/department/' + id,
+            url: '/auth/center/' + id,
             type: 'DELETE',
             success: function(result) {
                 window.location.reload();

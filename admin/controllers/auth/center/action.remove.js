@@ -16,8 +16,8 @@ module.exports = async (req, res, next) => {
         debug('removedCenter = %j', center);
 
         return res.json({ center });
-
-    } catch(err) {
+    }
+    catch(err) {
         return next(err);
     }
 };
