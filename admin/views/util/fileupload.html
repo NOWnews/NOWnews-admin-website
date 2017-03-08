@@ -1,11 +1,14 @@
 <div class="content">
     <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
+    <ul class="image-nav nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
             <a href="#home" aria-controls="home" role="tab" data-toggle="tab">上傳</a>
         </li>
-        <li role="presentation">
-            <a href="#library" aria-controls="library" role="tab" data-toggle="tab">圖庫</a>
+        <li role="presentation" class="library">
+            <a href="#library" aria-controls="library" role="tab" data-toggle="tab" data-from="INTERNAL">自家圖庫</a>
+        </li>
+        <li role="presentation" class="library">
+            <a href="#library" aria-controls="library" role="tab" data-toggle="tab" data-from="EXTERNAL">中央社</a>
         </li>
     </ul>
 
@@ -127,6 +130,7 @@
 
 <script id="template-download" type="text/x-custom-template">
     <tr class="template-download fade">
+        <input name="imageId" type="hidden" />
         <td>
             <div class="preview zoom">
                 <img class="image"/>
@@ -140,15 +144,15 @@
                 <i class="fa fa-bin"></i>不可外送
             </small>
             </div>
-            <button type="button" class="btn bg-purple setMainPhoto" data-id="">
+            <button type="button" class="btn bg-purple setMainPhoto">
                 <i class="fa fa-check"></i>
                 <span class="hidden-xs">設為主圖</span>
             </button>
-            <button type="button" class="btn bg-navy copy" data-id="">
-                <i class="fa fa-copy"></i>
+            <button type="button" class="btn bg-navy copy">
+                <i class="fa fa-clipboard"></i>
                 <span class="hidden-xs">到剪貼簿</span>
             </button>
-            <button type="button" class="btn btn-danger delete" data-id="">
+            <button type="button" class="btn btn-danger delete">
                 <i class="fa fa-trash"></i>
                 <span class="hidden-xs">刪除</span>
             </button>
@@ -162,13 +166,14 @@
 
 <script id="template-image-block" type="text/x-custom-template">
     <div class="col-md-3 image-block">
+        <input type="hidden" name="imageId"/>
         <small class="label label-warning canNotDeliver">
             <i class="fa fa-bin"></i>不可外送
         </small>
         <div class="text-right">
             <button class="btn bg-purple btn-xs fa fa-check"
                 type="button">設為主圖</button>
-            <button class="btn bg-navy btn-xs fa fa-copy"
+            <button class="btn bg-navy btn-xs fa fa-clipboard"
                 type="button"></button>
             <button class="btn btn-danger btn-xs fa fa-trash"
                 type="button"></button>
@@ -177,7 +182,10 @@
             <img class="image" />
         </div>
         <label>
-            <span class="desc"></span>
+            <span class="desc hide"></span>
+            <textarea name="desc" rows="3"></textarea>
+            <button class="btn btn-success btn-xs fa fa-save" type="button"></button>
+            <button class="btn btn-warning btn-xs fa fa-undo hidden" type="button"></button>
         </label>
     </div>
 </script>
@@ -226,7 +234,7 @@
     .image-block {
         background: #d2d6de;
         border: 1px solid #fff;
-        height: 250px;
+        height: 265px;
         margin-bottom: 5px;
     }
 

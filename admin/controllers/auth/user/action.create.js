@@ -14,12 +14,12 @@ module.exports = async (req, res, next) => {
             data.defaultMenu = null ;
         }
 
-        if (data.Center === "") {
-            delete data.Center;
-        }
-
         if (data.Department === "") {
             delete data.Department;
+        }
+
+        if (data.Center === "") {
+            delete data.Center;
         }
 
         if (data.Role === "") {

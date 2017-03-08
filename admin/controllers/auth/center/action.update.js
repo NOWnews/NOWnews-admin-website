@@ -5,7 +5,6 @@ module.exports = async (req, res, next) => {
 
     try {
         let data = req.body;
-
         data.UpdatedBy = req.session.adminUser._id;
 
         let url = `/centers/${req.params.id}`;
@@ -14,9 +13,9 @@ module.exports = async (req, res, next) => {
 
         debug('updatedCenter = %j', center);
 
-        return res.redirect(`/auth/center/${center._id}`);
-
-    } catch(err) {
+        return res.json({ center });
+    }
+    catch(err) {
         return next(err);
     }
 };
