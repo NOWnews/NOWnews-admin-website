@@ -6,21 +6,24 @@ $(function() {
             "searching": false,
         });
 
-        $('#center-and-dept').select2();
+        $('.default-author').select2();
 
-        $('#center-and-dept').on('select2:select', function (e) {
-            var departmentOptionElm = $(e.params.data.element);
-            var departmentId = departmentOptionElm.val();
-            var departmentInput = $('input[name=Department]');
+        $('#dept-and-center').select2();
+
+        $('#dept-and-center').on('select2:select', function (e) {
+            var centerOptionElm = $(e.params.data.element);
+            var centerId = centerOptionElm.val();
+            var deptInput = $('input[name=Department]');
             var centerInput = $('input[name=Center]');
-            departmentInput.val(departmentId);
+            centerInput.val(centerId);
 
-            if (departmentId === '') {
-                centerInput.val('');
+            // 選擇項目如果為空，則將父層也設為空
+            if (centerId === '') {
+                deptInput.val('');
                 return;
             }
-            var centerId = departmentOptionElm.parent().attr('id');
-            centerInput.val(centerId);
+            var deptId = centerOptionElm.parent().attr('id');
+            deptInput.val(deptId);
         });
 
     });

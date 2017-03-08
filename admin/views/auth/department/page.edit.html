@@ -1,50 +1,50 @@
 {% from "../../util/form-user-record.html" import formUserRecord %}
-{% set title = "編輯中心部門" %}
+{% set title = "編輯部門中心" %}
 {% extends "../../base.html" %}
 {% block headTitle %}
     <title>大編輯台 | {{ title }}</title>
 {% endblock %}
 
 {% block container %}
-    {% include "../department/modal.create.html" %}
+    {% include "../center/modal.create.html" %}
     <section class="content">
         <div class="box">
-            <form action="/auth/center/{{center._id}}" method="post">
+            <form action="/auth/department/{{department._id}}" method="post">
                 <div class="box-body">
-                    <input type="hidden" name="id" value="{{center._id}}">
+                    <input type="hidden" name="id" value="{{department._id}}">
                     <input type="hidden" name="_method" value="put">
                     {% include "./block.form.html" %}
-                    {{ formUserRecord(center) }}
+                    {{ formUserRecord(department) }}
 
                     <hr />
-                    <label>部門/組別</label>
+                    <label>中心</label>
                     <button type="button"
                         class="fa fa-plus"
                         data-toggle="modal"
                         data-target="#create-departemnt">
                     </button>
                     <ul id="deaprtment-list">
-                        {% for department in center.Departments %}
+                        {% for center in department.Centers %}
                             <li>
-                                <input type="text" value="{{department.name}}" required>
+                                <input type="text" value="{{center.name}}" required>
                                 <button type="button"
-                                    class="fa fa-save save-department"></button>
-                                <input type="hidden" value="{{department._id}}" required>
+                                    class="fa fa-save save-center"></button>
+                                <input type="hidden" value="{{center._id}}" required>
                                 <button type="button"
-                                    class="fa fa-trash delete-department"></button>
+                                    class="fa fa-trash delete-center"></button>
                             </li>
 
                         {% endfor %}
                     </ul>
                 </div>
                 <div class="box-footer text-center">
-                    <a href="/auth/center" class="btn bg-marron btn-default btn-flat">
+                    <a href="/auth/department" class="btn bg-marron btn-default btn-flat">
                         返回
                     </a>
                     <button type="submit" class="btn btn-flat bg-olive">
                         送出
                     </button>
-                    <button id="delete-center"
+                    <button id="delete-department"
                         type="button"
                         class="btn btn-danger">
                         刪除
