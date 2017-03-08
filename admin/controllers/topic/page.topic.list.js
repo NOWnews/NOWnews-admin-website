@@ -9,7 +9,6 @@ module.exports = async (req, res, next) => {
         let { data: topic } = await axios.get('/specialtopics');
 
         let topics = topic;
-        console.log(topics)
         debug('topicList = %j', topics );
 
         return res.render('topic/page.list.html',{

@@ -1,4 +1,4 @@
-<table id="topics-table" class="table table-bordered table-striped">
+<table id="topic-table" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>名稱</th>
@@ -29,7 +29,7 @@
                     </a>
                 </td>
                 <td>
-                    <button item-id="{{value._id}}" class="btn btn-danger delete-menu">移除</button>
+                    <button item-id="{{value._id}}" class="btn btn-danger delete-topic">移除</button>
                 </td>
             </tr>
         {% endfor %}
@@ -44,25 +44,3 @@
         </tr>
     </tfoot>
 </table>
-<script>
-$(document).ready(function() {
-    $('#news-table').DataTable({
-        "paging": false,
-        "searching": false,
-    });
-});
-
-$('.topics-table').on('click', function(){
-    var confirmed = confirm('您確定要刪除嗎？');
-    if (!confirmed) { return; }
-    var id = $(this).attr('item-id');
-    $.ajax({
-        url: '/specialtopics/' + id,
-        type: 'DELETE',
-        success: function(result) {
-            console.log(result)
-            location.reload();
-        }
-    });
-});
-</script>

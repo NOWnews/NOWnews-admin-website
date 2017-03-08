@@ -26,13 +26,13 @@
     </section>
     <script>
         $(document).ready(function() {
-            $('#menus-table').DataTable({
+            $('#topic-table').DataTable({
                 "paging": false,
                 "searching": false,
             });
         });
 
-        $('.delete-menu').on('click', function(){
+        $('.delete-topic').on('click', function(){
             var confirmed = confirm('您確定要刪除嗎？');
             if (!confirmed) { return; }
             var id = $(this).attr('item-id');
@@ -41,7 +41,7 @@
                 type: 'DELETE',
                 success: function(result) {
                     console.log(result)
-                    // location.reload();
+                    location.reload();
                 }
             });
         });

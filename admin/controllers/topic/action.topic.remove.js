@@ -7,8 +7,6 @@ module.exports = async (req, res, next) => {
         let { topicId } = req.params;
 
         let userId = req.session.adminUser._id;
-        console.log(userId,'L10')
-
         let data = req.body;
 
         data.UpdatedBy = userId;
