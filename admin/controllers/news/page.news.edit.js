@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
 
         debug('news = %j', news);
 
-        let { data: { users: userList, pageData } } = await axios.get('/users');
+        let { data: { users: userList } } = await axios.get('/users?limit=10000');
         let { data: menus } = await axios.get('/menus/struction');
         let { data: newsMemos } = await axios.get(`/newsmemo?News=${newsId}&sort=createdAt`);
 

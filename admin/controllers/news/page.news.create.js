@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
 
     try {
         let userId = req.session.adminUser._id;
-        let { data: { users: userList, pageData } } = await axios.get('/users');
+        let { data: { users: userList } } = await axios.get('/users?limit=10000');
 
         let { data: menus } = await axios.get('/menus/struction');
 

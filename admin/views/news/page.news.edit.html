@@ -43,10 +43,14 @@
                             </label>
                             <select name="Author" class="form-control select2" required>
                                 {% for user in userList %}
-                                    {% if user.sn == Author.sn %}
-                                        <option value="{{ user._id }}" selected>{{ user.name }}</option>
+                                    {% if user._id == Author._id %}
+                                        <option value="{{ user._id }}" selected>
+                                            {{ user.staffId or 'NN00xxx' }} / {{ user.name }}
+                                        </option>
                                     {% else %}
-                                        <option value="{{ user._id }}">{{ user.name }}</option>
+                                        <option value="{{ user._id }}">
+                                            {{ user.staffId or 'NN00xxx' }} / {{ user.name }}
+                                        </option>
                                     {% endif %}
                                 {% endfor %}
                             </select>

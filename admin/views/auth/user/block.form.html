@@ -142,7 +142,7 @@
             <div class="form-group">
                 <label>預設作者</label>
                 <select class="form-control default-author" name="defaultAuthor">
-                    <option value="">請選擇</option>
+                    <option value="">員工編號 / 姓名</option>
                     {% for userData in userList %}
                         <option value="{{ userData._id }}"
                             {{ "selected" if userData._id == user.defaultSettings.Author }}>

@@ -54,7 +54,7 @@
                 {% for userData in userList %}
                     <option value="{{ userData._id }}"
                         {{ "selected" if userData._id == user.defaultSettings.Author }}>
-                        {{ userData.staffId }} / {{ userData.name }}
+                        {{ userData.staffId or 'NN00xxx' }} / {{ userData.name }}
                     </option>
                 {% endfor %}
             </select>
