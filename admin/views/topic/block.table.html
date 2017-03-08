@@ -1,0 +1,68 @@
+<table id="topics-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>名稱</th>
+            <th>連結</th>
+            <th>建立日期</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for value in topics %}
+            <tr>
+                <td>
+                    <a href="#">
+                        {{ value.title }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ value.url }}" target="_blank">
+                        {{ value.url }}
+                    </a>
+                </td>
+                <td>{{ value.formatCreatedAt }}</td>
+                <td>
+                    <a class="btn btn-info"
+                        href="/topic/{{value._id}}">
+                        編輯
+                    </a>
+                </td>
+                <td>
+                    <button item-id="{{value._id}}" class="btn btn-danger delete-menu">移除</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>名稱</th>
+            <th>連結</th>
+            <th>建立日期</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </tfoot>
+</table>
+<script>
+$(document).ready(function() {
+    $('#news-table').DataTable({
+        "paging": false,
+        "searching": false,
+    });
+});
+
+$('.topics-table').on('click', function(){
+    var confirmed = confirm('您確定要刪除嗎？');
+    if (!confirmed) { return; }
+    var id = $(this).attr('item-id');
+    $.ajax({
+        url: '/specialtopics/' + id,
+        type: 'DELETE',
+        success: function(result) {
+            console.log(result)
+            location.reload();
+        }
+    });
+});
+</script>
