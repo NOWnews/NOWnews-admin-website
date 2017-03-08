@@ -11,8 +11,8 @@ module.exports = async (req, res, next) => {
 
         data.UpdatedBy = userId;
 
-        if (data.defaultMenu === "") {
-            data.defaultMenu = null ;
+        if (data.defaultAuthor === "") {
+            data.defaultAuthor = null ;
         }
 
         // 清除舊的圖片
@@ -31,6 +31,10 @@ module.exports = async (req, res, next) => {
         }
 
         req.session.adminUser.defaultSettings.Menu = data.defaultMenu;
+
+        req.session.adminUser.defaultSettings.Author = data.defaultAuthor;
+
+        req.session.adminUser.defaultSettings.newsBy = data.defaultNewsBy;
 
         return res.redirect(`/auth/me`);
 

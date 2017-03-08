@@ -18,26 +18,38 @@
             </div>
             <div class="box-body">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="control-label">新聞的來源
+                            <label class="control-label">來源
                                 <span class="text-danger">*</span>
                             </label>
                             <p>NOWnews</p>
                         </div>
                     </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label">訊頭
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input class="input form-control" name="newsBy" placeholder="XX中心／綜合報導" type="text" value="{{ currentUser.defaultSettings.newsBy }}"/>
+                        </div>
+                    </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="control-label">
-                                新聞的作者
+                                作者
                                 <span class="text-danger">*</span>
                             </label>
                             <select name="Author" class="form-control select2" required>
                                 {% for user in userList %}
-                                    {% if userId == user._id %}
-                                        <option value="{{ user._id }}" selected>{{ user.name }}</option>
+                                    {% if user._id == currentUser.defaultSettings.Author %}
+                                        <option value="{{ user._id }}" selected>
+                                            {{ user.staffId or 'NN00xxx' }} / {{ user.name }}
+                                        </option>
                                     {% else %}
-                                        <option value="{{ user._id }}">{{ user.name }}</option>
+                                        <option value="{{ user._id }}">
+                                            {{ user.staffId or 'NN00xxx' }} / {{ user.name }}
+                                        </option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
@@ -46,7 +58,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="control-label">
-                                新聞的類別
+                                類別
                                 <span class="text-danger">*</span>
                             </label>
                             <select name="type" class="form-control select2" required>

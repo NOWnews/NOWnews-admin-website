@@ -1,5 +1,6 @@
 import { USER_STATUS } from '../../../util/constants';
 import Debug from 'debug';
+import Promise from 'bluebird';
 const debug = Debug('NOWnews-admin-website: controllers:auth:user:page.me');
 
 module.exports = async function(req, res, next) {
@@ -7,16 +8,20 @@ module.exports = async function(req, res, next) {
 
         let userId = req.session.adminUser._id;
 
-        let { data: user } = await axios.get(`/users/${userId}`);
-
-        let { data: menuList } = await axios.get('/menus?level=0');
+        let [
+            { data: user },
+            { data: { users: userList, pageData } }
+        ] = await Promise.all([
+            axios.get(`/users/${userId}`),
+            axios.get('/users?limit=10000')
+        ]);
 
         debug('currentUser = %j', user);
 
 
         return res.render('auth/user/page.me.html', {
             user,
-            menuList,
+            userList,
             USER_STATUS,
         });
 

@@ -9,13 +9,17 @@ module.exports = async (req, res, next) => {
 
         let { newsId } = req.params;
 
-        let { data: news } = await axios.get(`/news/${newsId}`);
-
-        debug('news = %j', news);
-
-        let { data: { users: userList, pageData } } = await axios.get('/users');
-        let { data: menus } = await axios.get('/menus/struction');
-        let { data: newsMemos } = await axios.get(`/newsmemo?News=${newsId}&sort=createdAt`);
+        let [
+            { data: news },
+            { data: { users: userList } },
+            { data: menus },
+            { data: newsMemos },
+        ] = await Promise.all([
+            axios.get(`/news/${newsId}`),
+            axios.get('/users?limit=10000'),
+            axios.get('/menus/struction'),
+            axios.get(`/newsmemo?News=${newsId}&sort=createdAt`),
+        ]);
 
         let selectMenus = _.map( news.Menus, (menu) => {
             return menu._id;
@@ -32,12 +36,13 @@ module.exports = async (req, res, next) => {
         news.Tags = _.map( news.Tags, (value) => {
             return value.name;
         })
+
         news.tags = news.Tags.join(',');
 
         // Map 設定
         if (news.location !== null ){
             let [ lng, lat ] = news.location;
-            let { data: { address } } = await axios.get( `/map/location`, {
+            let { data: { address } } = await axios.get('/map/location', {
                 params: {
                     latlng: `${lat},${lng}`
                 }

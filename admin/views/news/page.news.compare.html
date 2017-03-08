@@ -32,6 +32,8 @@
 
                     {{ compare.text('短標', before.shortTitle, after.shortTitle) }}
 
+                    {{ compare.text('訊頭', before.newsBy, after.newsBy) }}
+
                     {{ compare.text('作者', before.Author.name, after.Author.name) }}
 
                     {{ compare.text('新聞類別', NEWS_TYPES[before.type], NEWS_TYPES[after.type]) }}

@@ -3,8 +3,8 @@ import actionLogin from './action.login';
 import actionLogout from './action.logout';
 import pageLogin from './page.login';
 
-import center from './center';
 import department from './department';
+import center from './center';
 import role from './role';
 import user from './user';
 
@@ -21,8 +21,8 @@ router.route('/login')
 router.route('/logout')
     .get(actionLogout);
 
-center(router);
 department(router);
+center(router);
 role(router);
 user(router);
 

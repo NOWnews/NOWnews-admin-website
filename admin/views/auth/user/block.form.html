@@ -11,34 +11,6 @@
                 value="{{ user.name }}" />
         </div>
         <div class="form-group">
-            <label>員工編號</label>
-            <input class="form-control"
-                name="staffId"
-                type="text"
-                placeholder="NNxxxxx"
-                value="{{ user.staffId }}" />
-        </div>
-        <div class="form-group">
-            <label>中心部門</label>
-            <input name="Center" type="hidden" value="{{ user.Center._id }}"/>
-            <input name="Department" type="hidden" value="{{ user.Department._id }}"/>
-            <select class="form-control"
-                id="center-and-dept"
-                name="centerAndDept">
-                <option value="">請選擇</option>
-                {% for center in centerList %}
-                    <optgroup id="{{ center._id }}" label="{{ center.name }}">
-                        {% for department in center.Departments %}
-                            <option value="{{ department._id }}"
-                            {{ "selected" if department._id == user.Department._id }} >
-                                {{ department.name }}
-                            </option>
-                        {% endfor %}
-                    </optgroup>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="form-group">
             <label>信箱
                 <span class="text-danger">*</span>
             </label>
@@ -49,22 +21,69 @@
                 value="{{ user.email }}" />
         </div>
         <div class="form-group">
-            <label>電話
+            <label>角色
+                <span class="text-danger">*</span>
             </label>
-            <input class="form-control"
-                name="phone"
-                type="text"
-                value="{{ user.phone }}" />
+            <select class="form-control"
+                name="Role"
+                required>
+                {% for role in roleList %}
+                    <option value="{{ role._id }}"
+                        {{ "selected" if role._id == user.Role._id }}>
+                        {{ role.name }}
+                    </option>
+                {% endfor %}
+            </select>
         </div>
         <div class="form-group">
+            <label>部門中心</label>
+            <input name="Department" type="hidden" value="{{ user.Department._id }}"/>
+            <input name="Center" type="hidden" value="{{ user.Center._id }}"/>
+            <select class="form-control"
+                id="dept-and-center"
+                name="deptAndCenter">
+                <option value="">請選擇</option>
+                {% for department in departmentList %}
+                    <optgroup id="{{ department._id }}" label="{{ department.name }}">
+                        {% for center in department.Centers %}
+                            <option value="{{ center._id }}"
+                            {{ "selected" if center._id == user.Center._id }} >
+                                {{ center.name }}
+                            </option>
+                        {% endfor %}
+                    </optgroup>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>預設主分類
+            </label>
+            <select class="form-control"
+                name="defaultMenu">
+                <option value="">請選擇</option>
+                {% for menu in menuList %}
+                    <option value="{{ menu._id }}"
+                        {{ "selected" if menu._id == user.defaultSettings.Menu }}>
+                        {{ menu.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        {#<div class="form-group">
+            <label>暱稱</label>
+            <input class="form-control"
+                name="nickname"
+                type="text"
+                value="{{ user.nickname }}" />
+        </div>#}
+        {#<div class="form-group">
             <label>個人網站連結</label>
             <input class="form-control"
                 name="profileLink"
                 type="url"
                 value="{{ user.profileLink }}" />
-        </div>
+        </div>#}
     </div>
-
     <div class="col-md-6">
         {% if not user %}
             <div class="row">
@@ -89,13 +108,6 @@
             </div>
         {% endif %}
         <div class="form-group">
-            <label>暱稱</label>
-            <input class="form-control"
-                name="nickname"
-                type="text"
-                value="{{ user.nickname }}" />
-        </div>
-        <div class="form-group">
             <label>員工狀態
                 <span class="text-danger">*</span>
             </label>
@@ -111,41 +123,49 @@
             </select>
         </div>
         <div class="form-group">
-            <label>角色
-                <span class="text-danger">*</span>
-            </label>
-            <select class="form-control"
-                name="Role"
-                required>
-                {% for role in roleList %}
-                    <option value="{{ role._id }}"
-                        {{ "selected" if role._id == user.Role._id }}>
-                        {{ role.name }}
-                    </option>
-                {% endfor %}
-            </select>
+            <label>員工編號</label>
+            <input class="form-control"
+                name="staffId"
+                type="text"
+                placeholder="NNxxxxx"
+                value="{{ user.staffId }}" />
         </div>
         <div class="form-group">
-            <label>預設主分類
+            <label>電話
             </label>
-            <select class="form-control"
-                name="defaultMenu">
-                <option value="">請選擇</option>
-                {% for menu in menuList %}
-                    <option value="{{ menu._id }}"
-                        {{ "selected" if menu._id == user.defaultSettings.Menu }}>
-                        {{ menu.name }}
-                    </option>
-                {% endfor %}
-            </select>
+            <input class="form-control"
+                name="phone"
+                type="text"
+                value="{{ user.phone }}" />
         </div>
-        <div class="form-group">
+        {% if user %}
+            <div class="form-group">
+                <label>預設作者</label>
+                <select class="form-control default-author" name="defaultAuthor">
+                    <option value="">員工編號 / 姓名</option>
+                    {% for userData in userList %}
+                        <option value="{{ userData._id }}"
+                            {{ "selected" if userData._id == user.defaultSettings.Author }}>
+                             {{ userData.staffId }} / {{ userData.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>預設訊頭</label>
+                <input class="form-control"
+                    name="defaultNewsBy"
+                    type="text"
+                    value="{{ user.defaultSettings.newsBy }}" />
+            </div>
+        {% endif %}
+        {#<div class="form-group">
             <label>職稱</label>
             <input class="form-control"
                 name="jobTitle"
                 type="text"
                 value="{{ user.jobTitle }}" />
-        </div>
+        </div>#}
     </div>
 </div>
 
