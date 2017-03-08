@@ -13,6 +13,16 @@
     <div class="box-body">
         <div class="row">
             <div class="col-sm-12">
+                <label>
+                    主影片
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="image-preview">
+                    <input type="hidden" name="MainVideo" value="{{news.MainVideo._id}}" />
+                    <!-- <video class="video" width="400" height="280" controls>
+                        <source src="{{news.MainVideo.url}}" type="video/mp4" >
+                    </video> -->
+                </div>
                 <div class="content">
                     <ul class="nav nav-tabs ui-sortable-handle">
                         <li class="active"><a href="#video-url" data-toggle="tab">影片網址</a></li>
@@ -35,20 +45,12 @@
                         </div>
                         <div class="tab-pane active" id="video-upload">
                             <br>
-                            <!-- The fileinput-button span is used to style the file input field as button -->
                             <span class="btn btn-success fileinput-button">
                                 <i class="glyphicon glyphicon-plus"></i>
                                 <span>上傳影片檔</span>
-                                <!-- The file input field used as target for the file upload widget -->
                                 <input id="fileupload-video" type="file" name="files[]" multiple>
                             </span>
                             <br>
-                            <br>
-                            <!-- The global progress bar -->
-                            <div id="progress-video" class="progress">
-                                <div class="progress-bar progress-bar-success"></div>
-                            </div>
-                            <!-- The container for the uploaded files -->
                             <table role="presentation" class="table table-striped">
                                 <tbody id="files-video"></tbody>
                             </table>
@@ -59,8 +61,42 @@
         </div>
     </div>
     {# 模板 #}
+        {# 上傳回來的結果 #}
+    <script id="video-upload-template" type="text/x-custom-template">
+        <tr class="template-upload fade">
+            <td>
+                <span class="preview">
+                    <img class="upload-img hidden" width="80" height="40"/>
+                </span>
+                <p>
+                    <label><input type="checkbox" name="isDeliver" checked="checked" />可外送</label>
+                    <textarea name="desc" style="width: 100%" placeholder="影片描述" rows="2"></textarea>
+                </p>
+                <strong class="error text-danger"></strong>
+            </td>
+            <td class="hidden-xs">
+                <p class="size">處理中...</p>
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                </div>
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary start">
+                    <i class="fa fa-upload"></i>
+                    <span class="hidden-xs">上傳</span>
+                </button>
+                <button type="button" class="btn btn-warning cancel">
+                    <i class="fa fa-ban"></i>
+                    <span class="hidden-xs">取消</span>
+                </button>
+            </td>
+        </tr>
+    </script>
+
+        {# 回傳回來的結果 #}
     <script id="video-result-template" type="text/x-custom-template">
         <tr class="template-download fade">
+            <input name="videoId" type="hidden" />
             <td>
                 <div class="preview">
                     <video width="400" controls>
@@ -115,6 +151,19 @@
             var uploadVideoUrl = '/video/upload';
             var createVideoUrl = '/video';
             var removeVideoUrl = '/video/realRemove/';
+
+            // Setting Image To MainPhoto
+            function setMainPhoto (setBtn) {
+                var parentElm = setBtn.parent().parent();
+                $('input[name=MainVideo]').val(parentElm.find('input[name=videoId]').val());
+                $('source[name=MainVideo]').attr('src', setBtn.attr('data-url'));
+                // $('.image-setting-area .btn-collapse').click();
+            }
+
+            $('#files-video').on('click', '.setMainVideo', function(e){
+                setMainPhoto($(this));
+                console.log('setMainVideo', $(e))
+            });
 
             /* 上傳 */
             // Initialize the jQuery File Upload widget:
@@ -194,10 +243,8 @@
                     var rows = $();
                     $.each(o.files, function (index, file) {
                         var blobURL = URL.createObjectURL(file);
-                        var row = $($('#template-upload').html());
-                        row.find('button.crop').attr('data-blobURL', blobURL);
+                        var row = $($('#video-upload-template').html());
                         if (file.error) {
-                            row.find('.crop').addClass('hidden');
                             row.find('.start').addClass('hidden');
                             row.find('.error').text(file.error);
                         }
