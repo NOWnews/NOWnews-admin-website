@@ -1,3 +1,4 @@
+{% set photo = news.MainPhoto %}
 <div class="box image-setting-area">
     <div class="box-header with-border">
         <h3 class="box-title">圖片設定上傳區</h3>
@@ -14,8 +15,8 @@
                 <span class="text-danger">*</span>
             </label>
             <div class="image-preview">
-                <input type="hidden" name="MainPhoto" value="{{news.MainPhoto._id}}" />
-                <img class="image" name="MainPhoto" src="{{news.MainPhoto.url}}" />
+                <input type="hidden" name="MainPhoto" value="{{photo._id}}" />
+                <img class="image" name="MainPhoto" src="{{photo.url}}" />
             </div>
             {% include '../../util/fileupload.html' %}
         </div>
