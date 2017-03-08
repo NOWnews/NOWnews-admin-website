@@ -13,7 +13,6 @@ module.exports = async (req, res, next) => {
 
         data.UpdatedBy = userId;
 
-        // let { data: topic } = await axios.delete( `/specialtopics/${topicId}`, data: );
         let { data: topic } = await axios({method: 'delete', url: `/specialtopics/${topicId}`, data: data});
 
 

@@ -12,7 +12,6 @@ module.exports = async (req, res, next) => {
         data.UpdatedBy = userId;
 
         debug('req.body = %j', data);
-        console.log(data,'L15');
         let { data: topic } = await axios.put(`/specialtopics/${topicId}`, data);
 
         debug('updatedTopic = %j', topic);
