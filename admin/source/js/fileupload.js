@@ -37,7 +37,7 @@ $(function () {
 
         var parentBlock = targetBtn.parent().parent();
         var img = parentBlock.find('img.image')[0].outerHTML;
-        var desc = parentBlock.find('.desc')[0].outerHTML;
+        var desc = parentBlock.find('span.desc')[0].outerHTML;
         var htmlString = "<p>" + img + "<br/>" + desc + "</p>";
         doc.write(htmlString);
         doc.close('');
@@ -48,24 +48,29 @@ $(function () {
 
     // Setting Image To MainPhoto
     function setMainPhoto (setBtn) {
-        $('input[name=MainPhoto]').val(setBtn.attr('data-id'));
+        var parentElm = setBtn.parent().parent();
+        $('input[name=MainPhoto]').val(parentElm.find('input[name=imageId]').val());
         $('img[name=MainPhoto]').attr('src', setBtn.attr('data-url'));
         $('.image-setting-area .btn-collapse').click();
     }
+
 
     /* 上傳 */
     // Initialize the jQuery File Upload widget:
     fileuploadElm.fileupload({
         filesContainer: $('tbody.files'),
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         downloadTemplateId: null,
+        maxFileSize: 999000,
         paramName: 'image',
         url: '/image/upload',
         uploadTemplateId: null,
         destroy: function (e, data) {
             var that = this;
             // 自己上傳的當下可以真刪除
+            var imageId = data.context.find('input[name=imageId]').val();
             $.ajax({
-                url: '/image/' + data.id + '/realRemove',
+                url: '/image/' + imageId + '/realRemove',
                 type: 'DELETE',
                 success: function(result) {
                     // 再去呼叫原生 library destroy 該做的事情
@@ -78,10 +83,9 @@ $(function () {
             $.each(o.files, function (index, file) {
                 var row = $($('#template-download').html());
                 var img = row.find('img');
-                row.find('.delete').attr('data-id', file._id);
-                row.find('.setMainPhoto').attr('data-id', file._id);
+                row.find('input[name=imageId]').val(file._id);
                 row.find('.setMainPhoto').attr('data-url', file.url);
-                row.find('.desc').text(file.desc);
+                row.find('span.desc').text(file.desc);
                 row.find('img').attr('src', file.url);
 
 
@@ -200,11 +204,14 @@ $(function () {
     });
 
     /* 圖庫 */
-    $('.imageLibQueryForm').on('click', function(e) {
+
+    function queryImageLibrary () {
         imageBlocks.html('');
         var queryString = 'startedAt=' + startElm.val();
         queryString += '&endedAt=' + endElm.val();
         queryString += '&desc=' + $('input[name=desc]').val();
+        queryString += '&imageFrom=' + $('.image-nav li.active a').attr('data-from');
+
         var desc = $('#library input[name=desc]').val();
         $.get('/image?' + queryString, function(result) {
             $('.zoom').trigger('zoom.destroy');
@@ -217,36 +224,102 @@ $(function () {
                     block.find('.canNotDeliver').remove();
                 }
 
-                block.find('.desc').text(image.desc);
-                block.find('.fa-trash').attr('data-id', image._id);
-                block.find('.fa-check').attr('data-id', image._id);
+                block.find('input[name=imageId]').val(image._id);
+                block.find('span.desc').text(image.desc);
+                block.find('textarea[name=desc]').val(image.desc);
                 block.find('.fa-check').attr('data-url', image.url);
                 imageBlocks.append(block);
             });
             $('.zoom').zoom();
         });
-    });
+    }
 
-    imageBlocks.on('click', 'button.fa-trash', function(e, c) {
+    // 點擊 Tab 與 QueryForm 送出時都會觸發
+    $('.image-nav li.library').on('click', queryImageLibrary);
+    $('.imageLibQueryForm').on('click', queryImageLibrary);
+
+    imageBlocks.on('click', 'button.fa-trash', function() {
+
         // 從 library 取得是假刪除
         var confirmed = confirm('您確定要刪除嗎？');
         if (!confirmed) {
             return;
         }
-        var deleteBtn = $(this);
+        var parentBlock = $(this).parent().parent();
         $.ajax({
-            url: '/image/' + deleteBtn.attr('data-id'),
+            url: '/image/' + parentBlock.find('input[name=imageId]').val(),
             type: 'DELETE',
         }).done(function(result) {
-            deleteBtn.parent().parent().remove();
+            parentBlock.remove();
         });
     });
 
-    imageBlocks.on('click', 'button.fa-check', function(e, c) {
+    imageBlocks.on('click', 'button.fa-check', function() {
         setMainPhoto($(this));
     });
 
-    imageBlocks.on('click', 'button.fa-copy', function(e, c) {
+    imageBlocks.on('click', 'button.fa-clipboard', function() {
         copyIntoClipboard($(this));
+    });
+
+    imageBlocks.on('click', 'button.fa-undo', function() {
+        var parentBlock = $(this).parent();
+        var newsDescElm = parentBlock.find('textarea[name=desc]');
+        var originDesc = parentBlock.find('span.desc').text();
+
+        newsDescElm.val(originDesc);
+        $(this).addClass('hidden');
+    });
+
+    imageBlocks.on('click', 'button.fa-save', function() {
+        var parentBlock = $(this).parent().parent();
+        var newsDesc = parentBlock.find('textarea[name=desc]').val().trim();
+        var originDescElm = parentBlock.find('span.desc');
+
+        if (newsDesc === originDescElm.text()) {
+            alert('圖說沒有更新！');
+            return;
+        }
+
+        var imageIdInput = parentBlock.find('input[name=imageId]');
+        var imageFrom = $('.image-nav li.active a').attr('data-from');
+        var imageId = imageIdInput.val();
+        var undoBtn = parentBlock.find('button.fa-undo');
+        var url, method;
+
+        if (imageFrom === 'INTERNAL') {
+            method = 'POST';
+            url = '/image/' + imageId + '/clone';
+        } else {
+            method = 'PUT';
+            url = '/image/' + imageId;
+        }
+
+        $.ajax({
+            url: url,
+            data: { desc: newsDesc },
+            method: method
+        }).done(function(result) {
+            originDescElm.text(newsDesc);
+            imageIdInput.val(result._id);
+            undoBtn.addClass('hidden');
+        }).fail(function() {
+            alert('圖說更新失敗！');
+        });
+
+    });
+
+    imageBlocks.on('change', 'textarea[name=desc]', function(e, c) {
+        var parentBlock = $(this).parent();
+        var newsDesc = $(this).val().trim();
+        var originDesc = parentBlock.find('span.desc').text();
+        var undoBtn =  parentBlock.find('button.fa-undo');
+
+        if (originDesc === newsDesc) {
+            $(this).val(originDesc);
+            undoBtn.addClass('hidden');
+            return;
+        }
+        undoBtn.removeClass('hidden');
     });
 });

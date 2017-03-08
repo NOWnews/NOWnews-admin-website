@@ -3,13 +3,20 @@ import multer from 'multer';
 let router = express.Router();
 
 let imageUpload = multer({ dest: 'uploads/' });
+
+import actionClone from './action.clone';
+import actionFind from './action.find';
 import actionRemove from './action.remove';
 import actionRealRemove from './action.realRemove';
-import actionFind from './action.find';
+import actionUpdate from './action.update';
 import actionUpload from './action.upload';
 
 router.route('/:id')
-    .delete(actionRemove);
+    .delete(actionRemove)
+    .put(actionUpdate);
+
+router.route('/:id/clone')
+    .post(actionClone);
 
 router.route('/:id/realremove')
     .delete(actionRealRemove);
