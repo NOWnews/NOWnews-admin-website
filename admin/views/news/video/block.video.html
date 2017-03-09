@@ -17,11 +17,11 @@
                     主影片
                     <span class="text-danger">*</span>
                 </label>
-                <div class="image-preview">
+                <div id="video-preview">
                     <input type="hidden" name="MainVideo" value="{{news.MainVideo._id}}" />
-                    <!-- <video class="video" width="400" height="280" controls>
-                        <source src="{{news.MainVideo.url}}" type="video/mp4" >
-                    </video> -->
+                    <video class="video hide" width="400" height="280" controls>
+                        <source name="MainVideo" src="{{news.MainVideo.url}}" type="video/mp4" >
+                    </video>
                 </div>
                 <div class="content">
                     <ul class="nav nav-tabs ui-sortable-handle">
@@ -34,23 +34,24 @@
                                 <br>
                                 <label for="MainVideo">影片 URL</label>
                                 <div class="input-group">
-                                    <input id="MainVideo" name="MainVideo" type="text" value="http://vimeo.com/18150336" class="form-control">
+                                    <input id="MainVideo" name="urlVideo" type="text" value="http://vimeo.com/18150336" class="form-control">
                                     <div class="input-group-btn">
                                         <a class="btn btn-info">預覽影片</a>
                                     </div>
                                 </div>
                             </div>
                             <br>
-                            <div id="result" class="img-responsive text-center"></div>
+                            <table role="presentation" class="table table-striped">
+                                <tbody id="result"></tbody>
+                            </table>
                         </div>
                         <div class="tab-pane active" id="video-upload">
                             <br>
-                            <span class="btn btn-success fileinput-button">
-                                <i class="glyphicon glyphicon-plus"></i>
+                            <label class="btn btn-success fileinput-button" for="fileupload-video">
+                                <i class="fa fa-plus"></i>
                                 <span>上傳影片檔</span>
-                                <input id="fileupload-video" type="file" name="files[]" multiple>
-                            </span>
-                            <br>
+                                <input id="fileupload-video" type="file" name="files[]" multiple class="sr-only">
+                            </label>
                             <table role="presentation" class="table table-striped">
                                 <tbody id="files-video"></tbody>
                             </table>
@@ -65,13 +66,21 @@
     <script id="video-upload-template" type="text/x-custom-template">
         <tr class="template-upload fade">
             <td>
-                <span class="preview">
-                    <img class="upload-img hidden" width="80" height="40"/>
-                </span>
-                <p>
-                    <label><input type="checkbox" name="isDeliver" checked="checked" />可外送</label>
-                    <textarea name="desc" style="width: 100%" placeholder="影片描述" rows="2"></textarea>
-                </p>
+                <div class="preview text-center" style="height:250px;"></div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="isDeliver" checked="checked" />可外送</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>影片標題</label>
+                    <input name="title" class="form-control" placeholder="影片標題" />
+                </div>
+                <div class="form-group">
+                    <label>影片描述</label>
+                    <textarea name="desc" class="form-control" placeholder="影片描述" rows="4"></textarea>
+                    <input name="url" type="hidden"></textarea>
+                </div>
                 <strong class="error text-danger"></strong>
             </td>
             <td class="hidden-xs">
@@ -128,16 +137,17 @@
         </tr>
     </script>
 
-    {# 影片上傳 #}
-    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.17.0/css/jquery.fileupload.min.css">
-
     {# 影片網址 #}
     <script src="http://cdn.embed.ly/jquery.embedly-3.1.1.min.js"></script>
     <script type="text/javascript" src="//cdn.embed.ly/player-0.0.12.min.js"></script>
     <style>
-        #result iframe {
+        .preview iframe {
             width: 100%;
+            height: 100%;
+        }
+        .preview video {
+            /*width: 100%;*/
+            height: 100%;
         }
     </style>
     <script>
@@ -217,7 +227,7 @@
                     return rows;
                 },
                 getFilesFromResponse: function (data) {
-                    console.log('getFilesFromResponse')
+                    console.log('getFilesFromResponse', data)
                     return [data.result];
                 },
                 submit: function (e, data) {
@@ -237,12 +247,13 @@
                     if (nextRow.attr('id') === 'crop-row') {
                         nextRow.remove();
                     }
+                    return true;
                 },
                 uploadTemplate: function (o) {
                     console.log('uploadTemplate')
                     var rows = $();
                     $.each(o.files, function (index, file) {
-                        var blobURL = URL.createObjectURL(file);
+                        // var blobURL = URL.createObjectURL(file);
                         var row = $($('#video-upload-template').html());
                         if (file.error) {
                             row.find('.start').addClass('hidden');
@@ -250,35 +261,122 @@
                         }
                         rows = rows.add(row);
                     });
+                    console.log(rows)
                     return rows;
                 },
 
             });
-        });
+        // });
 
-        $(function(){
+        // $(function(){
 
             // 一般影片連結
             var player = null;
-            var embed = function(url){
+            var $urlResultElm = $('#result');
+            var embed = function(url, $targetEle){
 
-                return $.embedly.oembed(url, {query: {scheme: 'http', maxwidth: '600'}})
+                return $.embedly.oembed(url)
                 .progress(function(obj){
-
+                    console.log(obj)
                     if (!obj.html){
-                        $('#result').html('');
+                        $targetEle.html('');
                         window.alert('影片的連結有問題！');
                         return false;
                     }
+                    var row = $($('#video-upload-template').html());
+                    console.log(obj)
+                    row.find('.preview').html(obj.html);
+                    row.find('input[name=title]').val(obj.title);
+                    row.find('input[name=url]').val(obj.original_url);
+                    row.find('textarea[name=desc]').val(obj.description);
 
-                    $('#result').html(obj.html);
+                    $targetEle.html(row).find('.fade').addClass('in');
                 });
             };
+
+            $urlResultElm.on('click', '.start', function(){
+                var defaultTime = 10;
+                var progressEle = $(this).parents('tr').find('.progress-bar');
+                var data = {
+                    url: $urlResultElm.find('input[name= url]').val(),
+                    title: $urlResultElm.find('input[name=title]').val(),
+                    desc: $urlResultElm.find('input[name=desc]').val()
+                }
+
+                $(this).attr('disabled', 'disabled');
+
+                $.post( createVideoUrl, data)
+                    .success(function(data){
+                        console.log(123, data)
+                        progressEle.css('width', '100%')
+                        window.clearInterval(timer);
+
+                        // 換下個步驟
+                        var videoResultTemplate = $($('#video-result-template').html());
+
+                        videoResultTemplate
+                            .find('source').attr('src', 'https://www.w3schools.com/html/mov_bbb.mp4').load();
+
+
+                        if(data.isDeliver) {
+                            videoResultTemplate.find('.canNotDeliver').remove();
+                        }
+
+
+                        $urlResultElm.html(videoResultTemplate).find('.fade').addClass('in');
+                    })
+                    .fail(function(err){
+                        console.log(456,err.responseJSON)
+                    });
+
+                // set progress time
+                var timer = window.setInterval(function progressbarGo (){
+                    defaultTime--;
+                    var progress = 100 - defaultTime*10 + '%';
+                    progressEle.css('width', progress)
+                    if(defaultTime===0){
+                        window.clearInterval(timer);
+                        return false;
+                    }
+                }, 50);
+            });
+
+            $urlResultElm.on('click', '.cancel', function(){
+                $urlResultElm.html('');
+
+                // var videoResultTemplate = $($('#video-result-template').html());
+                // videoResultTemplate.find('source').attr('src', 'https://www.w3schools.com/html/mov_bbb.mp4').load();
+
+                // $urlResultElm.html(videoResultTemplate).find('.fade').addClass('in');
+            }).on('click', '.delete', function(){
+                var confirmed = confirm('您確定要刪除嗎？');
+                if (!confirmed) { return; }
+
+                var id = $(this).attr('data-id');
+                $.ajax({
+                    url: removeVideoUrl + id,
+                    type: 'DELETE',
+                    success: function(result) {
+                        console.log(result);
+                        $urlResultElm.html('');
+                    }
+                });
+                console.log('delete', $(this).attr('data-id'))
+            }).on('click', '.setMainVideo', function(){
+                console.log('setMainVideo')
+                var videoId = $urlResultElm.find('input[name=videoId]').val();
+
+                $('input[name=MainPhoto]').val(videoId);
+                $('source[name=MainVideo]').attr('src', 'https://www.w3schools.com/html/mov_bbb.mp4');
+                $('#video-preview video').load().removeClass('hide');
+                // $('.image-setting-area .btn-collapse').click();
+            })
+
 
             // URL inpute
             var $url = $('#MainVideo');
             $('.url-form a').on('click', function(){
-                embed($url.val());
+                embed($url.val(), $urlResultElm);
                 return false;
             });
 

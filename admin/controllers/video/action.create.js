@@ -8,8 +8,11 @@ module.exports = async (req, res, next) => {
     try {
         let { _id: userId } = req.session.adminUser;
 
-        let { url, title, desc, type, Tags, CreatedBy } = req.body;
+        let { url, title, desc, Tags } = req.body;
         let data = req.body;
+
+        data.CreatedBy = userId;
+        data.type = ["NEWS"];
 
         if (!Tags) {
             delete data.Tags;
@@ -19,7 +22,7 @@ module.exports = async (req, res, next) => {
 
         debug('video = %j', video);
 
-        return res.json({ video });
+        return res.json( video );
     }
     catch(err) {
         return next(err);
