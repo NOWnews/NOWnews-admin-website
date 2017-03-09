@@ -18,6 +18,7 @@ let adminPageRouter = {
     news: require('./news'),
     picture: require('./picture'),
     video: require('./video'),
+    topic: require('./topic'),
 };
 
 module.exports = function(app) {
