@@ -1,0 +1,66 @@
+{% set title = "新增專題" %}
+
+{% extends "../base.html" %}
+{% from "../util/form-user-record.html" import formUserRecord %}
+
+{% block headTitle %}
+    <title>大編輯台 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+<section class="content">
+    <form id="fileupload" action="/topic/{{ topic.id }}" method="post" >
+        <input type="hidden" name="_method" value="put">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">專題設定</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="shortTitle" class="control-label">
+                                標題
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" maxlength="16" name="title" class="input form-control" placeholder="限制字數為 16" value="{{ topic.title }}" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="shortTitle" class="control-label">
+                                Url
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" name="url" class="input form-control" placeholder="連結" value="{{topic.url}}" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# 主圖設定 #}
+        {% set photo = topic.MainPhoto %}
+        {% include "../news/newsBlock/photo.html" %}
+        <div class="edit-footer text-center">
+            <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
+            <a href="#" class="btn bg-maroon btn-flat margin">取消</a>
+        </div>
+    </form>
+</section>
+
+
+{#  script 暫時放這   #}
+
+
+
+<!-- multiple-select -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.0/multiple-select.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.0/multiple-select.min.js"></script>
+
+
+{% endblock %}

@@ -55,5 +55,18 @@
             "url": "/auth/user",
             "name": "使用者管理"
         }]
+    },
+    "topic": {
+        "url": "#",
+        "name": "專題",
+        "icon": "fa-user",
+        "children": [{
+            "url": "/topic",
+            "name": "專題列表"
+        },
+        {
+            "url": "/topic/create",
+            "name": "新增專題"
+        }]
     }
 }
