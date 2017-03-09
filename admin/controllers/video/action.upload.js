@@ -13,6 +13,8 @@ module.exports = async (req, res, next) => {
         let newPath = `uploads/${originalname}`;
         fs.renameSync(path, newPath);
 
+        debug('req.body = %j', req.body);
+
         //取得 FormData 和 Headers
         let { formData, headers } = await new Promise((resolve) => {
             let { title, desc, type, isDeliver } = req.body;

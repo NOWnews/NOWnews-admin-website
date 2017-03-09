@@ -11,6 +11,8 @@ module.exports = async (req, res, next) => {
         let { url, title, desc, Tags } = req.body;
         let data = req.body;
 
+        debug('req.body = %j', req.body);
+
         data.CreatedBy = userId;
         data.type = ["NEWS"];
 
