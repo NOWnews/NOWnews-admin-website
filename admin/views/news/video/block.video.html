@@ -17,19 +17,29 @@
                     主影片
                     <span class="text-danger">*</span>
                 </label>
+                <input type="hidden" name="MainVideo" value="{{news.MainVideo._id}}" />
                 <div id="video-preview">
-                    <input type="hidden" name="MainVideo" value="{{news.MainVideo._id}}" />
-                    <video class="video hide" width="400" height="280" controls>
-                        <source name="MainVideo" src="{{news.MainVideo.url}}" type="video/mp4" >
-                    </video>
+                    {# 這裡會插入選擇的主影片 HTML #}
                 </div>
                 <div class="content">
                     <ul class="nav nav-tabs ui-sortable-handle">
-                        <li class="active"><a href="#video-url" data-toggle="tab">影片網址</a></li>
-                        <li class=""><a href="#video-upload" data-toggle="tab">影片上傳</a></li>
+                        <li class="active"><a href="#video-upload" data-toggle="tab">影片上傳</a></li>
+                        <li class=""><a href="#video-url" data-toggle="tab">影片網址</a></li>
                     </ul>
                     <div class="tab-content no-padding">
-                        <div class="tab-pane active" id="video-url">
+                        <div class="tab-pane active" id="video-upload">
+                            <br>
+                            <label class="btn btn-success fileinput-button" for="fileupload-video">
+                                <i class="fa fa-plus"></i>
+                                <span>上傳影片檔</span>
+                                <input id="fileupload-video" type="file" name="files[]" multiple class="sr-only">
+                            </label>
+                            <br>
+                            <table role="presentation" class="table table-striped">
+                                <tbody id="files-video"></tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="video-url">
                             <div class="url-form">
                                 <br>
                                 <label for="MainVideo">影片 URL</label>
@@ -42,18 +52,7 @@
                             </div>
                             <br>
                             <table role="presentation" class="table table-striped">
-                                <tbody id="result"></tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane active" id="video-upload">
-                            <br>
-                            <label class="btn btn-success fileinput-button" for="fileupload-video">
-                                <i class="fa fa-plus"></i>
-                                <span>上傳影片檔</span>
-                                <input id="fileupload-video" type="file" name="files[]" multiple class="sr-only">
-                            </label>
-                            <table role="presentation" class="table table-striped">
-                                <tbody id="files-video"></tbody>
+                                <tbody id="url-video"></tbody>
                             </table>
                         </div>
                     </div>
@@ -66,7 +65,7 @@
     <script id="video-upload-template" type="text/x-custom-template">
         <tr class="template-upload fade">
             <td>
-                <div class="preview text-center" style="height:250px;"></div>
+                <div class="preview text-center"></div>
                 <div class="form-group">
                     <div class="checkbox">
                         <label><input type="checkbox" name="isDeliver" checked="checked" />可外送</label>
@@ -107,11 +106,12 @@
         <tr class="template-download fade">
             <input name="videoId" type="hidden" />
             <td>
-                <div class="preview">
-                    <video width="400" controls>
+                <div class="preview text-center">
+                    <video width="400" height="280" controls>
                         <source src="" type="">
                     </video>
                 </div>
+                <strong class="title"></strong><br>
                 <span class="desc"></span>
                 <strong class="error text-danger"></strong>
             </td>
@@ -137,46 +137,103 @@
         </tr>
     </script>
 
+    <script id="video-player-template" type="text/x-custom-template">
+        <video class="video" width="400" height="280" controls>
+            <source src="{{news.MainVideo.url}}" type="video/mp4" >
+        </video>
+    </script>
+
     {# 影片網址 #}
     <script src="http://cdn.embed.ly/jquery.embedly-3.1.1.min.js"></script>
     <script type="text/javascript" src="//cdn.embed.ly/player-0.0.12.min.js"></script>
     <style>
-        .preview iframe {
-            width: 100%;
-            height: 100%;
-        }
-        .preview video {
-            /*width: 100%;*/
-            height: 100%;
+        #files-video video, #url-video iframe {
+            width: 400px;
+            height: 280px;
         }
     </style>
     <script>
-        /*jslint unparam: true, regexp: true */
-        /*global window, $ */
         $(function () {
             'use strict';
 
             /* 公用變數 */
-            var URL = window.URL || window.webkitURL;
             var uploadVideoUrl = '/video/upload';
             var createVideoUrl = '/video';
             var removeVideoUrl = '/video/realRemove/';
+            var videoIframe = '';
+            var videoResultTemplate = $($('#video-result-template').html());
 
-            // Setting Image To MainPhoto
-            function setMainPhoto (setBtn) {
+            // 設定主按鈕
+            var setMainVideo = function (setBtn, type) {
                 var parentElm = setBtn.parent().parent();
-                $('input[name=MainVideo]').val(parentElm.find('input[name=videoId]').val());
-                $('source[name=MainVideo]').attr('src', setBtn.attr('data-url'));
-                // $('.image-setting-area .btn-collapse').click();
-            }
+                var previewHtml = '';
+                var videoId = parentElm.find('input[name=videoId]').val();
+                var title = parentElm.find('.title').text();
+                var desc = parentElm.find('.desc').text();
 
-            $('#files-video').on('click', '.setMainVideo', function(e){
-                setMainPhoto($(this));
-                console.log('setMainVideo', $(e))
-            });
+                $('input[name=MainVideo]').val(videoId);
 
-            /* 上傳 */
-            // Initialize the jQuery File Upload widget:
+                if (type === 'url') {
+                    previewHtml = $(videoIframe).attr({
+                        width: 400,
+                        height: 280
+                    })
+                } else {
+                    previewHtml = $($('#video-player-template').html());
+                    previewHtml.find('source').attr('src', setBtn.attr('data-url'));
+                }
+
+                previewHtml = previewHtml.add('<br><strong>'+ title +'</strong><br><span>'+ desc +'</span>')
+
+                $('#video-preview').html(previewHtml);
+            };
+
+            // 取得要被送出的資料
+            var getFormData = function (targetEle) {
+                var isDeliver = targetEle.find('input[name=isDeliver]:checked').length === 1;
+                var desc = targetEle.find('textarea[name=desc]').val();
+                var title = targetEle.find('input[name=title]').val();
+                var url = targetEle.find('input[name=url]').val();
+
+                return {
+                    title: title,
+                    desc: desc,
+                    url: url,
+                    type: 'NEWS',
+                    isDeliver: isDeliver
+                };
+            };
+
+            var setVideoResultTemplate = function (videoResultTemplate, file, type) {
+
+                videoResultTemplate.find('.delete').attr('data-id', file._id);
+                videoResultTemplate.find('.setMainVideo').attr({
+                    'data-id': file._id,
+                    'data-url': file.url
+                });
+                videoResultTemplate.find('input[name=videoId]').val(file._id)
+                videoResultTemplate.find('.title').text(file.title);
+                videoResultTemplate.find('.desc').text(file.desc);
+                videoResultTemplate.find('img').attr('data-isdeliver', file.isDeliver);
+
+                if (file.isDeliver) {
+                    videoResultTemplate.find('.canNotDeliver').remove();
+                }
+
+                if (type === 'url') {
+                    videoResultTemplate.find('.preview').html(videoIframe);
+                } else {
+                    videoResultTemplate.find('source').attr({
+                        'src': file.url,
+                        'type': file.mimetype
+                    });
+                }
+
+                return videoResultTemplate;
+            };
+
+
+            /* 檔案上傳 */
             $('#fileupload-video').fileupload({
                 filesContainer: $('#files-video'),
                 downloadTemplateId: null,
@@ -196,25 +253,10 @@
                     });
                 },
                 downloadTemplate: function (o) {
-                    console.log('downloadTemplate', o)
                     var rows = $();
                     $.each(o.files, function (index, file) {
-                        console.log(file, "L147")
                         var row = $($('#video-result-template').html());
-                        row.find('.delete').attr('data-id', file._id);
-                        row.find('.setMainVideo').attr('data-id', file._id);
-                        row.find('.setMainVideo').attr('data-url', file.url);
-                        row.find('.desc').text(file.desc);
-                        row.find('source').attr({
-                            'src': file.url,
-                            'type': file.mimetype
-                        });
-
-
-                        row.find('img').attr('data-isdeliver', file.isDeliver);
-                        if (file.isDeliver) {
-                            row.find('.canNotDeliver').remove();
-                        }
+                        row = setVideoResultTemplate(row, file)
 
                         if (file.error) {
                             row.find('.setMainVideo').addClass('hidden');
@@ -227,33 +269,15 @@
                     return rows;
                 },
                 getFilesFromResponse: function (data) {
-                    console.log('getFilesFromResponse', data)
                     return [data.result];
                 },
                 submit: function (e, data) {
-                    console.log('submit')
-                    var nextRow = $(data.context).next();
                     var submitRow = $(data.context);
-                    var isDeliver = submitRow.find('input[name=isDeliver]:checked').length === 1;
-                    var desc = submitRow.find('textarea[name=desc]').val();
-
-                    data.formData = {
-                        title: desc,
-                        desc: desc,
-                        type: 'NEWS',
-                        isDeliver: isDeliver,
-                    };
-
-                    if (nextRow.attr('id') === 'crop-row') {
-                        nextRow.remove();
-                    }
-                    return true;
+                    data.formData = getFormData(submitRow);
                 },
                 uploadTemplate: function (o) {
-                    console.log('uploadTemplate')
                     var rows = $();
                     $.each(o.files, function (index, file) {
-                        // var blobURL = URL.createObjectURL(file);
                         var row = $($('#video-upload-template').html());
                         if (file.error) {
                             row.find('.start').addClass('hidden');
@@ -261,30 +285,27 @@
                         }
                         rows = rows.add(row);
                     });
-                    console.log(rows)
                     return rows;
-                },
-
+                }
             });
-        // });
 
-        // $(function(){
+            $('#files-video').on('click', '.setMainVideo', function(){
+                setMainVideo($(this));
+            });
 
             // 一般影片連結
             var player = null;
-            var $urlResultElm = $('#result');
+            var $urlResultElm = $('#url-video');
             var embed = function(url, $targetEle){
 
-                return $.embedly.oembed(url)
-                .progress(function(obj){
-                    console.log(obj)
+                return $.embedly.oembed(url).progress(function(obj){
                     if (!obj.html){
                         $targetEle.html('');
                         window.alert('影片的連結有問題！');
                         return false;
                     }
+                    videoIframe = obj.html;
                     var row = $($('#video-upload-template').html());
-                    console.log(obj)
                     row.find('.preview').html(obj.html);
                     row.find('input[name=title]').val(obj.title);
                     row.find('input[name=url]').val(obj.original_url);
@@ -297,39 +318,24 @@
             $urlResultElm.on('click', '.start', function(){
                 var defaultTime = 10;
                 var progressEle = $(this).parents('tr').find('.progress-bar');
-                var data = {
-                    url: $urlResultElm.find('input[name= url]').val(),
-                    title: $urlResultElm.find('input[name=title]').val(),
-                    desc: $urlResultElm.find('input[name=desc]').val()
-                }
-
+                var formData = getFormData($urlResultElm);
                 $(this).attr('disabled', 'disabled');
 
-                $.post( createVideoUrl, data)
+                $.post( createVideoUrl, formData)
                     .success(function(data){
-                        console.log(123, data)
                         progressEle.css('width', '100%')
                         window.clearInterval(timer);
 
                         // 換下個步驟
                         var videoResultTemplate = $($('#video-result-template').html());
-
-                        videoResultTemplate
-                            .find('source').attr('src', 'https://www.w3schools.com/html/mov_bbb.mp4').load();
-
-
-                        if(data.isDeliver) {
-                            videoResultTemplate.find('.canNotDeliver').remove();
-                        }
-
-
+                        videoResultTemplate = setVideoResultTemplate(videoResultTemplate, data, 'url')
                         $urlResultElm.html(videoResultTemplate).find('.fade').addClass('in');
                     })
                     .fail(function(err){
-                        console.log(456,err.responseJSON)
+                        console.error(err.responseJSON)
                     });
 
-                // set progress time
+                // 設定進度條
                 var timer = window.setInterval(function progressbarGo (){
                     defaultTime--;
                     var progress = 100 - defaultTime*10 + '%';
@@ -338,16 +344,11 @@
                         window.clearInterval(timer);
                         return false;
                     }
-                }, 50);
+                }, 10);
             });
 
             $urlResultElm.on('click', '.cancel', function(){
-                $urlResultElm.html('');
-
-                // var videoResultTemplate = $($('#video-result-template').html());
-                // videoResultTemplate.find('source').attr('src', 'https://www.w3schools.com/html/mov_bbb.mp4').load();
-
-                // $urlResultElm.html(videoResultTemplate).find('.fade').addClass('in');
+                return $urlResultElm.html('');
             }).on('click', '.delete', function(){
                 var confirmed = confirm('您確定要刪除嗎？');
                 if (!confirmed) { return; }
@@ -356,22 +357,13 @@
                 $.ajax({
                     url: removeVideoUrl + id,
                     type: 'DELETE',
-                    success: function(result) {
-                        console.log(result);
+                    success: function(data) {
                         $urlResultElm.html('');
                     }
                 });
-                console.log('delete', $(this).attr('data-id'))
             }).on('click', '.setMainVideo', function(){
-                console.log('setMainVideo')
-                var videoId = $urlResultElm.find('input[name=videoId]').val();
-
-                $('input[name=MainPhoto]').val(videoId);
-                $('source[name=MainVideo]').attr('src', 'https://www.w3schools.com/html/mov_bbb.mp4');
-                $('#video-preview video').load().removeClass('hide');
-                // $('.image-setting-area .btn-collapse').click();
-            })
-
+                setMainVideo($(this), 'url')
+            });
 
             // URL inpute
             var $url = $('#MainVideo');
