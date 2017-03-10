@@ -1,4 +1,4 @@
- <div class="box publish-setting">
+ <div class="box video-setting">
     <div class="box-header with-border">
         <h3 class="box-title">
             影片設定上傳區
@@ -19,6 +19,21 @@
                 </label>
                 <input type="hidden" name="MainVideo" value="{{news.MainVideo._id}}" />
                 <div id="video-preview">
+                    {% if news.MainVideo and news.MainVideo.videoFrom == 'INTERNAL' %}
+                        <video class="video" width="400" height="280" controls>
+                            <source src="{{news.MainVideo.url}}" type="video/mp4" >
+                        </video>
+                        <br>
+                        <strong>{{news.MainVideo.title}}</strong>
+                        <br>
+                        <span>{{news.MainVideo.desc}}</span>
+                    {% elif news.MainVideo and news.MainVideo.videoFrom == 'EXTERNAL' %}
+                        <input type="hidden" name="EXTERNAL" value="{{news.MainVideo.url}}" />
+                        <br>
+                        <strong>{{news.MainVideo.title}}</strong>
+                        <br>
+                        <span>{{news.MainVideo.desc}}</span>
+                    {% endif %}
                     {# 這裡會插入選擇的主影片 HTML #}
                 </div>
                 <div class="content">
@@ -44,7 +59,7 @@
                                 <br>
                                 <label for="MainVideo">影片 URL</label>
                                 <div class="input-group">
-                                    <input id="MainVideo" name="urlVideo" type="text" value="http://vimeo.com/18150336" class="form-control">
+                                    <input id="MainVideo" name="urlVideo" type="text" placeholder="https://www.youtube.com/watch?v=VRThxEYVJGs" value="https://www.youtube.com/watch?v=VRThxEYVJGs" class="form-control">
                                     <div class="input-group-btn">
                                         <a class="btn btn-info">預覽影片</a>
                                     </div>
@@ -177,7 +192,7 @@
                     previewHtml = $(videoIframe).attr({
                         width: 400,
                         height: 280
-                    })
+                    });
                 } else {
                     previewHtml = $($('#video-player-template').html());
                     previewHtml.find('source').attr('src', setBtn.attr('data-url'));
@@ -371,6 +386,21 @@
                 embed($url.val(), $urlResultElm);
                 return false;
             });
+
+            if ($('input[name=EXTERNAL]').length > 0){
+                var url = $('input[name=EXTERNAL]').val();
+                $.embedly.oembed(url).progress(function(obj){
+                    if (!obj.html){
+                        $('#video-preview').html('影片的連結有問題！');
+                        return false;
+                    }
+                    var previewHtml = $(obj.html).attr({
+                        width: 400,
+                        height: 280
+                    })
+                    $('#video-preview input[name=EXTERNAL]').after(previewHtml);
+                });
+            }
 
         });
         $.embedly.defaults.key = '3ee528c9eb4b4908b268ce1ace120c92';
