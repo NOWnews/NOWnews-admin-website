@@ -16,6 +16,7 @@
             <div class="image-preview">
                 <input type="hidden" name="MainPhoto" value="{{photo._id}}" />
                 <img class="image" name="MainPhoto" src="{{photo.url}}" />
+                <p class="preview-desc">{{photo.desc}}</p>
             </div>
             {% include '../../util/fileupload.html' %}
         </div>

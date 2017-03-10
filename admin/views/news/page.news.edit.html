@@ -64,7 +64,7 @@
                             </label>
                             <select name="type" class="form-control select2" required>
                                 {% for key, type in NEWS_TYPES %}
-                                    {% if news.type == type %}
+                                    {% if news.type == key %}
                                         <option value="{{ key }}" selected>{{ type }}</option>
                                     {% else %}
                                         <option value="{{ key }}">{{ type }}</option>
@@ -167,6 +167,9 @@
         {% set photo = news.MainPhoto %}
         {% include "./newsBlock/photo.html" %}
 
+        {# 影片設定 #}
+        {% include "./video/block.video.html" %}
+
         {# 文章設定 #}
         {% include "./article/block.edit.article.html" %}
 
@@ -239,6 +242,7 @@
             contentsCss: '/static/css/customCKEditor.css',
             extraAllowedContent: 'img[data-isdeliver]',
             height:550,
+            allowedContent: 'iframe[*]',
             removeButtons: 'About'
         });
 
@@ -377,6 +381,18 @@
             delimiter: ',',
             placeholder: '請用 Enter 或逗號加入關鍵字 ...',
             maxTags: 7
+        });
+
+
+        if ($('select[name=type]').val() !== 'VIDEO') {
+            $('.video-setting').addClass('hide');
+        }
+        $('select[name=type]').change(function(){
+            if($(this).val() === 'VIDEO') {
+                $('.video-setting').removeClass('hide');
+            } else {
+                $('.video-setting').addClass('hide');
+            }
         });
     });
 </script>
