@@ -131,7 +131,7 @@
                 <strong class="error text-danger"></strong>
             </td>
             <td>
-                <div style="{position: relative;}">
+                <div>
                     <small class="label label-warning canNotDeliver">
                         <i class="fa fa-bin"></i>不可外送
                     </small>
@@ -325,7 +325,7 @@
                     row.find('input[name=title]').val(obj.title);
                     row.find('input[name=url]').val(obj.original_url);
                     row.find('textarea[name=desc]').val(obj.description);
-
+                    row.find('.size').hide();
                     $targetEle.html(row).find('.fade').addClass('in');
                 });
             };
@@ -338,7 +338,7 @@
 
                 $.post( createVideoUrl, formData)
                     .success(function(data){
-                        progressEle.css('width', '100%')
+                        progressEle.css('width', '100%');
                         window.clearInterval(timer);
 
                         // 換下個步驟
