@@ -51,6 +51,7 @@ $(function () {
         var parentElm = setBtn.parent().parent();
         $('input[name=MainPhoto]').val(parentElm.find('input[name=imageId]').val());
         $('img[name=MainPhoto]').attr('src', setBtn.attr('data-url'));
+        $('.preview-desc').text(parentElm.find('.desc').text());
         $('.image-setting-area .btn-collapse').click();
     }
 
