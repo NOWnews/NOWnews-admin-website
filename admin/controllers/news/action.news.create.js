@@ -23,6 +23,10 @@ module.exports = async (req, res, next) => {
         if (data.MainPhoto === '') {
             data.MainPhoto = null;
         }
+        // MainVideo 是字串就不傳
+        if (data.MainVideo === '') {
+            data.MainVideo = null;
+        }
 
         // Tags 的處理
         let tags;
