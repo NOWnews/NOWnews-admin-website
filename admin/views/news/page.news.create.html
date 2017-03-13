@@ -214,9 +214,8 @@
         // Replace the <textarea id="editor1"> with a CKEditor
         var newsContent = CKEDITOR.replace('editor1', {
             contentsCss: '/static/css/customCKEditor.css',
-            extraAllowedContent: 'img[data-isdeliver]',
+            extraAllowedContent: 'img[data-isdeliver];iframe[*]',
             height:550,
-            allowedContent: 'iframe[*]',
             removeButtons: 'About'
         });
 
