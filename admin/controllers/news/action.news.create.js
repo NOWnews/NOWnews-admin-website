@@ -23,8 +23,8 @@ module.exports = async (req, res, next) => {
         if (data.MainPhoto === '') {
             data.MainPhoto = null;
         }
-        // MainVideo 是字串就不傳
-        if (data.MainVideo === '') {
+        // news 如果不是影音新聞 且 MainVideo 是字串就不傳
+        if (data.type !== 'VIDEO' || data.MainVideo === '') {
             data.MainVideo = null;
         }
 
