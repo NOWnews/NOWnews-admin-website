@@ -10,7 +10,7 @@
         <input type="hidden" name="_method" value="put">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">作者: {{ news.Author.name }}</h3>
+                <h3 class="box-title">新聞建立者: {{ news.CreatedBy.name }}</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -188,6 +188,9 @@
         #}
         <div class="edit-footer text-center">
             <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
+            <button id="preview-btn" type="button"
+                class="btn bg-orange btn-flat margin"
+                data-newsId="{{news._id}}">預覽</button>
             <a class="btn btn-info btn-flat margin"
                 href="/news/{{news._id}}/logs"
                 target="_blank">
@@ -393,6 +396,14 @@
             } else {
                 $('.video-setting').addClass('hide');
             }
+        });
+
+
+        $('#preview-btn').on('click', function(){
+            var newsId = $(this).attr('data-newsId');
+            $.post('/news/' + newsId + '/preview', function(data) {
+                window.open(data.previewUrl);
+            });
         });
     });
 </script>
