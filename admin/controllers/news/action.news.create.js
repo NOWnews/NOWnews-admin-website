@@ -66,7 +66,7 @@ module.exports = async (req, res, next) => {
 
         debug('createdNews = %j', news);
 
-        return res.redirect(`/news/${news._id}`);
+        return res.redirect('/news/createList');
     }
     catch(err) {
         return next(err);
