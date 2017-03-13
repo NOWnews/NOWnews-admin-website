@@ -347,6 +347,17 @@
             placeholder: '請用 Enter 或逗號加入關鍵字 ...',
             maxTags: 7
         });
+
+        if ($('select[name=type]').val() !== 'VIDEO') {
+            $('.video-setting').addClass('hide');
+        }
+        $('select[name=type]').change(function(){
+            if($(this).val() === 'VIDEO') {
+                $('.video-setting').removeClass('hide');
+            } else {
+                $('.video-setting').addClass('hide');
+            }
+        });
     });
 </script>
 {% endblock %}
