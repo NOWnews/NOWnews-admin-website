@@ -7,8 +7,10 @@ module.exports = async (req, res, next) => {
         let { newsId } = req.params;
 
         let { data: newslogList } = await axios.get('/newslog', {
-            newsId,
-            sort: 'createdAt',
+            params: {
+                newsId,
+                sort: 'createdAt',
+            }
         });
 
         debug('newslogList = %j', newslogList);

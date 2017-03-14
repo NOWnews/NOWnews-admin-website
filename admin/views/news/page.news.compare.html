@@ -55,6 +55,15 @@
                     {{ compare.text('主圖圖說', before.MainPhoto.desc, after.MainPhoto.desc) }}
 
 
+                    {# 影片設定上傳區 #}
+                    {{ compare.text('主影片', before.MainVideo.url, after.MainVideo.url) }}
+
+                    {{ compare.text('影片標題', before.MainVideo.title, after.MainVideo.title) }}
+
+                    {{ compare.text('影片描述', before.MainVideo.desc, after.MainPhoto.desc) }}
+
+
+
                     {# 文章設定 #}
                     {{ compare.html('內文', 'content', before, after) }}
 
@@ -72,13 +81,11 @@
                     {{ compare.text('最後的新聞審稿者', before.LastReviewer.name, after.LastReviewer.name) }}
 
 
-                    {# 第一版先隱藏起來 / 其他新聞類別
+                    {# 後續版本先隱藏起來 / 其他新聞類別
 
-                        {{ compare.text('新聞主影音', before.MainVideo, after.MainVideo) }}
+                        {{ compare.text('新聞圖片', before.Photos, after.Photos) }}
 
-                        {{ compare.text('新聞主影音', before.Photos, after.Photos) }}
-
-                        {{ compare.text('新聞主影音', before.Videos, after.Videos) }}
+                        {{ compare.text('新聞影音', before.Videos, after.Videos) }}
 
                         {{ compare.text('追蹤碼', before.traceCode, after.traceCode) }}
 
