@@ -28,6 +28,12 @@ module.exports = async (req, res, next) => {
             data.MainVideo = null;
         }
 
+        // news 如果不是業配文，刪掉這兩個業務欄位
+        if (!data.isSponsored) {
+            data.traceCode = null;
+            data.freeContent = null;
+        }
+
         // Tags 的處理
         let tags;
         if (data.tags !== ''){
