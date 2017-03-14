@@ -14,7 +14,6 @@
         {% if page == pageData.currentPage %}
             <li class="active"><a>{{ page }}</a></li>
         {% elif currentFontRange >= page and page >= currentBackRange %}
-            {% set checkContent = true %}
             <li><a href="?page={{page}}">{{ page }}</a></li>
         {% elif loop.first %}
             <li><a href="?page={{page}}">{{ page }}</a></li>
