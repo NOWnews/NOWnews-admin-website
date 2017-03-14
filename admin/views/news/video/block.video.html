@@ -23,16 +23,36 @@
                         <video class="video" width="400" height="280" controls>
                             <source src="{{news.MainVideo.url}}" type="video/mp4" >
                         </video>
-                        <br>
-                        <strong>{{news.MainVideo.title}}</strong>
-                        <br>
-                        <span>{{news.MainVideo.desc}}</span>
+                        <div class="preview-edit-area">
+                            <a class="btn btn-success fa fa-save"></a>
+                            <a class="btn btn-warning fa fa-undo hidden"></a>
+                        </div>
+                        <div class="input-group" style="margin: 7px 0;">
+                            <span class="hide origin-title">{{news.MainVideo.title}}</span>
+                            <span class="input-group-addon">標題</span>
+                            <input type="text" class="input form-control new-title" value="{{news.MainVideo.title}}" />
+                        </div>
+                        <div class="input-group">
+                            <span class="hide origin-desc">{{news.MainVideo.desc}}</span>
+                            <span class="input-group-addon">描述</span>
+                            <textarea class="form-control new-desc" rows="4">{{news.MainVideo.desc}}</textarea>
+                        </div>
                     {% elif news.MainVideo and news.MainVideo.videoFrom == 'EXTERNAL' %}
                         <input type="hidden" name="EXTERNAL" value="{{news.MainVideo.url}}" />
-                        <br>
-                        <strong>{{news.MainVideo.title}}</strong>
-                        <br>
-                        <span>{{news.MainVideo.desc}}</span>
+                        <div class="preview-edit-area">
+                            <a class="btn btn-success fa fa-save"></a>
+                            <a class="btn btn-warning fa fa-undo hidden"></a>
+                        </div>
+                        <div class="input-group" style="margin: 7px 0;">
+                            <span class="hide origin-title">{{news.MainVideo.title}}</span>
+                            <span class="input-group-addon">標題</span>
+                            <input type="text" class="input form-control new-title" value="{{news.MainVideo.title}}" />
+                        </div>
+                        <div class="input-group">
+                            <span class="hide origin-desc">{{news.MainVideo.desc}}</span>
+                            <span class="input-group-addon">描述</span>
+                            <textarea class="form-control new-desc" rows="4">{{news.MainVideo.desc}}</textarea>
+                        </div>
                     {% endif %}
                     {# 這裡會插入選擇的主影片 HTML #}
                 </div>
@@ -174,7 +194,7 @@
             /* 公用變數 */
             var uploadVideoUrl = '/video/upload';
             var createVideoUrl = '/video';
-            var removeVideoUrl = '/video/realRemove/';
+            var removeVideoUrl = '/video/remove/';
             var videoIframe = '';
             var videoResultTemplate = $($('#video-result-template').html());
 
@@ -378,6 +398,61 @@
                 });
             }).on('click', '.setMainVideo', function(){
                 setMainVideo($(this), 'url')
+            });
+
+            // Preview Edit Text
+            $('.preview-edit-area').on('click', '.fa-save', function () {
+                var parentBlock = $('#video-preview');
+                var newTitle = parentBlock.find('input.new-title').val().trim();
+                var originTitleElm = parentBlock.find('span.origin-title');
+                var newDesc = parentBlock.find('textarea.new-desc').val().trim();
+                var originDescElm = parentBlock.find('span.origin-desc');
+                var undoBtn =  parentBlock.find('.btn.fa-undo');
+
+                if (newTitle === originTitleElm.text() && newDesc === originDescElm.text() ) {
+                    return alert('標題跟描述沒有更新！');
+                }
+
+                var videoId = $('input[name=MainVideo]').val();
+                $.ajax({
+                    url: '/video/update/' + videoId,
+                    data: { title: newTitle, desc: newDesc },
+                    method: 'PUT'
+                }).done(function(result) {
+                    originTitleElm.text(newTitle);
+                    originDescElm.text(newDesc);
+                    undoBtn.addClass('hidden');
+                    alert('影片更新成功！');
+                }).fail(function() {
+                    alert('影片更新失敗！');
+                });
+
+            }).on('click', '.fa-undo', function () {
+                var parentBlock = $('#video-preview');
+                var newTitleElm = parentBlock.find('input.new-title');
+                var originTitle = parentBlock.find('span.origin-title').text().trim();
+                var newDescElm = parentBlock.find('textarea.new-desc');
+                var originDesc = parentBlock.find('span.origin-desc').text().trim();
+
+                newTitleElm.val(originTitle)
+                newDescElm.val(originDesc);
+                $(this).addClass('hidden');
+            });
+
+            $('#video-preview').on('change', 'textarea.new-desc, input.new-title', function() {
+                console.log('L434');
+                var parentBlock = $('#video-preview');
+                var originTitle = parentBlock.find('span.origin-title').text().trim();
+                var originDesc = parentBlock.find('span.origin-desc').text().trim();
+                var newTitle = parentBlock.find('input.new-title').val().trim();
+                var newDesc = parentBlock.find('textarea.new-desc').val().trim();
+                var undoBtn =  parentBlock.find('.btn.fa-undo');
+
+                if (originTitle === newTitle && originDesc === newDesc ) {
+                    undoBtn.addClass('hidden');
+                    return;
+                }
+                undoBtn.removeClass('hidden');
             });
 
             // URL inpute

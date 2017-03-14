@@ -26,6 +26,11 @@ module.exports = async (req, res, next) => {
             data.MainPhoto = null;
         }
 
+        // news 如果不是影音新聞 且 MainVideo 是字串就不傳
+        if (data.type !== 'VIDEO' || data.MainVideo === '') {
+            data.MainVideo = null;
+        }
+
         // Tags 的處理
         let tags;
         if (data.tags !== ''){
