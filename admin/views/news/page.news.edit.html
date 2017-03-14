@@ -173,9 +173,8 @@
         {# 文章設定 #}
         {% include "./article/block.edit.article.html" %}
 
-        {# 業務欄位 第一版先隱藏起來
+        {# 業務欄位 #}
         {% include "./sponsored/block.edit.sponsored.html" %}
-        #}
 
         {# 發稿設定 #}
         {% include "./releaseSet/block.edit.releaseSet.html" %}
@@ -403,6 +402,18 @@
             $.post('/news/' + newsId + '/preview', function(data) {
                 window.open(data.previewUrl);
             });
+        });
+
+        // 業務欄位
+        if ($('input[name=isSponsored]').prop('checked')) {
+            $('.sponsored-setting').removeClass('hide');
+        }
+        $('input[name=isSponsored]').change(function(){
+            if($(this).prop('checked')) {
+                $('.sponsored-setting').removeClass('hide');
+            } else {
+                $('.sponsored-setting').addClass('hide');
+            }
         });
     });
 </script>

@@ -151,9 +151,8 @@
         {# 文章設定 #}
         {% include "./article/block.create.article.html" %}
 
-        {# 業務欄位 第一版先隱藏起來
+        {# 業務欄位 #}
         {% include "./sponsored/block.create.sponsored.html" %}
-        #}
 
         {# 發稿設定 #}
         {% include "./releaseSet/block.create.releaseSet.html" %}
@@ -355,6 +354,18 @@
                 $('.video-setting').removeClass('hide');
             } else {
                 $('.video-setting').addClass('hide');
+            }
+        });
+
+        // 業務欄位
+        if ($('input[name=isSponsored]').prop('checked')) {
+            $('.sponsored-setting').removeClass('hide');
+        }
+        $('input[name=isSponsored]').change(function(){
+            if($(this).prop('checked')) {
+                $('.sponsored-setting').removeClass('hide');
+            } else {
+                $('.sponsored-setting').addClass('hide');
             }
         });
     });
