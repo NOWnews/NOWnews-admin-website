@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
 
         let pageData = newsListInfo.pageData;
         let listDescription = {
-            title: '我建立的新聞',
+            title: '我的新聞',
             subtitle: '由我建立的所有新聞列表。',
         };
 
