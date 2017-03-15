@@ -68,5 +68,18 @@
             "url": "/topic/create",
             "name": "新增專題"
         }]
+    },
+    "specialchannel": {
+        "url": "#",
+        "name": "特輯",
+        "icon": "fa-user",
+        "children": [{
+            "url": "/specialchannel",
+            "name": "特輯列表"
+        },
+        {
+            "url": "/specialchannel/create",
+            "name": "新增特輯"
+        }]
     }
 }
