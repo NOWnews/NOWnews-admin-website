@@ -56,7 +56,7 @@
                     <input name="imgEndedAt" type="date" />
                 </div>
                 <div class="form-group col-md-2">
-                    <input name="desc" type="text" placeholder="關鍵字" />
+                    <input name="desc" type="text" placeholder="關鍵字(用逗點區隔)" />
                 </div>
                 <div class="form-group col-md-1">
                     <button type="button" class="btn btn-default imageLibQueryForm">查詢</button>
@@ -139,7 +139,7 @@
             <strong class="error text-danger"></strong>
         </td>
         <td>
-            <div style="{position: relative;}">
+            <div>
             <small class="label label-warning canNotDeliver">
                 <i class="fa fa-bin"></i>不可外送
             </small>
@@ -191,28 +191,31 @@
 </script>
 
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/jquery.ui.widget.min.js "></script>
+<script src="/static/js/file-upload/vendor/jquery.ui.widget.js"></script>
 
 <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-<script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js "></script>
+<script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
 
 <!-- The basic File Upload plugin -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.2/jquery.fileupload.min.js"></script>
+<script src="/static/js/file-upload/jquery.fileupload.js"></script>
 
 <!-- The File Upload processing plugin -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.2/jquery.fileupload-process.js "></script>
+<script src="/static/js/file-upload/jquery.fileupload-process.js"></script>
 
 <!-- The File Upload image preview & resize plugin -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.2/jquery.fileupload-image.js "></script>
+<script src="/static/js/file-upload/jquery.fileupload-image.js"></script>
+
+<!-- The File Upload video preview plugin -->
+<script src="/static/js/file-upload/jquery.fileupload-video.js"></script>
 
 <!-- The File Upload user interface plugin -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.2/jquery.fileupload-ui.js "></script>
+<script src="/static/js/file-upload/jquery.fileupload-ui.js"></script>
 
 <!-- The File Zoom -->
-<script src="http://www.jacklmoore.com/js/jquery.zoom.js "></script>
+<script src="http://www.jacklmoore.com/js/jquery.zoom.js"></script>
 
 <!-- The main application script -->
-<script src="/static/js/fileupload.js "></script>
+<script src="/static/js/fileupload.js"></script>
 
 <style type="text/css">
     .copy-area {

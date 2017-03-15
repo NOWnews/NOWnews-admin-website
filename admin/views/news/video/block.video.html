@@ -1,0 +1,483 @@
+ <div class="box video-setting">
+    <div class="box-header with-border">
+        <h3 class="box-title">
+            影片設定上傳區
+            <span class="text-danger">*</span>
+        </h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <label>
+                    主影片
+                    <span class="text-danger">*</span>
+                </label>
+                <input type="hidden" name="MainVideo" value="{{news.MainVideo._id}}" />
+                <div id="video-preview">
+                    {% if news.MainVideo and news.MainVideo.videoFrom == 'INTERNAL' %}
+                        <video class="video" width="400" height="280" controls>
+                            <source src="{{news.MainVideo.url}}" type="video/mp4" >
+                        </video>
+                        <div class="preview-edit-area">
+                            <a class="btn btn-success fa fa-save"></a>
+                            <a class="btn btn-warning fa fa-undo hidden"></a>
+                        </div>
+                        <div class="input-group" style="margin: 7px 0;">
+                            <span class="hide origin-title">{{news.MainVideo.title}}</span>
+                            <span class="input-group-addon">標題</span>
+                            <input type="text" class="input form-control new-title" value="{{news.MainVideo.title}}" />
+                        </div>
+                        <div class="input-group">
+                            <span class="hide origin-desc">{{news.MainVideo.desc}}</span>
+                            <span class="input-group-addon">描述</span>
+                            <textarea class="form-control new-desc" rows="4">{{news.MainVideo.desc}}</textarea>
+                        </div>
+                    {% elif news.MainVideo and news.MainVideo.videoFrom == 'EXTERNAL' %}
+                        <input type="hidden" name="EXTERNAL" value="{{news.MainVideo.url}}" />
+                        <div class="preview-edit-area">
+                            <a class="btn btn-success fa fa-save"></a>
+                            <a class="btn btn-warning fa fa-undo hidden"></a>
+                        </div>
+                        <div class="input-group" style="margin: 7px 0;">
+                            <span class="hide origin-title">{{news.MainVideo.title}}</span>
+                            <span class="input-group-addon">標題</span>
+                            <input type="text" class="input form-control new-title" value="{{news.MainVideo.title}}" />
+                        </div>
+                        <div class="input-group">
+                            <span class="hide origin-desc">{{news.MainVideo.desc}}</span>
+                            <span class="input-group-addon">描述</span>
+                            <textarea class="form-control new-desc" rows="4">{{news.MainVideo.desc}}</textarea>
+                        </div>
+                    {% endif %}
+                    {# 這裡會插入選擇的主影片 HTML #}
+                </div>
+                <div class="content">
+                    <ul class="nav nav-tabs ui-sortable-handle">
+                        <li class="active"><a href="#video-upload" data-toggle="tab">影片上傳</a></li>
+                        <li class=""><a href="#video-url" data-toggle="tab">影片網址</a></li>
+                    </ul>
+                    <div class="tab-content no-padding">
+                        <div class="tab-pane active" id="video-upload">
+                            <br>
+                            <label class="btn btn-success fileinput-button" for="fileupload-video">
+                                <i class="fa fa-plus"></i>
+                                <span>上傳影片檔</span>
+                                <input id="fileupload-video" type="file" name="files[]" multiple class="sr-only">
+                            </label>
+                            <br>
+                            <table role="presentation" class="table table-striped">
+                                <tbody id="files-video"></tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="video-url">
+                            <div class="url-form">
+                                <br>
+                                <label for="MainVideo">影片 URL</label>
+                                <div class="input-group">
+                                    <input id="MainVideo" name="urlVideo" type="text" placeholder="https://www.youtube.com/watch?v=VRThxEYVJGs" value="https://www.youtube.com/watch?v=VRThxEYVJGs" class="form-control">
+                                    <div class="input-group-btn">
+                                        <a class="btn btn-info">預覽影片</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <table role="presentation" class="table table-striped">
+                                <tbody id="url-video"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# 模板 #}
+        {# 上傳回來的結果 #}
+    <script id="video-upload-template" type="text/x-custom-template">
+        <tr class="template-upload fade">
+            <td>
+                <div class="preview text-center"></div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="isDeliver" checked="checked" />可外送</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>影片標題</label>
+                    <input name="title" class="form-control" placeholder="影片標題" />
+                </div>
+                <div class="form-group">
+                    <label>影片描述</label>
+                    <textarea name="desc" class="form-control" placeholder="影片描述" rows="4"></textarea>
+                    <input name="url" type="hidden"></textarea>
+                </div>
+                <strong class="error text-danger"></strong>
+            </td>
+            <td class="hidden-xs">
+                <p class="size">處理中...</p>
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                </div>
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary start">
+                    <i class="fa fa-upload"></i>
+                    <span class="hidden-xs">上傳</span>
+                </button>
+                <button type="button" class="btn btn-warning cancel">
+                    <i class="fa fa-ban"></i>
+                    <span class="hidden-xs">取消</span>
+                </button>
+            </td>
+        </tr>
+    </script>
+
+        {# 回傳回來的結果 #}
+    <script id="video-result-template" type="text/x-custom-template">
+        <tr class="template-download fade">
+            <input name="videoId" type="hidden" />
+            <td>
+                <div class="preview text-center">
+                    <video width="400" height="280" controls>
+                        <source src="" type="">
+                    </video>
+                </div>
+                <strong class="title"></strong><br>
+                <span class="desc"></span>
+                <strong class="error text-danger"></strong>
+            </td>
+            <td>
+                <div>
+                    <small class="label label-warning canNotDeliver">
+                        <i class="fa fa-bin"></i>不可外送
+                    </small>
+                </div>
+                <button type="button" class="btn bg-purple setMainVideo" data-id="">
+                    <i class="fa fa-check"></i>
+                    <span class="hidden-xs">設為主影片</span>
+                </button>
+                <button type="button" class="btn btn-danger delete" data-id="">
+                    <i class="fa fa-trash"></i>
+                    <span class="hidden-xs">刪除</span>
+                </button>
+                <button type="button" class="btn btn-warning cancel hidden">
+                    <i class="fa fa-ban"></i>
+                    <span class="hidden-xs">取消</span>
+                </button>
+            </td>
+        </tr>
+    </script>
+
+    <script id="video-player-template" type="text/x-custom-template">
+        <video class="video" width="400" height="280" controls>
+            <source src="{{news.MainVideo.url}}" type="video/mp4" >
+        </video>
+    </script>
+
+    {# 影片網址 #}
+    <script src="http://cdn.embed.ly/jquery.embedly-3.1.1.min.js"></script>
+    <script type="text/javascript" src="//cdn.embed.ly/player-0.0.12.min.js"></script>
+    <style>
+        #files-video video, #url-video iframe {
+            width: 400px;
+            height: 280px;
+        }
+    </style>
+    <script>
+        $(function () {
+            'use strict';
+
+            /* 公用變數 */
+            var uploadVideoUrl = '/video/upload';
+            var createVideoUrl = '/video';
+            var removeVideoUrl = '/video/remove/';
+            var videoIframe = '';
+            var videoResultTemplate = $($('#video-result-template').html());
+
+            // 設定主按鈕
+            var setMainVideo = function (setBtn, type) {
+                var parentElm = setBtn.parent().parent();
+                var previewHtml = '';
+                var videoId = parentElm.find('input[name=videoId]').val();
+                var title = parentElm.find('.title').text();
+                var desc = parentElm.find('.desc').text();
+
+                $('input[name=MainVideo]').val(videoId);
+
+                if (type === 'url') {
+                    previewHtml = $(videoIframe).attr({
+                        width: 400,
+                        height: 280
+                    });
+                } else {
+                    previewHtml = $($('#video-player-template').html());
+                    previewHtml.find('source').attr('src', setBtn.attr('data-url'));
+                }
+
+                previewHtml = previewHtml.add('<br><strong>'+ title +'</strong><br><span>'+ desc +'</span>')
+
+                $('#video-preview').html(previewHtml);
+            };
+
+            // 取得要被送出的資料
+            var getFormData = function (targetEle) {
+                var isDeliver = targetEle.find('input[name=isDeliver]:checked').length === 1;
+                var desc = targetEle.find('textarea[name=desc]').val();
+                var title = targetEle.find('input[name=title]').val();
+                var url = targetEle.find('input[name=url]').val();
+
+                return {
+                    title: title,
+                    desc: desc,
+                    url: url,
+                    type: 'NEWS',
+                    isDeliver: isDeliver
+                };
+            };
+
+            var setVideoResultTemplate = function (videoResultTemplate, file, type) {
+
+                videoResultTemplate.find('.delete').attr('data-id', file._id);
+                videoResultTemplate.find('.setMainVideo').attr({
+                    'data-id': file._id,
+                    'data-url': file.url
+                });
+                videoResultTemplate.find('input[name=videoId]').val(file._id)
+                videoResultTemplate.find('.title').text(file.title);
+                videoResultTemplate.find('.desc').text(file.desc);
+                videoResultTemplate.find('img').attr('data-isdeliver', file.isDeliver);
+
+                if (file.isDeliver) {
+                    videoResultTemplate.find('.canNotDeliver').remove();
+                }
+
+                if (type === 'url') {
+                    videoResultTemplate.find('.preview').html(videoIframe);
+                } else {
+                    videoResultTemplate.find('source').attr({
+                        'src': file.url,
+                        'type': file.mimetype
+                    });
+                }
+
+                return videoResultTemplate;
+            };
+
+
+            /* 檔案上傳 */
+            $('#fileupload-video').fileupload({
+                filesContainer: $('#files-video'),
+                downloadTemplateId: null,
+                paramName: 'video',
+                url: uploadVideoUrl,
+                uploadTemplateId: null,
+                destroy: function (e, data) {
+                    var that = this;
+                    // 自己上傳的當下可以真刪除
+                    $.ajax({
+                        url: removeVideoUrl + data.id,
+                        type: 'DELETE',
+                        success: function(result) {
+                            // 再去呼叫原生 library destroy 該做的事情
+                            $.blueimp.fileupload.prototype.options.destroy.call(that, e, data);
+                        }
+                    });
+                },
+                downloadTemplate: function (o) {
+                    var rows = $();
+                    $.each(o.files, function (index, file) {
+                        var row = $($('#video-result-template').html());
+                        row = setVideoResultTemplate(row, file)
+
+                        if (file.error) {
+                            row.find('.setMainVideo').addClass('hidden');
+                            row.find('.delete').addClass('hidden');
+                            row.find('.cancel').removeClass('hidden');
+                            row.find('.error').text(file.error);
+                        }
+                        rows = rows.add(row);
+                    });
+                    return rows;
+                },
+                getFilesFromResponse: function (data) {
+                    return [data.result];
+                },
+                submit: function (e, data) {
+                    var submitRow = $(data.context);
+                    data.formData = getFormData(submitRow);
+                },
+                uploadTemplate: function (o) {
+                    var rows = $();
+                    $.each(o.files, function (index, file) {
+                        var row = $($('#video-upload-template').html());
+                        if (file.error) {
+                            row.find('.start').addClass('hidden');
+                            row.find('.error').text(file.error);
+                        }
+                        rows = rows.add(row);
+                    });
+                    return rows;
+                }
+            });
+
+            $('#files-video').on('click', '.setMainVideo', function(){
+                setMainVideo($(this));
+            });
+
+            // 一般影片連結
+            var player = null;
+            var $urlResultElm = $('#url-video');
+            var embed = function(url, $targetEle){
+
+                return $.embedly.oembed(url).progress(function(obj){
+                    if (!obj.html){
+                        $targetEle.html('');
+                        window.alert('影片的連結有問題！');
+                        return false;
+                    }
+                    videoIframe = obj.html;
+                    var row = $($('#video-upload-template').html());
+                    row.find('.preview').html(obj.html);
+                    row.find('input[name=title]').val(obj.title);
+                    row.find('input[name=url]').val(obj.original_url);
+                    row.find('textarea[name=desc]').val(obj.description);
+                    row.find('.size').hide();
+                    $targetEle.html(row).find('.fade').addClass('in');
+                });
+            };
+
+            $urlResultElm.on('click', '.start', function(){
+                var defaultTime = 10;
+                var progressEle = $(this).parents('tr').find('.progress-bar');
+                var formData = getFormData($urlResultElm);
+                $(this).attr('disabled', 'disabled');
+
+                $.post( createVideoUrl, formData)
+                    .success(function(data){
+                        progressEle.css('width', '100%');
+                        window.clearInterval(timer);
+
+                        // 換下個步驟
+                        var videoResultTemplate = $($('#video-result-template').html());
+                        videoResultTemplate = setVideoResultTemplate(videoResultTemplate, data, 'url')
+                        $urlResultElm.html(videoResultTemplate).find('.fade').addClass('in');
+                    })
+                    .fail(function(err){
+                        console.error(err.responseJSON)
+                    });
+
+                // 設定進度條
+                var timer = window.setInterval(function progressbarGo (){
+                    defaultTime--;
+                    var progress = 100 - defaultTime*10 + '%';
+                    progressEle.css('width', progress)
+                    if(defaultTime===0){
+                        window.clearInterval(timer);
+                        return false;
+                    }
+                }, 10);
+            });
+
+            $urlResultElm.on('click', '.cancel', function(){
+                return $urlResultElm.html('');
+            }).on('click', '.delete', function(){
+                var confirmed = confirm('您確定要刪除嗎？');
+                if (!confirmed) { return; }
+
+                var id = $(this).attr('data-id');
+                $.ajax({
+                    url: removeVideoUrl + id,
+                    type: 'DELETE',
+                    success: function(data) {
+                        $urlResultElm.html('');
+                    }
+                });
+            }).on('click', '.setMainVideo', function(){
+                setMainVideo($(this), 'url')
+            });
+
+            // Preview Edit Text
+            $('.preview-edit-area').on('click', '.fa-save', function () {
+                var parentBlock = $('#video-preview');
+                var newTitle = parentBlock.find('input.new-title').val().trim();
+                var originTitleElm = parentBlock.find('span.origin-title');
+                var newDesc = parentBlock.find('textarea.new-desc').val().trim();
+                var originDescElm = parentBlock.find('span.origin-desc');
+                var undoBtn =  parentBlock.find('.btn.fa-undo');
+
+                if (newTitle === originTitleElm.text() && newDesc === originDescElm.text() ) {
+                    return alert('標題跟描述沒有更新！');
+                }
+
+                var videoId = $('input[name=MainVideo]').val();
+                $.ajax({
+                    url: '/video/update/' + videoId,
+                    data: { title: newTitle, desc: newDesc },
+                    method: 'PUT'
+                }).done(function(result) {
+                    originTitleElm.text(newTitle);
+                    originDescElm.text(newDesc);
+                    undoBtn.addClass('hidden');
+                    alert('影片更新成功！');
+                }).fail(function() {
+                    alert('影片更新失敗！');
+                });
+
+            }).on('click', '.fa-undo', function () {
+                var parentBlock = $('#video-preview');
+                var newTitleElm = parentBlock.find('input.new-title');
+                var originTitle = parentBlock.find('span.origin-title').text().trim();
+                var newDescElm = parentBlock.find('textarea.new-desc');
+                var originDesc = parentBlock.find('span.origin-desc').text().trim();
+
+                newTitleElm.val(originTitle)
+                newDescElm.val(originDesc);
+                $(this).addClass('hidden');
+            });
+
+            $('#video-preview').on('change', 'textarea.new-desc, input.new-title', function() {
+                console.log('L434');
+                var parentBlock = $('#video-preview');
+                var originTitle = parentBlock.find('span.origin-title').text().trim();
+                var originDesc = parentBlock.find('span.origin-desc').text().trim();
+                var newTitle = parentBlock.find('input.new-title').val().trim();
+                var newDesc = parentBlock.find('textarea.new-desc').val().trim();
+                var undoBtn =  parentBlock.find('.btn.fa-undo');
+
+                if (originTitle === newTitle && originDesc === newDesc ) {
+                    undoBtn.addClass('hidden');
+                    return;
+                }
+                undoBtn.removeClass('hidden');
+            });
+
+            // URL inpute
+            var $url = $('#MainVideo');
+            $('.url-form a').on('click', function(){
+                embed($url.val(), $urlResultElm);
+                return false;
+            });
+
+            if ($('input[name=EXTERNAL]').length > 0){
+                var url = $('input[name=EXTERNAL]').val();
+                $.embedly.oembed(url).progress(function(obj){
+                    if (!obj.html){
+                        $('#video-preview').html('影片的連結有問題！');
+                        return false;
+                    }
+                    var previewHtml = $(obj.html).attr({
+                        width: 400,
+                        height: 280
+                    })
+                    $('#video-preview input[name=EXTERNAL]').after(previewHtml);
+                });
+            }
+
+        });
+        $.embedly.defaults.key = '3ee528c9eb4b4908b268ce1ace120c92';
+    </script>
+</div>

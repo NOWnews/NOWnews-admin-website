@@ -2,6 +2,7 @@ import express from 'express';
 let router = express.Router();
 
 import actionNewsCreate from './action.news.create';
+import actionNewsPreview from './action.news.preview';
 import actionNewsRemove from './action.news.remove';
 import actionNewsUpdate from './action.news.update';
 
@@ -57,6 +58,9 @@ router.route('/compare')
 
 router.route('/:newsId/logs')
     .get(pageNewsLogs);
+
+router.route('/:newsId/preview')
+    .post(actionNewsPreview);
 
 router.route('/:newsId')
     .delete(actionNewsRemove)

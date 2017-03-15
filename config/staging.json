@@ -1,5 +1,6 @@
 {
     "mode": "staging",
+    "officialUrl": "http://localhost:5000",
     "apiServer": "http://api-admin.nownews.pri:10000",
     "expiredDay": 3,
     "headers": {

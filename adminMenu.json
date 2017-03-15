@@ -11,7 +11,7 @@
             "name": "所有新聞"
         },{
             "url": "/news/createList",
-            "name": "我建立的新聞"
+            "name": "我的新聞"
         },{
             "url": "/news/reviewList",
             "name": "待審中新聞"

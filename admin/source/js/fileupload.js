@@ -11,7 +11,7 @@ $(function () {
     'use strict';
 
     /* 公用變數 */
-    var fileuploadElm = $('#fileupload');
+    var fileuploadElm = $('#image-file');
     var fileRows = $('tbody.files');
     var imageBlocks = $('.image-blocks');
     var URL = window.URL || window.webkitURL;
@@ -51,6 +51,7 @@ $(function () {
         var parentElm = setBtn.parent().parent();
         $('input[name=MainPhoto]').val(parentElm.find('input[name=imageId]').val());
         $('img[name=MainPhoto]').attr('src', setBtn.attr('data-url'));
+        $('.preview-desc').text(parentElm.find('.desc').text());
         $('.image-setting-area .btn-collapse').click();
     }
 
@@ -58,6 +59,7 @@ $(function () {
     /* 上傳 */
     // Initialize the jQuery File Upload widget:
     fileuploadElm.fileupload({
+        filesContainer: $('tbody.files'),
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         downloadTemplateId: null,
         maxFileSize: 999000,

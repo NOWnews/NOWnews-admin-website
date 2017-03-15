@@ -10,7 +10,7 @@
         <input type="hidden" name="_method" value="put">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">作者: {{ news.Author.name }}</h3>
+                <h3 class="box-title">新聞建立者: {{ news.CreatedBy.name }}</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -64,7 +64,7 @@
                             </label>
                             <select name="type" class="form-control select2" required>
                                 {% for key, type in NEWS_TYPES %}
-                                    {% if news.type == type %}
+                                    {% if news.type == key %}
                                         <option value="{{ key }}" selected>{{ type }}</option>
                                     {% else %}
                                         <option value="{{ key }}">{{ type }}</option>
@@ -167,12 +167,14 @@
         {% set photo = news.MainPhoto %}
         {% include "./newsBlock/photo.html" %}
 
+        {# 影片設定 #}
+        {% include "./video/block.video.html" %}
+
         {# 文章設定 #}
         {% include "./article/block.edit.article.html" %}
 
-        {# 業務欄位 第一版先隱藏起來
+        {# 業務欄位 #}
         {% include "./sponsored/block.edit.sponsored.html" %}
-        #}
 
         {# 發稿設定 #}
         {% include "./releaseSet/block.edit.releaseSet.html" %}
@@ -185,6 +187,9 @@
         #}
         <div class="edit-footer text-center">
             <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
+            <button id="preview-btn" type="button"
+                class="btn bg-orange btn-flat margin"
+                data-newsId="{{news._id}}">預覽</button>
             <a class="btn btn-info btn-flat margin"
                 href="/news/{{news._id}}/logs"
                 target="_blank">
@@ -237,24 +242,24 @@
         // Replace the <textarea id="editor1"> with a CKEditor
         var newsContent = CKEDITOR.replace('editor1', {
             contentsCss: '/static/css/customCKEditor.css',
-            extraAllowedContent: 'img[data-isdeliver]',
+            extraAllowedContent: 'img[data-isdeliver];iframe[*]',
             height:550,
             removeButtons: 'About'
         });
 
         var defaultWarning = {
             wine: {
-                label: '插入吸毒警語',
-                warning: '<p>※<a href="https://www.nownews.com/">【 NOWnews 今日新聞 】</a>提醒您　飲酒過量有礙健康！※</p>'
+                label: '插入飲酒警語',
+                warning: '<p>※<a href="https://www.nownews.com/">【 NOWnews 今日新聞 】</a>提醒您  酒後不開車，飲酒過量有礙健康！※</p>'
             }, smoke: {
                 label: '插入吸菸警語',
-                warning: '<p>※行政院衛生署提醒您　吸菸能導致肺癌、心臟血管疾病！※</p>'
+                warning: '<p>※<a href="https://www.nownews.com/">【 NOWnews 今日新聞 】</a>提醒您  吸菸會導致肺癌、心臟血管疾病，未滿18歲不得吸菸！※</p>'
             }, suicide: {
                 label: '插入自殺警語',
-                warning: '<p>※<a href="https://www.nownews.com/">【 NOWnews 今日新聞 】</a> 提醒您：<br />自殺不能解決問題，勇敢求救並非弱者，生命一定可以找到出路。透過守門123步驟-1<br />問2應3轉介，你我都可以成為自殺防治守門人。<br />※　安心專線：0800-788-995(0800-請幫幫-救救我)<br />※　張老師專線：1980<br />※　生命線專線：1995<br /></p>'
+                warning: '<p>※<a href="https://www.nownews.com/">【 NOWnews 今日新聞 】</a> 提醒您：<br />自殺不能解決問題，勇敢求救並非弱者，生命一定可以找到出路。<br />透過守門123步驟-1問2應3轉介，你我都可以成為自殺防治守門人。<br />※  安心專線：0800-788-995(0800-請幫幫-救救我)<br />※  張老師專線：1980<br />※  生命線專線：1995<br /></p>'
             }, drog: {
                 label: '插入吸毒警語',
-                warning: '<p>※<a href="https://www.nownews.com/">【 NOWnews 今日新聞 】</a> 提醒您：<br />少一份毒品，多一分健康；吸毒一時，終身危害。<br />※　戒毒諮詢專線：0800-770-885(0800-請請您-幫幫我)<br />※　安心專線：0800-788-995(0800-請幫幫-救救我)<br />※　張老師專線：1980<br />※　生命線專線：1995<br /></p>'
+                warning: '<p>※<a href="https://www.nownews.com/">【 NOWnews 今日新聞 】</a> 提醒您：<br />少一份毒品，多一分健康；吸毒一時，終身危害。<br />※  戒毒諮詢專線：0800-770-885(0800-請請您-幫幫我)<br />※  安心專線：0800-788-995(0800-請幫幫-救救我)<br />※  張老師專線：1980<br />※　生命線專線：1995<br /></p>'
             }
         };
 
@@ -377,6 +382,38 @@
             delimiter: ',',
             placeholder: '請用 Enter 或逗號加入關鍵字 ...',
             maxTags: 7
+        });
+
+
+        if ($('select[name=type]').val() !== 'VIDEO') {
+            $('.video-setting').addClass('hide');
+        }
+        $('select[name=type]').change(function(){
+            if($(this).val() === 'VIDEO') {
+                $('.video-setting').removeClass('hide');
+            } else {
+                $('.video-setting').addClass('hide');
+            }
+        });
+
+
+        $('#preview-btn').on('click', function(){
+            var newsId = $(this).attr('data-newsId');
+            $.post('/news/' + newsId + '/preview', function(data) {
+                window.open(data.previewUrl);
+            });
+        });
+
+        // 業務欄位
+        if ($('input[name=isSponsored]').prop('checked')) {
+            $('.sponsored-setting').removeClass('hide');
+        }
+        $('input[name=isSponsored]').change(function(){
+            if($(this).prop('checked')) {
+                $('.sponsored-setting').removeClass('hide');
+            } else {
+                $('.sponsored-setting').addClass('hide');
+            }
         });
     });
 </script>

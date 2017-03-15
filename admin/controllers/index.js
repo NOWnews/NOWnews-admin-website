@@ -1,6 +1,7 @@
 import adminMenu from '../../adminMenu.json';
 import home from './home';
 import image from './image';
+import video from './video';
 import trend from './trend';
 import map from './map';
 import robot from './robot';
@@ -28,6 +29,7 @@ module.exports = function(app) {
 
     app.use('/robots.txt', robot);
     app.use('/image', image);
+    app.use('/video', video);
     app.use('/trend', trend);
     app.use('/map', map);
     app.use('/', home);

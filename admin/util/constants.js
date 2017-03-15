@@ -7,9 +7,8 @@ module.exports = {
     },
     NEWS_TYPES: {
         NEWS: '一般新聞',
-        // 第一版先隱藏起來
-        // VIDEO: '圖片新聞',
-        // PHOTO: '影音新聞'
+        VIDEO: '影音新聞',
+        PHOTO: '圖片新聞'
     },
     NEWS_STATUS: {
         DRAFT: '草稿',

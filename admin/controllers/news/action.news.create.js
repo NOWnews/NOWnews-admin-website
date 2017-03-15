@@ -23,6 +23,16 @@ module.exports = async (req, res, next) => {
         if (data.MainPhoto === '') {
             data.MainPhoto = null;
         }
+        // news 如果不是影音新聞 且 MainVideo 是字串就不傳
+        if (data.type !== 'VIDEO' || data.MainVideo === '') {
+            data.MainVideo = null;
+        }
+
+        // news 如果不是業配文，刪掉這兩個業務欄位
+        if (!data.isSponsored) {
+            data.traceCode = null;
+            data.freeContent = null;
+        }
 
         // Tags 的處理
         let tags;
@@ -66,7 +76,7 @@ module.exports = async (req, res, next) => {
 
         debug('createdNews = %j', news);
 
-        return res.redirect(`/news/${news._id}`);
+        return res.redirect('/news/createList');
     }
     catch(err) {
         return next(err);
