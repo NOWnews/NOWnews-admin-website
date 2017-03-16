@@ -10,6 +10,8 @@ module.exports = async (req, res, next) => {
         let userId = req.session.adminUser._id;
         let { newsMemoContent, ...data } = req.body;
 
+        debug('req.body = %j', req.body);
+
         data.CreatedBy = userId;
         data.UpdatedBy = userId;
 
@@ -19,6 +21,11 @@ module.exports = async (req, res, next) => {
         // 摘要大概是 120 - 150 字
         data.summary = htmlToText(data.content).slice(0,135);
 
+        // news 如果是圖片新聞 就做 Photos 的處理
+        if (data.type === 'PHOTO') {
+            data.Photos = data['Photos[]'];
+            delete data['Photos[]'];
+        }
         // MainPhoto 是字串就不傳
         if (data.MainPhoto === '') {
             data.MainPhoto = null;
@@ -62,6 +69,8 @@ module.exports = async (req, res, next) => {
         if (data.location === '') {
             data.location = null;
         }
+
+        debug('FinalCreatedNewsData = %j', data);
 
         let { data: news } = await axios.post('/news', data);
 

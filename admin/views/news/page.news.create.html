@@ -18,6 +18,26 @@
             </div>
             <div class="box-body">
                 <div class="row">
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <label for="title" class="control-label">
+                                長標
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" id="title" name="title" class="input form-control" placeholder="限制字數為 26" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="shortTitle" class="control-label">
+                                短標
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" id="shortTitle" maxlength="16" name="shortTitle" class="input form-control" placeholder="限制字數為 16">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label class="control-label">來源
@@ -116,26 +136,6 @@
                             <label>
                                 <input name="isSponsored" type="checkbox"> 業配文
                             </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <div class="form-group">
-                            <label for="title" class="control-label">
-                                長標
-                                <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" id="title" name="title" class="input form-control" placeholder="限制字數為 26" required>
-                        </div>
-                    </div>
-                    <div class="col-sm-5">
-                        <div class="form-group">
-                            <label for="shortTitle" class="control-label">
-                                短標
-                                <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" id="shortTitle" maxlength="16" name="shortTitle" class="input form-control" placeholder="限制字數為 16">
                         </div>
                     </div>
                 </div>
@@ -349,11 +349,25 @@
         if ($('select[name=type]').val() !== 'VIDEO') {
             $('.video-setting').addClass('hide');
         }
+
+        if ($('select[name=type]').val() === 'PHOTO') {
+            $('.mainPhotoEle').addClass('hide');
+            $('.manyPhotoEle').removeClass('hide');
+        }
+
         $('select[name=type]').change(function(){
             if($(this).val() === 'VIDEO') {
                 $('.video-setting').removeClass('hide');
             } else {
                 $('.video-setting').addClass('hide');
+            }
+
+            if($(this).val() === 'PHOTO') {
+                $('.mainPhotoEle').addClass('hide');
+                $('.manyPhotoEle').removeClass('hide');
+            } else {
+                $('.mainPhotoEle').removeClass('hide');
+                $('.manyPhotoEle').addClass('hide');
             }
         });
 
