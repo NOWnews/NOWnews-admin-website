@@ -1,0 +1,51 @@
+<table id="specialchannel-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>特輯名稱</th>
+            <th>新聞標題</th>
+            <th>建立日期</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for value in specialchannels %}
+            <tr>
+                <td>
+                    <a href="#">
+                        {{ value.title }}
+                    </a>
+                </td>
+                <td> {% for item in value.newsList %}
+                    <a href="{{ item._id }}" target="_blank">
+                        {% if loop.last %}
+                            {{ item.title }}
+                        {% else %}
+                            {{ item.title }}、
+                        {% endif %}
+                    </a>
+                    {% endfor %}
+                </td>
+                <td>{{ value.formatCreatedAt }}</td>
+                <td>
+                    <a class="btn btn-info"
+                        href="/specialchannel/{{value._id}}">
+                        編輯
+                    </a>
+                </td>
+                <td>
+                    <button item-id="{{value._id}}" class="btn btn-danger delete-specialchannel">移除</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>名稱</th>
+            <th>連結</th>
+            <th>建立日期</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </tfoot>
+</table>
