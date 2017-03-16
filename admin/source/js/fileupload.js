@@ -111,6 +111,7 @@ $(function () {
                 var img = row.find('img');
                 row.find('input[name=imageId]').val(file._id);
                 row.find('.setMainPhoto').attr('data-url', file.url);
+                row.find('.setManyPhoto').attr('data-url', file.url);
                 row.find('span.desc').text(file.desc);
                 row.find('img').attr('src', file.url);
                 row.find('img').attr('data-isdeliver', file.isDeliver);
@@ -180,6 +181,11 @@ $(function () {
     // 設為主圖
     fileRows.on('click', 'button.setMainPhoto', function(){
         setMainPhoto($(this));
+    });
+
+    // 設為圖輯
+    fileRows.on('click', 'button.setManyPhoto', function(){
+        setManyPhoto($(this));
     });
 
     // 複製
