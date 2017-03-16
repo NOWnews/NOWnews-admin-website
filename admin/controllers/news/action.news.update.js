@@ -21,6 +21,11 @@ module.exports = async (req, res, next) => {
 
         data.UpdatedBy = userId;
 
+        // news 如果是圖片新聞 就做 Photos 的處理
+        if (data.type === 'PHOTO') {
+            data.Photos = data['Photos[]'];
+            delete data['Photos[]'];
+        }
         // MainPhoto 是字串就不傳
         if (data.MainPhoto === '') {
             data.MainPhoto = null;
@@ -65,6 +70,8 @@ module.exports = async (req, res, next) => {
         if (data.location === '') {
             data.location = null;
         }
+
+        debug('FinalCreatedNewsData = %j', data);
 
         let newsStatus = data.status.toLowerCase();
         let { data: news } = await axios.put(`/news/${newsId}/${newsStatus}`, data);
