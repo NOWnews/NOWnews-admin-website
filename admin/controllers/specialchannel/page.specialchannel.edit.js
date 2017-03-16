@@ -5,7 +5,6 @@ module.exports = async (req, res, next) => {
 
     try {
         let { specialchannelId } = req.params;
-        // debug('specialchannelId = %j', specialchannelId);
         let { data: specialchannel } = await axios.get(`/specialchannels/${specialchannelId}`);
 
         debug('specialchannel = %j', specialchannel);

@@ -1,6 +1,6 @@
 
 import Debug from 'debug';
-const debug = Debug('NOWnews-admin-website: controllers:specialchannel:action.specialchannel.create');
+const debug = Debug('NOWnews-admin-website: controllers:specialchannel:page.specialchannel.create');
 
 module.exports = async (req, res, next) => {
 

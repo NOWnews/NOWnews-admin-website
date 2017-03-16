@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
         let { specialchannelId } = req.params;
         let userId = req.session.adminUser._id;
         let {title, MainPhoto, newsList} = req.body;
-
+        debug('req.body = %j', req.body);
         newsList = _.isArray(newsList)? newsList : [newsList];
 
         let data = {
@@ -18,7 +18,6 @@ module.exports = async (req, res, next) => {
             UpdatedBy: userId
         }
 
-        debug('req.body = %j', data);
         let { data: specialchannel } = await axios.put(`/specialchannels/${specialchannelId}`, data);
 
         debug('updatedSpecialchannel = %j', specialchannel);

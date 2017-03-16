@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
     try {
         let userId = req.session.adminUser._id;
         let {title, MainPhoto, newsList} = req.body;
-         debug('createdSpecialchannel = %j', req.body);
+        debug('createdSpecialchannel = %j', req.body);
 
         newsList = _.isArray(newsList)? newsList : [newsList];
 

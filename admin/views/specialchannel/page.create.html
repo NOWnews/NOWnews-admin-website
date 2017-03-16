@@ -50,7 +50,7 @@
                                 <select id="multiselect_simple" name="newsList" class="multiselect" multiple="multiple" style="width:60%">
                                 </select>
                             </div>
-
+                            <!-- debug留用參考 -->
                             <!-- <div class="debug_uiControls">
                                 <button id="btnToggleOriginal_simple">Toggle original element</button>
                                 <input type="text" id="txtSearch_simple" size="15" />
@@ -81,10 +81,8 @@
   height: 80px;
 }
 #autocomplete-ajax {
-  /*font-size: 28px;*/
   border: 1px solid #CCC;
   display: block;
-  /*margin: 10px 0;*/
   position: absolute;
   background: transparent;
 }
@@ -285,17 +283,6 @@ $('#autocomplete-ajax').autocomplete({
         $('#selection-ajax').html('None selected');
       }
     });
-    // $("#autocomplete-ajax").autocomplete('setOptions', {
-    //     params: {title: access_token}
-    //     paramName: "title"
-    // })
-    // $("#autocomplete-ajax").on(focus, function(event){
-    // })
-    var params = { onChange: function(a) {
-        numWebber = a;
-
-      },sortable: true };
-
 
 </script>
 
