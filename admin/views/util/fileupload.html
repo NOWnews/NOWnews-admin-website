@@ -61,9 +61,6 @@
                 <div class="form-group col-md-1">
                     <button type="button" class="btn btn-default imageLibQueryForm">查詢</button>
                 </div>
-
-
-
             </div>
             <div class="row image-blocks">
 
@@ -144,6 +141,10 @@
                 <i class="fa fa-bin"></i>不可外送
             </small>
             </div>
+            <button type="button" class="btn bg-purple setManyPhoto hide">
+                <i class="fa fa-check"></i>
+                <span class="hidden-xs">加入圖片</span>
+            </button>
             <button type="button" class="btn bg-purple setMainPhoto">
                 <i class="fa fa-check"></i>
                 <span class="hidden-xs">設為主圖</span>
@@ -171,7 +172,9 @@
             <i class="fa fa-bin"></i>不可外送
         </small>
         <div class="text-right">
-            <button class="btn bg-purple btn-xs fa fa-check"
+            <button class="btn bg-purple btn-xs fa fa-check setManyPhoto hide"
+                type="button">加入圖片</button>
+            <button class="btn bg-purple btn-xs fa fa-check setMainPhoto"
                 type="button">設為主圖</button>
             <button class="btn bg-navy btn-xs fa fa-clipboard"
                 type="button"></button>
@@ -187,6 +190,13 @@
             <button class="btn btn-success btn-xs fa fa-save" type="button"></button>
             <button class="btn btn-warning btn-xs fa fa-undo hidden" type="button"></button>
         </label>
+    </div>
+</script>
+
+
+<script id="photo-group-template" type="text/x-custom-template">
+    <div class="pull-left img-thumbnail photo-group">
+        <input type="hidden" name="Photos[]">
     </div>
 </script>
 
@@ -224,8 +234,15 @@
 
     .zoom, .image-preview {
         min-width: 160px;
-        max-width: 320px;
-        max-height: 180px;
+    }
+
+    .photo-group {
+        height: 180px;
+        width: 320px;
+        margin: 5px;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
     }
 
     .image  {
