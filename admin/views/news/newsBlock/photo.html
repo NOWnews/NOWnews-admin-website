@@ -10,13 +10,20 @@
     <div class="box-body">
         <div class="form-group">
             <label>
-                主圖
+                <span class="mainPhotoEle">主圖</span>
+                <span class="manyPhotoEle hide">圖片集</span>
                 <span class="text-danger">*</span>
             </label>
             <div class="image-preview">
                 <input type="hidden" name="MainPhoto" value="{{photo._id}}" />
-                <img class="image" name="MainPhoto" src="{{photo.url}}" />
-                <p class="preview-desc">{{photo.desc}}</p>
+                <img class="image mainPhotoEle" name="MainPhoto" src="{{photo.url}}" />
+                <p class="preview-desc mainPhotoEle">{{photo.desc}}</p>
+                {% for p in photos %}
+                    <div class="pull-left img-thumbnail photo-group manyPhotoEle" style="background-image: url({{ p.url }});" onclick="window.open('{{ p.url }}', '_blank')">
+                        <p>{{ p.desc }}</p>
+                        <input type="hidden" name="Photos[]">
+                    </div>
+                {% endfor %}
             </div>
             <div class="clearfix"></div>
             {% include '../../util/fileupload.html' %}

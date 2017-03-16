@@ -165,6 +165,7 @@
 
         {# 主圖設定 #}
         {% set photo = news.MainPhoto %}
+        {% set photos = news.Photos %}
         {% include "./newsBlock/photo.html" %}
 
         {# 影片設定 #}
@@ -388,14 +389,28 @@
         if ($('select[name=type]').val() !== 'VIDEO') {
             $('.video-setting').addClass('hide');
         }
+
+
+        if ($('select[name=type]').val() === 'PHOTO') {
+            $('.mainPhotoEle').addClass('hide');
+            $('.manyPhotoEle').removeClass('hide');
+        }
+
         $('select[name=type]').change(function(){
             if($(this).val() === 'VIDEO') {
                 $('.video-setting').removeClass('hide');
             } else {
                 $('.video-setting').addClass('hide');
             }
-        });
 
+            if($(this).val() === 'PHOTO') {
+                $('.mainPhotoEle').addClass('hide');
+                $('.manyPhotoEle').removeClass('hide');
+            } else {
+                $('.mainPhotoEle').removeClass('hide');
+                $('.manyPhotoEle').addClass('hide');
+            }
+        });
 
         $('#preview-btn').on('click', function(){
             var newsId = $(this).attr('data-newsId');

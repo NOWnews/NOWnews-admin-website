@@ -349,11 +349,25 @@
         if ($('select[name=type]').val() !== 'VIDEO') {
             $('.video-setting').addClass('hide');
         }
+
+        if ($('select[name=type]').val() === 'PHOTO') {
+            $('.mainPhotoEle').addClass('hide');
+            $('.manyPhotoEle').removeClass('hide');
+        }
+
         $('select[name=type]').change(function(){
             if($(this).val() === 'VIDEO') {
                 $('.video-setting').removeClass('hide');
             } else {
                 $('.video-setting').addClass('hide');
+            }
+
+            if($(this).val() === 'PHOTO') {
+                $('.mainPhotoEle').addClass('hide');
+                $('.manyPhotoEle').removeClass('hide');
+            } else {
+                $('.mainPhotoEle').removeClass('hide');
+                $('.manyPhotoEle').addClass('hide');
             }
         });
 
