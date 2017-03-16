@@ -19,6 +19,26 @@
             </div>
             <div class="box-body">
                 <div class="row">
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <label for="title" class="control-label">
+                                長標
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" id="title" name="title" value="{{news.title}}" class="input form-control" placeholder="限制字數為 26" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="shortTitle" class="control-label">
+                                短標
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" maxlength="16" id="shortTitle" value="{{news.shortTitle}}" name="shortTitle" class="input form-control" placeholder="限制字數為 16" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label class="control-label">來源
@@ -137,26 +157,6 @@
                                     <input name="isSponsored" type="checkbox"> 業配文
                                 {% endif %}
                             </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <div class="form-group">
-                            <label for="title" class="control-label">
-                                長標
-                                <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" id="title" name="title" value="{{news.title}}" class="input form-control" placeholder="限制字數為 26" required>
-                        </div>
-                    </div>
-                    <div class="col-sm-5">
-                        <div class="form-group">
-                            <label for="shortTitle" class="control-label">
-                                短標
-                                <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" maxlength="16" id="shortTitle" value="{{news.shortTitle}}" name="shortTitle" class="input form-control" placeholder="限制字數為 16" required>
                         </div>
                     </div>
                 </div>
