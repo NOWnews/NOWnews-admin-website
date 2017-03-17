@@ -1479,8 +1479,8 @@
     $.uix.multiselect.i18n = {
         '': {
             itemsSelected_nil: '沒有新聞被選擇',          // 0
-            itemsSelected: '{count} 被選擇加入特輯',          // 0, 1
-            itemsSelected_plural: '{count} 被選擇加入特輯',  // n
+            itemsSelected: '{count} 被選擇加入',          // 0, 1
+            itemsSelected_plural: '{count} 被選擇加入',  // n
             //itemsSelected_plural_two: ...                    // 2
             //itemsSelected_plural_few: ...                    // 3, 4
             itemsAvailable_nil: '目前沒有新聞被加進來',
