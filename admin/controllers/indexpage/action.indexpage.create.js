@@ -6,20 +6,18 @@ module.exports = async (req, res, next) => {
 
     try {
         let userId = req.session.adminUser._id;
-        if(req.body.type === 'CAROUSELS') {
+        let { type, carousels, specialTopics, specialChannels, videos } = req.body;
 
-            let carousels = [];
+        if(type === 'CAROUSELS') {
 
-            if(_.isArray(req.body.carousels)) {
-                carousels = req.body.carousels;
-            }
+            let formatCarousels = [];
 
-            if(req.body.carousels && !_.isArray(req.body.carousels)) {
-                carousels = [ req.body.carousels ];
+            if (carousels) {
+                formatCarousels = _.isArray(carousels) ? carousels : [ carousels ];
             }
 
             let data = {
-                carousels,
+                carousels: formatCarousels,
                 UpdatedBy: userId
             }
             let { data: indexpage } = await axios.put(`/indexpage/carousels/`, data);
@@ -28,20 +26,16 @@ module.exports = async (req, res, next) => {
 
         }
 
-        if(req.body.type === 'SPECIALTOPICS') {
+        if(type === 'SPECIALTOPICS') {
 
-            let specialTopics = [];
+            let formatSpecialTopics = [];
 
-            if(_.isArray(req.body.specialTopics)) {
-                specialTopics = req.body.specialTopics;
-            }
-
-            if(req.body.specialTopics && !_.isArray(req.body.specialTopics)) {
-                specialTopics = [ req.body.specialTopics ];
+            if (specialTopics) {
+                formatSpecialTopics = _.isArray(specialTopics) ? specialTopics : [ specialTopics ];
             }
 
             let data = {
-                specialTopics,
+                specialTopics: formatSpecialTopics,
                 UpdatedBy: userId
             }
             let { data: indexpage } = await axios.put(`/indexpage/specialTopics/`, data);
@@ -50,41 +44,34 @@ module.exports = async (req, res, next) => {
 
         }
 
-        if(req.body.type === 'SPECIALCHANNELS') {
+        if(type === 'SPECIALCHANNELS') {
 
-            let specialChannels = [];
+            let formatSpecialChannels = [];
 
-            if(_.isArray(req.body.specialChannels)) {
-                specialChannels = req.body.specialChannels;
-            }
-
-            if(req.body.specialChannels && !_.isArray(req.body.specialChannels)) {
-                specialChannels = [ req.body.specialChannels ];
+            if (specialChannels) {
+                formatSpecialChannels = _.isArray(specialChannels) ? specialChannels : [ specialChannels ];
             }
 
             let data = {
-                specialChannels,
+                specialChannels: formatSpecialChannels,
                 UpdatedBy: userId
             }
             let { data: indexpage } = await axios.put(`/indexpage/specialchannels/`, data);
 
-            debug('createdIndexPageSpecialChannelsData = %j', indexpage);
+            debug('createdIndexPageSpecialchannelsData = %j', indexpage);
 
         }
 
-        if(req.body.type === 'VIDEOS') {
-            let videos = [];
+        if(type === 'VIDEOS') {
 
-            if(_.isArray(req.body.videos)) {
-                videos = req.body.videos;
-            }
+            let formatVideos = [];
 
-            if(req.body.videos && !_.isArray(req.body.videos)) {
-                videos = [ req.body.videos ];
+            if (videos) {
+                formatVideos = _.isArray(videos) ? videos : [ videos ];
             }
 
             let data = {
-                videos,
+                videos: formatVideos,
                 UpdatedBy: userId
             }
             let { data: indexpage } = await axios.put(`/indexpage/videos/`, data);
