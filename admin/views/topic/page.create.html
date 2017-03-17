@@ -21,12 +21,22 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-sm-5">
+                        <label class="control-label">影片搜尋</label>
+                        <div class="container-search">
+                              <div class="search">
+                                <input type="text" id="autocomplete-ajax" class="input form-control" placeholder="search" />
+                                <input type="text" id="autocomplete-ajax-x" disabled="disabled" />
+                                <span class="load"></span>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
                         <div class="form-group">
                             <label for="shortTitle" class="control-label">
                                 標題
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" maxlength="16" name="title" class="input form-control" placeholder="限制字數為 16" required>
+                            <input type="text" maxlength="16" name="title" class="input form-control searchNewsTitle" placeholder="限制字數為 16" required>
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -35,7 +45,7 @@
                                 Url
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" name="url" class="input form-control" placeholder="連結" required>
+                            <input type="text" name="url" class="input form-control searchNewsLink" placeholder="連結" required>
                         </div>
                     </div>
                 </div>
@@ -50,14 +60,208 @@
     </form>
 </section>
 
+<style>
+.search {
+  position: relative;
+  height: 80px;
+}
+#autocomplete-ajax, #autocomplete-ajax2, #autocomplete-ajax3, #autocomplete-ajax4 {
+  border: 1px solid #CCC;
+  display: block;
+  position: absolute;
+  background: transparent;
+  z-index: 2;
+  background: url('https://icon.now.sh/search/32') no-repeat center right 5px;
+  background-size: contain;
+}
 
+#autocomplete-ajax-x, #autocomplete-ajax-x2, #autocomplete-ajax-x3, #autocomplete-ajax-x4  {
+  color: #CCC;
+  z-index: 1;
+  display: none;
+}
+.selection-ajax {
+  position: relative;
+
+}
+
+.load {
+  display: inline-block;
+  position: relative;
+  left: 270px;
+  top: -18px;
+}
+.loader {
+  font-size: 10px;
+  margin: 50px auto;
+  text-indent: -9999em;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  background: #7be4ff;
+  background: -moz-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
+  background: -webkit-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
+  background: -o-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
+  background: -ms-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
+  background: linear-gradient(to right, #7be4ff 10%, rgba(123,228,255, 0) 42%);
+  position: relative;
+  -webkit-animation: load3 1.4s infinite linear;
+  animation: load3 1.4s infinite linear;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.loader:before {
+  width: 50%;
+  height: 50%;
+  background: #7be4ff;
+  border-radius: 100% 0 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+}
+.loader:after {
+  background: #fff;
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  content: '';
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+@-webkit-keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.autocomplete-suggestions {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #999;
+  background: #FFF;
+  cursor: default;
+  overflow: auto;
+  -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+  -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+  box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+}
+.autocomplete-suggestion {
+  padding: 2px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.autocomplete-no-suggestion {
+  padding: 2px 5px;
+}
+.autocomplete-selected {
+  background: #F0F0F0;
+}
+.autocomplete-suggestions strong {
+  font-weight: bold;
+  color: #000;
+}
+.autocomplete-group {
+  padding: 2px 5px;
+}
+.autocomplete-group strong {
+  font-weight: bold;
+  font-size: 16px;
+  color: #000;
+  display: block;
+  border-bottom: 1px solid #000;
+}
+
+.multiselect {
+    width: 450px;
+    height: 100%!important;
+}
+div.debug_uiControls {
+    margin-top: 16px;
+}
+div.debug_log {
+    height: 100px;
+    overflow: auto;
+    border: 1px solid black;
+    padding: 8px;
+    margin-top: 16px;
+    display: none;
+}
+.example-container {
+    overflow:visible;
+    width:100%;
+}
+
+
+</style>
 {#  script 暫時放這   #}
 
 
-
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.24/jquery.autocomplete.min.js"></script>
 <!-- multiple-select -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.0/multiple-select.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.0/multiple-select.min.js"></script>
 
+<script>
+// Initialize ajax autocomplete:
+$('#autocomplete-ajax').autocomplete({
+    serviceUrl: 'http://localhost:10000/news',
+    dataType: 'json',
+    deferRequestBy: 600,
+    paramName: "title",
+    onSearchStart: function(){ $('.load').addClass('loader'); console.log('onSearchStart') },
+    onSearchComplete: function(){ $('.load').removeClass('loader');console.log('onSearchComplete')},
+    onSearchError: function(){ $('.load').removeClass('loader');console.log('onSearchError') },
+    transformResult: function(response) {
+        console.log(response,'L237');
+        return {
+            suggestions: $.map(response.newsList, function(item) {
+                console.log(item)
+                return { value: item.title, data: item._id};
+            })
+        };
+    },
+    onSelect: function (suggestion) {
 
+        $('.searchNewsTitle').val(suggestion.value);
+
+        console.log('You selected:' + suggestion.value);
+      },
+      onHint: function (hint) {
+        $('#autocomplete-ajax-x').val(hint);
+      },
+      onInvalidateSelection: function() {
+        $('.selection-ajax').html('None selected');
+      }
+});
+
+
+$("#autocomplete-ajax").autocomplete('setOptions', {
+        params: {status: 'RELEASE',type: 'NEWS'}
+});
+
+
+
+</script>
 {% endblock %}
