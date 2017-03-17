@@ -55,6 +55,30 @@ $(function () {
         $('.image-setting-area .btn-collapse').click();
     }
 
+    // Setting Image To ManyPhoto
+    function setManyPhoto (setBtn) {
+        var parentElm = setBtn.parent().parent();
+        var text = parentElm.find('.desc').text();
+        var src = setBtn.attr('data-url');
+        var imageId = parentElm.find('input[name=imageId]').val()
+        var photoGroup = $($('#photo-group-template').html());
+        var isIdRepeat = false;
+
+        $('input[name="Photos[]"]').each(function(){
+            if ( $(this).val() == imageId ){
+                isIdRepeat = true;
+                return false;
+            }
+        });
+
+        if (isIdRepeat) { return false; }
+
+        photoGroup.css('background-image', 'url(' + src + ')');
+        photoGroup.attr('on-click', 'window.open("'+ src +'", "_blank")');
+        photoGroup.find('input[name="Photos[]"]').val(imageId);
+        $('.image-preview').append(photoGroup);
+    }
+
 
     /* 上傳 */
     // Initialize the jQuery File Upload widget:
@@ -81,18 +105,24 @@ $(function () {
         },
         downloadTemplate: function (o) {
             var rows = $();
+            var isPhotosNews = $('select[name=type]').val() === 'PHOTO' ? true : false;
             $.each(o.files, function (index, file) {
                 var row = $($('#template-download').html());
                 var img = row.find('img');
                 row.find('input[name=imageId]').val(file._id);
                 row.find('.setMainPhoto').attr('data-url', file.url);
+                row.find('.setManyPhoto').attr('data-url', file.url);
                 row.find('span.desc').text(file.desc);
                 row.find('img').attr('src', file.url);
-
-
                 row.find('img').attr('data-isdeliver', file.isDeliver);
+
                 if (file.isDeliver) {
                     row.find('.canNotDeliver').remove();
+                }
+
+                if (isPhotosNews) {
+                    row.find('.setMainPhoto').addClass('hide');
+                    row.find('.setManyPhoto').removeClass('hide');
                 }
 
                 if (file.error) {
@@ -151,6 +181,11 @@ $(function () {
     // 設為主圖
     fileRows.on('click', 'button.setMainPhoto', function(){
         setMainPhoto($(this));
+    });
+
+    // 設為圖輯
+    fileRows.on('click', 'button.setManyPhoto', function(){
+        setManyPhoto($(this));
     });
 
     // 複製
@@ -214,6 +249,7 @@ $(function () {
         queryString += '&imageFrom=' + $('.image-nav li.active a').attr('data-from');
 
         var desc = $('#library input[name=desc]').val();
+        var isPhotosNews = $('select[name=type]').val() === 'PHOTO' ? true : false;
         $.get('/image?' + queryString, function(result) {
             $('.zoom').trigger('zoom.destroy');
             $.each(result.images, function(index, image) {
@@ -223,6 +259,11 @@ $(function () {
 
                 if (image.isDeliver) {
                     block.find('.canNotDeliver').remove();
+                }
+
+                if (isPhotosNews) {
+                    block.find('.setMainPhoto').addClass('hide');
+                    block.find('.setManyPhoto').removeClass('hide');
                 }
 
                 block.find('input[name=imageId]').val(image._id);
@@ -255,8 +296,13 @@ $(function () {
         });
     });
 
-    imageBlocks.on('click', 'button.fa-check', function() {
+    imageBlocks.on('click', 'button.setMainPhoto', function() {
         setMainPhoto($(this));
+    });
+
+    // 加入圖集
+    imageBlocks.on('click', 'button.setManyPhoto', function() {
+        setManyPhoto($(this));
     });
 
     imageBlocks.on('click', 'button.fa-clipboard', function() {
