@@ -6,7 +6,6 @@ module.exports = async (req, res, next) => {
 
     try {
         let userId = req.session.adminUser._id;
-        console.log(req.body.type,'L9');
         if(req.body.type === 'CAROUSELS') {
 
             let carousels = [];
