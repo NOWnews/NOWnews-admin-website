@@ -74,7 +74,7 @@ $(function () {
         if (isIdRepeat) { return false; }
 
         photoGroup.css('background-image', 'url(' + src + ')');
-        photoGroup.attr('on-click', 'window.open("'+ src +'", "_blank")');
+        photoGroup.attr('onclick', 'window.open("'+ src +'", "_blank")');
         photoGroup.find('input[name="Photos[]"]').val(imageId).trigger('change');
         $('.image-preview').append(photoGroup);
     }
