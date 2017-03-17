@@ -49,7 +49,7 @@ $(function () {
     // Setting Image To MainPhoto
     function setMainPhoto (setBtn) {
         var parentElm = setBtn.parent().parent();
-        $('input[name=MainPhoto]').val(parentElm.find('input[name=imageId]').val());
+        $('input[name=MainPhoto]').val(parentElm.find('input[name=imageId]').val()).trigger('change');
         $('img[name=MainPhoto]').attr('src', setBtn.attr('data-url'));
         $('.preview-desc').text(parentElm.find('.desc').text());
         $('.image-setting-area .btn-collapse').click();
@@ -75,7 +75,7 @@ $(function () {
 
         photoGroup.css('background-image', 'url(' + src + ')');
         photoGroup.attr('on-click', 'window.open("'+ src +'", "_blank")');
-        photoGroup.find('input[name="Photos[]"]').val(imageId);
+        photoGroup.find('input[name="Photos[]"]').val(imageId).trigger('change');
         $('.image-preview').append(photoGroup);
     }
 

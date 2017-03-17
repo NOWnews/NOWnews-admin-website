@@ -206,7 +206,7 @@
                 var title = parentElm.find('.title').text();
                 var desc = parentElm.find('.desc').text();
 
-                $('input[name=MainVideo]').val(videoId);
+                $('input[name=MainVideo]').val(videoId).trigger('change');
 
                 if (type === 'url') {
                     previewHtml = $(videoIframe).attr({
