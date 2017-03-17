@@ -11,9 +11,7 @@ module.exports = async (req, res, next) => {
         let specialchannels = specialchannel;
         debug('specialChannelList = %j', specialchannels );
 
-        return res.render('specialchannel/page.list.html',{
-            specialchannels
-        });
+        return res.render('specialchannel/page.list.html', specialchannels);
     }
     catch(err) {
         return next(err);
