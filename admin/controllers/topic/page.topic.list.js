@@ -11,9 +11,7 @@ module.exports = async (req, res, next) => {
         let topics = topic;
         debug('topicList = %j', topics );
 
-        return res.render('topic/page.list.html',{
-            topics
-        });
+        return res.render('topic/page.list.html', topics);
     }
     catch(err) {
         return next(err);

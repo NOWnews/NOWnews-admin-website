@@ -59,7 +59,7 @@
     "topic": {
         "url": "#",
         "name": "專題",
-        "icon": "fa-user",
+        "icon": "fa-book",
         "children": [{
             "url": "/topic",
             "name": "專題列表"
@@ -72,7 +72,7 @@
     "specialchannel": {
         "url": "#",
         "name": "特輯",
-        "icon": "fa-user",
+        "icon": " fa-bookmark",
         "children": [{
             "url": "/specialchannel",
             "name": "特輯列表"
@@ -80,6 +80,15 @@
         {
             "url": "/specialchannel/create",
             "name": "新增特輯"
+        }]
+    },
+    "indexpage": {
+        "url": "#",
+        "name": "首頁管理",
+        "icon": "fa-list-ul",
+        "children": [{
+            "url": "/indexpage/create",
+            "name": "首頁管理建立"
         }]
     }
 }

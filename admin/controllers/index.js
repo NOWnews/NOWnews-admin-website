@@ -20,6 +20,7 @@ let adminPageRouter = {
     video: require('./video'),
     topic: require('./topic'),
     specialchannel: require('./specialchannel'),
+    indexpage: require('./indexpage'),
 };
 
 module.exports = function(app) {
