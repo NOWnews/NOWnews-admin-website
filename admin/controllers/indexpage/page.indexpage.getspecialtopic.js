@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
     try {
         let baseURL = config.get('apiServer');
         let {title}= req.query;
-        let { data: {specialTopics} } = await axios.get(baseURL+`/specialtopics?title=${title}`);
+        let { data: {specialTopics} } = await axios.get(baseURL+`/specialtopics?title=${encodeURIComponent(title)}`);
 
         debug('specialTopics = %j', specialTopics);
         return res.json({
