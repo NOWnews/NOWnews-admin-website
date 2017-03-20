@@ -38,8 +38,11 @@
                             <div class="example-container ui-helper-clearfix">
 
                                 <select id="multiselect_simple" name="carousels" class="multiselect fa-select" multiple="multiple" style="width:100%">
-                                    {% for item in carousels %}
+                                    {% for item in indexpage.carousels %}
                                         <option value="{{ item._id }}" selected="selected">{{ item.title }}</option>
+                                    {% endfor %}
+                                    {% for item in predata.newsList %}
+                                        <option value="{{ item._id }}">{{ item.title }}</option>
                                     {% endfor %}
                                 </select>
 
@@ -98,6 +101,9 @@
                                     {% for item in specialTopics %}
                                         <option value="{{ item._id }}" selected="selected">{{ item.title }}</option>
                                     {% endfor %}
+                                    {% for item in pretopic.specialTopics %}
+                                        <option value="{{ item._id }}">{{ item.title }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <!-- debug留用參考 -->
@@ -154,6 +160,9 @@
                                     {% for item in specialChannels %}
                                         <option value="{{ item._id }}" selected="selected">{{ item.title }}</option>
                                     {% endfor %}
+                                    {% for item in prespecialchannel.specialChannels %}
+                                        <option value="{{ item._id }}">{{ item.title }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <!-- debug留用參考 -->
@@ -184,7 +193,7 @@
         <input type="hidden" name="type" value="VIDEOS">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">首頁特輯設定</h3>
+                <h3 class="box-title">首頁影片設定</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -209,6 +218,9 @@
                                 <select id="multiselect_simple4" name="videos" class="multiselect" multiple="multiple" style="width:100%">
                                     {% for item in videos %}
                                         <option value="{{ item._id }}" selected="selected">{{ item.title }}</option>
+                                    {% endfor %}
+                                    {% for item in prevideo.newsList %}
+                                        <option value="{{ item._id }}">{{ item.title }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -248,7 +260,7 @@
   background: transparent;
   z-index: 2;
   background: url('https://icon.now.sh/search/32') no-repeat center right 5px;
-  background-size: contain;
+  background-size: 15px;
 }
 
 #autocomplete-ajax-x, #autocomplete-ajax-x2, #autocomplete-ajax-x3, #autocomplete-ajax-x4  {
@@ -391,7 +403,7 @@ div.debug_log {
 
 .uix-multiselect {
     display: block!important;
-    height:150px;
+    height:260px;
 }
 
 /** font awesome use unicode**/
