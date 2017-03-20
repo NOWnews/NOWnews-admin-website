@@ -3,10 +3,11 @@
         <tr>
             <th>標題</th>
             <th>類別</th>
-            <th>作者</th>
+            <th>建立者</th>
             <th>今日PV</th>
             <th>狀態</th>
             <th>初次發布日期</th>
+            <th>審稿者</th>
             <th>編輯</th>
             <th>移除</th>
         </tr>
@@ -24,12 +25,17 @@
                 </td>
                 <td>
                     <a href="#">
-                    {{ value.Author.name }}
+                    {{ value.CreatedBy.name }}
                     </a>
                 </td>
                 <td>0</td>
                 <td>{{ NEWS_STATUS[value.status] }}</td>
                 <td>{{ value.formatCreatedAt }}</td>
+                <td>
+                    <a href="#">
+                        {{ value.LastReviewer.name if value.LastReviewer else "--" }}
+                    </a>
+                </td>
                 <td>
                     <a class="btn btn-info"
                         href="/news/{{value._id}}">
@@ -46,7 +52,7 @@
         <tr>
             <th>標題</th>
             <th>類別</th>
-            <th>作者</th>
+            <th>建立者</th>
             <th>今日PV</th>
             <th>狀態</th>
             <th>初次發布日期</th>
