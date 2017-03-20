@@ -251,7 +251,7 @@ div.debug_log {
 <script>
 // Initialize ajax autocomplete:
 $('#autocomplete-ajax').autocomplete({
-    serviceUrl: 'http://localhost:10000/news',
+    serviceUrl: '/specialchannel/news',
     dataType: 'json',
     deferRequestBy: 600,
     paramName: "title",
@@ -259,7 +259,6 @@ $('#autocomplete-ajax').autocomplete({
     onSearchComplete: function(){ $('#load').removeClass('loader');console.log('onSearchComplete')},
     onSearchError: function(){ $('#load').removeClass('loader');console.log('onSearchError') },
     transformResult: function(response) {
-
         return {
             suggestions: $.map(response.newsList, function(item) {
                 console.log(item)
@@ -284,6 +283,9 @@ $('#autocomplete-ajax').autocomplete({
       }
     });
 
+$("#autocomplete-ajax").autocomplete('setOptions', {
+        params: {status: 'RELEASE',type: 'NEWS'}
+});
 </script>
 
 <script type="text/javascript">
