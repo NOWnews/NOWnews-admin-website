@@ -234,7 +234,7 @@ div.debug_log {
 }
 .uix-multiselect {
   display: block!important;
-  height:150px;
+  height:260px;
 }
 
 
@@ -277,7 +277,6 @@ $('#autocomplete-ajax').autocomplete({
         console.log('You selected:' + suggestion.value);
       },
       onHint: function (hint) {
-        console.log(hint,'L443')
         $('#autocomplete-ajax-x').val(hint);
       },
       onInvalidateSelection: function() {
