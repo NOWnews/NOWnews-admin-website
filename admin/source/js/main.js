@@ -44,5 +44,12 @@ $(function() {
         checkboxClass: 'icheckbox_square-red',
         radioClass: 'iradio_square-red',
         increaseArea: '50%' // optional
+
+    // 圖片上傳的全部上傳按鈕
+    $('.fileupload-buttonbar').find('.start').click(function(){
+        $('.image-setting-area .template-upload .start').each(function(){
+            $(this).click();
+        })
+
     });
 });
