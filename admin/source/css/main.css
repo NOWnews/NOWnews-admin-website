@@ -5,3 +5,7 @@
 .no-padding-right {
     padding-right: 0;
 }
+
+.icheckbox_square-red, .iradio_square-red {
+    top: -2px;
+}
