@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
             UpdatedBy: userId
         }
 
-        let { data: specialchannel } = await axios.put(baseURL+`/specialchannels/${specialchannelId}`, data);
+        let { data: specialchannel } = await axios.put(`${baseURL}/specialchannels/${specialchannelId}`, data);
 
         debug('updatedSpecialchannel = %j', specialchannel);
 

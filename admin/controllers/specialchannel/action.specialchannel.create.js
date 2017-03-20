@@ -23,7 +23,7 @@ module.exports = async (req, res, next) => {
         }
         debug('SpecialchannelData = %j', data);
 
-        let { data: specialChannel } = await axios.post(baseURL+`/specialchannels`, data);
+        let { data: specialChannel } = await axios.post(`${baseURL}/specialchannels`, data);
 
         debug('createdSpecialchannelData = %j', specialChannel);
 

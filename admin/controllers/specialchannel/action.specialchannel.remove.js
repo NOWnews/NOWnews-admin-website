@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
         let userId = req.session.adminUser._id;
         let data = req.body;
         data.UpdatedBy = userId;
-        let { data: speicalchannel } = await axios({method: 'delete', url: baseURL+`/specialchannels/${specialchannelId}`, data: data});
+        let { data: speicalchannel } = await axios({method: 'delete', url: `${baseURL}/specialchannels/${specialchannelId}`, data});
         debug('removedSpeicalchannel = %j', speicalchannel);
         return res.json({ speicalchannel });
     }
