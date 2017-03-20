@@ -234,10 +234,8 @@ $('#autocomplete-ajax').autocomplete({
     onSearchComplete: function(){ $('.load').removeClass('loader');console.log('onSearchComplete')},
     onSearchError: function(){ $('.load').removeClass('loader');console.log('onSearchError') },
     transformResult: function(response) {
-        console.log(response,'L237');
         return {
             suggestions: $.map(response.newsList, function(item) {
-                console.log(item)
                 return { value: item.title, data: item._id};
             })
         };
@@ -246,7 +244,6 @@ $('#autocomplete-ajax').autocomplete({
 
         $('.searchNewsTitle').val(suggestion.value);
 
-        console.log('You selected:' + suggestion.value);
       },
       onHint: function (hint) {
         $('#autocomplete-ajax-x').val(hint);
