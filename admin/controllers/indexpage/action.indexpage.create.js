@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        let baseURL = 'http://localhost:10000';
+        let baseURL = config.get('apiServer');
         let userId = req.session.adminUser._id;
         let { type, carousels, specialTopics, specialChannels, videos } = req.body;
 
