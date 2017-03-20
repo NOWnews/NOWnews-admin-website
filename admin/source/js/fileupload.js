@@ -60,7 +60,7 @@ $(function () {
         var parentElm = setBtn.parent().parent();
         var text = parentElm.find('.desc').text();
         var src = setBtn.attr('data-url');
-        var imageId = parentElm.find('input[name=imageId]').val()
+        var imageId = parentElm.find('input[name=imageId]').val();
         var photoGroup = $($('#photo-group-template').html());
         var isIdRepeat = false;
 
@@ -75,8 +75,9 @@ $(function () {
 
         photoGroup.css('background-image', 'url(' + src + ')');
         photoGroup.attr('onclick', 'window.open("'+ src +'", "_blank")');
-        photoGroup.find('input[name="Photos[]"]').val(imageId).trigger('change');
+        photoGroup.find('input[name="Photos[]"]').val(imageId).addClass(imageId);
         $('.image-preview').append(photoGroup);
+        $('.'+ imageId +'[name="Photos[]"]').trigger('change');
     }
 
 
