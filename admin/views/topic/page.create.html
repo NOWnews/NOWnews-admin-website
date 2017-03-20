@@ -21,7 +21,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-sm-5">
-                        <label class="control-label">影片搜尋</label>
+                        <label class="control-label">新聞搜尋</label>
                         <div class="container-search">
                               <div class="search">
                                 <input type="text" id="autocomplete-ajax" class="input form-control" placeholder="search" />
@@ -226,7 +226,7 @@ div.debug_log {
 <script>
 // Initialize ajax autocomplete:
 $('#autocomplete-ajax').autocomplete({
-    serviceUrl: 'http://localhost:10000/news',
+    serviceUrl: '/topic/news',
     dataType: 'json',
     deferRequestBy: 600,
     paramName: "title",
