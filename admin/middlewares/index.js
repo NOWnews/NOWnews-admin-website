@@ -1,5 +1,6 @@
 
 import express from 'express';
+import favicon from 'serve-favicon';
 import compression from 'compression';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
@@ -15,6 +16,7 @@ import checkLoginedTime from './checkLoginedTime';
 
 module.exports = function(app) {
 
+    app.use(favicon(rootPath + '/admin/favicon/favicon.ico'));
     app.use(compression());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));

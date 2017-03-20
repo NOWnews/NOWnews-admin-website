@@ -25,7 +25,7 @@
                                 長標
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" id="title" name="title" value="{{news.title}}" class="input form-control" placeholder="限制字數為 26" required>
+                            <input type="text" id="title" name="mainTitle" value="{{news.title}}" class="input form-control" placeholder="限制字數為 26" required>
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -385,9 +385,71 @@
             maxTags: 7
         });
 
+        // 沒有圖片或影片只能夠變成草稿
+        var isDraft = function () {
+            var newsType = $('[name=type]').val();
+
+            // Publish Btn Element
+            var drafeBtn = $('#status-draft');
+            var reviewBtn = $('#status-review');
+            var releaseBtn = $('#status-release');
+
+            var mainPhotoEle = $('input[name=MainPhoto]');
+            var mainVideoEle = $('input[name=MainVideo]');
+            var manyPhotosEle = $('input[name="Photos[]"]');
+            var hasPhoto = mainPhotoEle.val()? mainPhotoEle.val() !== '': false;
+            var hasVideo = mainVideoEle.val()? mainVideoEle.val() !== '': false;
+            var hasPhotos = manyPhotosEle.val()? manyPhotosEle.val() !== '': false;
+
+            function setBtnDisabled (bool) {
+                reviewBtn.prop('disabled', bool);
+                releaseBtn.prop('disabled', bool);
+                if (bool) {
+                    reviewBtn.parents('.radio').addClass('disabled');
+                    releaseBtn.parents('.radio').addClass('disabled');
+                    return;
+                }
+                reviewBtn.parents('.radio').removeClass('disabled');
+                releaseBtn.parents('.radio').removeClass('disabled');
+
+            }
+
+            switch (newsType) {
+                case 'NEWS':
+                    if (hasPhoto) {
+                        setBtnDisabled(false);
+                        break;
+                    }
+                    setBtnDisabled(true);
+                    break;
+                case 'PHOTO':
+                    if (hasPhotos) {
+                        setBtnDisabled(false);
+                        break;
+                    }
+                    setBtnDisabled(true);
+                    break;
+                case 'VIDEO':
+                    if (hasVideo) {
+                        setBtnDisabled(false);
+                        break;
+                    }
+                    setBtnDisabled(true);
+                    break;
+            }
+        }
+
+        isDraft();
+
+        $('.image-setting-area').on('change', 'input[name=MainPhoto], input[name="Photos[]"]', function() {
+            isDraft();
+        });
+        $('.video-setting-area').on('change', 'input[name=MainVideo]', function() {
+            isDraft();
+        });
 
         if ($('select[name=type]').val() !== 'VIDEO') {
-            $('.video-setting').addClass('hide');
+            $('.video-setting-area').addClass('hide');
         }
 
 
@@ -397,10 +459,11 @@
         }
 
         $('select[name=type]').change(function(){
+            isDraft();
             if($(this).val() === 'VIDEO') {
-                $('.video-setting').removeClass('hide');
+                $('.video-setting-area').removeClass('hide');
             } else {
-                $('.video-setting').addClass('hide');
+                $('.video-setting-area').addClass('hide');
             }
 
             if($(this).val() === 'PHOTO') {

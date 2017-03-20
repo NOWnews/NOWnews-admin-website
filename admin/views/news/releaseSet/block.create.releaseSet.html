@@ -20,9 +20,9 @@
                             草稿
                         </label>
                     </div>
-                    <div class="radio">
+                    <div class="radio disabled">
                         <label>
-                            <input type="radio" name="status" id="status-review" value="REVIEW">
+                            <input type="radio" name="status" id="status-review" value="REVIEW" disabled>
                             送審
                         </label>
                     </div>
@@ -45,7 +45,9 @@
                     <label class="control-label">指定送審人</label>
                     <select name="LastReviewer" class="form-control select2">
                         {% for user in userList %}
-                            <option value="{{ user._id }}">{{ user.name }}</option>
+                            {% if user.sn != news.LastReviewer.sn %}
+                                <option value="{{ user._id }}">{{ user.name }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>

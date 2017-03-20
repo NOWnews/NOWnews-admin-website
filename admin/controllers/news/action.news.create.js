@@ -18,6 +18,7 @@ module.exports = async (req, res, next) => {
         data.isDeliver = data.isDeliver ? true : false ;
         data.isSponsored = data.isSponsored ? true : false ;
         data.isAdult = data.isAdult ? true : false ;
+        data.title = data.mainTitle;
         // 摘要大概是 120 - 150 字
         data.summary = htmlToText(data.content).slice(0,135);
 

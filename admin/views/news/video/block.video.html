@@ -1,4 +1,4 @@
- <div class="box video-setting">
+ <div class="box video-setting-area">
     <div class="box-header with-border">
         <h3 class="box-title">
             影片設定上傳區
@@ -206,7 +206,7 @@
                 var title = parentElm.find('.title').text();
                 var desc = parentElm.find('.desc').text();
 
-                $('input[name=MainVideo]').val(videoId);
+                $('input[name=MainVideo]').val(videoId).trigger('change');
 
                 if (type === 'url') {
                     previewHtml = $(videoIframe).attr({
