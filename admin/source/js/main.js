@@ -39,4 +39,9 @@ $(function() {
             scrollTop: 0
         }, 500);
     });
+    $('.fileupload-buttonbar').find('.start').click(function(){
+        $('.image-setting-area .template-upload .start').each(function(){
+            $(this).click();
+        })
+    });
 });
