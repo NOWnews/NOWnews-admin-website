@@ -30,13 +30,13 @@
                     {% elif news.status == 'REVIEW' %}
                         <div class="radio">
                             <label>
-                                <input type="radio" name="status" id="status-review" value="REVIEW" {{ "checked" if news.status == 'REVIEW' }}>
+                                <input type="radio" name="status" id="status-review" value="REVIEW">
                                 送審
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="status" id="status-release" value="RELEASE" {{ "checked" if news.status == 'RELEASE' }}>
+                                <input type="radio" name="status" id="status-release" value="RELEASE" {{ "checked" if news.status == 'REVIEW' }}>
                                 發布
                             </label>
                         </div>
@@ -73,9 +73,9 @@
                     <label class="control-label">預約發稿</label>
                     <div class='input-group date'>
                         <input id="reservation-datetimepicker" value="{{ news.formatCreatedAt }}" type='text' class="form-control input" />
-                        <span class="input-group-addon">
+                        <label for="reservation-datetimepicker" class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
+                        </label>
                     </div>
                 </div>
             </div>
