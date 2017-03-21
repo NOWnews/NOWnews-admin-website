@@ -86,6 +86,11 @@ module.exports = async (req, res, next) => {
 
         debug('createdNews = %j', news);
 
+        let newsStatus = data.status.toLowerCase();
+        if (newsStatus === 'review') {
+            return res.redirect('/news/reviewList');
+        }
+
         return res.redirect('/news/createList');
     }
     catch(err) {

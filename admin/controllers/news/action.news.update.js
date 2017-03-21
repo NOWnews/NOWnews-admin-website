@@ -88,6 +88,10 @@ module.exports = async (req, res, next) => {
 
         debug('updatedNews = %j', news);
 
+        if (newsStatus === 'review') {
+            return res.redirect('/news/reviewList');
+        }
+
         return res.redirect('/news/createList');
     }
     catch(err) {
