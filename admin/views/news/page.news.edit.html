@@ -63,7 +63,7 @@
                             </label>
                             <select name="Author" class="form-control select2" required>
                                 {% for user in userList %}
-                                    {% if user._id == Author._id %}
+                                    {% if user._id == news.Author._id %}
                                         <option value="{{ user._id }}" selected>
                                             {{ user.staffId or 'NN00xxx' }} / {{ user.name }}
                                         </option>
@@ -101,7 +101,7 @@
                                 新聞主分類
                                 <span class="text-danger">*</span>
                             </label>
-                            <select id="MainMenu" name="MainMenu" multiple="multiple" style="display: none;" required>
+                            <select id="MainMenu" name="MainMenu" multiple="multiple" style="display: none;">
                                 {% for m in menus %}
                                     {% if m._id == news.MainMenu._id %}
                                         <option value="{{ m._id }}" selected="selected">{{ m.name }}</option>
@@ -232,8 +232,8 @@
     .ui-widget-shadow {
         opacity: 1;
     }
-    /* 隱藏掉 ck image btn */
-    a.cke_button.cke_button__image {
+    /* 隱藏掉 ck btn */
+    a.cke_button.cke_button__image, a.cke_button.cke_button__scayt {
         display: none;
     }
 
@@ -361,7 +361,7 @@
                     $('.lastReviewer').css('visibility', 'inherit');
                     $('.reservation').css('visibility', 'inherit');
                     $('select[name="LastReviewer"]').prop('disabled', true);
-                    $('#reservation-datetimepicker').prop('disabled', true);
+                    $('#reservation-datetimepicker').prop('disabled', false);
                     $('#location').prop('required', true);
                     $('#shortTitle').prop('required', true);
                     break;
@@ -375,10 +375,9 @@
                     return false;
             }
         };
-        publishSetting($('input[name="status"]:checked', '.publish-setting').attr('value'));
-        $('input[name="status"]', '.publish-setting').on('click', function(){
-            if (status === $(this).attr('value') ) return false;
-
+        publishSetting($('input[name="status"]:checked', '.publish-setting').val());
+        $('input[name="status"]', '.publish-setting').on('ifChecked', function(event){
+            if (status === $(event.target).val() ) { return false; }
             status = $(this).attr('value');
             publishSetting(status);
         });

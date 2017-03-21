@@ -45,7 +45,7 @@
                     <label class="control-label">指定送審人</label>
                     <select name="LastReviewer" class="form-control select2">
                         {% for user in userList %}
-                            {% if user.sn != news.LastReviewer.sn %}
+                            {% if user._id != currentUser._id %}
                                 <option value="{{ user._id }}">{{ user.name }}</option>
                             {% endif %}
                         {% endfor %}
@@ -55,9 +55,9 @@
                     <label class="control-label">預約發稿</label>
                     <div class='input-group date'>
                         <input id="reservation-datetimepicker" name="startedAt" type='text' class="form-control input" />
-                        <span class="input-group-addon">
+                        <label for="reservation-datetimepicker" class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
+                        </label>
                     </div>
                 </div>
             </div>

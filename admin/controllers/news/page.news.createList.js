@@ -4,17 +4,12 @@ import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
 module.exports = async (req, res, next) => {
 
     try {
-        let userId = req.session.adminUser._id;
-        let { data: newsListInfo } = await axios.get('/news', {
-            params: {
-                CreatedBy: userId
-            }
-        });
+        let { data: newsListInfo } = await axios.get('/news');
 
         let pageData = newsListInfo.pageData;
         let listDescription = {
-            title: '我的新聞',
-            subtitle: '由我建立的所有新聞列表。',
+            title: '所有新聞',
+            subtitle: '新聞列表，照時間排序，狀態有草稿、審核、...等等 的項目。',
         };
 
         debug('newsListInfo = %j', newsListInfo );

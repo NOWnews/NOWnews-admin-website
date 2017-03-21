@@ -41,9 +41,10 @@ $(function() {
     });
 
     $('input').iCheck({
-        checkboxClass: 'icheckbox_square-red',
-        radioClass: 'iradio_square-red',
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
         increaseArea: '50%' // optional
+    });
 
     // 圖片上傳的全部上傳按鈕
     $('.fileupload-buttonbar').find('.start').click(function(){

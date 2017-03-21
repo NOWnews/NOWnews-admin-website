@@ -9,6 +9,8 @@ module.exports = async (req, res, next) => {
     try {
         let userId = req.session.adminUser._id;
         let { newsMemoContent, ...data } = req.body;
+        let newsStatus = data.status.toLowerCase();
+        let redirectUrl = '/news/myList';
 
         debug('req.body = %j', req.body);
 
@@ -71,6 +73,22 @@ module.exports = async (req, res, next) => {
             data.location = null;
         }
 
+        // 發稿狀態
+        switch (newsStatus) {
+            case 'draft':
+                delete data.LastReviewer;
+                break;
+            case 'review':
+                redirectUrl = '/news/reviewList';
+                break;
+            case 'release':
+                // TODO
+                break;
+            case 'close':
+                delete data.LastReviewer;
+                break;
+        }
+
         debug('FinalCreatedNewsData = %j', data);
 
         let { data: news } = await axios.post('/news', data);
@@ -86,7 +104,7 @@ module.exports = async (req, res, next) => {
 
         debug('createdNews = %j', news);
 
-        return res.redirect('/news/createList');
+        return res.redirect(redirectUrl);
     }
     catch(err) {
         return next(err);

@@ -97,7 +97,7 @@
                                 新聞主分類
                                 <span class="text-danger">*</span>
                             </label>
-                            <select id="MainMenu" name="MainMenu" multiple="multiple" style="display: none;" required>
+                            <select id="MainMenu" name="MainMenu" multiple="multiple" style="display: none;">
                                 {% for m in menus %}
                                     {% if m._id == currentUser.defaultSettings.Menu %}
                                         <option value="{{ m._id }}" selected="selected">{{ m.name }}</option>
@@ -202,8 +202,8 @@
     .ui-widget-shadow {
         opacity: 1;
     }
-    /* 隱藏掉 ck image btn */
-    a.cke_button.cke_button__image {
+    /* 隱藏掉 ck btn */
+    a.cke_button.cke_button__image, a.cke_button.cke_button__scayt {
         display: none;
     }
 
@@ -294,7 +294,9 @@
 
             $('[name=content]').val(content);
             // $('[name=freeContent]').val(freeContent);
-            $('[name=MainMenu]').val($("#MainMenu").multipleSelect("getSelects"));
+
+            var menuData = $("#MainMenu").multipleSelect("getSelects");
+            $('[name=MainMenu]').val(menuData);
             $('[name=Menus]').val($("#Menus").multipleSelect("getSelects"));
 
             // 原設定是給圖片上傳使用，更新新聞時需要切換回 from 模式
@@ -338,9 +340,8 @@
             }
         };
         publishSetting($('input[name="status"]:checked', '.publish-setting').attr('value'));
-        $('input[name="status"]', '.publish-setting').on('click', function(){
-            if (status === $(this).attr('value') ) return false;
-
+        $('input[name="status"]', '.publish-setting').on('ifChecked', function(event){
+            if (status === $(event.target).val() ) { return false; }
             status = $(this).attr('value');
             publishSetting(status);
         });

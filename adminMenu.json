@@ -7,10 +7,10 @@
             "url": "/news/create",
             "name": "新增新聞"
         },{
-            "url": "/news/myList",
+            "url": "/news/createList",
             "name": "所有新聞"
         },{
-            "url": "/news/createList",
+            "url": "/news/myList",
             "name": "我的新聞"
         },{
             "url": "/news/reviewList",
