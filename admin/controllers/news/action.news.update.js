@@ -92,7 +92,7 @@ module.exports = async (req, res, next) => {
             return res.redirect('/news/reviewList');
         }
 
-        return res.redirect('/news/createList');
+        return res.redirect('/news/myList');
     }
     catch(err) {
         return next(err);
