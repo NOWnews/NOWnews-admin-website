@@ -41,8 +41,8 @@ $(function() {
     });
 
     $('input').iCheck({
-        checkboxClass: 'icheckbox_square-red',
-        radioClass: 'iradio_square-red',
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
         increaseArea: '50%' // optional
     });
 

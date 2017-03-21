@@ -340,9 +340,8 @@
             }
         };
         publishSetting($('input[name="status"]:checked', '.publish-setting').attr('value'));
-        $('input[name="status"]', '.publish-setting').on('click', function(){
-            if (status === $(this).attr('value') ) return false;
-
+        $('input[name="status"]', '.publish-setting').on('ifChecked', function(event){
+            if (status === $(event.target).val() ) { return false; }
             status = $(this).attr('value');
             publishSetting(status);
         });
