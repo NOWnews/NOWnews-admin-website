@@ -61,7 +61,9 @@
                     <label class="control-label">指定送審人</label>
                     <select name="LastReviewer" class="form-control select2">
                         {% for user in userList %}
-                            {% if user.sn != news.LastReviewer.sn %}
+                            {% if user._id == news.LastReviewer._id %}
+                                <option value="{{ user._id }}" selected>{{ user.name }}</option>
+                            {% elif user._id != currentUser._id %}
                                 <option value="{{ user._id }}">{{ user.name }}</option>
                             {% endif %}
                         {% endfor %}
