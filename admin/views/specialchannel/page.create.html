@@ -344,10 +344,10 @@ $("#autocomplete-ajax").autocomplete('setOptions', {
                 $('#multiselect_'+k).multiselect('search', $('#txtSearch_'+k).val());
             });
             $('#multiselect_'+k+ ' option').each(function(){
-              text = $(this).val();
-              if ($("#multiselect_"+k+ " option[value='"+text+"']").length >1){
-                $("#multiselect_"+k+ " option[value='"+text+"']:gt(0)").remove();
-              }
+                text = $(this).val();
+                if ($("#multiselect_"+k+ " option[value='"+text+"']").length >1){
+                    $("#multiselect_"+k+ " option[value='"+text+"']:gt(0)").remove();
+                }
             });
 
         });
