@@ -16,7 +16,6 @@ let adminPageRouter = {
     tags: require('./tags'),
     moderator: require('./moderator'),
     news: require('./news'),
-    picture: require('./picture'),
     video: require('./video'),
     topic: require('./topic'),
     specialchannel: require('./specialchannel'),
