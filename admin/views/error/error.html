@@ -1,0 +1,43 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ errObject.statusCode }} Error</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet">
+    <style>
+        .error-page>.headline {
+            float: none;
+            font-size: 200px;
+            text-align: center;
+            font-family: 'Architects Daughter', cursive;
+        }
+        .error-page>.error-content {
+            margin-left: 0;
+        }
+        .error-page>.error-content>h3 {
+            font-size: 28px;
+            letter-spacing: 2px;
+            line-height: 150%;
+            font-family: 'Architects Daughter', cursive;
+        }
+    </style>
+</head>
+<body>
+    <section class="content">
+        <div class="error-page">
+            <h1 class="headline text-red">{{ errObject.statusCode }}</h1>
+        </div>
+        <div class="error-page">
+            <div class="error-content text-center">
+                <h3><i class="fa fa-warning text-red"></i> {{ errObject.message }}。</h3>
+                <h3><a href="/">回首頁</a></h3>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

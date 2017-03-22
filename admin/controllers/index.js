@@ -36,6 +36,10 @@ module.exports = function(app) {
     app.use('/', home);
 
     return function(req, res, next) {
-        return next();
+        var err = {
+            data: { statusCode: 404, message: '找不到頁面' },
+            stack: 'Error: Request failed with status code 404'
+        }
+        return next(err);
     };
 };

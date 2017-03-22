@@ -17,9 +17,10 @@ module.exports = function(app) {
         console.log(errObject);
         console.log('-------------- ERROR --------------');
 
-        res.status(400);
-        return res.json(errObject);
-        // return res.send('系統忙碌中');
+        res.status(errObject.statusCode || 500);
+        res.locals.errObject = errObject;
+
+        return res.render('error/error.html');
     });
 
     return function(req, res, next) {
