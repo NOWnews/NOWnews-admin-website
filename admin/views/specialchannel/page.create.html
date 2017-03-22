@@ -246,7 +246,8 @@ div.debug_log {
 <link type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 <script type="text/javascript" src="/static/js/jquery.uix.multiselect.js"></script>
 <script type="text/javascript" src="http://mind2soft.com/labs/jquery/multiselect/js/jquery.themeswitcher.min.js"></script>
-
+<link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
 <script>
 // Initialize ajax autocomplete:
@@ -268,7 +269,18 @@ $('#autocomplete-ajax').autocomplete({
     },
     onSelect: function (suggestion) {
 
-        $('#multiselect_simple').append('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
+        text = suggestion.data;
+        if ($("#multiselect_simple option[value='"+text+"']").length === 0) {
+            $('#multiselect_simple').append('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
+
+        } else {
+            sweetAlert({
+                title: '<small>已經加入過了</small>!',
+                text: '<span>'+ $('#autocomplete-ajax').val() +'<span>',
+                html: true
+            });
+            $('#autocomplete-ajax').val("");
+        }
         $('#multiselect_simple').multiselect('destroy');
         $('#multiselect_simple').multiselect();
 
@@ -330,6 +342,12 @@ $("#autocomplete-ajax").autocomplete('setOptions', {
             });
             $('#btnSearch_'+k).click(function() {
                 $('#multiselect_'+k).multiselect('search', $('#txtSearch_'+k).val());
+            });
+            $('#multiselect_'+k+ ' option').each(function(){
+                text = $(this).val();
+                if ($("#multiselect_"+k+ " option[value='"+text+"']").length >1){
+                    $("#multiselect_"+k+ " option[value='"+text+"']:gt(0)").remove();
+                }
             });
 
         });

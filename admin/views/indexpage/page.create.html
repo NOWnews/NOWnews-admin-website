@@ -469,8 +469,11 @@ div.debug_log {
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 <link type="text/css" href="http://mind2soft.com/labs/jquery/multiselect/css/jquery.uix.multiselect.css" rel="stylesheet" />
 <link type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+<link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
 <script type="text/javascript" src="/static/js/jquery.uix.multiselect.js"></script>
 <script type="text/javascript" src="http://mind2soft.com/labs/jquery/multiselect/js/jquery.themeswitcher.min.js"></script>
+<link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
 
 <script>
@@ -492,8 +495,19 @@ $('#autocomplete-ajax').autocomplete({
         };
     },
     onSelect: function (suggestion) {
+        text = suggestion.data;
+        if ($("#multiselect_simple option[value='"+text+"']").length === 0) {
+            $('#multiselect_simple').append('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
 
-        $('#multiselect_simple').append('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
+        } else {
+            sweetAlert({
+                title: '<small>已經加入過了</small>!',
+                text: '<span>'+ $('#autocomplete-ajax').val() +'<span>',
+                html: true
+            });
+            $('#autocomplete-ajax2').val("");
+        }
+
         $('#multiselect_simple').multiselect('destroy');
         $('#multiselect_simple').multiselect();
 
@@ -523,7 +537,18 @@ $('#autocomplete-ajax2').autocomplete({
     },
     onSelect: function (suggestion) {
 
-        $('#multiselect_simple2').append('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
+        text = suggestion.data;
+        if ($("#multiselect_simple2 option[value='"+text+"']").length === 0) {
+            $('#multiselect_simple2').append('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
+
+        } else {
+            sweetAlert({
+                title: '<small>已經加入過了</small>!',
+                text: '<span>'+ $('#autocomplete-ajax2').val() +'<span>',
+                html: true
+            });
+            $('#autocomplete-ajax2').val("");
+        }
         $('#multiselect_simple2').multiselect('destroy');
         $('#multiselect_simple2').multiselect();
 
@@ -553,7 +578,18 @@ $('#autocomplete-ajax3').autocomplete({
     },
     onSelect: function (suggestion) {
 
-        $('#multiselect_simple3').append('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
+        text = suggestion.data;
+        if ($("#multiselect_simple3 option[value='"+text+"']").length === 0) {
+            $('#multiselect_simple3').append('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
+
+        } else {
+            sweetAlert({
+                title: '<small>已經加入過了</small>!',
+                text: '<span>'+ $('#autocomplete-ajax3').val() +'<span>',
+                html: true
+            });
+            $('#autocomplete-ajax3').val("");
+        }
         $('#multiselect_simple3').multiselect('destroy');
         $('#multiselect_simple3').multiselect();
 
@@ -583,7 +619,18 @@ $('#autocomplete-ajax4').autocomplete({
     },
     onSelect: function (suggestion) {
 
-        $('#multiselect_simple4').append('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
+        text = suggestion.data;
+        if ($("#multiselect_simple4 option[value='"+text+"']").length === 0) {
+            $('#multiselect_simple4').append('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
+
+        } else {
+            sweetAlert({
+                title: '<small>已經加入過了</small>!',
+                text: '<span>'+ $('#autocomplete-ajax4').val() +'<span>',
+                html: true
+            });
+            $('#autocomplete-ajax4').val("");
+        }
         $('#multiselect_simple4').multiselect('destroy');
         $('#multiselect_simple4').multiselect();
 
@@ -661,9 +708,13 @@ $("#autocomplete-ajax4").autocomplete('setOptions', {
             $('#btnSearch_'+k).click(function() {
                 $('#multiselect_'+k).multiselect('search', $('#txtSearch_'+k).val());
             });
-
+            $('#multiselect_'+k+ ' option').each(function(){
+                text = $(this).val();
+                if ($("#multiselect_"+k+ " option[value='"+text+"']").length >1){
+                    $("#multiselect_"+k+ " option[value='"+text+"']:gt(0)").remove();
+                }
+            });
         });
-
     });
 </script>
 {% endblock %}
