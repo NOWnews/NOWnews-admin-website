@@ -13,6 +13,7 @@ import methodOverride from 'method-override';
 import setLocals from './setLocals';
 import isLogin from './isLogin';
 import checkLoginedTime from './checkLoginedTime';
+import renderMinified from './render-minified';
 
 module.exports = function(app) {
 
@@ -40,6 +41,9 @@ module.exports = function(app) {
         // 依據 Unique Objectid 中擷取固定一段當顏色碼 (memo.html 人名用)
         return `#${str.slice(18, 24)}`;
     });
+
+    // 做 HTML Minify
+    app.use(renderMinified);
 
     // 靜態檔案位置
     let staticFilePath = (process.env.NODE_ENV === 'production') ? 'public/dist' : 'source';
