@@ -6,6 +6,7 @@ module.exports = async (req, res, next) => {
 
     try {
 
+        let { remember } = req.body;
         let { data: loginUser } = await axios.post('/users/login', req.body);
 
         if (!loginUser){
@@ -65,6 +66,12 @@ module.exports = async (req, res, next) => {
         debug('login user= %j', adminUser);
 
         req.session.adminUser = adminUser;
+
+        if (remember) {
+            res.cookie('_now_admin', adminUser.email, { httpOnly: true });
+        } else {
+            res.clearCookie('_now_admin');
+        }
 
         return res.redirect('/');
 
