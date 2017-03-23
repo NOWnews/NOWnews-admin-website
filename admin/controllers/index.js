@@ -16,7 +16,6 @@ let adminPageRouter = {
     tags: require('./tags'),
     moderator: require('./moderator'),
     news: require('./news'),
-    picture: require('./picture'),
     video: require('./video'),
     topic: require('./topic'),
     specialchannel: require('./specialchannel'),
@@ -36,6 +35,10 @@ module.exports = function(app) {
     app.use('/', home);
 
     return function(req, res, next) {
-        return next();
+        var err = {
+            data: { statusCode: 404, message: '找不到頁面' },
+            stack: 'Error: Request failed with status code 404'
+        }
+        return next(err);
     };
 };

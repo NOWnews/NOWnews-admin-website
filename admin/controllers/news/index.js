@@ -6,14 +6,6 @@ import actionNewsPreview from './action.news.preview';
 import actionNewsRemove from './action.news.remove';
 import actionNewsUpdate from './action.news.update';
 
-import actionDailyPlanCreate from './action.dailyPlan.create';
-import actionDailyPlanRemove from './action.dailyPlan.remove';
-import actionDailyPlanUpdate from './action.dailyPlan.update';
-
-import pageDailyPlanList from './page.dailyPlan.list';
-import pageDailyPlanCreate from './page.dailyPlan.create';
-import pageDailyPlanEdit from './page.dailyPlan.edit';
-
 import pageNewsMyList from './page.news.myList';
 import pageNewsReviewList from './page.news.reviewList';
 import pageNewsCreateList from './page.news.createList';
@@ -22,19 +14,6 @@ import pageNewsCreate from './page.news.create';
 import pageNewsEdit from './page.news.edit';
 import pageNewsCompare from './page.news.compare';
 import pageNewsLogs from './page.news.logs';
-
-// 每日稿單 Route
-router.route('/dailyPlanList')
-    .get(pageDailyPlanList);
-
-router.route('/dailyPlan/create')
-    .get(pageDailyPlanCreate)
-    .post(actionDailyPlanCreate);
-
-router.route('/dailyPlan/:dailyPlanId')
-    .delete(actionDailyPlanRemove)
-    .get(pageDailyPlanEdit)
-    .put(actionDailyPlanUpdate);
 
 // 新聞 Route
 router.route('/myList')
