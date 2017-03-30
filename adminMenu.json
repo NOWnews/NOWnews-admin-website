@@ -96,7 +96,7 @@
         "name": "統計",
         "icon": "fa-list-ul",
         "children": [{
-            "url": "/statistics/departments",
+            "url": "/statistics/centers",
             "name": "統計部門則數"
         }]
     }
