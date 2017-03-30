@@ -2,17 +2,17 @@
 import express from 'express';
 let router = express.Router();
 
-import pageStatisticsDepartments from './page.statistics.departments';
-import pageStatisticsDepartment from './page.statistics.department';
+import pageStatisticsCenters from './page.statistics.centers';
+import pageStatisticsCenter from './page.statistics.center';
 import pageStatisticsUsers from './page.statistics.users';
 
-router.route('/departments')
-    .get(pageStatisticsDepartments);
+router.route('/centers')
+    .get(pageStatisticsCenters);
 
 router.route('/users/:id')
     .get(pageStatisticsUsers);
 
-router.route('/departments/:id')
-    .get(pageStatisticsDepartment)
+router.route('/centers/:id')
+    .get(pageStatisticsCenter)
 
 module.exports = router;
