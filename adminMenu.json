@@ -90,5 +90,14 @@
             "url": "/indexpage/create",
             "name": "首頁管理建立"
         }]
+    },
+    "statistics": {
+        "url": "#",
+        "name": "統計",
+        "icon": "fa-list-ul",
+        "children": [{
+            "url": "/statistics/centers",
+            "name": "統計部門則數"
+        }]
     }
 }
