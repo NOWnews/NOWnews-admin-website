@@ -1,29 +1,31 @@
 <table id="statistics-table" class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>新聞名稱</th>
+            <th>中心名稱</th>
+            <th>新聞總數</th>
             <th>PageView總數</th>
-            <th>新聞發佈時間</th>
         </tr>
     </thead>
     <tbody>
-        {% for value in user.userNewsList %}
+        {% for value in centers %}
             <tr>
                 <td>
-                    <a href="#">
-                        {{ value.title }}
+                    <a href="/statistics/centers/{{ value.centerId }}" target="_blank">
+                        {{ value.name }}
                     </a>
                 </td>
+                <td>
+                    {{ value.newstotal }}
+                </td>
                 <td>{{ value.pvTotal }}</td>
-                <td>{{ value.startedAt }}</td>
             </tr>
         {% endfor %}
     </tbody>
     <tfoot>
         <tr>
-            <th>新聞名稱</th>
+            <th>中心名稱</th>
+            <th>新聞總數</th>
             <th>PageView總數</th>
-            <th>新聞發佈時間</th>
         </tr>
     </tfoot>
 </table>
