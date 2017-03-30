@@ -1,0 +1,27 @@
+<table id="statistics-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>新聞名稱</th>
+            <th>PageView總數</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for value in user.userNewsList %}
+            <tr>
+                <td>
+                    <a href="#">
+                        {{ value.title }}
+                    </a>
+                </td>
+
+                <td>{{ value.pvTotal }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>新聞名稱</th>
+            <th>PageView總數</th>
+        </tr>
+    </tfoot>
+</table>

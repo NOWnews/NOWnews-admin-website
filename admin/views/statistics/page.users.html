@@ -1,0 +1,66 @@
+{% extends "../base.html" %}
+{% from "../util/form-user-record.html" import formUserRecord %}
+
+{% block headTitle %}
+    <title>大編輯台 | 專題管理</title>
+{% endblock %}
+
+{% block container %}
+    <section class="content">
+        <div class="box">
+            <div class="box-header">
+                <form id="departments" action="/statistics" method="GET" >
+                    <div class="form-group box-body">
+                        <label class="control-label col-sm-1">設定區間</label>
+                        <div class="col-sm-5">
+                            <div class='input-group date'>
+                                <input id="searchstarttime-datetimepicker" name="startedAt" value="{{ news.formatCreatedAt }}" type='text' class="form-control input" />
+                                <label for="reservation-datetimepicker" class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class='input-group date'>
+                                <input id="searchendtime-datetimepicker" name="endedAt" value="{{ news.formatCreatedAt }}" type='text' class="form-control input" />
+                                <label for="reservation-datetimepicker2" class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="edit-footer text-center">
+                            <button type="submit" class="btn bg-olive btn-flat">送出</button>
+                        </div>
+                    </div>
+
+
+                </form>
+                {# include "./block.query-form.html" #}
+                {% include "./block.table.users.html" %}
+            </div>
+            {#
+            <div class="box-body dataTables_wrapper">
+                {% include "../util/pagination.html" %}
+            </div>
+            #}
+        </div>
+    </section>
+    <script>
+        $(document).ready(function() {
+            $('#statistics-table').DataTable({
+                "paging": false,
+                "searching": false,
+            });
+        });
+        $('#searchstarttime-datetimepicker, #searchend-datetimepicker').daterangepicker({
+            "timePicker24Hour": true,
+            "singleDatePicker": true,
+            "timePicker": true,
+            "startDate": new Date(),
+            "locale": {
+                format: 'YYYY-MM-DD HH:mm:ss'
+            }
+        });
+
+    </script>
+{% endblock %}
