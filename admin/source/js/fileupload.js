@@ -246,7 +246,7 @@ $(function () {
         imageBlocks.html('');
         var queryString = 'startedAt=' + startElm.val();
         queryString += '&endedAt=' + endElm.val();
-        queryString += '&desc=' + $('input[name=desc]').val();
+        queryString += '&keywords=' + $('input[name=imgKeywords]').val();
         queryString += '&imageFrom=' + $('.image-nav li.active a').attr('data-from');
 
         var desc = $('#library input[name=desc]').val();

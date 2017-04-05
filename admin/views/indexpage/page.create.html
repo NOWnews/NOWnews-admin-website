@@ -39,7 +39,7 @@
 
                                 <select id="multiselect_simple" name="carousels" class="multiselect fa-select" multiple="multiple" style="width:100%">
                                     {% for item in indexpage.carousels %}
-                                        <option value="{{ item._id }}" selected="selected">{{ item.title }}</option>
+                                        <option value="{{ item._id }}" selected="selected">TOP {{ loop.index }} - {{ item.title }}</option>
                                     {% endfor %}
                                     {% for item in predata.newsList %}
                                         <option value="{{ item._id }}">{{ item.title }}</option>
@@ -98,8 +98,8 @@
                         <div class="usage_simple" style="position:relative;">
                             <div class="example-container ui-helper-clearfix">
                                 <select id="multiselect_simple2" name="specialTopics" class="multiselect" multiple="multiple" style="width:100%">
-                                    {% for item in specialTopics %}
-                                        <option value="{{ item._id }}" selected="selected">{{ item.title }}</option>
+                                    {% for item in indexpage.specialTopics %}
+                                        <option value="{{ item._id }}" selected="selected">TOP {{ loop.index }} - {{ item.title }}</option>
                                     {% endfor %}
                                     {% for item in pretopic.specialTopics %}
                                         <option value="{{ item._id }}">{{ item.title }}</option>
@@ -157,8 +157,8 @@
                         <div class="usage_simple" style="position:relative;">
                             <div class="example-container ui-helper-clearfix">
                                 <select id="multiselect_simple3" name="specialChannels" class="multiselect" multiple="multiple" style="width:100%">
-                                    {% for item in specialChannels %}
-                                        <option value="{{ item._id }}" selected="selected">{{ item.title }}</option>
+                                    {% for item in indexpage.specialChannels %}
+                                        <option value="{{ item._id }}" selected="selected">TOP {{ loop.index }} - {{ item.title }}</option>
                                     {% endfor %}
                                     {% for item in prespecialchannel.specialChannels %}
                                         <option value="{{ item._id }}">{{ item.title }}</option>
@@ -216,8 +216,8 @@
                         <div class="usage_simple" style="position:relative;">
                             <div class="example-container ui-helper-clearfix">
                                 <select id="multiselect_simple4" name="videos" class="multiselect" multiple="multiple" style="width:100%">
-                                    {% for item in videos %}
-                                        <option value="{{ item._id }}" selected="selected">{{ item.title }}</option>
+                                    {% for item in indexpage.videos %}
+                                        <option value="{{ item._id }}" selected="selected">TOP {{ loop.index }} - {{ item.title }}</option>
                                     {% endfor %}
                                     {% for item in prevideo.newsList %}
                                         <option value="{{ item._id }}">{{ item.title }}</option>

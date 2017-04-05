@@ -4,14 +4,10 @@ const debug = Debug('NOWnews-admin-website: controllers:tags:page.list');
 module.exports = async (req, res, next) => {
 
     try{
-        let queryString = req._parsedUrl.query;
-
-        if (queryString === null) {
-            queryString = "";
-        }
+        let queryString = req._parsedUrl.query? '?' + req._parsedUrl.query: '';
 
         let userId = req.session.adminUser._id;
-        let { data: {tags, pageData} } = await axios.get(`/tags?${queryString}`);
+        let { data: {tags, pageData} } = await axios.get(`/tags${queryString}`);
 
         debug('tagsList = %j', tags );
         debug('pageData = %j', pageData );
