@@ -369,6 +369,7 @@
             var hasPhotos = manyPhotosEle.val()? manyPhotosEle.val() !== '': false;
 
             function setBtnDisabled (bool) {
+                console.log('L371', bool)
                 reviewBtn.prop('disabled', bool);
                 releaseBtn.prop('disabled', bool);
                 if (bool) {
@@ -376,8 +377,8 @@
                     releaseBtn.parents('.radio').addClass('disabled');
                     return;
                 }
-                reviewBtn.parents('.radio').removeClass('disabled');
-                releaseBtn.parents('.radio').removeClass('disabled');
+                reviewBtn.parents('div').removeClass('disabled');
+                releaseBtn.parents('div').removeClass('disabled');
 
             }
 
