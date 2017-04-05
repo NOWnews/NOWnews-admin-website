@@ -5,7 +5,7 @@ import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
 module.exports = async (req, res, next) => {
 
     try {
-        let queryString = req._parsedUrl.query? "?" + req._parsedUrl.query: "";
+        let queryString = req._parsedUrl.query? '?' + req._parsedUrl.query: '';
         let userId = req.session.adminUser._id;
         let { data: newsListInfo } = await axios.get(`/news${queryString}`, {
             params: {
