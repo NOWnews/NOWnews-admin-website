@@ -314,6 +314,16 @@
             }
         });
         $("form").submit(function( event ) {
+            // 加一個遮罩
+            $('.control-sidebar-bg').css({
+                'z-index': '9999',
+                'left': '0',
+                'top': '7px',
+                'opacity': '0.8',
+                'width': '100%'
+            });
+            Pace.restart();
+
             var content = CKEDITOR.instances.editor1.getData();
             // var freeContent = CKEDITOR.instances.editor2.getData();
 
