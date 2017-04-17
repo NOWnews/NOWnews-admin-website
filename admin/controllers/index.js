@@ -4,6 +4,7 @@ import image from './image';
 import video from './video';
 import trend from './trend';
 import map from './map';
+import postBoard from './postBoard';
 import robot from './robot';
 import _ from 'lodash';
 
@@ -33,6 +34,7 @@ module.exports = function(app) {
     app.use('/video', video);
     app.use('/trend', trend);
     app.use('/map', map);
+    app.use('/postBoard', postBoard);
     app.use('/', home);
 
     return function(req, res, next) {
