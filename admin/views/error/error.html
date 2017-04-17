@@ -37,7 +37,7 @@
         </div>
         <div class="error-page">
             <div class="error-content text-center">
-                <h3><i class="fa fa-warning text-red"></i> {{ errObject.message if errObject.message else errObject.stack[0] }}。</h3>
+                <h3><i class="fa fa-warning text-red"></i><span id="error-message"> {{ errObject.message if errObject.message else errObject.stack[0] }}。<span></h3>
                 <h3>
                     選擇
                     <a href="#" onClick="javascript:history.back(1)"><i class="fa fa-chevron-circle-left text-blue"></i>上一頁</a>
