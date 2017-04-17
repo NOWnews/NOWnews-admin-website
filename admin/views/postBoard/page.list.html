@@ -51,10 +51,10 @@
                 <textarea rows="6" class="post-content-edit form-control" style="display:none;">{{ post.content }}</textarea>
                 <div class="text-center post-content-edit" style="display:none;">
                     <button type="submit" item-id="{{ post._id }}" class="btn btn-info post-edit-btn">儲存</button>
-                    <button type="submit" class="btn btn-default post-edit-canel">取消</button>
+                    <button type="submit" class="btn btn-default post-edit-cancel">取消</button>
                 </div>
                 <div class="clearfix"></div>
-                <span class="pull-right text-muted">留言 {{ post.messages.length }}</span>
+                <span class="pull-right text-muted">留言 <strong class="message-count">{{ post.messages.length }}</strong></span>
             </div>
             {% for comment in post.messages %}
             <div class="box-footer box-comments">
@@ -102,7 +102,7 @@
     position: relative;
     top: -15px;
 }
-.post-edit-btn, .post-edit-canel {
+.post-edit-btn, .post-edit-cancel {
     margin-top: 10px;
     margin-right: 10px;
 }
@@ -141,7 +141,7 @@
             parent.find('.post-content-edit').show();
         });
 
-        $('.post-edit-canel').on('click', function(){
+        $('.post-edit-cancel').on('click', function(){
             var parent = $(this).parents('.box');
             parent.attr('style','');
             parent.find('pre.post-content').show();
@@ -161,6 +161,7 @@
                 type: 'PUT',
                 data: { content: content },
                 success: function(result) {
+                    thisBtn.parents('.post-content-edit').find('.post-edit-cancel').click();
                     thisBtn.parents('.box-body').find('pre.post-content').text(content);
                 },
                 error: function(err) {
@@ -182,6 +183,8 @@
                 type: 'DELETE',
                 data: { messageId: messageId },
                 success: function(result) {
+                    var messageCount = result.removedMessage.removedPost.messages.length;
+                    thisBtn.parents('.box.box-success').find('.message-count').text(messageCount);
                     thisBtn.parents('.box-comments').hide('slow');
                 },
                 error: function(err) {
