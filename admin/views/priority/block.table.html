@@ -1,0 +1,67 @@
+<table id="tags-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>標題</th>
+            <th>類型</th>
+            <th>作者</th>
+            <th>PV</th>
+            <th>狀態</th>
+            <th>日期</th>
+            <th>版面值</th>
+            <th>更新</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </thead>
+    <tbody>
+        {#{% for value in tags %}
+            <tr>
+                <td>{{ value.sn }}</td>
+                <td>
+                    <a href="#">
+                        {{ value.name }}
+                    </a>
+                </td>
+                <td>{{ value.type }}</td>
+                <td>{{ value.CreatedBy.name }}</td>
+                <td>{{ value.UpdatedBy.name }}</td>
+                <td>{{ value.formatCreatedAt }}</td>
+                <td>
+                    <button item-id="{{value._id}}" class="btn btn-danger delete-tags">移除</button>
+                </td>
+            </tr>
+        {% endfor %}#}
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>
+                <div class="form-group col-md-2">
+                    <a class="btn btn-success" href="/tags/create">更新</a>
+                </div>
+            </td>
+            <td>9</td>
+            <td>10</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>標題</th>
+            <th>類型</th>
+            <th>作者</th>
+            <th>PV</th>
+            <th>狀態</th>
+            <th>日期</th>
+            <th>版面值</th>
+            <th>更新</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </tfoot>
+</table>
+<script>
+</script>
