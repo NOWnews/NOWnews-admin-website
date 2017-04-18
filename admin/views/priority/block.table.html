@@ -2,19 +2,16 @@
     <thead>
         <tr>
             <th>標題</th>
-            <th>類型</th>
-            <th>作者</th>
             <th>PV</th>
             <th>狀態</th>
             <th>日期</th>
             <th>版面值</th>
             <th>更新</th>
             <th>編輯</th>
-            <th>移除</th>
         </tr>
     </thead>
     <tbody>
-        {#{% for value in tags %}
+        {#{% for value in data %}
             <tr>
                 <td>{{ value.sn }}</td>
                 <td>
@@ -31,7 +28,7 @@
                 </td>
             </tr>
         {% endfor %}#}
-        <tr>
+        <!-- <tr>
             <td>1</td>
             <td>2</td>
             <td>3</td>
@@ -46,20 +43,17 @@
             </td>
             <td>9</td>
             <td>10</td>
-        </tr>
+        </tr> -->
     </tbody>
     <tfoot>
         <tr>
             <th>標題</th>
-            <th>類型</th>
-            <th>作者</th>
             <th>PV</th>
             <th>狀態</th>
             <th>日期</th>
             <th>版面值</th>
             <th>更新</th>
             <th>編輯</th>
-            <th>移除</th>
         </tr>
     </tfoot>
 </table>
