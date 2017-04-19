@@ -6,15 +6,14 @@ const debug = Debug('NOWnews-admin-website: controllers:indexpage:page.create');
 module.exports = async (req, res, next) => {
 
     try{
-        let baseURL = config.get('apiServer');
         let userId = req.session.adminUser._id;
 
         let results = await Promise.all([
-            axios.get(baseURL+'/indexpage'),
-            axios.get(baseURL+'/news?limit=20&status=RELEASE&type=NEWS'),
-            axios.get(baseURL+'/specialtopics?limit=20'),
-            axios.get(baseURL+'/specialchannels?limit=20'),
-            axios.get(baseURL+'/news?limit=20&status=RELEASE&type=VIDEO')
+            axios.get('/indexpage'),
+            axios.get('/news?limit=20&status=RELEASE&type=NEWS'),
+            axios.get('/specialtopics?limit=20'),
+            axios.get('/specialchannels?limit=20'),
+            axios.get('/news?limit=20&status=RELEASE&type=VIDEO')
         ]);
 
         let indexpage = results[0].data;
