@@ -103,7 +103,7 @@
     "priority": {
         "url": "#",
         "name": "新聞順序",
-        "icon": "fa-terminal",
+        "icon": "fa-sliders",
         "children": [{
             "url": "/priority",
             "name": "新聞順序設定"
