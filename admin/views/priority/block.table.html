@@ -3,57 +3,30 @@
         <tr>
             <th>標題</th>
             <th>PV</th>
-            <th>狀態</th>
             <th>版面值</th>
             <th>更新</th>
-            <th>日期</th>
-            <th>編輯</th>
         </tr>
     </thead>
     <tbody>
-        {#{% for value in data %}
+        {% for value in data %}
             <tr>
-                <td>{{ value.sn }}</td>
+                <td>{{ value.title }}</td>
+                <td>{{ value.totalScore }}</td>
                 <td>
-                    <a href="#">
-                        {{ value.name }}
-                    </a>
+                    <input type="text" name="scores" class="input form-control">
                 </td>
-                <td>{{ value.type }}</td>
-                <td>{{ value.CreatedBy.name }}</td>
-                <td>{{ value.UpdatedBy.name }}</td>
-                <td>{{ value.formatCreatedAt }}</td>
-                <td>
-                    <button item-id="{{value._id}}" class="btn btn-danger delete-tags">移除</button>
+                <td class="text-center">
+                    <button class="btn btn-success update-priority" href="/tags/create">更新</button>
                 </td>
             </tr>
-        {% endfor %}#}
-        <!-- <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-            <td>7</td>
-            <td>
-                <div class="form-group col-md-2">
-                    <a class="btn btn-success" href="/tags/create">更新</a>
-                </div>
-            </td>
-            <td>9</td>
-            <td>10</td>
-        </tr> -->
+        {% endfor %}
     </tbody>
     <tfoot>
         <tr>
             <th>標題</th>
             <th>PV</th>
-            <th>狀態</th>
             <th>版面值</th>
             <th>更新</th>
-            <th>日期</th>
-            <th>編輯</th>
         </tr>
     </tfoot>
 </table>

@@ -1,6 +1,6 @@
 {% extends "../base.html" %}
 {% block headTitle %}
-    <title>大編輯台 | 關鍵字管理</title>
+    <title>大編輯台 | 新聞順序管理</title>
 {% endblock %}
 
 {% block container %}
@@ -10,16 +10,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            {% include "./block.test.html" %}
-                            {# <div class="form-group col-md-2">
-                                <a class="btn btn-success" href="/tags/create">添加新聞</a>
-                            </div> #}
+                            {% include "./block.select.html" %}
                         </div>
+                        <form>
                             {% include "./block.table.html" %}
-                            {% include "../util/pagination.html" %}
+                        </form>
                     </div>
                 </div>
-                {# include "./block.query-form.html" #}
             </div>
             <div class="box-body dataTables_wrapper">
             </div>
@@ -30,20 +27,6 @@
             $('#tags-table').DataTable({
                 "paging": false,
                 "searching": false,
-            });
-        });
-
-        $('.delete-tags').on('click', function(){
-            var confirmed = confirm('您確定要刪除嗎？');
-            if (!confirmed) { return; }
-            var id = $(this).attr('item-id');
-            $.ajax({
-                url: '/tags/' + id,
-                type: 'DELETE',
-                success: function(result) {
-                    console.log(result)
-                    location.reload();
-                }
             });
         });
     </script>
