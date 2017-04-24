@@ -3,9 +3,10 @@ import express from 'express';
 let router = express.Router();
 
 import pagePriorityList from './page.priority.list';
-import actionFind from './action.find';
+import actionUpdate from './action.update';
 
 router.route('/')
-    .get(pagePriorityList);
+    .get(pagePriorityList)
+    .put(actionUpdate);
 
 module.exports = router;

@@ -12,9 +12,7 @@
                         <div class="row">
                             {% include "./block.select.html" %}
                         </div>
-                        <form>
-                            {% include "./block.table.html" %}
-                        </form>
+                        {% include "./block.table.html" %}
                     </div>
                 </div>
             </div>
@@ -27,6 +25,10 @@
             $('#tags-table').DataTable({
                 "paging": false,
                 "searching": false,
+            });
+            $( ".update-priority" ).on('click', function( event ) {
+                alert( "Handler for .submit() called." );
+                event.preventDefault();
             });
         });
     </script>

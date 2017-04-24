@@ -11,12 +11,12 @@
         {% for value in data %}
             <tr>
                 <td>{{ value.title }}</td>
-                <td>{{ value.totalScore }}</td>
+                <td>{{ value.originalPageviews }}</td>
                 <td>
-                    <input type="text" name="scores" class="input form-control">
+                    <input type="text" name="weightedScore" class="input form-control">
                 </td>
                 <td class="text-center">
-                    <button class="btn btn-success update-priority" href="/tags/create">更新</button>
+                    <button class="btn btn-success update-priority">更新</button>
                 </td>
             </tr>
         {% endfor %}
