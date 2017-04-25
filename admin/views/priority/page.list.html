@@ -28,7 +28,18 @@
             });
             $( ".update-priority" ).on('click', function( event ) {
                 var weightedScore = $(this).parents('tr').find('[name=weightedScore]').val();
-                alert( "Handler for .submit() called." + weightedScore );
+                var newsId = $(this).attr('newsId');
+                $.ajax({
+                    url: '/priority/' + newsId,
+                    type: 'PUT',
+                    data: {
+                        weightedScore: weightedScore
+                    }
+                }).done(function(result) {
+                    location.reload();
+                }).fail(function() {
+                    alert('更新失敗！');
+                });
                 event.preventDefault();
             });
         });

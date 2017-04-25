@@ -9,12 +9,15 @@ module.exports = async (req, res, next) => {
         let { newsId } = req.params;
         let { weightedScore } = req.body;
 
+        debug('newsId = %s', newsId);
+        debug('weightedScore = %s', weightedScore);
+
         if (!newsId) {
             return res.json({ error: '更新失敗！' });
         }
         let { data } = await axios.put(`scores/${newsId}`, { weightedScore });
 
-        return res.redirect(req.originalUrl);
+        return res.json({susses: true});
 
     } catch(err) {
         return next(err);

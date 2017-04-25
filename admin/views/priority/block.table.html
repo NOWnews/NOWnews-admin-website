@@ -11,14 +11,14 @@
     <tbody>
         {% for value in data %}
             <tr>
-                <td>{{ value.formatCreatedAt }}</td>
+                <td>{{ value.createdAt }}</td>
                 <td>{{ value.title }}</td>
                 <td>{{ value.originalPageviews }}</td>
                 <td>
                     <input type="text" name="weightedScore" class="input form-control" value="{{ value.weightedScore }}">
                 </td>
                 <td class="text-center">
-                    <button class="btn btn-success update-priority">更新</button>
+                    <button class="btn btn-success update-priority" newsId="{{ value._id }}">更新</button>
                 </td>
             </tr>
         {% endfor %}
