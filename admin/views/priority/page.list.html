@@ -27,7 +27,8 @@
                 "searching": false,
             });
             $( ".update-priority" ).on('click', function( event ) {
-                alert( "Handler for .submit() called." );
+                var weightedScore = $(this).parents('tr').find('[name=weightedScore]').val();
+                alert( "Handler for .submit() called." + weightedScore );
                 event.preventDefault();
             });
         });

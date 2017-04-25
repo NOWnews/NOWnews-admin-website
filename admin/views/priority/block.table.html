@@ -1,6 +1,7 @@
 <table id="tags-table" class="table table-bordered table-striped">
     <thead>
         <tr>
+            <th>建立時間</th>
             <th>標題</th>
             <th>PV</th>
             <th>版面值</th>
@@ -10,10 +11,11 @@
     <tbody>
         {% for value in data %}
             <tr>
+                <td>{{ value.formatCreatedAt }}</td>
                 <td>{{ value.title }}</td>
                 <td>{{ value.originalPageviews }}</td>
                 <td>
-                    <input type="text" name="weightedScore" class="input form-control">
+                    <input type="text" name="weightedScore" class="input form-control" value="{{ value.weightedScore }}">
                 </td>
                 <td class="text-center">
                     <button class="btn btn-success update-priority">更新</button>
@@ -23,6 +25,7 @@
     </tbody>
     <tfoot>
         <tr>
+            <th>建立時間</th>
             <th>標題</th>
             <th>PV</th>
             <th>版面值</th>

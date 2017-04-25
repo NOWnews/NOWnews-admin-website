@@ -8,7 +8,11 @@ module.exports = async (req, res, next) => {
         let { menuId }= req.query;
 
         let { data: menus } = await axios.get('menus/struction');
-        let { data } = await axios.get(`/scores?menuId=${menus[0]._id}`);
+
+        if (!menuId) {
+            menuId = menus[0]._id;
+        }
+        let { data } = await axios.get(`/scores?menuId=${menuId}`);
 
         debug('menus = %j', menus);
         debug('NewsByMenu = %j', data);

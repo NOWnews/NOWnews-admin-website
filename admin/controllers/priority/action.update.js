@@ -6,7 +6,13 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        let date = req.body;
+        let { newsId } = req.params;
+        let { weightedScore } = req.body;
+
+        if (!newsId) {
+            return res.json({ error: '更新失敗！' });
+        }
+        let { data } = await axios.put(`scores/${newsId}`, { weightedScore });
 
         return res.redirect(req.originalUrl);
 
