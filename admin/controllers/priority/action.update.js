@@ -1,5 +1,4 @@
 import Debug from 'debug';
-import Promise from 'bluebird';
 const debug = Debug('NOWnews-admin-website: controllers:priority:action.update');
 
 module.exports = async (req, res, next) => {
@@ -15,9 +14,10 @@ module.exports = async (req, res, next) => {
         if (!newsId) {
             return res.json({ error: '更新失敗！' });
         }
+
         let { data } = await axios.put(`scores/${newsId}`, { weightedScore });
 
-        return res.json({susses: true});
+        return res.json({success: true});
 
     } catch(err) {
         return next(err);
