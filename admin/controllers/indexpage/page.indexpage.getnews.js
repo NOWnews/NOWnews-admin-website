@@ -5,9 +5,8 @@ const debug = Debug('NOWnews-admin-website: controllers:page:indexpage.getnews')
 module.exports = async (req, res, next) => {
 
     try {
-        let baseURL = config.get('apiServer');
         let {title, status, type}= req.query;
-        let { data: {newsList} } = await axios.get(baseURL+`/news?title=${encodeURIComponent(title)}&status=${status}&type=${type}`);
+        let { data: {newsList} } = await axios.get(`/news?title=${encodeURIComponent(title)}&status=${status}&type=${type}`);
 
         debug('news = %j', newsList);
         return res.json({

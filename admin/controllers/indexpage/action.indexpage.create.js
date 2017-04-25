@@ -8,7 +8,6 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        let baseURL = config.get('apiServer');
         let userId = req.session.adminUser._id;
         let { type, carousels, specialTopics, specialChannels, videos } = req.body;
 
@@ -24,7 +23,7 @@ module.exports = async (req, res, next) => {
                 carousels: formatCarousels,
                 UpdatedBy: userId
             }
-            let { data: indexpage } = await axios.put(baseURL+`/indexpage/carousels/`, data);
+            let { data: indexpage } = await axios.put('/indexpage/carousels/', data);
 
             debug('createdIndexPageCarouselsData = %j', indexpage);
 
@@ -42,7 +41,7 @@ module.exports = async (req, res, next) => {
                 specialTopics: formatSpecialTopics,
                 UpdatedBy: userId
             }
-            let { data: indexpage } = await axios.put(baseURL+`/indexpage/specialTopics/`, data);
+            let { data: indexpage } = await axios.put('/indexpage/specialTopics/', data);
 
             debug('createdIndexPageSpecialTopicsData = %j', indexpage);
 
@@ -60,7 +59,7 @@ module.exports = async (req, res, next) => {
                 specialChannels: formatSpecialChannels,
                 UpdatedBy: userId
             }
-            let { data: indexpage } = await axios.put(baseURL+`/indexpage/specialchannels/`, data);
+            let { data: indexpage } = await axios.put('/indexpage/specialchannels/', data);
 
             debug('createdIndexPageSpecialchannelsData = %j', indexpage);
 
@@ -78,7 +77,7 @@ module.exports = async (req, res, next) => {
                 videos: formatVideos,
                 UpdatedBy: userId
             }
-            let { data: indexpage } = await axios.put(baseURL+`/indexpage/videos/`, data);
+            let { data: indexpage } = await axios.put('/indexpage/videos/', data);
 
             debug('createdIndexPageVideosData = %j', indexpage);
 

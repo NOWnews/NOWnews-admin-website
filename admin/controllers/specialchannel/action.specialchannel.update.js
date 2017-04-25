@@ -6,7 +6,6 @@ const debug = Debug('NOWnews-admin-website: controllers:specialchannel:action.up
 module.exports = async (req, res, next) => {
 
     try {
-        let baseURL = config.get('apiServer');
         let { specialchannelId } = req.params;
         let userId = req.session.adminUser._id;
         let {title, MainPhoto, newsList} = req.body;
@@ -20,7 +19,7 @@ module.exports = async (req, res, next) => {
             UpdatedBy: userId
         }
 
-        let { data: specialchannel } = await axios.put(`${baseURL}/specialchannels/${specialchannelId}`, data);
+        let { data: specialchannel } = await axios.put(`/specialchannels/${specialchannelId}`, data);
 
         debug('updatedSpecialchannel = %j', specialchannel);
 

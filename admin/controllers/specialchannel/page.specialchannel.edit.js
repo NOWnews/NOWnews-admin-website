@@ -6,9 +6,8 @@ const debug = Debug('NOWnews-admin-website: controllers:specialchannel:page.edit
 module.exports = async (req, res, next) => {
 
     try {
-        let baseURL = config.get('apiServer');
         let { specialchannelId } = req.params;
-        let { data: specialchannel } = await axios.get(`${baseURL}/specialchannels/${specialchannelId}`);
+        let { data: specialchannel } = await axios.get(`/specialchannels/${specialchannelId}`);
 
         debug('specialchannel = %j', specialchannel);
 

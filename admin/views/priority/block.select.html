@@ -1,0 +1,41 @@
+<div id="main">
+    <select class="remote-loading" style="width: 30%">
+        {% for menu in menus %}
+            <option value="{{ menu._id }}" title="{{ menu.level }}" {{ 'selected' if menuId == menu._id }}>{{ menu.name }}</option>
+            {% for child in menu.child %}
+                <option value="{{ child._id }}" title="{{ child.level }}" {{ 'selected' if menuId == child._id }}>{{ child.name }}</option>
+            {% endfor %}
+        {% endfor %}
+    </select>
+</div>
+<style>
+#main {
+    padding: 20px;
+}
+
+</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" />
+<script>
+
+$(".remote-loading").select2({
+    templateResult: function(state) {
+        if (!state.id) { return state.text; }
+        if (state.title === '0') {
+            var $state = $('<strong>' + state.text + '</strong>')
+            return $state;
+        }
+        var $state = $('<span style="padding-left: 15px;">' + state.text + '</span>');
+        return $state;
+    }
+});
+
+//選擇時拿出選到的值
+$(".remote-loading").on("select2:select", function(e) {
+    var selectVal = $(e.currentTarget).val();
+    window.location = '/priority?menuId=' + selectVal;
+});
+
+
+
+</script>
