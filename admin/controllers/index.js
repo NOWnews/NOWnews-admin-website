@@ -9,13 +9,10 @@ import robot from './robot';
 import _ from 'lodash';
 
 let adminPageRouter = {
-    analysis: require('./analysis'),
     auth: require('./auth'),
-    dashboard: require('./dashboard'),
     layout: require('./layout'),
     menu: require('./menu'),
     tags: require('./tags'),
-    moderator: require('./moderator'),
     news: require('./news'),
     video: require('./video'),
     topic: require('./topic'),
