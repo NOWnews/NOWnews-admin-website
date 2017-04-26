@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
         //取得 FormData 和 Headers
         let { formData, headers } = await new Promise((resolve) => {
             let { title, desc, type, isDeliver } = req.body;
-            var fd = new FormData();
+            let fd = new FormData();
             fd.append('title', title);
             fd.append('desc', desc);
             fd.append('type', type);

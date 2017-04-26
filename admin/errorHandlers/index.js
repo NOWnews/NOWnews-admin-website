@@ -8,7 +8,7 @@ module.exports = function(app) {
             data = { statusCode: status, message: data };
         }
 
-        var errObject = {
+        let errObject = {
             ...data, //include meesage & status code
             stack: err.stack.split('\n')
         };
