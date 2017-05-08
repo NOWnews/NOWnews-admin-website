@@ -6,6 +6,7 @@ import trend from './trend';
 import map from './map';
 import postBoard from './postBoard';
 import robot from './robot';
+import rss from './rss';
 import _ from 'lodash';
 
 let adminPageRouter = {
@@ -22,7 +23,8 @@ let adminPageRouter = {
     specialchannel: require('./specialchannel'),
     indexpage: require('./indexpage'),
     statistics: require('./statistics'),
-    priority: require('./priority')
+    priority: require('./priority'),
+    rss:require('./rss')
 };
 
 module.exports = function(app) {

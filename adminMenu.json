@@ -108,5 +108,18 @@
             "url": "/priority",
             "name": "新聞順序設定"
         }]
+    },
+    "rss": {
+        "url": "#",
+        "name": "RSS",
+        "icon": "fa-sliders",
+        "children": [{
+            "url": "/rss/list",
+            "name": "廠商RSS列表"
+        },
+        {
+            "url": "/rss/create",
+            "name": "建立RSS"
+        }]
     }
 }

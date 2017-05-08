@@ -1,0 +1,77 @@
+{% set title = "建立RSS" %}
+<!--{% set subtitle = listDescription.subtitle %}-->
+
+{% extends "../base.html" %}
+{% block headTitle %}
+    <title>大編輯台 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+       
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+
+                        {% include "../blocks/default-form.html" %}
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<script>
+
+//Date range picker
+$('#dateRange').daterangepicker({
+    autoUpdateInput: false,
+    opens: "right",
+    showDropdowns: true,
+    locale:{
+        format: 'YYYY/MM/DD',
+        applyLabel: "確認",
+        cancelLabel: "取消",
+        daysOfWeek: [
+            "日",
+            "一",
+            "二",
+            "三",
+            "四",
+            "五",
+            "六"
+        ],
+        monthNames: [
+            "一月",
+            "二月",
+            "三月",
+            "四月",
+            "五月",
+            "六月",
+            "七月",
+            "八月",
+            "九月",
+            "十月",
+            "十一月",
+            "十二月"
+        ]
+    }
+});
+$('#dateRange').on('apply.daterangepicker', function(ev, picker) {
+    $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+});
+$('#dateRange').on('cancel.daterangepicker', function(ev, picker) {
+    $(this).val('');
+});
+
+    //全選
+    $('input.checkAll').on('ifChecked', function(event){
+        $('input').iCheck('check'); 
+    });
+    //全不選
+    $('input.checkAll').on('ifUnchecked', function(event){
+        $('input').iCheck('uncheck'); 
+    });
+</script>        
+{% endblock %}
+
