@@ -1,0 +1,121 @@
+{% set title = "廠商RSS列表" %} {% set subtitle = listDescription.subtitle %} {% extends "../base.html" %} {% block headTitle%}
+<title>大編輯台 | {{ title }}</title>
+{% endblock %} {% block container %}
+<!-- Main content -->
+<section class="content">
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-body table-responsive">
+                        <table id="main-list" class="table table-bordered table-hover">
+                            <thead>
+                                <th>編號</th>
+                                <th>狀態</th>
+                                <th>名稱</th>
+                                <th>語系</th>
+                                <th>頻道ID</th>
+                                <th>版型</th>
+                                <th>RSS連結</th>
+                                <th>編輯</th>
+                                <th>刪除</th>
+                            </thead>
+                            <tbody>
+                                {% for rss in rssList %}
+                                <tr>
+                                    <td>{{ rss.sn }}</td>
+                                    <td class="{{ 'danger' if rss.isExpired else 'success' }}">{{ rss.dateRange }}</td>
+                                    <td>{{ rss.name }}</td>
+                                    <td>
+                                        {% if rss.simplifiedChinese %} 簡 {% else %} 繁 {% endif %}
+                                    </td>
+                                    <td>{{ rss.channelId }}</td>
+                                    <td>{{ rss.template }}</td>
+                                    <td>
+                                        <a target="_blank" href="/rss/{{ rss.channelId }}">RSS端點</a>
+                                    </td>
+                                    <td>
+                                        <a href="/rss/update/{{ rss.sn }}" class="btn btn-flat btn-info">
+                                            <i class="fa fa-edit"></i> Edit
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-flat btn-danger remove-btn" item-sn="{{ rss.sn }}" page-route="/rss/delete/{{ rss.sn }}">
+                                            <i class="fa fa-trash"></i> Del
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="text-right">
+                            <a href='/rss/create' class="btn btn-primary btn-lg">
+                                <i class="fa fa-plus"></i> 新增一筆
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</section>
+<!-- /.content -->
+
+{% endblock %} {% block jsBlock %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="/static/css/skins/_all-skins.min.css">
+<script>
+    $(function () {
+
+        $('.remove-btn').on('click', function () {
+            event.preventDefault();
+            var sn = $(this).attr('item-sn');
+            var url = $(this).attr('page-route');
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (data, err) {
+                    if (data.trashed) {
+                        location.reload();
+                    } else {
+                        swal({
+                            title: '資料有誤 請重新整理！!',
+                            type: 'error'
+                        });
+                    }
+                }
+            });
+        });
+
+    $('#main-list').DataTable({
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    ordering: true,
+    info: true,
+    autoWidth: true,
+    language: {
+        search: '搜尋: ',
+        zeroRecords: '搜尋不到任何項目 :(',
+        infoEmpty: '沒有任何項目',
+        infoFiltered: '( 搜尋 _MAX_ 條項目 )',
+        info: "顯示 _START_ 至 _END_ 項，總數為 _TOTAL_ 項",
+        sLengthMenu: "顯示 _MENU_ 筆",
+        paginate: {
+            previous: '上一頁',
+            next: '下一頁',
+            last: '最後一頁',
+            first: '第一頁'
+        }
+    }
+    });
+    });
+</script>
+{% endblock %}

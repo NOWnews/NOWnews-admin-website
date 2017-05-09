@@ -4,7 +4,7 @@ import Promise from 'bluebird';
 
 const debug = require('debug')('NOWnews-admin-website:redis:setValue');
 const client = require('./client');
-const config = require('../config');
+const config = require('config');
 
 
 /*
