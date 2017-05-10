@@ -9,13 +9,10 @@ import robot from './robot';
 import _ from 'lodash';
 
 let adminPageRouter = {
-    analysis: require('./analysis'),
     auth: require('./auth'),
-    dashboard: require('./dashboard'),
     layout: require('./layout'),
     menu: require('./menu'),
     tags: require('./tags'),
-    moderator: require('./moderator'),
     news: require('./news'),
     video: require('./video'),
     topic: require('./topic'),
@@ -39,7 +36,7 @@ module.exports = function(app) {
     app.use('/', home);
 
     return function(req, res, next) {
-        var err = {
+        let err = {
             data: { statusCode: 404, message: '找不到頁面' },
             stack: 'Error: Request failed with status code 404'
         }

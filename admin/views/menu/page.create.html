@@ -129,7 +129,7 @@
 {#  script 暫時放這   #}
 <script>
     //給不同input 做 頻道建立 或者是外部連結建立使用
-    $('.checkbox_link').on('click', function() {
+    $('.checkbox_link').on('ifChanged', function() {
         var checkLinkSelected = $('.checkbox_link').is(':checked');
         if (!checkLinkSelected) {
             $('.linkBox').find('input').attr({
