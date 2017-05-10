@@ -14,8 +14,6 @@
 }
 
 </style>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" />
 <script>
 
 $(".remote-loading").select2({
@@ -35,7 +33,5 @@ $(".remote-loading").on("select2:select", function(e) {
     var selectVal = $(e.currentTarget).val();
     window.location = '/priority?menuId=' + selectVal;
 });
-
-
 
 </script>
