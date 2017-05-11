@@ -16,7 +16,7 @@ function diffUsingJS(column) {
         contextSize: null,
         viewType: 1
     }));
-
-
 }
+
+
 
