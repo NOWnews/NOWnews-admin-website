@@ -163,6 +163,9 @@
             </div>
         </div>
 
+        {# 業務欄位 #}
+        {% include "./sponsored/block.edit.sponsored.html" %}
+
         {# 主圖設定 #}
         {% set photo = news.MainPhoto %}
         {% set photos = news.Photos %}
@@ -173,9 +176,6 @@
 
         {# 文章設定 #}
         {% include "./article/block.edit.article.html" %}
-
-        {# 業務欄位 #}
-        {% include "./sponsored/block.edit.sponsored.html" %}
 
         {# 發稿設定 #}
         {% include "./releaseSet/block.edit.releaseSet.html" %}
@@ -244,13 +244,15 @@
 <script>
     $(function () {
 
-        // Replace the <textarea id="editor1"> with a CKEditor
-        var newsContent = CKEDITOR.replace('editor1', {
+        // Replace the <textarea id="contentCk"> with a CKEditor
+        var ckSetting = {
             contentsCss: '/static/css/customCKEditor.css',
             extraAllowedContent: 'img[data-isdeliver];iframe[*]',
             height:550,
             removeButtons: 'About'
-        });
+        };
+
+        var newsContent = CKEDITOR.replace('contentCk', ckSetting);
 
         var defaultWarning = {
             wine: {
@@ -283,7 +285,7 @@
                 icon: '/static/img/icon/' + key +'.png'
             });
         });
-        // CKEDITOR.replace('editor2');
+        CKEDITOR.replace('freeContentCk', ckSetting);
 
         $('#MainMenu').multipleSelect({
             filter: true,
@@ -324,11 +326,11 @@
             });
             Pace.restart();
 
-            var content = CKEDITOR.instances.editor1.getData();
-            // var freeContent = CKEDITOR.instances.editor2.getData();
+            var content = CKEDITOR.instances.contentCk.getData();
+            var freeContent = CKEDITOR.instances.freeContentCk.getData();
 
             $('[name=content]').val(content);
-            // $('[name=freeContent]').val(freeContent);
+            $('[name=freeContent]').val(freeContent);
             $('[name=MainMenu]').val($("#MainMenu").multipleSelect("getSelects"));
             $('[name=Menus]').val($("#Menus").multipleSelect("getSelects"));
 
@@ -386,7 +388,7 @@
             }
         };
         publishSetting($('input[name="status"]:checked', '.publish-setting').val());
-        $('input[name="status"]', '.publish-setting').on('ifChecked', function(event){
+        $('input[name="status"]', '.publish-setting').on('ifChanged', function(event){
             if (status === $(event.target).val() ) { return false; }
             status = $(this).attr('value');
             publishSetting(status);
@@ -499,7 +501,7 @@
         if ($('input[name=isSponsored]').prop('checked')) {
             $('.sponsored-setting').removeClass('hide');
         }
-        $('input[name=isSponsored]').change(function(){
+        $('input[name=isSponsored]').on('ifChanged', function(){
             if($(this).prop('checked')) {
                 $('.sponsored-setting').removeClass('hide');
             } else {
