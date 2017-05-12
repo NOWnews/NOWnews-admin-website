@@ -236,7 +236,6 @@ $('#autocomplete-ajax').autocomplete({
     transformResult: function(response) {
         return {
             suggestions: $.map(response.newsList, function(item) {
-                var createdAt = item.createdAt;
                 var url = item.parseUrl;
                 return { value: item.title, data: item._id, url: url };
             })
