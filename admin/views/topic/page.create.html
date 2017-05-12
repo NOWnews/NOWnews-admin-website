@@ -236,14 +236,14 @@ $('#autocomplete-ajax').autocomplete({
     transformResult: function(response) {
         return {
             suggestions: $.map(response.newsList, function(item) {
-                return { value: item.title, data: item._id};
+                var url = item.parseUrl;
+                return { value: item.title, data: item._id, url: url };
             })
         };
     },
     onSelect: function (suggestion) {
-
         $('.searchNewsTitle').val(suggestion.value);
-
+        $('.searchNewsLink').val(suggestion.url);
       },
       onHint: function (hint) {
         $('#autocomplete-ajax-x').val(hint);
