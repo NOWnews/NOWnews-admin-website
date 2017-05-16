@@ -47,6 +47,13 @@
                                 發布
                             </label>
                         </div>
+                    {% elif news.status == 'CLOSE' %}
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="status" id="status-draft" value="DRAFT" {{ "checked" if news.status == 'DRAFT' }}>
+                                草稿
+                            </label>
+                        </div>
                     {% endif %}
                     <div class="radio">
                         <label>
