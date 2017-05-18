@@ -24,8 +24,9 @@
                             <label for="title" class="control-label">
                                 長標
                                 <span class="text-danger">*</span>
+                                <span id="titleCharCounter" class="text-info"></span>
                             </label>
-                            <input type="text" id="title" name="mainTitle" class="input form-control" placeholder="限制字數為 26" required>
+                            <input type="text" id="title" maxlength="26" name="mainTitle" class="input form-control" placeholder="限制字數為 26" required>
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -33,6 +34,8 @@
                             <label for="shortTitle" class="control-label">
                                 短標
                                 <span class="text-danger">*</span>
+                                <span id="shortTitleCharCounter" class="text-info"></span>
+
                             </label>
                             <input type="text" id="shortTitle" maxlength="16" name="shortTitle" class="input form-control" placeholder="限制字數為 16">
                         </div>
@@ -214,6 +217,17 @@
 
 <script>
     $(function () {
+
+        //title chars counter
+        $('#title').keyup(function(){
+            $("#titleCharCounter").html("目前字數:"+(this.value.length));
+        });
+
+        //short title chars counter
+        $('#shortTitle').keyup(function(){
+            $("#shortTitleCharCounter").html("目前字數:"+(this.value.length));
+        });
+
 
         // Replace the <textarea id="contentCk"> with a CKEditor
         var ckSetting = {
