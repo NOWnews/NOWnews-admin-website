@@ -228,6 +228,13 @@
             $("#shortTitleCharCounter").html("目前字數:"+(this.value.length));
         });
 
+        //press enter on input id : imgKeywords without submitting form ( validate )
+        document.getElementById("imgKeywords").onkeypress = function(e) {
+        var key = e.charCode || e.keyCode || 0;
+        if (key == 13) {
+            e.preventDefault();
+        }
+ }
 
         // Replace the <textarea id="contentCk"> with a CKEditor
         var ckSetting = {
