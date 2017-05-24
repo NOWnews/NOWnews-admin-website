@@ -10,7 +10,7 @@
 
             <p>
                 <label>更新個人大頭貼</label>
-                <label class="btn btn-default btn-flat fa fa-folder-open-o" for="input-image">
+                <label class="btn btn-info btn-flat fa fa-folder-open-o" for="input-image" style="margin-left: 7px;">
                     <input type="file" class="sr-only" id="input-image" name="file" accept=".jpg,.jpeg,.png,.gif">
                 </label>
             </p>
@@ -22,7 +22,9 @@
                     class="hidden btn btn-primary btn-flat fa fa-crop"
                     type="button"> 確認裁切</button>
                 <br />
-                <span class="text-warning">
+                <img class="user-head" src="{{user.Avatar.url}}" style="width: 150px;">
+                <br />
+                <span class="text-warning" style="display: none;">
                     小提醒：圖片裁切完，點選下方【送出】才算完成哦！
                 </span>
             </div>

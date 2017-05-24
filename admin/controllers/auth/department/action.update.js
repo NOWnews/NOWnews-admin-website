@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
 
         debug('updatedDepartment = %j', department);
 
-        return res.redirect(`/auth/department/${department._id}`);
+        return res.redirect('/auth/department');
 
     } catch(err) {
         return next(err);

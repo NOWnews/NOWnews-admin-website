@@ -18,6 +18,8 @@ module.exports = async function(req, res, next) {
 
         debug('currentUser = %j', user);
 
+        // 紀錄更新完要回去的網址
+        req.session.prevUrl = req.headers.referer;
 
         return res.render('auth/user/page.me.html', {
             user,

@@ -30,7 +30,7 @@ module.exports = async (req, res, next) => {
 
         debug('createdUser = %j', user);
 
-        return res.redirect(`/auth/user/${user._id}`);
+        return res.redirect('/auth/user/');
 
     } catch(err) {
         return next(err);
