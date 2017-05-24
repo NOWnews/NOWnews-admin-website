@@ -36,7 +36,10 @@ module.exports = async (req, res, next) => {
 
         req.session.adminUser.defaultSettings.newsBy = data.defaultNewsBy;
 
-        return res.redirect(`/auth/me`);
+        // 如果沒有前一頁，就在同一頁
+        let redirectUrl = req.session.prevUrl || 'back';
+
+        return res.redirect(redirectUrl);
 
     } catch(err) {
         return next(err);

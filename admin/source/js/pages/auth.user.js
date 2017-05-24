@@ -53,6 +53,11 @@ $(function() {
             var files = this.files;
             var file;
 
+            // 秀出提示文字
+            $('.text-warning').show();
+            // 影藏原本大頭照
+            $('.user-head').hide();
+
             // 判斷是否有啟用 Cropper 套件
             if (!previewImage.data('cropper')) {
                 previewImage.cropper({
