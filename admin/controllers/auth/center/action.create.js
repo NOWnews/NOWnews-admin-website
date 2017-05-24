@@ -22,7 +22,7 @@ module.exports = async (req, res, next) => {
 
         let { status, statusText, data: department } = await axios.put(url, data);
 
-        return res.redirect('/auth/department');
+        return res.redirect(`/auth/department/${departmentId}`);
 
     } catch(err) {
         return next(err);

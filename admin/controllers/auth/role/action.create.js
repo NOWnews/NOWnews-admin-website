@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
 
         debug('createdRole = %j', role);
 
-        return res.redirect(`/auth/role/${role._id}`);
+        return res.redirect('/auth/role');
 
     } catch(err) {
         return next(err);
