@@ -33,4 +33,6 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
+	// 預覽add-on
+	config.extraPlugins = 'preview';
 };
