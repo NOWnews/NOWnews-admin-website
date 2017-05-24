@@ -34,11 +34,15 @@ CKEDITOR.editorConfig = function( config ) {
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 
+
 	// 允許所有html tag 包括<script>
 	config.allowedContent = true;
 
 	// 預覽add-on
 	config.extraPlugins = 'preview';
+
+	// 中文語系
+	config.language = 'zh';
 
 
 };
