@@ -128,12 +128,12 @@
                     <div class="col-sm-4">
                         <div class="checkbox">
                             <label>
-                                <input name="isAdult" type="checkbox"> 成人新聞
+                                <input id="isAdult" name="isAdult" type="checkbox"> 成人新聞
                             </label>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input name="isDeliver" type="checkbox"> 可外送
+                                <input id="isDeliver" name="isDeliver" type="checkbox"> 可外送
                             </label>
                         </div>
                         <div class="checkbox">
@@ -217,6 +217,13 @@
 
 <script>
     $(function () {
+        //成人新聞和可外送只能選一個
+        $('input#isAdult').on('ifChecked', function(event){
+            $('input#isDeliver').iCheck('uncheck');
+        });
+        $('input#isDeliver').on('ifChecked', function(event){
+            $('input#isAdult').iCheck('uncheck');
+        });
 
         //title chars counter
         $('#title').keyup(function(){

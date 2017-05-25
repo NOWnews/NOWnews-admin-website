@@ -134,18 +134,18 @@
                         <div class="checkbox">
                             <label>
                                 {% if news.isAdult %}
-                                    <input name="isAdult" type="checkbox" checked> 成人新聞
+                                    <input id="isAdult" name="isAdult" type="checkbox" checked> 成人新聞
                                 {% else %}
-                                    <input name="isAdult" type="checkbox"> 成人新聞
+                                    <input id="isAdult" name="isAdult" type="checkbox"> 成人新聞
                                 {% endif %}
                             </label>
                         </div>
                         <div class="checkbox">
                             <label>
                                 {% if news.isDeliver %}
-                                    <input name="isDeliver" type="checkbox" checked> 可外送
+                                    <input id="isDeliver" name="isDeliver" type="checkbox" checked> 可外送
                                 {% else %}
-                                    <input name="isDeliver" type="checkbox"> 可外送
+                                    <input id="isDeliver" name="isDeliver" type="checkbox"> 可外送
                                 {% endif %}
                             </label>
                         </div>
@@ -243,6 +243,14 @@
 </style>
 <script>
     $(function () {
+
+         //成人新聞和可外送只能選一個
+        $('input#isAdult').on('ifChecked', function(event){
+            $('input#isDeliver').iCheck('uncheck');
+        });
+        $('input#isDeliver').on('ifChecked', function(event){
+            $('input#isAdult').iCheck('uncheck');
+        });
 
         // Replace the <textarea id="contentCk"> with a CKEditor
         var ckSetting = {
