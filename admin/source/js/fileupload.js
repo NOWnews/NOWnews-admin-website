@@ -310,6 +310,12 @@ $(function () {
         copyIntoClipboard($(this));
     });
 
+    // 開新視窗看圖片
+    imageBlocks.on('click', 'button.fa-eye', function() {
+        var imgSrc = $(this).parent().parent().find('img.image').attr('src');
+        return window.open(imgSrc);
+    });
+
     imageBlocks.on('click', 'button.fa-undo', function() {
         var parentBlock = $(this).parent();
         var newsDescElm = parentBlock.find('textarea[name=desc]');
