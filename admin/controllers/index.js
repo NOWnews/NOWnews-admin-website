@@ -1,7 +1,5 @@
 import adminMenu from '../../adminMenu.json';
 import home from './home';
-import image from './image';
-import video from './video';
 import trend from './trend';
 import map from './map';
 import postBoard from './postBoard';
@@ -15,6 +13,7 @@ let adminPageRouter = {
     tags: require('./tags'),
     news: require('./news'),
     video: require('./video'),
+    image: require('./image'),
     topic: require('./topic'),
     specialchannel: require('./specialchannel'),
     indexpage: require('./indexpage'),
@@ -28,8 +27,6 @@ module.exports = function(app) {
     });
 
     app.use('/robots.txt', robot);
-    app.use('/image', image);
-    app.use('/video', video);
     app.use('/trend', trend);
     app.use('/map', map);
     app.use('/postBoard', postBoard);

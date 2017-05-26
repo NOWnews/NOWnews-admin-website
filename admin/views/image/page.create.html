@@ -1,0 +1,40 @@
+{% set title = "新增圖片" %}
+{% extends "../base.html" %}
+
+{% block headTitle %}
+    <title>大編輯台 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+<section class="content">
+    <div>
+        <div class="box image-setting-area">
+            <div class="box-header with-border">
+                <h3 class="box-title">圖片設定上傳區</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool btn-collapse" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <a href="/image/list" class="btn bg-olive btn-flat margin">圖片列表</a>
+                {% include '../util/fileupload.html' %}
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .setMainPhoto.mainPhotoEle, .fa-clipboard.btn {
+        display: none;
+    }
+    li.library {
+        display: none;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        // 不知道之後可以做啥
+    });
+</script>
+{% endblock %}
