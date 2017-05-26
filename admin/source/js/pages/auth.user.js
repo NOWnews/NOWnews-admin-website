@@ -2,8 +2,9 @@ $(function() {
 
     $(document).ready(function() {
         $('#user-table').DataTable({
+            "order": [[ 6, "asc" ]],
             "paging": false,
-            "searching": false,
+            "searching": false
         });
 
         $('.default-author').select2();
