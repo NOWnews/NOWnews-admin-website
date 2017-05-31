@@ -142,6 +142,7 @@ $(function () {
         submit: function (e, data) {
             var nextRow = $(data.context).next();
             var submitRow = $(data.context);
+            var isWatermark = submitRow.find('input[name=isWatermark]:checked').length === 1;
             var isDeliver = submitRow.find('input[name=isDeliver]:checked').length === 1;
             var desc = submitRow.find('textarea[name=desc]').val();
 
@@ -150,6 +151,7 @@ $(function () {
                 desc: desc,
                 type: 'NEWS',
                 isDeliver: isDeliver,
+                isWatermark: isWatermark
             };
 
             if (nextRow.attr('id') === 'crop-row') {
