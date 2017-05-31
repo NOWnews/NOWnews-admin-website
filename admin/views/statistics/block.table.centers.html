@@ -10,7 +10,7 @@
         {% for value in centers %}
             <tr>
                 <td>
-                    <a href="/statistics/centers/{{ value.centerId }}" target="_blank">
+                    <a href="/statistics/centers/{{ value.centerId }}?startedAt={{ query.startedAt }}&endedAt={{ query.endedAt }}" target="_blank">
                         {{ value.name }}
                     </a>
                 </td>

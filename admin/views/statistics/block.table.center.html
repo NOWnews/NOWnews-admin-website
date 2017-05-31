@@ -10,7 +10,7 @@
         {% for value in center.users %}
             <tr>
                 <td>
-                    <a href="/statistics/users/{{ value.userId }}" target="_blank">
+                    <a href="/statistics/users/{{ value.userId }}?startedAt={{ query.startedAt }}&endedAt={{ query.endedAt }}" target="_blank">
                     {{ value.name}}
                     </a>
                 </td>
