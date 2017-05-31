@@ -17,8 +17,11 @@ module.exports = async (req, res, next) => {
 
         //取得 FormData 和 Headers
         let { formData, headers } = await new Promise((resolve) => {
-            let { title, desc, type, isDeliver } = req.body;
+            let { title, desc, type, isDeliver, isWatermark } = req.body;
             let fd = new FormData();
+            if (isWatermark === 'true') {
+                fd.append('isWatermark', isWatermark);
+            }
             fd.append('title', title);
             fd.append('desc', desc);
             fd.append('type', type);
@@ -35,11 +38,17 @@ module.exports = async (req, res, next) => {
 
         // 刪掉檔案
         await new Promise((resolve, reject) => {
-            fs.unlink(newPath, (err, result) => {
-                if(err) {
-                    return reject(err);
+            fs.exists(newPath, (isExists) => {
+                if (!isExists) {
+                    return resolve();
                 }
-                return resolve(result);
+
+                fs.unlink(newPath, (err, result) => {
+                    if(err) {
+                        return reject(err);
+                    }
+                    return resolve(result);
+                });
             });
         });
 
