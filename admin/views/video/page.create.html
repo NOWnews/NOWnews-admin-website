@@ -1,0 +1,47 @@
+{% set title = "新增影片" %}
+{% extends "../base.html" %}
+
+{% block headTitle %}
+    <title>大編輯台 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+<section class="content">
+    <form action="/tags/create" method="post">
+        {% include "../news/video/block.video.html" %}
+        <div class="edit-footer text-center">
+            <a href="/video/list" class="btn bg-olive btn-flat margin">影片列表</a>
+        </div>
+    </form>
+</section>
+
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="/static/js/file-upload/vendor/jquery.ui.widget.js"></script>
+
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="/static/js/file-upload/load-image.all.min.js"></script>
+
+<!-- The basic File Upload plugin -->
+<script src="/static/js/file-upload/jquery.fileupload.js"></script>
+
+<!-- The File Upload processing plugin -->
+<script src="/static/js/file-upload/jquery.fileupload-process.js"></script>
+
+<!-- The File Upload image preview & resize plugin -->
+<script src="/static/js/file-upload/jquery.fileupload-image.js"></script>
+
+<!-- The File Upload video preview plugin -->
+<script src="/static/js/file-upload/jquery.fileupload-video.js"></script>
+
+<!-- The File Upload user interface plugin -->
+<script src="/static/js/file-upload/jquery.fileupload-ui.js"></script>
+
+<style>
+    .setMainVideo {
+        display: none;
+    }
+</style>
+<script>
+
+</script>
+{% endblock %}

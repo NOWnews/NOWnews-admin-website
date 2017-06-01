@@ -12,7 +12,6 @@ import actionFind from './action.find';
 
 import pageCreate from './page.create';
 import pageList from './page.list';
-import pageOne from './page.one';
 import pageDemo from './page.demo';
 
 router.route('/remove/:id')
@@ -33,9 +32,6 @@ router.route('/create')
 
 router.route('/list')
     .get(pageList);
-
-router.route('/:videoId')
-    .get(pageOne);
 
 router.route('/demo/:videoId')
     .get(pageDemo);
