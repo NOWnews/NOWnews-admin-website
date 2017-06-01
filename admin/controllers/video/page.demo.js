@@ -23,6 +23,10 @@ module.exports = async (req, res, next) => {
         let exp = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
         return (url.match(exp)) ? RegExp.$1 : false;
     };
+    let igVid = (url) => {
+        let exp = /(https?:\/\/)?([\w\.]*)instagram\.com\/p\/([a-zA-Z0-9_-]*)\/(?:\S+)?$/;
+        return (url.match(exp)) ? RegExp.$3 : false;
+    };
 
     try {
     	let { videoId } = req.params;
@@ -33,7 +37,8 @@ module.exports = async (req, res, next) => {
     		videos.html = videoHtml(videos.url);
     	} else {
     		videos.html = fbVId(videos.url)? fbHtml(fbVId(videos.url)) : videos.html;
-    		videos.html = ytVid(videos.url)? ytHtml(ytVid(videos.url)) : videos.html;
+            videos.html = ytVid(videos.url)? ytHtml(ytVid(videos.url)) : videos.html;
+    		videos.html = igVid(videos.url)? IgHtml(igVid(videos.url)) : videos.html;
     	}
 
         return res.render('video/page.demo.html', {
