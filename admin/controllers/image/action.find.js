@@ -11,13 +11,11 @@ module.exports = async (req, res, next) => {
             queryString = "";
         }
 
-        let { data: { images } } = await axios.get(`/images?limit=24&${queryString}`);
+        let { data } = await axios.get(`/images?limit=12&${queryString}`);
 
-        debug('images = %j', images);
+        debug('images = %j', data);
 
-        return res.json({
-            images,
-        });
+        return res.json(data);
     }
     catch(err) {
         return next(err);

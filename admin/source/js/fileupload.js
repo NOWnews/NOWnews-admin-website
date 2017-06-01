@@ -142,6 +142,7 @@ $(function () {
         submit: function (e, data) {
             var nextRow = $(data.context).next();
             var submitRow = $(data.context);
+            var isWatermark = submitRow.find('input[name=isWatermark]:checked').length === 1;
             var isDeliver = submitRow.find('input[name=isDeliver]:checked').length === 1;
             var desc = submitRow.find('textarea[name=desc]').val();
 
@@ -150,6 +151,7 @@ $(function () {
                 desc: desc,
                 type: 'NEWS',
                 isDeliver: isDeliver,
+                isWatermark: isWatermark
             };
 
             if (nextRow.attr('id') === 'crop-row') {
@@ -242,13 +244,16 @@ $(function () {
 
     /* 圖庫 */
 
-    function queryImageLibrary () {
+    function queryImageLibrary (val) {
+        var page = (typeof val === 'number') ? val : 1;
+        var currentTarget = val.currentTarget;
+        var imageFrom = (currentTarget && currentTarget.className === 'library') ? $(currentTarget.firstElementChild).attr('data-from') : $('.image-nav li.active a').attr('data-from');
         imageBlocks.html('');
         var queryString = 'startedAt=' + startElm.val();
         queryString += '&endedAt=' + endElm.val();
         queryString += '&keywords=' + $('input[name=imgKeywords]').val();
-        queryString += '&imageFrom=' + $('.image-nav li.active a').attr('data-from');
-
+        queryString += '&page=' + page;
+        queryString += '&imageFrom=' + imageFrom;
         var desc = $('#library input[name=desc]').val();
         var isPhotosNews = $('select[name=type]').val() === 'PHOTO' ? true : false;
         $.get('/image?' + queryString, function(result) {
@@ -274,12 +279,46 @@ $(function () {
                 imageBlocks.append(block);
             });
             $('.zoom').zoom();
+
+            // Process Pagination
+            var pageData = result.pageData;
+            $('#imgPageIndex').val(page);
+            $('.imgPage').html(page);
+            $('.totalPage').html(pageData.totalPage);
+            if (pageData.hasPrev) {
+                $('button.imgPrev').removeClass('hidden');
+            } else {
+                $('button.imgPrev').addClass('hidden');
+            }
+
+            if (pageData.hasNext) {
+                $('button.imgNext').removeClass('hidden');
+            } else {
+                $('button.imgNext').addClass('hidden');
+            }
+
         });
     }
 
     // 點擊 Tab 與 QueryForm 送出時都會觸發
     $('.image-nav li.library').on('click', queryImageLibrary);
     $('.imageLibQueryForm').on('click', queryImageLibrary);
+
+
+    // 點擊收合按鈕（關閉圖庫這個 Collapse）
+    $('button.imgCollapse').on('click', function() {
+        $('.image-setting-area .btn-collapse').click();
+    });
+
+    $('button.imgPrev').on('click', function() {
+        var page = parseInt($('#imgPageIndex').val(), 10);
+        queryImageLibrary(page - 1);
+    });
+
+    $('button.imgNext').on('click', function() {
+        var page = parseInt($('#imgPageIndex').val(), 10);
+        queryImageLibrary(page + 1);
+    });
 
     imageBlocks.on('click', 'button.fa-trash', function() {
 
