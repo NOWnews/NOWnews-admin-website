@@ -1,0 +1,63 @@
+<!-- <div class="row">
+    {% for value in videos %}
+        <div class="col-lg-4 col-xs-6">
+            <div class="small-box bg-blue">
+                <div class="inner">
+                    <p>{{ value.title }}</p>
+                    <p>{{ value.formatCreatedAt }} </p>
+                </div>
+                <div class="text-center">
+                    {{ value.html | safe }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div> -->
+
+<table id="tags-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>編號</th>
+            <th>名稱</th>
+            <th>類別</th>
+            <th>影片</th>
+            <th>建立者</th>
+            <th>更新者</th>
+            <th>建立日期</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for value in videos %}
+            <tr>
+                <td>{{ value.sn }}</td>
+                <td>
+                    <a href="/video/{{ value._id }}">
+                        {{ value.title }}
+                    </a>
+                </td>
+                <td>{{ value.videoFrom }}</td>
+                <td>
+                    <a href="/video/demo/{{ value._id }}" target="_blank">
+                        連結
+                    </a>
+                </td>
+                <td>{{ value.CreatedBy.name }}</td>
+                <td>{{ value.UpdatedBy.name }}</td>
+                <td>{{ value.formatCreatedAt }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>編號</th>
+            <th>名稱</th>
+            <th>類別</th>
+            <th>影片</th>
+            <th>建立者</th>
+            <th>更新者</th>
+            <th>建立日期</th>
+        </tr>
+    </tfoot>
+</table>
+<script>
+</script>
