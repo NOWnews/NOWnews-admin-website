@@ -284,7 +284,7 @@ $(function () {
             var pageData = result.pageData;
             $('#imgPageIndex').val(page);
             $('.imgPage').html(page);
-            $('.totalPage').html(pageData.totalPage)
+            $('.totalPage').html(pageData.totalPage);
             if (pageData.hasPrev) {
                 $('button.imgPrev').removeClass('hidden');
             } else {
