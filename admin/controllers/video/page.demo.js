@@ -4,13 +4,16 @@ const debug = Debug('NOWnews-admin-website: controllers:video:page.demo');
 module.exports = async (req, res, next) => {
 
     let videoHtml = (url) => {
-        return '<video height="400" width="480" controls><source src="'+ url +'" type="video/mp4"></video>';
+        return '<video height="400" width="480" controls><source src="' + url + '" type="video/mp4"></video>';
     };
     let ytHtml = (id) => {
         return '<iframe src="https://www.youtube.com/embed/' + id + '?ecver=2" height="400" width="480" frameborder="0" allowfullscreen></iframe>';
     };
     let fbHtml = (id) => {
         return '<iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fsunnyhundalorg%2Fvideos%2F' + id + '%2F&show_text=0" height="400" width="480" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>';
+    };
+    let IgHtml = (id) => {
+        return '<blockquote class="instagram-media" data-instgrm-version="7"><p><a href="https://www.instagram.com/p/' + id + '" target="_blank"></a></p></blockquote><script async defer src="//platform.instagram.com/en_US/embeds.js"></script>';
     };
     let fbVId = (url) => {
         let exp = /^http(?:s?):\/\/(?:www\.|web\.|m\.)?facebook\.com\/([A-z0-9\.]+)\/videos(?:\/[0-9A-z].+)?\/(\d+)(?:.+)?$/;
