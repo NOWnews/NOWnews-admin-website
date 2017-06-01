@@ -65,6 +65,18 @@
             <div class="row image-blocks">
 
             </div>
+            <div class="text-center">
+                <button class="btn btn-default imgCollapse" type="button">
+                    <i class='fa fa-minus'> 收合</i>
+                </button>
+
+                <br />
+                <input id="imgPageIndex" name="imgPageIndex" type="hidden"  value='1' />
+                <button class="btn btn-link imgPrev hidden" type="button">上一頁 </button>
+                第 <span class="imgPage">1</span> 頁，共 <span class="totalPage">1</span> 頁
+                <button class="btn btn-link imgNext hidden" type="button"> 下一頁</button>
+
+            </div>
         </div>
     </div>
 </div>
@@ -238,7 +250,7 @@
     }
 
     .photo-group {
-        height: 180px;
+        height: 150px;
         width: 320px;
         margin: 5px;
         background-position: center;
@@ -252,14 +264,14 @@
 
     .image  {
         height: auto;
-        height: 180px;
+        height: 150px;
         width: auto;
     }
 
     .image-block {
         background: #d2d6de;
         border: 1px solid #fff;
-        height: 300px;
+        height: 270px;
         margin-bottom: 5px;
     }
 
