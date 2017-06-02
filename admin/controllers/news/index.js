@@ -38,7 +38,7 @@ router.route('/compare')
 router.route('/:newsId/logs')
     .get(pageNewsLogs);
 
-router.route('/:newsId/preview')
+router.route('/preview')
     .post(actionNewsPreview);
 
 router.route('/:newsId')

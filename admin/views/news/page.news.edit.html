@@ -498,11 +498,38 @@
             }
         });
 
+        // 預覽頁面
         $('#preview-btn').on('click', function(){
             var newsId = $(this).attr('data-newsId');
-            $.post('/news/' + newsId + '/preview', function(data) {
+            var photoList = []
+            if ($('.photo-group').length) {
+                $('.photo-group').each(function(){
+                    photoList.push({
+                        url: $(this).css('background-image').split('"')[1],
+                        desc: $(this).find('.manyPhotoEleTitle').text()
+                    });
+                })
+            }
+            var previewObj = {
+                startedAt: $('#reservation-datetimepicker').val(),
+                createdAt: $('#reservation-datetimepicker').val(),
+                title: $('[name=mainTitle]').val(),
+                MainMenu: $('[name=MainMenu] option:selected').text(),
+                newsBy: $('[name=newsBy]').val(),
+                content: CKEDITOR.instances.contentCk.getData(),
+                Tags: $('[name=tags]').val(),
+                type: $('[name=type]').val(),
+                MainPhotoUrl: $('.image-preview img').attr('src'),
+                MainPhotoWidth: 970,
+                MainPhotoDesc: $('.image-preview p').text(),
+                MainVideoUrl: $('.setMainVideo').length ? $('.setMainVideo').attr('data-url') : null,
+                MainVideoDesc: $('#video-preview strong').length ? $('#video-preview strong').text() : null,
+                Photos: JSON.stringify(photoList)
+            };
+
+            $.post('/news/preview', previewObj, function(data) {
                 window.open(data.previewUrl);
-            });
+            }, 'json');
         });
 
         // 業務欄位
