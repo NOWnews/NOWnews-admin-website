@@ -1,0 +1,46 @@
+{% extends "../base.html" %}
+{% block headTitle %}
+    <title>大編輯台 | 關鍵字管理</title>
+{% endblock %}
+
+{% block container %}
+    <section class="content">
+        <div class="box">
+            <div class="box-header">
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <a class="btn btn-success" href="/tags/create">新增影片</a>
+                    </div>
+                </div>
+                {# include "./block.query-form.html" #}
+                {% include "./block.table.html" %}
+            </div>
+            <div class="box-body dataTables_wrapper">
+                {% include "../util/pagination.html" %}
+            </div>
+        </div>
+    </section>
+    <script>
+        $(document).ready(function() {
+            $('#tags-table').DataTable({
+                "paging": false,
+                "searching": false,
+                "order": [[ 6, 'desc' ]]
+            });
+        });
+
+        $('.delete-tags').on('click', function(){
+            var confirmed = confirm('您確定要刪除嗎？');
+            if (!confirmed) { return; }
+            var id = $(this).attr('item-id');
+            $.ajax({
+                url: '/tags/' + id,
+                type: 'DELETE',
+                success: function(result) {
+                    console.log(result)
+                    location.reload();
+                }
+            });
+        });
+    </script>
+{% endblock %}

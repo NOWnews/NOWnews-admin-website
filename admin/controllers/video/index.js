@@ -10,6 +10,10 @@ import actionUpload from './action.upload';
 import actionCreate from './action.create';
 import actionFind from './action.find';
 
+import pageCreate from './page.create';
+import pageList from './page.list';
+import pageDemo from './page.demo';
+
 router.route('/remove/:id')
     .delete(actionRemove);
 
@@ -21,6 +25,15 @@ router.route('/')
     .get(actionFind);
 
 router.route('/upload')
-    .post(videoUpload.single('video'), actionUpload)
+    .post(videoUpload.single('video'), actionUpload);
+
+router.route('/create')
+    .get(pageCreate);
+
+router.route('/list')
+    .get(pageList);
+
+router.route('/demo/:videoId')
+    .get(pageDemo);
 
 module.exports = router;

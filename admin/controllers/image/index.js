@@ -11,6 +11,9 @@ import actionRealRemove from './action.realRemove';
 import actionUpdate from './action.update';
 import actionUpload from './action.upload';
 
+import pageCreate from './page.create';
+import pageList from './page.list';
+
 router.route('/:id')
     .delete(actionRemove)
     .put(actionUpdate);
@@ -26,6 +29,12 @@ router.route('/')
 
 router.route('/upload')
     .post(imageUpload.single('image'), actionUpload);
+
+router.route('/create')
+    .get(pageCreate);
+
+router.route('/list')
+    .get(pageList);
 
 
 module.exports = router;
