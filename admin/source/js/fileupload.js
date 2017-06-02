@@ -76,6 +76,7 @@ $(function () {
         photoGroup.css('background-image', 'url(' + src + ')');
         photoGroup.attr('onclick', 'window.open("'+ src +'", "_blank")');
         photoGroup.find('input[name="Photos[]"]').val(imageId).addClass(imageId);
+        photoGroup.find('p.manyPhotoEleTitle').text(text);
         $('.image-preview').append(photoGroup);
         $('.'+ imageId +'[name="Photos[]"]').trigger('change');
     }
