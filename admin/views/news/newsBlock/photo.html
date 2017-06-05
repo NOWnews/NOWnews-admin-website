@@ -21,7 +21,7 @@
                 {% for p in photos %}
                     <div class="pull-left img-thumbnail photo-group manyPhotoEle" style="background-image: url({{ p.url }});" onclick="window.open('{{ p.url }}', '_blank')">
                         <p>{{ p.desc }}</p>
-                        <input type="hidden" name="Photos[]">
+                        <input type="hidden" name="Photos[]" value="{{ p._id }}">
                     </div>
                 {% endfor %}
             </div>
