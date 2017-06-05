@@ -1,7 +1,7 @@
 {
     "mode": "develop",
-    "officialUrl": "http://61.67.121.56:5000",
-    "apiServer": "http://35.185.146.211:10000",
+    "officialUrl": "http://localhost:5000",
+    "apiServer": "http://localhost:10000",
     "expiredDay": 3,
     "headers": {
         "X-NOWnews-API": ["NOWnewsIsFeature"]
