@@ -26,9 +26,7 @@
                     {{ NEWS_TYPES[value.type] }}
                 </td>
                 <td>
-                    <a href="#">
                     {{ value.CreatedBy.name }}
-                    </a>
                 </td>
                 <td>
                     {{ value.MainMenu.name }}
@@ -46,9 +44,7 @@
                 <td>{{ NEWS_STATUS[value.status] }}</td>
                 <td>{{ value.formatCreatedAt }}</td>
                 <td>
-                    <a href="#">
                         {{ value.LastReviewer.name if value.LastReviewer else "--" }}
-                    </a>
                 </td>
                 <td>
                     <a class="btn btn-info"
