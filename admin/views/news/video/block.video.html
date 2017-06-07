@@ -17,6 +17,8 @@
                     主影片
                     <span class="text-danger">*</span>
                 </label>
+                <div>
+                </div>
                 <input type="hidden" name="MainVideo" value="{{news.MainVideo._id}}" />
                 <div id="video-preview">
                     {% if news.MainVideo and news.MainVideo.videoFrom == 'INTERNAL' %}
@@ -75,6 +77,14 @@
                             </table>
                         </div>
                         <div class="tab-pane" id="video-url">
+                             <ul  style="margin-top:10px;">
+                                <li>
+                                    <a href="../static/img/video-upload-example/fb.gif" target="_blank">Facebook影片上傳操作範例</a>
+                                </li>
+                                <li>
+                                    <a href="../static/img/video-upload-example/youtube.gif" target="_blank">YouTube影片上傳操作範例</a>
+                                </li>
+                            </ul>
                             <div class="url-form">
                                 <br>
                                 <label for="MainVideo">影片 URL</label>
