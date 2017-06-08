@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
         let userId = req.session.adminUser._id;
         let { newsMemoContent, ...data } = req.body;
         let newsStatus = data.status.toLowerCase();
-        let redirectUrl = '/news/myList';
+        let redirectUrl = req.session.prevUrl || 'back';
 
         debug('req.body = %j', data);
 
