@@ -208,7 +208,13 @@
 
 
 <script id="photo-group-template" type="text/x-custom-template">
-    <div class="pull-left img-thumbnail photo-group manyPhotoEle" onclick="">
+    <div class="pull-left img-thumbnail photo-group manyPhotoEle">
+        <a class="setIndex" href="#">主</a>
+        <div class="text-right">
+            <a class="label label-primary previewImg" target="_blank" href="{{ p.url }}"><i class="fa fa-eye"></i></a>
+            <a class="label bg-purple setManyMainPhoto" href="#">設為主圖</a>
+            <a class="label label-danger delete" href="#"><i class="fa fa-times"></i></a>
+        </div>
         <p class="manyPhotoEleTitle"></p>
         <input type="hidden" name="Photos[]">
     </div>
