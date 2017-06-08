@@ -216,6 +216,29 @@
     .disabled {
         color: #aaa;
     }
+    .photo-group {
+        position: relative;
+        cursor: pointer;
+    }
+    .photo-group p.manyPhotoEleTitle {
+        position: absolute;
+        bottom: 0;
+        margin: 0;
+    }
+    .manyMainPhoto {
+        border-color: red;
+    }
+    .setIndex {
+        position: absolute;
+        font-size: 20px;
+        background: rgba(255, 0, 0, 0.8);
+        padding: 5px 10px;
+        color: #fff;
+        display: none;
+    }
+    .manyMainPhoto .setIndex {
+        display: block;
+    }
 </style>
 
 <script>
@@ -240,11 +263,11 @@
 
         //press enter on input id : imgKeywords without submitting form ( validate )
         document.getElementById("imgKeywords").onkeypress = function(e) {
-        var key = e.charCode || e.keyCode || 0;
-        if (key == 13) {
-            e.preventDefault();
+            var key = e.charCode || e.keyCode || 0;
+            if (key == 13) {
+                e.preventDefault();
+            }
         }
- }
 
         // Replace the <textarea id="contentCk"> with a CKEditor
         var ckSetting = {
@@ -482,6 +505,21 @@
                 $('.mainPhotoEle').removeClass('hide');
                 $('.manyPhotoEle').addClass('hide');
             }
+        });
+
+        // 圖片新聞置換功能
+        $('.image-preview').on('click', '.delete', function(){
+            event.preventDefault();
+            $(this).parents('.photo-group').remove();
+        });
+        $('.image-preview').on('click', '.setManyMainPhoto', function(event){
+            event.preventDefault();
+            var mainId = $(this).parents('.photo-group').find('input');
+            $('.image-preview').find('input[name=MainPhoto]').val(mainId);
+            $('.image-preview').find('.mainPhotoEle').attr('src', '');
+            $('.image-preview').find('.preview-desc').text('');
+            $(this).parents('.image-preview').find('.manyMainPhoto').removeClass('manyMainPhoto');
+            $(this).parents('.photo-group').addClass('manyMainPhoto');
         });
 
         // 預覽頁面
