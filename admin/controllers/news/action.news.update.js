@@ -45,6 +45,11 @@ module.exports = async (req, res, next) => {
             data.freeContent = null;
         }
 
+        // news 如果不是圖片新聞 Photos 圖片欄位要變成空陣列
+        if (data.type !== 'PHOTO') {
+            data.Photos = [];
+        }
+
         // Tags 的處理
         let tags;
         if (data.tags !== ''){
