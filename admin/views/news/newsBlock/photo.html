@@ -19,8 +19,8 @@
                 <img class="image mainPhotoEle" name="MainPhoto" src="{{photo.url}}" />
                 <p class="preview-desc mainPhotoEle">{{photo.desc}}</p>
                 {% for p in photos %}
-                    <div class="pull-left img-thumbnail photo-group manyPhotoEle" style="background-image: url({{ p.url }});">
-                        <a class="setIndex" href="#" data-index="{{ loop.index }}">{{ loop.index }}</a>
+                    <div class="pull-left img-thumbnail photo-group manyPhotoEle {{ 'manyMainPhoto' if p._id == photo._id }}" style="background-image: url({{ p.url }});">
+                        <a class="setIndex" href="#" data-index="{{ loop.index }}">主</a>
                         <div class="text-right">
                             <a class="label label-primary previewImg" target="_blank" href="{{ p.url }}"><i class="fa fa-eye"></i></a>
                             <a class="label bg-purple setManyMainPhoto" href="#">設為主圖</a>
