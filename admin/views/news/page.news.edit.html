@@ -528,7 +528,7 @@
         });
         $('.image-preview').on('click', '.setManyMainPhoto', function(event){
             event.preventDefault();
-            var mainId = $(this).parents('.photo-group').find('input');
+            var mainId = $(this).parents('.photo-group').find('input').val();
             $('.image-preview').find('input[name=MainPhoto]').val(mainId);
             $('.image-preview').find('.mainPhotoEle').attr('src', '');
             $('.image-preview').find('.preview-desc').text('');
