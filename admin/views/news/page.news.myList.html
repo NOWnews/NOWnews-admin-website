@@ -24,9 +24,21 @@
     </section>
     <script>
         $(document).ready(function() {
+
+            var startElm = $('input[name=startedAt]');
+            var endElm = $('input[name=endedAt]');
+
+            initQueryFrom();
+            function initQueryFrom() {
+                var today = moment().format('YYYY-MM-DD');
+                startElm.attr('max', today);
+                endElm.attr('max', today);
+            }
+
             $('#news-table').DataTable({
                 "paging": false,
                 "searching": false,
+                "ordering":  false
             });
         });
 

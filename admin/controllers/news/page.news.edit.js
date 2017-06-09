@@ -52,6 +52,9 @@ module.exports = async (req, res, next) => {
 
         debug('news = %j', news);
 
+        // 紀錄更新完要回去的網址
+        req.session.prevUrl = req.headers.referer;
+
         return res.render('news/page.news.edit.html', {
             NEWS_TYPES,
             NEWS_STATUS,

@@ -24,8 +24,9 @@
                             <label for="title" class="control-label">
                                 長標
                                 <span class="text-danger">*</span>
+                                <span id="titleCharCounter" class="text-info"></span>
                             </label>
-                            <input type="text" id="title" name="mainTitle" value="{{news.title}}" class="input form-control" placeholder="限制字數為 26" required>
+                            <input type="text" id="title" pattern="^.{1,26}$" name="mainTitle" value="{{news.title}}" class="input form-control" placeholder="限制字數為 26" required>
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -33,8 +34,9 @@
                             <label for="shortTitle" class="control-label">
                                 短標
                                 <span class="text-danger">*</span>
+                                <span id="shortTitleCharCounter" class="text-info"></span>
                             </label>
-                            <input type="text" maxlength="16" id="shortTitle" value="{{news.shortTitle}}" name="shortTitle" class="input form-control" placeholder="限制字數為 16" required>
+                            <input type="text" pattern="^.{1,16}$" id="shortTitle" value="{{news.shortTitle}}" name="shortTitle" class="input form-control" placeholder="限制字數為 16" required>
                         </div>
                     </div>
                 </div>
@@ -275,6 +277,30 @@
             $('input#isAdult').iCheck('uncheck');
         });
 
+        //title chars counter
+        $('#title').keyup(function(){
+            if(this.value.length>26){
+                $('#titleCharCounter').removeClass('text-info').addClass('text-danger');
+                $("#titleCharCounter").html("超出字數:"+(this.value.length-26));
+            }
+            else{
+                $('#titleCharCounter').removeClass('text-danger').addClass('text-info');
+                $("#titleCharCounter").html("目前字數:"+(this.value.length));
+            }
+        });
+
+        //short title chars counter
+        $('#shortTitle').keyup(function(){
+            if(this.value.length>16){
+                $('#shortTitleCharCounter').removeClass('text-info').addClass('text-danger');
+                $("#shortTitleCharCounter").html("超出字數:"+(this.value.length-16));
+            }
+            else{
+                $('#shortTitleCharCounter').removeClass('text-danger').addClass('text-info');
+                $("#shortTitleCharCounter").html("目前字數:"+(this.value.length));
+            }
+        });
+
         // Replace the <textarea id="contentCk"> with a CKEditor
         var ckSetting = {
             contentsCss: '/static/css/customCKEditor.css',
@@ -428,7 +454,8 @@
         $("#keywords").tagEditor({
             delimiter: ',',
             placeholder: '請用 Enter 或逗號加入關鍵字 ...',
-            maxTags: 7
+            maxTags: 7,
+            forceLowercase: false
         });
 
         // 沒有圖片或影片只能夠變成草稿

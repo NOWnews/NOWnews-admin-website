@@ -14,6 +14,7 @@ module.exports = {
         DRAFT: '草稿',
         REVIEW: '送審',
         RELEASE: '發佈',
+        TEMP: '暫存',
         CLOSE: '關閉',
     },
 };

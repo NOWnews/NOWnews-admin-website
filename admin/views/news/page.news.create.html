@@ -26,7 +26,7 @@
                                 <span class="text-danger">*</span>
                                 <span id="titleCharCounter" class="text-info"></span>
                             </label>
-                            <input type="text" id="title" maxlength="26" name="mainTitle" class="input form-control" placeholder="限制字數為 26" required>
+                            <input type="text" id="title" pattern="^.{1,26}$" name="mainTitle" class="input form-control" placeholder="限制字數為 26" required>
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -35,9 +35,8 @@
                                 短標
                                 <span class="text-danger">*</span>
                                 <span id="shortTitleCharCounter" class="text-info"></span>
-
                             </label>
-                            <input type="text" id="shortTitle" maxlength="16" name="shortTitle" class="input form-control" placeholder="限制字數為 16">
+                            <input type="text" id="shortTitle" pattern="^.{1,16}$" name="shortTitle" class="input form-control" placeholder="限制字數為 16">
                         </div>
                     </div>
                 </div>
@@ -253,12 +252,26 @@
 
         //title chars counter
         $('#title').keyup(function(){
-            $("#titleCharCounter").html("目前字數:"+(this.value.length));
+            if(this.value.length>26){
+                $('#titleCharCounter').removeClass('text-info').addClass('text-danger');
+                $("#titleCharCounter").html("超出字數:"+(this.value.length-26));
+            }
+            else{
+                $('#titleCharCounter').removeClass('text-danger').addClass('text-info');
+                $("#titleCharCounter").html("目前字數:"+(this.value.length));
+            }
         });
 
         //short title chars counter
         $('#shortTitle').keyup(function(){
-            $("#shortTitleCharCounter").html("目前字數:"+(this.value.length));
+            if(this.value.length>16){
+                $('#shortTitleCharCounter').removeClass('text-info').addClass('text-danger');
+                $("#shortTitleCharCounter").html("超出字數:"+(this.value.length-16));
+            }
+            else{
+                $('#shortTitleCharCounter').removeClass('text-danger').addClass('text-info');
+                $("#shortTitleCharCounter").html("目前字數:"+(this.value.length));
+            }
         });
 
         //press enter on input id : imgKeywords without submitting form ( validate )
@@ -415,7 +428,8 @@
         $("#keywords").tagEditor({
             delimiter: ',',
             placeholder: '請用 Enter 或逗號加入關鍵字 ...',
-            maxTags: 7
+            maxTags: 7,
+            forceLowercase: false
         });
 
         // 沒有圖片或影片只能夠變成草稿
