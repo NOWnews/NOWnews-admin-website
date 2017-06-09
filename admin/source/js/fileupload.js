@@ -52,6 +52,12 @@ $(function () {
         $('input[name=MainPhoto]').val(parentElm.find('input[name=imageId]').val()).trigger('change');
         $('img[name=MainPhoto]').attr('src', setBtn.attr('data-url'));
         $('.preview-desc').text(parentElm.find('.desc').text());
+        if(parentElm.find('small.canNotDeliver').length>0){
+            $('small.mainPhoto.canNotDeliver').text('不可外送')
+        }
+        else{
+            $('small.mainPhoto.canNotDeliver').text('可外送');
+        }
         $('.image-setting-area .btn-collapse').click();
     }
 

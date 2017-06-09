@@ -16,6 +16,15 @@
             </label>
             <div class="image-preview">
                 <input type="hidden" name="MainPhoto" value="{{photo._id}}" />
+                <div>
+                     <small class="label label-warning mainPhoto canNotDeliver">
+                        {% if photo.isDeliver %}
+                            <i class="fa fa-bin"></i>可外送
+                        {% else %}
+                            <i class="fa fa-bin"></i>不可外送
+                        {% endif %}
+                    </small>
+                </div>
                 <img class="image mainPhotoEle" name="MainPhoto" src="{{photo.url}}" />
                 <p class="preview-desc mainPhotoEle">{{photo.desc}}</p>
                 {% for p in photos %}
