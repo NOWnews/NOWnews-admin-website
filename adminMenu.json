@@ -7,11 +7,11 @@
             "url": "/news/create",
             "name": "新增新聞"
         },{
-            "url": "/news/createList",
+            "url": "/news/myList",
             "name": "所有新聞"
         },{
-            "url": "/news/myList",
-            "name": "我的新聞"
+            "url": "/news/createList",
+            "name": "我建立的新聞"
         },{
             "url": "/news/reviewList",
             "name": "待審中新聞"
@@ -27,30 +27,6 @@
         "children": [{
             "url": "/tags",
             "name": "關鍵字列表"
-        }]
-    },
-    "image": {
-        "url": "/image",
-        "name": "圖片",
-        "icon": "fa-file-image-o",
-        "children": [{
-            "url": "/image/create",
-            "name": "新增圖片"
-        },{
-            "url": "/image/list",
-            "name": "圖片列表"
-        }]
-    },
-    "video": {
-        "url": "/video",
-        "name": "影片",
-        "icon": "fa-file-video-o",
-        "children": [{
-            "url": "/video/create",
-            "name": "新增影片"
-        },{
-            "url": "/video/list",
-            "name": "影片列表"
         }]
     },
     "menu": {
@@ -83,7 +59,7 @@
     "topic": {
         "url": "#",
         "name": "專題",
-        "icon": "fa-book",
+        "icon": "fa-user",
         "children": [{
             "url": "/topic",
             "name": "專題列表"
@@ -123,5 +99,14 @@
             "url": "/statistics/centers",
             "name": "統計部門則數"
         }]
-    }
+    },
+    "priority": {
+        "url": "#",
+        "name": "新聞順序",
+        "icon": "fa-sliders",
+        "children": [{
+            "url": "/priority",
+            "name": "新聞順序設定"
+        }]
+      }
 }
