@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>新聞名稱</th>
+            <th>狀態</th>
             <th>PageView總數</th>
             <th>新聞發佈時間</th>
         </tr>
@@ -14,6 +15,7 @@
                         {{ value.title }}
                     </a>
                 </td>
+                <td>{{ NEWS_STATUS[value.status] }}</td>
                 <td>{{ value.pvTotal }}</td>
                 <td>{{ value.startedAt }}</td>
             </tr>
@@ -22,6 +24,7 @@
     <tfoot>
         <tr>
             <th>新聞名稱</th>
+            <th>狀態</th>
             <th>PageView總數</th>
             <th>新聞發佈時間</th>
         </tr>
