@@ -5,7 +5,7 @@
             <span class="text-danger">*</span>
         </h3>
         <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+            <button type="button" class="btn btn-box-tool video-btn-collapse" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                 <i class="fa fa-minus"></i>
             </button>
         </div>
@@ -62,6 +62,7 @@
                     <ul class="nav nav-tabs ui-sortable-handle">
                         <li class="active"><a href="#video-upload" data-toggle="tab">影片上傳</a></li>
                         <li class=""><a href="#video-url" data-toggle="tab">影片網址</a></li>
+                        <li class=""><a href="#video-library" data-toggle="tab">自家影片庫</a></li>
                     </ul>
                     <div class="tab-content no-padding">
                         <div class="tab-pane active" id="video-upload">
@@ -99,6 +100,38 @@
                             <table role="presentation" class="table table-striped">
                                 <tbody id="url-video"></tbody>
                             </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="video-library">
+                            <br>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <input name="videoStartedAt" type="date" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <input name="videoEndedAt" type="date" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <input id="videoKeywords" name="videoKeywords" type="text" placeholder="關鍵字(用逗點區隔)"/>
+                                </div>
+                                <div class="form-group col-md-1">
+                                    <button type="button" class="btn btn-default videoLibQueryForm">查詢</button>
+                                </div>
+                            </div>
+                            <div class="row video-blocks">
+
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-default videoCollapse" type="button">
+                                    <i class='fa fa-angle-double-up'></i> 收合
+                                </button>
+
+                                <br />
+                                <input id="videoPageIndex" name="videoPageIndex" type="hidden"  value='1' />
+                                <button class="btn btn-link videoPrev hidden" type="button">上一頁 </button>
+                                第 <span class="videoPage">1</span> 頁，共 <span class="totalPage">1</span> 頁
+                                <button class="btn btn-link videoNext hidden" type="button"> 下一頁</button>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -188,6 +221,29 @@
         </video>
     </script>
 
+    {# 影片列表 #}
+    <script id="template-video-block" type="text/x-custom-template">
+        <div class="col-md-4 video-block">
+            <input type="hidden" name="videoId"/>
+            <div class="text-right">
+                <button class="btn bg-purple btn-xs fa fa-check setMainVideo mainVideoEle"
+                    type="button">設為主影片</button>
+                <button class="btn btn-danger btn-xs fa fa-trash"
+                    type="button"></button>
+            </div>
+            <div class="zoom text-center">
+            </div>
+            <div>
+                <span class="desc hide"></span>
+                <span class="title hide"></span>
+                <button class="btn btn-success btn-xs fa fa-save" type="button"></button>
+                <button class="btn btn-warning btn-xs fa fa-undo hidden" type="button"></button>
+                <textarea name="title" rows="1" style="width: 100%"></textarea>
+                <textarea name="desc" rows="3" style="width: 100%"></textarea>
+            </div>
+        </div>
+    </script>
+
     {# 影片網址 #}
     <script src="/static/js/jquery.embedly-3.1.1.min.js"></script>
     <script type="text/javascript" src="/static/js/player-0.0.12.min.js"></script>
@@ -204,12 +260,32 @@
             /* 公用變數 */
             var uploadVideoUrl = '/video/upload';
             var createVideoUrl = '/video';
-            var removeVideoUrl = '/video/remove/';
+            var removeVideoUrl = '/video';
             var videoIframe = '';
             var videoResultTemplate = $($('#video-result-template').html());
+            var videoBlocks = $('.video-blocks');
+            var videoStartElm = $('input[name=videoStartedAt]');
+            var videoEndElm = $('input[name=videoEndedAt]');
+            var videoStartElm = $('input[name=videoStartedAt]');
+            var videoEndElm = $('input[name=videoEndedAt]');
+
+
+            /* 初始化 */
+            initQueryFrom();
+            function initQueryFrom() {
+                var today = moment().format('YYYY-MM-DD');
+                var prev2Month = moment().subtract(2, 'months').format('YYYY-MM-DD');
+                videoStartElm.val(prev2Month);
+                videoStartElm.attr('max', today);
+                videoEndElm.val(today);
+                videoEndElm.attr('max', today);
+            }
+
+
+
 
             // 設定主按鈕
-            var setMainVideo = function (setBtn, type) {
+            var setMainVideo = function(setBtn, type) {
                 var parentElm = setBtn.parent().parent();
                 var previewHtml = '';
                 var videoId = parentElm.find('input[name=videoId]').val();
@@ -223,7 +299,10 @@
                         width: 400,
                         height: 280
                     });
-                } else {
+                } else if(type == 'search'){
+                    previewHtml = $(videoUrlToPlayer().playerHtml(setBtn.attr('data-url'),{width:400,height:280}));
+                }
+                else {
                     previewHtml = $($('#video-player-template').html());
                     previewHtml.find('source').attr('src', setBtn.attr('data-url'));
                 }
@@ -231,7 +310,172 @@
                 previewHtml = previewHtml.add('<br><strong class="title">'+ title +'</strong><br><span>'+ desc +'</span>')
 
                 $('#video-preview').html(previewHtml);
+
             };
+
+            /* 影片庫 */
+
+            $('.videoLibQueryForm').on('click', queryVideoLibrary);
+            $('button.videoPrev').on('click', function() {
+                var page = parseInt($('#videoPageIndex').val(), 10);
+                queryVideoLibrary(page - 1);
+            });
+            $('button.videoNext').on('click', function() {
+                var page = parseInt($('#videoPageIndex').val(), 10);
+                queryVideoLibrary(page + 1);
+            });
+            videoBlocks.on('click', 'button.setMainVideo', function() {
+                setMainVideo($(this),'search');
+            });
+            function queryVideoLibrary (page) {
+                var page = (typeof page === 'number') ? page : 1;
+                videoBlocks.html('');
+                var queryString = 'startedAt=' + videoStartElm.val();
+                queryString += '&endedAt=' + videoEndElm.val();
+                queryString += '&keywords=' + $('input[name=videoKeywords]').val();
+                queryString += '&page=' + page;
+                var desc = $('#video-library input[name=desc]').val();
+                $.get('/video?' + queryString, function(result) {
+                    $.each(result.videos, function(index, video) {
+                        var block = $($('#template-video-block').html());
+                        var player = videoUrlToPlayer().playerHtml(video.url);
+                        block.find('.text-center').html(player);
+                        block.find('input[name=videoId]').val(video._id);
+                        block.find('span.desc').text(video.desc);
+                        block.find('span.title').text(video.title);
+                        block.find('textarea[name=title]').val(video.title);
+                        block.find('textarea[name=desc]').val(video.desc);
+                        block.find('.fa-check').attr('data-url', video.url);
+                        videoBlocks.append(block);
+                    });
+                    // Process Pagination
+                    var pageData = result.pageData;
+                    $('#videoPageIndex').val(page);
+                    $('.videoPage').html(page);
+                    $('.totalPage').html(pageData.totalPage);
+                    if (pageData.hasPrev) {
+                        $('button.videoPrev').removeClass('hidden');
+                    } else {
+                        $('button.videoPrev').addClass('hidden');
+                    }
+
+                    if (pageData.hasNext) {
+                        $('button.videoNext').removeClass('hidden');
+                    } else {
+                        $('button.videoNext').addClass('hidden');
+                    }
+
+                });
+            }
+
+            videoBlocks.on('click', 'button.fa-save', function() {
+                var parentBlock = $(this).parent().parent();
+                var videoIdInput = parentBlock.find('input[name=videoId]');
+                var videoId = videoIdInput.val();
+                var newDesc = parentBlock.find('textarea[name=desc]').val().trim();
+                var originDescElm = parentBlock.find('span.desc');
+                var newTitle = parentBlock.find('textarea[name=title]').val().trim();
+                var originTitleElm = parentBlock.find('span.title');
+
+                if (newDesc === originDescElm.text().trim() && newTitle === originTitleElm.text().trim() ) {
+                    alert('沒有更新！');
+                    return;
+                }
+
+                $.ajax({
+                    url: '/video/'+videoId,
+                    data: { desc: newDesc, title: newTitle },
+                    method: 'PUT'
+                }).done(function(result) {
+                    originDescElm.text(newDesc);
+                    originTitleElm.text(newTitle);
+                    videoIdInput.val(result._id);
+                    // undoBtn.addClass('hidden');
+                    alert('update successfully');
+                }).fail(function() {
+                    alert('圖說更新失敗！');
+                });
+
+            });
+
+            videoBlocks.on('click', 'button.fa-trash', function() {
+                var confirmed = confirm('您確定要刪除嗎？');
+                if (!confirmed) {
+                    return;
+                }
+                var parentBlock = $(this).parent().parent();
+                $.ajax({
+                    url: '/video/' + parentBlock.find('input[name=videoId]').val(),
+                    data: { video: {id : parentBlock.find('input[name=videoId]').val()} },
+                    type: 'DELETE',
+                }).done(function(result) {
+                    parentBlock.remove();
+                });
+            });
+
+            videoBlocks.on('change', 'textarea[name=desc],textarea[name=title]', function(e, c) {
+                var parentBlock = $(this).parent();
+                var newDesc = parentBlock.find('textarea[name=desc]').val().trim();
+                var originDesc = parentBlock.find('span.desc').text().trim();
+                var newTitle = parentBlock.find('textarea[name=title]').val().trim();
+                var originTitle = parentBlock.find('span.title').text().trim();
+                var undoBtn =  parentBlock.find('button.fa-undo');
+
+                if (originDesc === newDesc && originTitle === newTitle) {
+                    undoBtn.addClass('hidden');
+                    return;
+                }
+                undoBtn.removeClass('hidden');
+            });
+
+            videoBlocks.on('click', 'button.fa-undo', function() {
+                var parentBlock = $(this).parent();
+
+                var newDescEle = parentBlock.find('textarea[name=desc]')
+                var newDesc = newDescEle.val().trim();
+                var originDesc = parentBlock.find('span.desc').text().trim();
+
+                var newTitleEle = parentBlock.find('textarea[name=title]');
+                var newTitle = newTitleEle.val().trim();
+                var originTitle = parentBlock.find('span.title').text().trim();
+
+                newDescEle.val(originDesc);
+                newTitleEle.val(originTitle);
+
+                $(this).addClass('hidden');
+            });
+
+            $('button.videoCollapse').on('click', function() {
+                $('.video-setting-area .video-btn-collapse').click();
+            });
+
+            function videoUrlToPlayer(){
+                return {
+                    fbV:function(url){
+                        var exp = /^http(?:s?):\/\/(?:www\.|web\.|m\.)?facebook\.com\/([A-z0-9\.]+)\/videos(?:\/[0-9A-z].+)?\/(\d+)(?:.+)?$/;
+                        return (url.match(exp)) ? RegExp.$2 : false;
+                    },
+                    ytV:function(url){
+                        let exp = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+                        return (url.match(exp)) ? RegExp.$1 : false;
+                    },
+                    playerHtml:function(url,setting){
+                        setting = setting ? setting : {};
+                        var width = setting.width || 300;
+                        var height = setting.height || 150;
+
+                        if(this.fbV(url)){
+                            return '<iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fsunnyhundalorg%2Fvideos%2F' + this.fbV(url) + '%2F&show_text=0" height="'+height+'" width="'+width+'" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>';
+                        }
+                        else if(this.ytV(url)){
+                            return '<iframe src="https://www.youtube.com/embed/' + this.ytV(url) + '?ecver=2" height="'+height+'" width="'+width+'" frameborder="0" allowfullscreen></iframe>';
+                        }
+                        else{
+                            return '<video class="video" width="'+width+'" height="'+height+'" controls> <source src="'+ url +'" type="video/mp4" > </video>'
+                        }
+                    }
+                }
+            }
 
             // 取得要被送出的資料
             var getFormData = function (targetEle) {
@@ -425,7 +669,7 @@
 
                 var videoId = $('input[name=MainVideo]').val();
                 $.ajax({
-                    url: '/video/update/' + videoId,
+                    url: '/video/' + videoId,
                     data: { title: newTitle, desc: newDesc },
                     method: 'PUT'
                 }).done(function(result) {

@@ -2,7 +2,6 @@ import Debug from 'debug';
 const debug = Debug('NOWnews-admin-website: controllers:video:action.find');
 
 module.exports = async (req, res, next) => {
-
     try {
 
         let queryString = req._parsedUrl.query;
@@ -10,12 +9,11 @@ module.exports = async (req, res, next) => {
         if (queryString === null) {
             queryString = "";
         }
+        let { data: { videos, pageData } } = await axios.get(`/videos?limit=8&`+queryString);
 
-        let { data: { video } } = await axios.get(`/video?limit=24&${queryString}`);
+        debug('videos = %j', videos);
 
-        debug('image = %j', video);
-
-        return res.json({ video });
+        return res.json({ videos, pageData });
     }
     catch(err) {
         return next(err);

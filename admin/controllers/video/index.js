@@ -14,10 +14,10 @@ import pageCreate from './page.create';
 import pageList from './page.list';
 import pageDemo from './page.demo';
 
-router.route('/remove/:id')
+router.route('/:id')
     .delete(actionRemove);
 
-router.route('/update/:id')
+router.route('/:id')
     .put(actionUpdate);
 
 router.route('/')

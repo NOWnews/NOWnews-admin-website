@@ -123,5 +123,17 @@
             "url": "/statistics/centers",
             "name": "統計部門則數"
         }]
+    },
+    "priority": {
+        "url": "#",
+        "name": "新聞順序",
+        "icon": "fa-sliders",
+        "children": [{
+            "url": "/priority",
+            "name": "新聞順序設定"
+        }]
     }
 }
+
+
+
