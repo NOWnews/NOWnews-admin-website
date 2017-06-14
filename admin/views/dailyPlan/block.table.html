@@ -1,0 +1,61 @@
+<table id="tags-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>標題</th>
+            <th>作者</th>
+            <th>新聞日期</th>
+            <th>建立日期</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </thead>
+    <tbody id="daily-plan-tbody">
+
+        {% for dailyPlan in dailyPlans %}
+            <tr>
+                <td><a href="./view/{{dailyPlan._id}}">{{ dailyPlan.title }}</a></td>
+                <td>{{ dailyPlan.CreatedBy.name }} </td>
+                <td>{{ dailyPlan.formatStartedAt }}</td>
+                <td>{{ dailyPlan.formatCreatedAt }}</td>
+                <td>
+                    <a href="./{{dailyPlan._id}}" class="btn btn-info">編輯</a>
+                </td>
+                <td>
+                    <button data-id="{{dailyPlan._id}}" class="btn btn-danger delete-daily-plan">移除</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>標題</th>
+            <th>作者</th>
+            <th>新聞日期</th>
+            <th>建立日期</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </tfoot>
+</table>
+<script>
+    var removeDailyPlanUrl = '/dailyplan/';
+    $('#daily-plan-tbody').on('click', '.delete-daily-plan', function(){
+                var confirmed = confirm('您確定要刪除嗎？');
+                if (!confirmed) { return; }
+
+                var id = $(this).data('id');
+                $.ajax({
+                    url: removeDailyPlanUrl + id,
+                    type: 'DELETE',
+                    success: function(data) {
+                        window.location.reload();
+                    },
+                    error: function(err){
+                        console.log(err);
+                    }
+                });
+            });
+
+
+
+</script>
