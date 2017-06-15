@@ -223,7 +223,7 @@
 
     {# 影片列表 #}
     <script id="template-video-block" type="text/x-custom-template">
-        <div class="col-md-3 video-block">
+        <div class="col-md-4 video-block">
             <input type="hidden" name="videoId"/>
             <div class="text-right">
                 <button class="btn bg-purple btn-xs fa fa-check setMainVideo mainVideoEle"
@@ -280,6 +280,38 @@
                 videoEndElm.val(today);
                 videoEndElm.attr('max', today);
             }
+
+
+
+
+            // 設定主按鈕
+            var setMainVideo = function(setBtn, type) {
+                var parentElm = setBtn.parent().parent();
+                var previewHtml = '';
+                var videoId = parentElm.find('input[name=videoId]').val();
+                var title = parentElm.find('.title').text();
+                var desc = parentElm.find('.desc').text();
+
+                $('input[name=MainVideo]').val(videoId).trigger('change');
+
+                if (type === 'url') {
+                    previewHtml = $(videoIframe).attr({
+                        width: 400,
+                        height: 280
+                    });
+                } else if(type == 'search'){
+                    previewHtml = $(videoUrlToPlayer().playerHtml(setBtn.attr('data-url'),{width:400,height:280}));
+                }
+                else {
+                    previewHtml = $($('#video-player-template').html());
+                    previewHtml.find('source').attr('src', setBtn.attr('data-url'));
+                }
+
+                previewHtml = previewHtml.add('<br><strong class="title">'+ title +'</strong><br><span>'+ desc +'</span>')
+
+                $('#video-preview').html(previewHtml);
+
+            };
 
             /* 影片庫 */
 
@@ -444,36 +476,6 @@
                     }
                 }
             }
-
-
-            // 設定主按鈕
-            function setMainVideo (setBtn, type) {
-                var parentElm = setBtn.parent().parent();
-                var previewHtml = '';
-                var videoId = parentElm.find('input[name=videoId]').val();
-                var title = parentElm.find('.title').text();
-                var desc = parentElm.find('.desc').text();
-
-                $('input[name=MainVideo]').val(videoId).trigger('change');
-
-                if (type === 'url') {
-                    previewHtml = $(videoIframe).attr({
-                        width: 400,
-                        height: 280
-                    });
-                } else if(type == 'search'){
-                    previewHtml = $(videoUrlToPlayer().playerHtml(setBtn.attr('data-url'),{width:400,height:280}));
-                }
-                else {
-                    previewHtml = $($('#video-player-template').html());
-                    previewHtml.find('source').attr('src', setBtn.attr('data-url'));
-                }
-
-                previewHtml = previewHtml.add('<br><strong class="title">'+ title +'</strong><br><span>'+ desc +'</span>')
-
-                $('#video-preview').html(previewHtml);
-
-            };
 
             // 取得要被送出的資料
             var getFormData = function (targetEle) {

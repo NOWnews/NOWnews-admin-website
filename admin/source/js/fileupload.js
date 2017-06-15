@@ -210,7 +210,6 @@ $(function () {
         var cropImgElm = cropRow.find('img');
         var imageRow = cropButton.parent().parent();
         cropRow.insertAfter(imageRow);
-        cropButton.addClass('hidden');
         imageRow.find('.cancel').addClass('hidden');
 
         cropImgElm.attr('src', cropButton.attr('data-blobURL'));

@@ -1,5 +1,6 @@
 import Debug from 'debug';
 const debug = Debug('NOWnews-admin-website: controllers:statistics:page.users');
+import { NEWS_STATUS } from '../../util/constants';
 
 module.exports = async (req, res, next) => {
 
@@ -13,7 +14,8 @@ module.exports = async (req, res, next) => {
 
         return res.render('statistics/page.users.html', {
             user,
-            query
+            query,
+            NEWS_STATUS
         });
 
     } catch(err) {
