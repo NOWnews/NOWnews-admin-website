@@ -5,6 +5,20 @@
         <input type="date" class="form-control" id="startedAt" name="startedAt" value="{{date}}">
     </div>
     <div class="col-sm-2">
+         <select class="form-control" id="center" name="Center">
+                <option value="" selected>所有中心</option>
+            {% for department in departments %}
+                {% for center in department.Centers %}
+                    {% if center.id == query.Center %}
+                        <option value="{{center.id}}" selected>{{center.name}}</option>
+                    {% else %}
+                        <option value="{{center.id}}">{{center.name}}</option>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-sm-2">
     <button class="btn btn-default btn-flat" type="submit">查詢</button>
     </div>
   </div>

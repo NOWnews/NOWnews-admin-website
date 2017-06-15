@@ -22,8 +22,10 @@
                 <div class="row">
                     <div class="col-sm-5">
                         <div class="form-group">
-                            <label for="title" class="control-label">標題</label>
-                            <input class="form-control" type="text" name="title" value="{{dailyPlan.title}}">
+                            <label for="title" class="control-label">標題
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input class="form-control" type="text" name="title" value="{{dailyPlan.title}}" required>
                         </div>
                     </div>
                 </div>
@@ -37,7 +39,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-5">
-                        <label for="centerId">討論區
+                        <label for="centerId">中心
                             <span class="text-danger">*</span>
                         </label>
                         <select class="form-control" id="center" name="Center">

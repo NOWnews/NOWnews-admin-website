@@ -1,12 +1,10 @@
 import express from 'express';
 let router = express.Router();
-
-// import actionNewsCreate from './action.news.create';
 import actionCreate from './action.create';
 import actionRemove from './action.remove';
 import actionUpdate from './action.update';
-// import actionSendMessage from './action.sendMessage';
-// import actionRemoveMessage from './action.removeMessage';
+import actionCommentCreate from './action.comment.create';
+import actionCommentRemove from './action.comment.remove';
 
 import pageList from './page.list';
 import pageOne from './page.one';
@@ -22,9 +20,9 @@ router.route('/')
     .get(pageList)
     .post(actionCreate);
 
-// router.route('/:id/message')
-//     .put(actionSendMessage)
-//     .delete(actionRemoveMessage);
+router.route('/:id/comment')
+    .post(actionCommentCreate)
+    .delete(actionCommentRemove);
 
 router.route('/view/:id')
     .get(pageOne);

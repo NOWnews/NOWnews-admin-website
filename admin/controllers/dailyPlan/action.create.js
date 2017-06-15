@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
 
         debug('dailyPlan = %j', dailyPlan);
 
-        return res.redirect('./');
+        return res.redirect('../dailyplan');
 
     } catch(err) {
         return next(err);

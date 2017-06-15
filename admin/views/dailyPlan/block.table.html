@@ -3,6 +3,7 @@
         <tr>
             <th>標題</th>
             <th>作者</th>
+            <th>中心</th>
             <th>新聞日期</th>
             <th>建立日期</th>
             <th>編輯</th>
@@ -13,12 +14,13 @@
 
         {% for dailyPlan in dailyPlans %}
             <tr>
-                <td><a href="./view/{{dailyPlan._id}}">{{ dailyPlan.title }}</a></td>
+                <td><a href="./dailyplan/view/{{dailyPlan._id}}">{{ dailyPlan.title }}</a></td>
                 <td>{{ dailyPlan.CreatedBy.name }} </td>
+                <td>{{ dailyPlan.Center.name }} </td>
                 <td>{{ dailyPlan.formatStartedAt }}</td>
                 <td>{{ dailyPlan.formatCreatedAt }}</td>
                 <td>
-                    <a href="./{{dailyPlan._id}}" class="btn btn-info">編輯</a>
+                    <a href="./dailyplan/{{dailyPlan._id}}" class="btn btn-info">編輯</a>
                 </td>
                 <td>
                     <button data-id="{{dailyPlan._id}}" class="btn btn-danger delete-daily-plan">移除</button>
@@ -30,6 +32,7 @@
         <tr>
             <th>標題</th>
             <th>作者</th>
+            <th>中心</th>
             <th>新聞日期</th>
             <th>建立日期</th>
             <th>編輯</th>

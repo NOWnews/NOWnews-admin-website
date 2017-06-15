@@ -7,35 +7,91 @@
     <section class="content">
         <div class="box">
             <div class="box-header">
-                <h1>姓名 {{ dailyPlan.CreatedBy.name}}</h1>
-                <h1>發表日期 {{ dailyPlan.formatCreatedAt}}</h1>
-                <h1>新聞日期{{ dailyPlan.formatStartedAt }}</h1>
-                <h1>標題 {{ dailyPlan.title }}</h1>
-                <h1>內容 {{ dailyPlan.content }}</h1>
-
+                <h3>{{dailyPlan.title}}</h3>
+                <h3 class="box-title">
+                    {% if dailyPlan.CreatedBy.Avatar.thumbnail %}
+                    <img class="user-avatar" src="{{ dailyPlan.CreatedBy.Avatar.thumbnail }}" width="30" height="30" alt="">
+                    {% else %}
+                    <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+                    {% endif %}
+                    {{ dailyPlan.CreatedBy.name}} 於 {{ dailyPlan.formatCreatedAt}} 建立
+                </h3>
+                <h3>
+                    <span class="box-title">新聞日期</span> {{ dailyPlan.formatStartedAt }}
+                </h3>
             </div>
+            <div class="box-body">
+                <pre class="dailyplan-content">{{dailyPlan.content}}</pre>
+            </div>
+        </div>
+       <div class="box box-success">
+            <div class="box-body">
+                <span class="pull-left text-muted">回應</span>
+            </div>
+            {% for comment in dailyPlan.comments %}
+            <div class="box-footer box-comments">
+                <div class="box-comment">
+                    <div class="comment-text">
+                        <span class="username">
+                            <span>{{ comment.name }}</span>
+                            <span class="text-muted">
+                                {{ comment.createdAt }}
+                                {% if comment.createdBy == currentUser._id %}
+                                    <button type="button" data-dailyplan-id="{{ dailyPlan.id }}" data-comment-index="{{ loop.index-1 }}"
+                                    is-check="false" class="btn btn-box-tool comment-remove"><i class="fa fa-times"></i></button>
+                                {% endif %}
+                            </span>
+                        </span>
+                        <span>{{ comment.content }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
 
+            <div class="box-footer">
+              <form action="../{{ dailyPlan.id }}/comment" method="post">
+                <div class="img-push input-group">
+                    <input type="text" name="content" class="form-control input-sm" placeholder="請輸入你的留言">
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-success btn-sm">送出</button>
+                    </div>
+                </div>
+              </form>
+            </div>
         </div>
     </section>
-    <script>
-        $(document).ready(function() {
-            $('#tags-table').DataTable({
-                "order":false,
-                "paging": false,
-                "searching": false,
-            });
-        });
 
-        $('.delete-tags').on('click', function(){
+    <style>
+    .user-avatar{
+        border-radius:50%;
+    }
+    .dailyplan-content{
+        background:none;
+        font-size:16px;
+    }
+    </style>
+
+    <script>
+         $('.comment-remove').on('click', function(){
             var confirmed = confirm('您確定要刪除嗎？');
             if (!confirmed) { return; }
-            var id = $(this).attr('item-id');
-            $.ajax({
-                url: '/tags/' + id,
-                type: 'DELETE',
+            var thisBtn = $(this);
+            var id = thisBtn.data('dailyplan-id');
+            var commentIndex = thisBtn.data('comment-index');
+             $.ajax({
+                url: '/dailyplan/' + id + '/comment',
+                method: "DELETE",
+                headers: {
+                    "content-type": "application/json",
+                },
+                processData: false,
+                data: "{\"commentIndex\":"+commentIndex+"}",
                 success: function(result) {
-                    console.log(result)
-                    location.reload();
+                    thisBtn.parents('.box-comments').hide('slow');
+                },
+                error: function(err) {
+                    var errorMessage = $(err.responseText).find('#error-message').text();
+                    console.error(errorMessage)
                 }
             });
         });

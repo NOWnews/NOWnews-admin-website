@@ -23,12 +23,12 @@
     "dailyplan":{
         "url": "#",
         "name": "每日稿單",
-        "icon": "fa-newspaper-o",
+        "icon": "fa-pencil",
         "children": [{
             "url": "/dailyplan/create",
             "name": "新增稿單"
         },{
-            "url": "/dailyplan/",
+            "url": "/dailyplan",
             "name": "所有稿單"
         }]
     },
