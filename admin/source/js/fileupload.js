@@ -352,6 +352,12 @@ $(function () {
     });
 
     imageBlocks.on('click', 'button.fa-clipboard', function() {
+        swal({
+            title: "複製成功",
+            timer: 500,
+            showConfirmButton: false,
+            type: "success"
+            });
         copyIntoClipboard($(this));
     });
 
