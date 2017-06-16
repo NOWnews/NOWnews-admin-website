@@ -1,6 +1,6 @@
 import Debug from 'debug';
 import _ from 'lodash';
-const debug = Debug('NOWnews-admin-website: controllers:dailyPlan:page.create');
+const debug = Debug('NOWnews-admin-website: controllers:dailyplan:page.create');
 
 module.exports = async (req, res, next) => {
 
