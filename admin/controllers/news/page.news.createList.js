@@ -8,9 +8,10 @@ module.exports = async (req, res, next) => {
     try {
         let { query, originalUrl } = req;
         let queryString = req._parsedUrl.query? '?' + req._parsedUrl.query: '';
-        let [{ data: { users: userList } },{ data: newsListInfo }] = await Promise.all([
+        let [{ data: { users: userList } },{ data: newsListInfo }, { data: mainMenus}] = await Promise.all([
             axios.get('/users?limit=10000'),
-            axios.get(`/news${queryString}`)
+            axios.get(`/news${queryString}`),
+            axios.get(`/menus?level=0`),
         ]);
 
         let pageData = newsListInfo.pageData;
@@ -26,6 +27,7 @@ module.exports = async (req, res, next) => {
 
         debug('newsListInfo = %j', newsListInfo );
         return res.render('news/page.news.myList.html', {
+            mainMenus,
             query,
             originalUrl,
             NEWS_STATUS,

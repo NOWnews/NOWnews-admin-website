@@ -4,13 +4,27 @@
             <input class="form-control" name="title" placeholder="搜尋：標題" type="text" value="{{ query.title }}" />
         </div>
         {% if userList %}
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-1">
                 <select class="form-control" id="dept-and-center" name="CreatedBy">
                         <option value="">建立者</option>
                         {% for user in userList %}
                            <option value="{{ user.id }}"
                                     {{ "selected" if user.id == query.CreatedBy }} >
                                         {{ user.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+            </div>
+        {% endif %}
+
+        {% if mainMenus %}
+            <div class="form-group col-md-1">
+                <select class="form-control" id="dept-and-center" name="MainMenu">
+                        <option value="">主分類</option>
+                        {% for mainMenu in mainMenus %}
+                           <option value="{{ mainMenu.id }}"
+                                    {{ "selected" if mainMenu.id == query.MainMenu }} >
+                                        {{ mainMenu.name }}
                             </option>
                         {% endfor %}
                     </select>
