@@ -9,7 +9,6 @@ module.exports = async (req, res, next) => {
         departments = _.filter(departments,(department)=>{
             return department.name.indexOf("新聞部")>-1;
         });
-        console.log(departments);
         return res.render('dailyPlan/page.create.html',{
             departments
         });

@@ -6,7 +6,6 @@ module.exports = async (req, res, next) => {
             return resolve('Demo');
         });
 
-        console.log(result);
         return res.render('layout/page.list.html');
     }
     catch(err) {

@@ -262,7 +262,6 @@ $('#autocomplete-ajax').autocomplete({
     transformResult: function(response) {
         return {
             suggestions: $.map(response.newsList, function(item) {
-                console.log(item)
                 return { value: item.title, data: item._id};
             })
         };
@@ -284,7 +283,6 @@ $('#autocomplete-ajax').autocomplete({
         $('#multiselect_simple').multiselect('destroy');
         $('#multiselect_simple').multiselect();
 
-        console.log('You selected:' + suggestion.value);
       },
       onHint: function (hint) {
         $('#autocomplete-ajax-x').val(hint);
@@ -325,7 +323,6 @@ $("#autocomplete-ajax").autocomplete('setOptions', {
                 $('#debug_'+k).prepend( $('<div></div>').text('Multiselect beforesearch event! searching for "' + ui.term + '"') );
             }).parents('#usage_simple').find('#btnGet_value').click(function(evt) {
                 evt.preventDefault(); evt.stopPropagation();
-                console.log('submittest')
                 $('#debug_'+k).prepend( $('<div></div>').text("Submit query = " + $('form').serialize() ) );
 
                 return false;
