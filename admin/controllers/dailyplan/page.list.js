@@ -1,7 +1,7 @@
 import moment from 'moment-timezone';
 import Debug from 'debug';
 import qs from 'querystring';
-const debug = Debug('NOWnews-admin-website: controllers:postBoard:page.list');
+const debug = Debug('NOWnews-admin-website: controllers:dailyplan:page.list');
 
 module.exports = async (req, res, next) => {
 

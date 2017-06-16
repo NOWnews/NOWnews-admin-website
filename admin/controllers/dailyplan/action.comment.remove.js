@@ -1,5 +1,5 @@
 import Debug from 'debug';
-const debug = Debug('NOWnews-admin-website: controllers:dailyPlan:action.removeComment');
+const debug = Debug('NOWnews-admin-website: controllers:dailyPlan:action.comment.remove');
 
 module.exports = async (req, res, next) => {
 

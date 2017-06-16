@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import Debug from 'debug';
-const debug = Debug('NOWnews-admin-website: controllers:dailyPlan:page.list');
+const debug = Debug('NOWnews-admin-website: controllers:dailyplan:page.list');
 
 module.exports = async (req, res, next) => {
 
