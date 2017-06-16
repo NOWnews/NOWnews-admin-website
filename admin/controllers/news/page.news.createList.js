@@ -1,3 +1,4 @@
+import config from 'config';
 import Debug from 'debug';
 import _ from 'lodash';
 import qs from 'querystring';
@@ -6,6 +7,7 @@ import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
 module.exports = async (req, res, next) => {
 
     try {
+        let officialUrl = config.get('officialUrl');
         let { query, originalUrl } = req;
         let queryString = req._parsedUrl.query? '?' + req._parsedUrl.query: '';
         let [{ data: { users: userList } },{ data: newsListInfo }, { data: mainMenus}] = await Promise.all([
@@ -13,7 +15,6 @@ module.exports = async (req, res, next) => {
             axios.get(`/news${queryString}`),
             axios.get(`/menus?level=0`),
         ]);
-
         let pageData = newsListInfo.pageData;
         let listDescription = {
             title: '所有新聞',
@@ -27,6 +28,7 @@ module.exports = async (req, res, next) => {
 
         debug('newsListInfo = %j', newsListInfo );
         return res.render('news/page.news.myList.html', {
+            officialUrl,
             mainMenus,
             query,
             originalUrl,

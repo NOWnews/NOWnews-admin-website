@@ -1,6 +1,7 @@
 <table id="news-table" class="table table-bordered table-striped">
     <thead>
         <tr>
+            <th>ID</th>
             <th>標題</th>
             <th>類別</th>
             <th>建立者</th>
@@ -18,9 +19,18 @@
         {% for value in newsListInfo.newsList %}
             <tr>
                 <td>
-                    <a href="/news/{{value._id}}">
-                        {{ value.title }}
-                    </a>
+                    {{value.sn}}
+                </td>
+                <td>
+                    {% if NEWS_STATUS[value.status]=='發佈' %}
+                        <a target="_blank" href="{{ officialUrl+value.parseUrl }}">
+                            {{ value.title }}
+                        </a>
+                    {% else %}
+                        <a href="/news/{{ value._id}}">
+                            {{ value.title }}
+                        </a>
+                    {% endif %}
                 </td>
                 <td>
                     {{ NEWS_TYPES[value.type] }}
