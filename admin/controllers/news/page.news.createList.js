@@ -1,5 +1,6 @@
 import Debug from 'debug';
 import _ from 'lodash';
+import qs from 'querystring';
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.myList');
 import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
 module.exports = async (req, res, next) => {
@@ -17,6 +18,12 @@ module.exports = async (req, res, next) => {
             title: '所有新聞',
             subtitle: '新聞列表，照時間排序，狀態有草稿、審核、...等等 的項目。',
         };
+
+        let qsNoPage = qs.parse(req._parsedUrl.query);
+        delete qsNoPage.page;
+        qsNoPage = qs.stringify(qsNoPage);
+        pageData.qsNoPage = qsNoPage ? '&' + qsNoPage : '';
+
         debug('newsListInfo = %j', newsListInfo );
         return res.render('news/page.news.myList.html', {
             query,

@@ -1,5 +1,6 @@
 import Debug from 'debug';
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.myList');
+import qs from 'querystring';
 import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
 module.exports = async (req, res, next) => {
 
@@ -18,6 +19,11 @@ module.exports = async (req, res, next) => {
             title: '我的新聞',
             subtitle: '由我建立的所有新聞列表。',
         };
+
+        let qsNoPage = qs.parse(req._parsedUrl.query);
+        delete qsNoPage.page;
+        qsNoPage = qs.stringify(qsNoPage);
+        pageData.qsNoPage = qsNoPage ? '&' + qsNoPage : '';
 
         debug('newsListInfo = %j', newsListInfo );
 
