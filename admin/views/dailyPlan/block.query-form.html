@@ -2,14 +2,14 @@
   <div class="form-group">
         <label class="control-label col-sm-1" for="startedAt">新聞日期</label>
     <div class="col-sm-2">
-        <input type="date" class="form-control" id="startedAt" name="startedAt" value="{{date}}">
+        <input type="date" class="form-control" id="startedAt" name="startedAt" value="{{qsObj.startedAt}}">
     </div>
     <div class="col-sm-2">
          <select class="form-control" id="center" name="Center">
                 <option value="" selected>所有中心</option>
             {% for department in departments %}
                 {% for center in department.Centers %}
-                    {% if center.id == query.Center %}
+                    {% if center.id == qsObj.Center %}
                         <option value="{{center.id}}" selected>{{center.name}}</option>
                     {% else %}
                         <option value="{{center.id}}">{{center.name}}</option>

@@ -10,35 +10,27 @@ module.exports = async (req, res, next) => {
     try {
         //預設startedAt是今天
         let today = moment().tz('Asia/Taipei').format('YYYY-MM-DD');
-        let queryStringObj = qs.parse(req._parsedUrl.query);
-        if(!queryStringObj.startedAt){
-            queryStringObj.startedAt = today;
+        let qsObj = qs.parse(req._parsedUrl.query);
+        if(!qsObj.startedAt){
+            qsObj.startedAt = today;
         }
-        if(!queryStringObj.limit){
-            queryStringObj.limit = 40;
+        if(!qsObj.limit){
+            qsObj.limit = 40;
         }
-        let date = queryStringObj.startedAt;
-        let queryString = qs.stringify(queryStringObj);
-        let query = req.query;
+        let queryString = qs.stringify(qsObj);
 
         let { data: {dailyPlans, pageData} } = await axios.get(`/dailyPlan?${queryString}`);;
 
+        //只取新聞部底下的中心
         let { data : departments } = await axios.get('/departments');
         departments = _.filter(departments,(department)=>{
             return department.name.indexOf("新聞部")>-1;
         });
-        // _.forEach(postBoard, (post) => {
-        //     post.messages = _.map(post.messages, ( obj ) => {
-        //         obj.createdAt = moment(obj.createdAt).tz('Asia/Taipei').format('YYYY-MM-DD HH:mm');
-        //         return obj;
-        //     });
-        // });
 
         debug('dailyPlan = %j', dailyPlans);
 
         return res.render('dailyPlan/page.list.html', {
-            query,
-            date,
+            qsObj,
             departments,
             dailyPlans,
             pageData
