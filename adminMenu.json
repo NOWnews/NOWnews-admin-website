@@ -20,6 +20,18 @@
             "name": "待我審核新聞"
         }]
     },
+    "dailyplan":{
+        "url": "#",
+        "name": "每日稿單",
+        "icon": "fa-pencil",
+        "children": [{
+            "url": "/dailyplan/create",
+            "name": "新增稿單"
+        },{
+            "url": "/dailyplan",
+            "name": "所有稿單"
+        }]
+    },
     "tags": {
         "url": "#",
         "name": "關鍵字",
@@ -134,6 +146,3 @@
         }]
     }
 }
-
-
-

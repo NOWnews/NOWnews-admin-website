@@ -1,7 +1,7 @@
 <div class="pagination pull-right">
     {# 上一頁按鈕 #}
     {% if pageData.hasPrev %}
-        <li><a class="previous" href="?page={{ pageData.prevPage }}">上一頁</a></li>
+        <li><a class="previous" href="?page={{ pageData.prevPage }}{{pageData.qsNoPage }}">上一頁</a></li>
     {% else %}
         <li class="disabled"><a class="next disabled">上一頁</a></li>
     {% endif %}
@@ -14,19 +14,19 @@
         {% if page == pageData.currentPage %}
             <li class="active"><a>{{ page }}</a></li>
         {% elif currentFontRange >= page and page >= currentBackRange %}
-            <li><a href="?page={{page}}">{{ page }}</a></li>
+            <li><a href="?page={{page}}{{pageData.qsNoPage }}">{{ page }}</a></li>
         {% elif loop.first %}
-            <li><a href="?page={{page}}">{{ page }}</a></li>
+            <li><a href="?page={{page}}{{pageData.qsNoPage }}">{{ page }}</a></li>
             <li class="{{ 'hide' if loop.index + 1 == currentBackRange }}"><a>...</a></li>
         {% elif loop.last %}
             <li class="{{ 'hide' if loop.index - 1 == currentFontRange }}"><a>...</a></li>
-            <li><a href="?page={{page}}">{{ page }}</a></li>
+            <li><a href="?page={{page}}{{pageData.qsNoPage }}">{{ page }}</a></li>
         {% endif %}
     {% endfor %}
 
     {# 下一頁按鈕 #}
     {% if pageData.hasNext %}
-        <li><a class="next" href="?page={{ pageData.nextPage }}">下一頁</a></li>
+        <li><a class="next" href="?page={{ pageData.nextPage }}{{pageData.qsNoPage }}">下一頁</a></li>
     {% else %}
         <li class="disabled"><a class="next disabled">下一頁</a></li>
     {% endif %}

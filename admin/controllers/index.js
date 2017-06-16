@@ -8,6 +8,7 @@ import _ from 'lodash';
 
 let adminPageRouter = {
     auth: require('./auth'),
+    dailyplan: require('./dailyplan'),
     layout: require('./layout'),
     menu: require('./menu'),
     tags: require('./tags'),

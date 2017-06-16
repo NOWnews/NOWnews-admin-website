@@ -1,5 +1,6 @@
 import Debug from 'debug';
 import Promise from 'bluebird';
+import qs from 'querystring';
 import { USER_STATUS } from '../../../util/constants';
 const debug = Debug('NOWnews-admin-website: controllers:auth:user:page.list');
 
@@ -23,6 +24,11 @@ module.exports = async (req, res, next) => {
             axios.get('/roles'),
             axios.get(`/users?${queryString}`)
         ]);
+
+        let qsNoPage = qs.parse(req._parsedUrl.query);
+        delete qsNoPage.page;
+        qsNoPage = qs.stringify(qsNoPage);
+        pageData.qsNoPage = qsNoPage ? '&' + qsNoPage : '';
 
         debug('userList = %j', userList);
 

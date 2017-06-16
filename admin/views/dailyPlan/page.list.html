@@ -1,6 +1,6 @@
 {% extends "../base.html" %}
 {% block headTitle %}
-    <title>大編輯台 | 關鍵字管理</title>
+    <title>大編輯台 | 每日稿單</title>
 {% endblock %}
 
 {% block container %}
@@ -9,10 +9,10 @@
             <div class="box-header">
                 <div class="row">
                     <div class="form-group col-md-2">
-                        <a class="btn btn-success" href="/tags/create">新增關鍵字</a>
+                        <a class="btn btn-success" href="/dailyplan/create">新增稿單</a>
                     </div>
                 </div>
-                {# include "./block.query-form.html" #}
+                {% include "./block.query-form.html" %}
                 {% include "./block.table.html" %}
             </div>
             <div class="box-body dataTables_wrapper">
@@ -23,6 +23,7 @@
     <script>
         $(document).ready(function() {
             $('#tags-table').DataTable({
+                "order":false,
                 "paging": false,
                 "searching": false,
             });
