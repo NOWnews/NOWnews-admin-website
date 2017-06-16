@@ -41,7 +41,7 @@
                     {% endfor %}
                 </td>
                 <td>0</td>
-                <td>{{ NEWS_STATUS[value.status] }}</td>
+                <td class="{{'success' if NEWS_STATUS[value.status]=='發佈'}}">{{ NEWS_STATUS[value.status] }}</td>
                 <td>{{ value.formatStartedAt }}</td>
                 <td>
                         {{ value.LastReviewer.name if value.LastReviewer else "--" }}
