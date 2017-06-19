@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="row">
-                     <div class="col-sm-2">
+                     <div class="col-sm-3">
                         <div class="form-group">
                             <label for="startedAt" class="control-label">新聞日期(日/月/年)</label>
                             <input type="datetime-local" class="form-control" id="startedAt" name="startedAt">
@@ -82,7 +82,7 @@
 
 <script>
     $(document).ready(function() {
-        var today = moment("{{dailyPlan.formatStartedAt}}").format('YYYY-MM-DDThh:mm:00');
+        var today = moment("{{dailyPlan.formatStartedAt}}").format('YYYY-MM-DDTHH:mm:00');
         $('#startedAt').val(today);
     });
 </script>
