@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
         let { id } = req.params;
 
         let { title, startedAt, Center, content } = req.body;
-        
+
         let UpdatedBy = req.session.adminUser._id;
 
         let { data: dailyPlan } = await axios.put(`/dailyPlan/${id}`,
