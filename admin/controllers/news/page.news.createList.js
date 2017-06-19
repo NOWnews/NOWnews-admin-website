@@ -4,6 +4,8 @@ import _ from 'lodash';
 import qs from 'querystring';
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.myList');
 import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
+import checkSchedule from '../../util/checkSchedule';
+
 module.exports = async (req, res, next) => {
 
     try {
@@ -20,6 +22,14 @@ module.exports = async (req, res, next) => {
             title: '所有新聞',
             subtitle: '新聞列表，照時間排序，狀態有草稿、審核、...等等 的項目。',
         };
+
+        newsListInfo.newsList = _.map(newsListInfo.newsList, (news) => {
+            // 發布的新聞是否為預約發稿
+            if (news.status === 'RELEASE'){
+                news.isSchedule = checkSchedule(news.startedAt);
+            }
+            return news;
+        });
 
         let qsNoPage = qs.parse(req._parsedUrl.query);
         delete qsNoPage.page;

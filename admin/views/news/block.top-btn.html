@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="form-group col-md-2">
+        <a class="btn btn-success" href="/news/create">新增新聞</a>
+    </div>
+    <div class="form-group col-md-2">
+        <a id="searchId" class="btn btn-info" href="#">ID搜尋新聞</a>
+    </div>
+</div>
+<script>
+	$(function(){
+		$('#searchId').on('click', function(){
+			swal({
+				title: '用 ID 搜尋新聞',
+				text: '將新聞的 ID 填入。 例如: 123',
+				type: 'input',
+				showCancelButton: true,
+				closeOnConfirm: false,
+				animation: 'slide-from-top',
+				inputPlaceholder: '請輸入新聞ID',
+				cancelButtonText: '取消'
+			},
+			function(inputValue){
+				if (inputValue === false) {
+					return false;
+				}
+
+				if (inputValue === '') {
+				    swal.showInputError('請輸入新聞 ID');
+				    return false;
+				}
+				if (isNaN(inputValue)) {
+					swal.showInputError('請輸入新聞 ID');
+				    return false;
+				}
+
+				window.window.location.href='?sn=' + inputValue;
+			});
+		});
+	});
+</script>

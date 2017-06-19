@@ -2,6 +2,7 @@ import Debug from 'debug';
 const debug = Debug('NOWnews-admin-website: controllers:news:action.news.update');
 
 import htmlToText from '../../util/htmlToText';
+import moment from 'moment-timezone';
 
 module.exports = async (req, res, next) => {
 
@@ -18,6 +19,7 @@ module.exports = async (req, res, next) => {
         data.isSponsored = data.isSponsored ? true : false ;
         data.isAdult = data.isAdult ? true : false ;
         data.title = data.mainTitle;
+        data.startedAt = moment(data.startedAt).tz('Asia/Taipei');
 
         // 摘要大概是 120 - 150 字
         data.summary = htmlToText(data.content).slice(0,135);

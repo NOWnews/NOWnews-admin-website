@@ -51,7 +51,13 @@
                     {% endfor %}
                 </td>
                 <td>0</td>
-                <td class="{{'success' if NEWS_STATUS[value.status]=='發佈'}}">{{ NEWS_STATUS[value.status] }}</td>
+                <td class="{{'success' if NEWS_STATUS[value.status]=='發佈'}}">
+                    {% if value.isSchedule %}
+                        預約發佈
+                    {% else %}
+                        {{ NEWS_STATUS[value.status] }}
+                    {% endif %}
+                </td>
                 <td>{{ value.formatStartedAt }}</td>
                 <td>
                         {{ value.LastReviewer.name if value.LastReviewer else "--" }}

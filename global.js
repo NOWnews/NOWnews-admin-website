@@ -11,6 +11,6 @@ global.imageStorage = __dirname + '/imageStorage';
 
 global.axios = axiosLib.create({
     baseURL: config.get('apiServer'),
-    timeout: 5000,
+    timeout: 10000,
     headers: config.get('headers'),
 });
