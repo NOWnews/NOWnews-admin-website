@@ -1,5 +1,6 @@
 
 import Debug from 'debug';
+import moment from 'moment-timezone';
 import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.edit');
 
@@ -38,6 +39,9 @@ module.exports = async (req, res, next) => {
         })
 
         news.tags = news.Tags.join(',');
+
+        // 時區設定
+        news.startedAt = moment(news.startedAt).tz('Asia/Taipei').format('YYYY-MM-DD HH:mm');
 
         // Map 設定
         if (news.location !== null ){

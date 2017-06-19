@@ -3,6 +3,7 @@ import Debug from 'debug';
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.reviewList');
 import qs from 'querystring';
 import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
+import checkSchedule from '../../util/checkSchedule';
 
 module.exports = async (req, res, next) => {
 
@@ -21,6 +22,14 @@ module.exports = async (req, res, next) => {
             title: '審核中新聞',
             subtitle: '交給對方審核的新聞列表。',
         };
+
+        newsListInfo.newsList = _.map(newsListInfo.newsList, (news) => {
+            // 發布的新聞是否為預約發稿
+            if (news.status === 'RELEASE'){
+                news.isSchedule = checkSchedule(news.startedAt);
+            }
+            return news;
+        });
 
         let qsNoPage = qs.parse(req._parsedUrl.query);
         delete qsNoPage.page;
