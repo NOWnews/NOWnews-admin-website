@@ -7,7 +7,6 @@ module.exports = async (req, res, next) => {
     try {
 
         let { title, startedAt, Center, content,  } = req.body;
-        startedAt = moment(startedAt).valueOf();
         let CreatedBy = req.session.adminUser._id;
         let { data: dailyPlan } = await axios.post('/dailyPlan',
             { title, startedAt, Center, content, CreatedBy });
