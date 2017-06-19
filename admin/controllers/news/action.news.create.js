@@ -27,6 +27,7 @@ module.exports = async (req, res, next) => {
         // news 如果是圖片新聞 就做 Photos 的處理
         if (data.type === 'PHOTO') {
             data.Photos = data['Photos[]'];
+            data.MainPhoto = data.MainPhoto ? data.MainPhoto : data.Photos[0];
             delete data['Photos[]'];
         }
         // MainPhoto 是字串就不傳
