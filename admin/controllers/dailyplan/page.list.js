@@ -9,12 +9,18 @@ module.exports = async (req, res, next) => {
 
     try {
 
-        //預設startedAt是今天
-        let today = moment().tz('Asia/Taipei').format('YYYY-MM-DD');
         let qsObj = qs.parse(req._parsedUrl.query);
-        if(!qsObj.startedAt){
-            qsObj.startedAt = today;
+
+        if(qsObj.startedAt){
+            qsObj.startedAt = moment.tz(qsObj.startedAt,'Asia/Taipei').valueOf();
+            qsObj.formatStartedAt = moment.tz(qsObj.startedAt,'Asia/Taipei').format('YYYY-MM-DD');
         }
+        else{
+            qsObj.startedAt = moment.tz('Asia/Taipei').valueOf();
+            qsObj.formatStartedAt = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
+
+        }
+
         if(!qsObj.limit){
             qsObj.limit = 40;
         }
