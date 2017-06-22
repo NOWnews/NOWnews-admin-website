@@ -17,7 +17,7 @@ module.exports = function(req, res, next) {
 
     let expiredDay = config.get('expiredDay');
 
-    let expiredTime = moment.tz(loginedTime,'Asia/Taipei').add(expiredDay, 'days');
+    let expiredTime = moment.tz(loginedTime, 'Asia/Taipei').add(expiredDay, 'days');
 
     if (moment.tz('Asia/Taipei').isAfter(expiredTime)) {
         return res.redirect('/auth/logout');
