@@ -11,8 +11,8 @@ module.exports = async (req, res, next) => {
         let query = req.query;
 
         if (!query.startedAt) {
-            query.startedAt = moment().tz('Asia/Taipei').format('YYYY-MM-DD');
-            query.endedAt = moment().tz('Asia/Taipei').format('YYYY-MM-DD');
+            query.startedAt = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
+            query.endedAt = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
         }
 
         let queryString = req._parsedUrl.query;
