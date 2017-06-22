@@ -12,13 +12,11 @@ module.exports = async (req, res, next) => {
         let qsObj = qs.parse(req._parsedUrl.query);
 
         if(qsObj.startedAt){
-            qsObj.startedAt = moment.tz(qsObj.startedAt,'YYYY-MM-DDTHH:mm:ss','Asia/Taipei').format('YYYY-MM-DD');
             qsObj.formatStartedAt = moment.tz(qsObj.startedAt,'Asia/Taipei').format('YYYY-MM-DD');
         }
         else{
             qsObj.startedAt = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
             qsObj.formatStartedAt = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
-
         }
 
         if(!qsObj.limit){

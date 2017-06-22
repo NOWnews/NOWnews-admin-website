@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
 
     try {
         let { data : departments } = await axios.get('/departments');
-        let taipeiTimeNow = moment().tz('Asia/Taipei').format('YYYY-MM-DDTHH:mm');
+        let taipeiTimeNow = moment.tz('Asia/Taipei').format('YYYY-MM-DDTHH:mm');
         departments = _.filter(departments,(department)=>{
             return department.name.indexOf("新聞部")>-1;
         });
