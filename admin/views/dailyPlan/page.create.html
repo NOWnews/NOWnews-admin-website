@@ -32,7 +32,7 @@
                      <div class="col-sm-3">
                         <div class="form-group">
                             <label for="startedAt" class="control-label">新聞日期(日/月/年)</label>
-                            <input type="datetime-local" class="form-control" id="startedAt" name="startedAt" formnovalidate="formnovalidate">
+                            <input type="datetime-local" value="{{taipeiTimeNow}}" class="form-control" id="startedAt" name="startedAt" formnovalidate="formnovalidate">
                         </div>
                     </div>
                 </div>
@@ -75,11 +75,4 @@
 <script src="/static/js/jquery.caret.min.js"></script>
 <script src="/static/js/jquery.tag-editor.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-        var today = moment().format('YYYY-MM-DDTHH:mm:00');
-
-        $('#startedAt').val(today);
-    });
-</script>
 {% endblock %}
