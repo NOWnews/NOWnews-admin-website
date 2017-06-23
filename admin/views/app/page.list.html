@@ -55,7 +55,7 @@
         </form>
     </section>
     <div class="box-header table-responsive">
-        <table id="role-table" class="table table-bordered table-striped">
+        <table id="version-table" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -87,7 +87,19 @@
             </tfoot>
         </table>
         <script>
-        </script>
+            $(document).ready(function() {
 
+                var startElm = $('input[name=startedAt]');
+                var endElm = $('input[name=endedAt]');
+
+
+                $('#version-table').DataTable({
+                    "paging": false,
+                    "searching": false,
+                    "order":  [[ 4, "desc" ]]
+                });
+            });
+
+        </script>
     </div>
 {% endblock %}
