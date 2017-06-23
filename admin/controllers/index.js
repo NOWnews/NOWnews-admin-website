@@ -19,7 +19,8 @@ let adminPageRouter = {
     specialchannel: require('./specialchannel'),
     indexpage: require('./indexpage'),
     statistics: require('./statistics'),
-    priority: require('./priority')
+    priority: require('./priority'),
+    app: require('./app')
 };
 
 module.exports = function(app) {
