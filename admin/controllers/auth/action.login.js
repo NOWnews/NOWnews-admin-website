@@ -61,7 +61,7 @@ module.exports = async (req, res, next) => {
             name: Role.name,
         };
 
-        adminUser.loginedTime = moment().tz('Asia/Taipei').format('YYYY-MM-DD HH:mm');
+        adminUser.loginedTime = moment.tz('Asia/Taipei').format('YYYY-MM-DD HH:mm');
 
         debug('login user= %j', adminUser);
 

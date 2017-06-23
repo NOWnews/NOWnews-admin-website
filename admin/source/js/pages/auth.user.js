@@ -2,7 +2,7 @@ $(function() {
 
     $(document).ready(function() {
         $('#user-table').DataTable({
-            "order": [[ 6, "asc" ]],
+            "order": [[ 6, "desc" ]],
             "paging": false,
             "searching": false
         });

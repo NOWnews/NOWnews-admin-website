@@ -143,5 +143,17 @@
             "url": "/priority",
             "name": "新聞順序設定"
         }]
+    },
+    "app": {
+        "url": "#",
+        "name": "APP 控制",
+        "icon": "fa-sliders",
+        "children": [{
+            "url": "/app/version",
+            "name": "版本控制"
+        }, {
+            "url": "/app/splash",
+            "name": "首圖控制"
+        }]
     }
 }
