@@ -1,5 +1,5 @@
 import Debug from 'debug';
-const debug = Debug('NOWnews-admin-website:controllers:app:page.splash');
+const debug = Debug('NOWnews-admin-website:controllers:app:page.splashList');
 
 import Promise from 'bluebird';
 
