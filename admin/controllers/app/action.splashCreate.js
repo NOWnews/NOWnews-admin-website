@@ -55,8 +55,6 @@ module.exports = async (req, res, next) => {
 
         let { data: newSplash } = await axios.post('/app/splash', options);
         debug('new splash = %j', newSplash);
-        // console.log(req.file);
-        // console.log(req.body);
 
         return res.redirect('/app/splash');
     }
