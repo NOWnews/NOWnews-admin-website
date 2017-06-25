@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
 
         _.forEach(postBoard, (post) => {
             post.messages = _.map(post.messages, ( obj ) => {
-                obj.createdAt = moment(obj.createdAt).tz('Asia/Taipei').format('YYYY-MM-DD HH:mm');
+                obj.createdAt = moment.tz(obj.createdAt, 'Asia/Taipei').format('YYYY-MM-DD HH:mm');
                 return obj;
             });
         });

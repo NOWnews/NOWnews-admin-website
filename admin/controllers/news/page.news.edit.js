@@ -41,7 +41,7 @@ module.exports = async (req, res, next) => {
         news.tags = news.Tags.join(',');
 
         // 時區設定
-        news.startedAt = moment(news.startedAt).tz('Asia/Taipei').format('YYYY-MM-DD HH:mm');
+        news.startedAt = moment.tz(news.startedAt, 'Asia/Taipei').format('YYYY-MM-DD HH:mm');
 
         // Map 設定
         if (news.location !== null ){

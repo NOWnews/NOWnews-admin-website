@@ -1,0 +1,104 @@
+{% set title = "APP 版本" %}
+{% extends "../base.html" %}
+{% block headTitle %}
+    <title>APP | 版本管理</title>
+{% endblock %}
+
+{% block container %}
+    <section class="content">
+        <form action="/app/version" method="post">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">APP 版本管理</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="appVersion" class="control-label">版本號</label>
+                                <input id="appVersion" name="appVersion" class="input form-control" placeholder="ex:  v5.4.3"></input>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="osType" class="control-label">OS</label>
+                                <select id="osType" class="form-control" name="osType">
+                                    <option value="IOS">IOS</option>
+                                    <option value="ANDROID">ANDROID</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="
+                                device" class="control-label">Device</label>
+                                <select id="
+                                device" class="form-control" name="device">
+                                    <option value="PHONE">手機</option>
+                                    <option value="TABLET">平板</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="edit-footer text-center">
+                <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
+                <button type="button" class="btn bg-maroon btn-flat margin">取消</button>
+            </div>
+        </form>
+    </section>
+    <div class="box-header table-responsive">
+        <table id="version-table" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>版本</th>
+                    <th>OS</th>
+                    <th>裝置</th>
+                    <th>發布日期</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for value in appInfoList %}
+                    <tr>
+                        <td>{{value.sn}}</td>
+                        <td>{{value.version}}</td>
+                        <td>{{value.os}}</td>
+                        <td>{{value.device}}</td>
+                        <td>{{ value.formatCreatedAt }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>版本</th>
+                    <th>OS</th>
+                    <th>裝置</th>
+                    <th>發布日期</th>
+                </tr>
+            </tfoot>
+        </table>
+        <script>
+            $(document).ready(function() {
+
+                var startElm = $('input[name=startedAt]');
+                var endElm = $('input[name=endedAt]');
+
+
+                $('#version-table').DataTable({
+                    "paging": false,
+                    "searching": false,
+                    "order":  [[ 4, "desc" ]]
+                });
+            });
+
+        </script>
+    </div>
+{% endblock %}
