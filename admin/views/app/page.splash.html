@@ -1,0 +1,117 @@
+{% set title = "APP 首圖" %}
+{% extends "../base.html" %}
+{% block headTitle %}
+    <title>APP | 首圖管理</title>
+{% endblock %}
+
+{% block container %}
+<section class="content">
+    <div>
+        <form action="/app/splash" method="post" enctype="multipart/form-data">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">APP 首圖上傳</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-3 phoneViewer">
+                            {% if phoneSplash.Image and phoneSplash.Image.thumbnail %}
+                                <img class="img-responsive pad" src="{{ phoneSplash.Image.thumbnail }}">
+                            {% else %}
+                                <img class="img-responsive pad" src="http://fakeimg.pl/250x100/">
+                            {% endif %}
+                        </div>
+                        <div class="tabletViewer hiddenfile">
+                        {% if tabletSplash.Image and tabletSplash.Image.thumbnail %}
+                                <img class="img-responsive pad" src="{{ tabletSplash.Image.thumbnail }}">
+                            {% else %}
+                                <img class="img-responsive pad" src="http://fakeimg.pl/250x100/">
+                            {% endif %}
+                        </div>
+                        <div class="boxViewer hiddenfile">
+                        {% if boxSplash.Image and boxSplash.Image.thumbnail %}
+                                <img class="img-responsive pad" src="{{ boxSplash.Image.thumbnail }}">
+                            {% else %}
+                                <img class="img-responsive pad" src="http://fakeimg.pl/250x100/">
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="
+                                device" class="control-label">裝置</label>
+                                <select id="device" class="form-control" name="device">
+                                    <option value="PHONE">手機</option>
+                                    <option value="TABLET">平板</option>
+                                    <option value="BOX">盒子</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input class="hiddenfile" name="image" type="file" id="fileinput"/>
+                                <label for="exampleInputFile">選擇圖片</label>
+                                <button type="button" id="clickFileButton" class="form-control btn btn-primary btn-flat"><i class="fa fa-file-image-o"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="fileName">已選擇圖片</label>
+                                <p id="chooseFileName" class="">無</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="edit-footer text-center">
+                <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
+                <button type="button" class="btn bg-maroon btn-flat margin">取消</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script type="text/javascript">
+    $('#clickFileButton').click(function(e) {
+        e.preventDefault();
+        $('#fileinput').trigger('click');
+    });
+
+    $('#fileinput').change(function(e) {
+        var file = $('#fileinput')[0].files[0];
+        $('#chooseFileName').text(file.name);
+    });
+
+    // 這一段很髒，可能之後要重構，目前沒有更好的想法
+    $('#device').change(function(e) {
+        var selectValue = $("#device").val();
+        if(selectValue === 'PHONE') {
+            $('.tabletViewer').addClass('hiddenfile').removeClass('col-sm-3');
+            $('.boxViewer').addClass('hiddenfile').removeClass('col-sm-3');
+            $('.phoneViewer').addClass('col-sm-3').removeClass('hiddenfile');
+        }
+        if(selectValue === 'TABLET') {
+            $('.phoneViewer').addClass('hiddenfile').removeClass('col-sm-3');
+            $('.boxViewer').addClass('hiddenfile').removeClass('col-sm-3');
+            $('.tabletViewer').addClass('col-sm-3').removeClass('hiddenfile');
+        }
+        if(selectValue === 'BOX') {
+            $('.phoneViewer').addClass('hiddenfile').removeClass('col-sm-3');
+            $('.tabletViewer').addClass('hiddenfile').removeClass('col-sm-3');
+            $('.boxViewer').addClass('col-sm-3').removeClass('hiddenfile');
+        }
+    });
+</script>
+
+<style type="text/css">
+    .hiddenfile {
+        width: 0px;
+        height: 0px;
+        overflow: hidden;
+    }
+</style>
+{% endblock %}

@@ -12,9 +12,9 @@ module.exports = async (req, res, next) => {
             menuId = menus[0]._id;
         }
 
-        let today = moment();
-        let endedAt = today.tz('Asia/Taipei').format('YYYY-MM-DD');
-        let startedAt = today.day(-3).tz('Asia/Taipei').format('YYYY-MM-DD');
+        let today = moment.tz('Asia/Taipei');
+        let endedAt = today.format('YYYY-MM-DD');
+        let startedAt = today.add(-3,'day').format('YYYY-MM-DD');
 
         debug('endedAt = %s', endedAt );
         debug('startedAt = %s', startedAt );
