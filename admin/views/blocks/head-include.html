@@ -1,3 +1,4 @@
+{#
 {% if NODE_ENV == 'production' %}
 
     <link href="/static/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -5,7 +6,7 @@
     <script src="/static/js/all.min.js"></script>
 
 {% else %}
-
+#}
     <!-- ### CSS ### -->
 
     <!-- Bootstrap 3.3.6 -->
@@ -95,5 +96,6 @@
     <script src="/static/js/pages/auth.role.js"></script>
     <script src="/static/js/pages/auth.user.js"></script>
     <script src="/static/js/pages/news.js"></script>
-
+{#
 {% endif %}
+#}
