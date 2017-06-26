@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
 
         let today = moment.tz('Asia/Taipei');
         let endedAt = today.format('YYYY-MM-DD');
-        let startedAt = today.add(-3,'day').format('YYYY-MM-DD');
+        let startedAt = today.add(-1,'day').format('YYYY-MM-DD');
 
         debug('endedAt = %s', endedAt );
         debug('startedAt = %s', startedAt );
