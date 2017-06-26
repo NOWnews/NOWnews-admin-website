@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
         let { data: appInfoList } = await axios.get(`/app/version`);
         debug('app info list = %j', appInfoList);
 
-        return res.render('app/page.list.html', {
+        return res.render('app/page.version.html', {
             appInfoList
         });
     }
