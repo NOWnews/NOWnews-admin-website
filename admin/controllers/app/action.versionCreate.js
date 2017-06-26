@@ -5,13 +5,14 @@ module.exports = async (req, res, next) => {
     try{
 
         let userId = req.session.adminUser._id;
-        let { appVersion, osType, device } = req.body;
+        let { appVersion, osType, device, downloadLink } = req.body;
         debug('req.body = %j', req.body);
 
         let options = {
             version: appVersion,
             os: osType,
             device,
+            downloadLink,
             CreatedBy: userId
         };
 
