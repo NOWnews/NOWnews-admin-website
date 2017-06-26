@@ -1,0 +1,66 @@
+{% set title = "APP 版本" %}
+{% extends "../base.html" %}
+{% block headTitle %}
+    <title>APP | 推播</title>
+{% endblock %}
+
+{% block container %}
+    <section class="content">
+        <form action="/app/notification" method="post">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">APP 新聞推播</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="newsUrl" class="control-label">新聞連結</label>
+                                <input id="newsUrl" name="newsUrl" class="input form-control" required></input>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="newsTitle" class="control-label">新聞標題</label>
+                                <input id="newsTitle" name="newsTitle" class="input form-control" required></input>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="
+                                os" class="control-label">作業系統</label>
+                                <select id="os" class="form-control" name="os">
+                                    <option value="ANDROID">ANDROID</option>
+                                    <option value="IOS">IOS</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="newsSummary" class="control-label">新聞摘要</label>
+                                <textarea id="newsSummary" name="newsSummary" class="form-control" rows="8" placeholder="Enter ..." required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="newsImage" class="control-label">圖片網址</label>
+                                <input id="newsImage" name="newsImage" class="input form-control" required></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="edit-footer text-center">
+                <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
+                <button type="button" class="btn bg-maroon btn-flat margin">取消</button>
+            </div>
+        </form>
+    </section>
+{% endblock %}
