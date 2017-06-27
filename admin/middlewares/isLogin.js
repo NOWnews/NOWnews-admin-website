@@ -5,7 +5,7 @@ const debug = require('debug')('NOWadmin:admin:middlewares:isLogin');
 
 module.exports = function(req, res, next) {
     const { method, path, session } = req;
-    const isLogin = session && session.adminUser;
+    const isLogin = session && session.adminUsergi;
 
     const allowPath = ['/auth/login', '/auth/logout', '/robots.txt'];
 
