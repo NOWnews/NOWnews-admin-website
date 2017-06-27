@@ -20,6 +20,11 @@
             <tr>
                 <td>
                     {{value.sn}}
+                    {% if value.isDeliver %}
+                    <small class="label pull-left bg-green">可外送</small>
+                    {% else %}
+                    <small class="label pull-left bg-yellow">不可外送</small>
+                    {% endif %}
                 </td>
                 <td>
                     {% if NEWS_STATUS[value.status]=='發佈' %}
