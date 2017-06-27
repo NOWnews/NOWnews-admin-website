@@ -1,7 +1,9 @@
 import moment from 'moment-timezone';
 import Debug from 'debug';
-const debug = Debug('NOWnews-admin-website: controllers:auth:action.login');
+import adminMenu from '../../../adminMenu.json';
+import _ from 'lodash';
 
+const debug = Debug('NOWnews-admin-website: controllers:auth:action.login');
 module.exports = async (req, res, next) => {
 
     try {
@@ -61,6 +63,7 @@ module.exports = async (req, res, next) => {
             name: Role.name,
         };
 
+
         adminUser.loginedTime = moment.tz('Asia/Taipei').format('YYYY-MM-DD HH:mm');
 
         debug('login user= %j', adminUser);
@@ -72,6 +75,31 @@ module.exports = async (req, res, next) => {
         } else {
             res.clearCookie('_now_admin');
         }
+
+        // 權限：整理有權限的 Menu
+        var pathArray = _.map(Role.Policies, (policy) => {
+            return policy.path;
+        });
+
+        var realAdminMenu = {};
+        var realMenus = _.clone(adminMenus);
+
+        _.forEach(adminMenus, (groupKey, group) => {
+            var hasChildAuth = false;
+            _.forEach(group.children, (childKey, child) => {
+                if (pathArray.indexOf(child.url) === -1) {
+                    delete realMenus[groupKey][childKey];
+                    return
+                }
+                hasChildAuth = true;
+            });
+
+            if (!hasChildAuth) {
+                delete realMenus[groupKey];
+            }
+        });
+
+        req.session.adminMenu = realMenus;
 
         return res.redirect('/');
 
