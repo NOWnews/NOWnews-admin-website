@@ -82,7 +82,7 @@ module.exports = async (req, res, next) => {
         });
 
         var realAdminMenu = {};
-        var realMenus = _.clone(adminMenu);
+        var realMenus = _.cloneDeep(adminMenu);
         _.forEach(adminMenu, (group, groupKey) => {
             var hasChildAuth = false;
             _.forEach(group.children, (child, childKey) => {
