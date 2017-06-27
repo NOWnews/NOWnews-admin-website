@@ -4,8 +4,8 @@ import _ from 'lodash';
 const debug = require('debug')('NOWadmin:admin:middlewares:isLogin');
 
 module.exports = function(req, res, next) {
-    const { path, session } = req;
-    const isLogin = (session && session.adminUser);
+    const { method, path, session } = req;
+    const isLogin = !!(session && session.adminUser && session.adminMenu);
 
     const allowPath = ['/auth/login', '/auth/logout', '/robots.txt'];
 

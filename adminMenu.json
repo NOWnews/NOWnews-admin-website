@@ -154,6 +154,9 @@
         }, {
             "url": "/app/splash",
             "name": "首圖控制"
+        }, {
+            "url": "/app/notification",
+            "name": "推播新聞"
         }]
     }
 }
