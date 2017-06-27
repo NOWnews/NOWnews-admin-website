@@ -44,7 +44,7 @@ module.exports = async (req, res, next) => {
         news.startedAt = moment.tz(news.startedAt, 'Asia/Taipei').format('YYYY-MM-DD HH:mm');
 
         // Map 設定
-        if (news.location !== null ){
+        if ( news.location && news.location !== null ){
             let [ lng, lat ] = news.location;
             let { data: { address } } = await axios.get('/map/location', {
                 params: {
