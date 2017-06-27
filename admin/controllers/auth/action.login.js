@@ -82,13 +82,12 @@ module.exports = async (req, res, next) => {
         });
 
         var realAdminMenu = {};
-        var realMenus = _.clone(adminMenus);
-
-        _.forEach(adminMenus, (groupKey, group) => {
+        var realMenus = _.clone(adminMenu);
+        _.forEach(adminMenu, (group, groupKey) => {
             var hasChildAuth = false;
-            _.forEach(group.children, (childKey, child) => {
+            _.forEach(group.children, (child, childKey) => {
                 if (pathArray.indexOf(child.url) === -1) {
-                    delete realMenus[groupKey][childKey];
+                    delete realMenus[groupKey].children[childKey];
                     return
                 }
                 hasChildAuth = true;
@@ -98,9 +97,7 @@ module.exports = async (req, res, next) => {
                 delete realMenus[groupKey];
             }
         });
-
         req.session.adminMenu = realMenus;
-
         return res.redirect('/');
 
     } catch(err) {
