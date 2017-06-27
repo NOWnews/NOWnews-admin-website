@@ -81,7 +81,6 @@ module.exports = async (req, res, next) => {
             return policy.path;
         });
 
-        var realAdminMenu = {};
         var realMenus = _.cloneDeep(adminMenu);
         _.forEach(adminMenu, (group, groupKey) => {
             var hasChildAuth = false;
