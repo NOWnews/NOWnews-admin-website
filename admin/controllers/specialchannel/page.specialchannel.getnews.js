@@ -8,6 +8,9 @@ module.exports = async (req, res, next) => {
     try {
         let {title, status, type}= req.query;
 
+        status = status || 'RELEASE';
+        type = type || 'NEWS';
+
         let { data: {newsList} } = await axios.get(`/news?title=${encodeURIComponent(title)}&status=${status}&type=${type}`);
 
         debug('news = %j', newsList);

@@ -297,10 +297,19 @@ $("#autocomplete-ajax").autocomplete('setOptions', {
 });
 // $(':text').keyup(logFunc).bind('text', logFunc);
 //         console.log(logFunc,'L290');
+
+// 讓 input 按 enter 沒有效果
+  $('.input').keypress(function(e) {
+      var code = e.keyCode ? e.keyCode : e.which;
+      if(code == 13) {
+          e.preventDefault();
+      }
+  });
 </script>
 
 <script type="text/javascript">
     $(function() {
+
         var defaultOptions = {
             //availableListPosition: 'bottom',
             moveEffect: 'blind',
