@@ -254,7 +254,7 @@ div.debug_log {
 $('#autocomplete-ajax').autocomplete({
     serviceUrl: '/specialchannel/news',
     dataType: 'json',
-    deferRequestBy: 600,
+    deferRequestBy: 10000,
     paramName: "title",
     onSearchStart: function(){ $('#load').addClass('loader'); console.log('onSearchStart') },
     onSearchComplete: function(){ $('#load').removeClass('loader');console.log('onSearchComplete')},
