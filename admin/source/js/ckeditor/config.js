@@ -17,7 +17,7 @@ CKEDITOR.editorConfig = function( config ) {
 	];
 	config.extraAllowedContent = 'img[data-isdeliver];iframe[*]',
 
-	config.removeButtons = 'Iframe,Table,Styles,Print,Font,Underline,Subscript,Superscript,Language,BidiRtl,BidiLtr,CreateDiv,Blockquote,Anchor,Flash,Image,SpecialChar,Smiley,PageBreak,Save,NewPage';
+	config.removeButtons = 'CopyFormatting,Iframe,Table,Styles,Print,Font,Underline,Subscript,Superscript,Language,BidiRtl,BidiLtr,CreateDiv,Blockquote,Anchor,Flash,Image,SpecialChar,Smiley,PageBreak,Save,NewPage';
 
 
 	// Set the most common block elements.
