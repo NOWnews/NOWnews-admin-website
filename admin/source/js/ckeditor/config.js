@@ -4,29 +4,21 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	// Define changes to default configuration here.
-	// For complete reference see:
-	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
-
-	// The toolbar groups arrangement, optimized for two toolbar rows.
 	config.toolbarGroups = [
-		{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
-		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
-		{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
-		{ name: 'forms' },
+		{ name: 'document', groups: [ 'mode' ] },
+		{ name: 'styles', groups: [ 'styles' ] },
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
-		{ name: 'links' },
-		{ name: 'insert' },
-		{ name: 'styles' },
-		{ name: 'colors' },
-		{ name: 'others' },
-		{ name: 'about' }
-	];
+		{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+		{ name: 'links', groups: [ 'links' ] },
+		'/',
+		{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+		{ name: 'insert', groups: [ 'insert' ] }
 
-	// Remove some buttons provided by the standard plugins, which are
-	// not needed in the Standard(s) toolbar.
-	config.removeButtons = 'Underline,Subscript,Superscript';
+	];
+	config.extraAllowedContent = 'img[data-isdeliver];iframe[*]',
+
+	config.removeButtons = 'CopyFormatting,Iframe,Table,Styles,Print,Font,Underline,Subscript,Superscript,Language,BidiRtl,BidiLtr,CreateDiv,Blockquote,Anchor,Flash,Image,SpecialChar,Smiley,PageBreak,Save,NewPage';
+
 
 	// Set the most common block elements.
 	config.format_tags = 'p;h1;h2;h3;pre';
@@ -37,9 +29,6 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// 允許所有html tag 包括<script>
 	config.allowedContent = true;
-
-	// 預覽add-on
-	config.extraPlugins = 'preview';
 
 	// 中文語系
 	config.language = 'zh';
