@@ -2,6 +2,7 @@ import Debug from 'debug';
 const debug = Debug('NOWnews-admin-website: controllers:news:action.news.update');
 
 import htmlToText from '../../util/htmlToText';
+import moment from 'moment-timezone';
 
 module.exports = async (req, res, next) => {
 
@@ -92,7 +93,13 @@ module.exports = async (req, res, next) => {
                 redirectUrl = '/news/reviewList';
                 break;
             case 'release':
-                // TODO
+                let now = moment.tz('Asia/Taipei').valueOf();
+                let start = moment.tz(data.startedAt ,'Asia/Taipei').valueOf();
+                let formatTime = moment.tz(now ,'Asia/Taipei').format('YYYY-MM-DD HH:mm:ss');
+
+                if (now > start) {
+                    data.startedAt = formatTime;
+                }
                 break;
             case 'close':
                 delete data.LastReviewer;
