@@ -17,4 +17,15 @@ module.exports = {
         TEMP: '暫存',
         CLOSE: '關閉',
     },
+    NEWS_TEMPLATES: {
+        NORMAN: '預設版型',
+        COLUMN: '專欄版型'
+    },
+    NEWS_TEMPLATES_AD: {
+        NORMAN: '預設版型廣告',
+        A: 'A',
+        B: 'B',
+        C: 'C',
+        D: 'DD'
+    },
 };

@@ -75,6 +75,9 @@ module.exports = async (req, res, next) => {
             data.location = null;
         }
 
+        console.log(data.template);
+        console.log(data.templateAD);
+
         // 發稿狀態
         switch (newsStatus) {
             case 'draft':

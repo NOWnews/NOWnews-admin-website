@@ -1,6 +1,6 @@
 import Debug from 'debug';
 import _ from 'lodash';
-import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
+import { NEWS_TYPES, NEWS_STATUS, NEWS_TEMPLATES, NEWS_TEMPLATES_AD } from '../../util/constants';
 
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.compare');
 
@@ -36,6 +36,8 @@ module.exports = async (req, res, next) => {
             before,
             NEWS_TYPES,
             NEWS_STATUS,
+            NEWS_TEMPLATES,
+            NEWS_TEMPLATES_AD
         };
 
         debug('result = %j', result);

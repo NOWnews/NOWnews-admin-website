@@ -1,6 +1,6 @@
 import Debug from 'debug';
 import Promise from 'bluebird';
-import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
+import { NEWS_TYPES, NEWS_STATUS, NEWS_TEMPLATES, NEWS_TEMPLATES_AD } from '../../util/constants';
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.create');
 
 module.exports = async (req, res, next) => {
@@ -22,7 +22,9 @@ module.exports = async (req, res, next) => {
             userList,
             menus,
             NEWS_TYPES,
-            NEWS_STATUS
+            NEWS_STATUS,
+            NEWS_TEMPLATES,
+            NEWS_TEMPLATES_AD
         });
     }
     catch(err) {
