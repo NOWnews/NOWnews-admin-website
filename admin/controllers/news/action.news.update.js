@@ -71,8 +71,12 @@ module.exports = async (req, res, next) => {
                     address: data.location
                 }
             });
-            let [ lng, lat ] = location;
-            data.location = [ lng, lat ];
+            if (location.length === 0) {
+                data.location = null;
+            } else {
+                let [ lng, lat ] = location;
+                data.location = [ lng, lat ];
+            }
         }
 
         if (data.location === '') {
