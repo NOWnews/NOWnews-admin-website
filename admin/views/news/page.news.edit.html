@@ -315,9 +315,7 @@
         // Replace the <textarea id="contentCk"> with a CKEditor
         var ckSetting = {
             contentsCss: '/static/css/customCKEditor.css',
-            extraAllowedContent: 'img[data-isdeliver];iframe[*]',
             height:550,
-            removeButtons: 'About'
         };
 
         var newsContent = CKEDITOR.replace('contentCk', ckSetting);
