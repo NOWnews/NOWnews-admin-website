@@ -293,12 +293,10 @@
         // Replace the <textarea id="contentCk"> with a CKEditor
         var ckSetting = {
             contentsCss: '/static/css/customCKEditor.css',
-            extraAllowedContent: 'img[data-isdeliver];iframe[*]',
-            height:550,
-            removeButtons: 'About'
+            height:550
         };
 
-        var newsContent = CKEDITOR.replace('contentCk', ckSetting);
+        var newsContent = CKEDITOR.replace('contentCk',ckSetting);
 
         var defaultWarning = {
             wine: {
@@ -332,7 +330,7 @@
             });
 
         });
-        CKEDITOR.replace('freeContentCk', ckSetting);
+        CKEDITOR.replace('freeContentCk',ckSetting);
 
 
         $('#MainMenu').multipleSelect({
