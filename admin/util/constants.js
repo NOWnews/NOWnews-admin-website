@@ -18,7 +18,7 @@ module.exports = {
         CLOSE: '關閉',
     },
     NEWS_TEMPLATES: {
-        NORMAN: '預設版型',
+        DEFAULT: '預設版型',
         COLUMN: '專欄版型'
     },
     NEWS_TEMPLATES_AD: {
