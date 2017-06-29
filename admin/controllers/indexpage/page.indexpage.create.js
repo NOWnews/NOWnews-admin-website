@@ -10,10 +10,10 @@ module.exports = async (req, res, next) => {
 
         let results = await Promise.all([
             axios.get('/indexpage'),
-            axios.get('/news?limit=20&status=RELEASE'),
+            axios.get('/news?limit=20&status=RELEASE&isScheduled=false'),
             axios.get('/specialtopics?limit=20'),
             axios.get('/specialchannels?limit=20'),
-            axios.get('/news?limit=20&status=RELEASE&type=VIDEO')
+            axios.get('/news?limit=20&status=RELEASE&type=VIDEO&isScheduled=false')
         ]);
 
         let indexpage = results[0].data;
