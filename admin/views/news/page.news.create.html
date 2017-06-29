@@ -252,6 +252,10 @@
 
         //title chars counter
         $('#title').keyup(function(){
+            //移除特殊字元
+            if(this.value.match(/[\u200B-\u200D\uFEFF]/g)){
+                this.value = this.value.replace(/[\u200B-\u200D\uFEFF]/g,'');
+            };
             if(this.value.length>26){
                 $('#titleCharCounter').removeClass('text-info').addClass('text-danger');
                 $("#titleCharCounter").html("超出字數:"+(this.value.length-26));
@@ -264,6 +268,10 @@
 
         //short title chars counter
         $('#shortTitle').keyup(function(){
+            //移除特殊字元
+            if(this.value.match(/[\u200B-\u200D\uFEFF]/g)){
+                this.value = this.value.replace(/[\u200B-\u200D\uFEFF]/g,'');
+            };
             if(this.value.length>16){
                 $('#shortTitleCharCounter').removeClass('text-info').addClass('text-danger');
                 $("#shortTitleCharCounter").html("超出字數:"+(this.value.length-16));
