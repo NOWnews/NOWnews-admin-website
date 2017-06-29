@@ -323,6 +323,13 @@ $('#autocomplete-ajax').autocomplete({
             $('#btnSearch_'+k).click(function() {
                 $('#multiselect_'+k).multiselect('search', $('#txtSearch_'+k).val());
             });
+            //移掉空的option
+            $('#multiselect_'+k+ ' option').each(function(i){
+                if (($('#multiselect_'+k+ ' option')[i].innerText.length ===0) === true){
+                    $(this).remove();
+                $('#multiselect_'+k).multiselect('refresh')
+                }
+            });
 
         });
 
