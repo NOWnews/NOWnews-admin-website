@@ -10,10 +10,12 @@ module.exports = async function(req, res, next) {
 
         let [
             { data: user },
-            { data: { users: userList, pageData } }
+            { data: { users: userList, pageData } },
+            { data: menuList },
         ] = await Promise.all([
             axios.get(`/users/${userId}`),
-            axios.get('/users?limit=10000')
+            axios.get('/users?limit=10000'),
+            axios.get('/menus?level=0'),
         ]);
 
         debug('currentUser = %j', user);
@@ -22,9 +24,10 @@ module.exports = async function(req, res, next) {
         req.session.prevUrl = req.headers.referer;
 
         return res.render('auth/user/page.me.html', {
+            menuList,
             user,
             userList,
-            USER_STATUS,
+            USER_STATUS
         });
 
     } catch(err) {

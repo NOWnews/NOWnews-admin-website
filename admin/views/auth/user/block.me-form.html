@@ -59,6 +59,20 @@
                 {% endfor %}
             </select>
         </div>
+        <div class="form-group">
+            <label>預設主分類
+            </label>
+            <select class="form-control"
+                name="defaultMenu">
+                <option value="">請選擇</option>
+                {% for menu in menuList %}
+                    <option value="{{ menu._id }}"
+                        {{ "selected" if menu._id == user.defaultSettings.Menu }}>
+                        {{ menu.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
         {#<div class="form-group">
             <label>個人網站連結</label>
             <input class="form-control"
