@@ -262,47 +262,59 @@ $(function () {
         queryString += '&imageFrom=' + imageFrom;
         var desc = $('#library input[name=desc]').val();
         var isPhotosNews = $('select[name=type]').val() === 'PHOTO' ? true : false;
-        $.get('/image?' + queryString, function(result) {
-            $('.zoom').trigger('zoom.destroy');
-            $.each(result.images, function(index, image) {
-                var block = $($('#template-image-block').html());
-                block.find('img').attr('src', image.url);
-                block.find('img').attr('data-isdeliver', image.isDeliver);
+        $('#img-loading').show();
+        console.log('start...');
+        $.ajax({
+            type:'GET',
+            url:'/image?' + queryString,
+            success:function(result){
+                $('.zoom').trigger('zoom.destroy');
+                $.each(result.images, function(index, image) {
+                    var block = $($('#template-image-block').html());
+                    block.find('img').attr('src', image.url);
+                    block.find('img').attr('data-isdeliver', image.isDeliver);
 
-                if (image.isDeliver) {
-                    block.find('.canNotDeliver').remove();
+                    if (image.isDeliver) {
+                        block.find('.canNotDeliver').remove();
+                    }
+
+                    if (isPhotosNews) {
+                        block.find('.setMainPhoto').addClass('hide');
+                        block.find('.setManyPhoto').removeClass('hide');
+                    }
+
+                    block.find('input[name=imageId]').val(image._id);
+                    block.find('span.desc').text(image.desc);
+                    block.find('textarea[name=desc]').val(image.desc);
+                    block.find('.fa-check').attr('data-url', image.url);
+                    imageBlocks.append(block);
+                });
+                $('.zoom').zoom();
+
+                // Process Pagination
+                var pageData = result.pageData;
+                $('#imgPageIndex').val(page);
+                $('.imgPage').html(page);
+                $('.totalPage').html(pageData.totalPage);
+                if (pageData.hasPrev) {
+                    $('button.imgPrev').removeClass('hidden');
+                } else {
+                    $('button.imgPrev').addClass('hidden');
                 }
 
-                if (isPhotosNews) {
-                    block.find('.setMainPhoto').addClass('hide');
-                    block.find('.setManyPhoto').removeClass('hide');
+                if (pageData.hasNext) {
+                    $('button.imgNext').removeClass('hidden');
+                } else {
+                    $('button.imgNext').addClass('hidden');
                 }
-
-                block.find('input[name=imageId]').val(image._id);
-                block.find('span.desc').text(image.desc);
-                block.find('textarea[name=desc]').val(image.desc);
-                block.find('.fa-check').attr('data-url', image.url);
-                imageBlocks.append(block);
-            });
-            $('.zoom').zoom();
-
-            // Process Pagination
-            var pageData = result.pageData;
-            $('#imgPageIndex').val(page);
-            $('.imgPage').html(page);
-            $('.totalPage').html(pageData.totalPage);
-            if (pageData.hasPrev) {
-                $('button.imgPrev').removeClass('hidden');
-            } else {
-                $('button.imgPrev').addClass('hidden');
+            },
+            complete:function(data){
+                $('#img-loading').hide();
+            },
+            error:function(xhr, ajaxOptions, thrownError){
+            console.error('error');
+            console.error(xhr.responseText);
             }
-
-            if (pageData.hasNext) {
-                $('button.imgNext').removeClass('hidden');
-            } else {
-                $('button.imgNext').addClass('hidden');
-            }
-
         });
     }
 

@@ -84,7 +84,7 @@
                                 類別
                                 <span class="text-danger">*</span>
                             </label>
-                            <select name="type" class="form-control select2" required>
+                            <select name="type" class="form-control" required>
                                 {% for key, type in NEWS_TYPES %}
                                     <option value="{{ key }}">{{ type }}</option>
                                 {% endfor %}
@@ -142,6 +142,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -252,6 +253,10 @@
 
         //title chars counter
         $('#title').keyup(function(){
+            //移除特殊字元
+            if(this.value.match(/[\u200B-\u200D\uFEFF]/g)){
+                this.value = this.value.replace(/[\u200B-\u200D\uFEFF]/g,'');
+            };
             if(this.value.length>26){
                 $('#titleCharCounter').removeClass('text-info').addClass('text-danger');
                 $("#titleCharCounter").html("超出字數:"+(this.value.length-26));
@@ -264,6 +269,10 @@
 
         //short title chars counter
         $('#shortTitle').keyup(function(){
+            //移除特殊字元
+            if(this.value.match(/[\u200B-\u200D\uFEFF]/g)){
+                this.value = this.value.replace(/[\u200B-\u200D\uFEFF]/g,'');
+            };
             if(this.value.length>16){
                 $('#shortTitleCharCounter').removeClass('text-info').addClass('text-danger');
                 $("#shortTitleCharCounter").html("超出字數:"+(this.value.length-16));
@@ -285,12 +294,10 @@
         // Replace the <textarea id="contentCk"> with a CKEditor
         var ckSetting = {
             contentsCss: '/static/css/customCKEditor.css',
-            extraAllowedContent: 'img[data-isdeliver];iframe[*]',
-            height:550,
-            removeButtons: 'About'
+            height:550
         };
 
-        var newsContent = CKEDITOR.replace('contentCk', ckSetting);
+        var newsContent = CKEDITOR.replace('contentCk',ckSetting);
 
         var defaultWarning = {
             wine: {
@@ -324,7 +331,7 @@
             });
 
         });
-        CKEDITOR.replace('freeContentCk', ckSetting);
+        CKEDITOR.replace('freeContentCk',ckSetting);
 
 
         $('#MainMenu').multipleSelect({
