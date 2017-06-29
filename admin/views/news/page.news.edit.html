@@ -162,46 +162,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="control-label">
-                                版型(業務專欄使用)
-                            </label>
-                            <select name="type" class="form-control select2" required>
-                                {% for key, type in NEWS_TYPES %}
-                                    {% if news.template == key %}
-                                        <option value="{{ key }}" selected>{{ type }}</option>
-                                    {% else %}
-                                        <option value="{{ key }}">{{ type }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            <option value="NORMAL">預設廣告</option>
-                            <option value="COLUMN">專欄版型</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="control-label">
-                                廣告代碼(業務專欄使用)
-                            </label>
-                            <select name="type" class="form-control select2" required>
-                                {% for key, type in NEWS_TYPES %}
-                                    {% if news.templateAD == key %}
-                                        <option value="{{ key }}" selected>{{ type }}</option>
-                                    {% else %}
-                                        <option value="{{ key }}">{{ type }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            <option value="NORMAL">預設廣告</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 

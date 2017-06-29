@@ -1,4 +1,3 @@
-
 <div class="box sponsored-setting hide">
     <div class="box-header with-border">
         <h3 class="box-title">業務欄位</h3>
@@ -9,6 +8,10 @@
         </div>
     </div>
     <div class="box-body">
+        {# 版型 #}
+        {% set data = news %}
+        {% include "../../util/template.html" %}
+
         <div class="form-group">
             <label>自由欄位</label>
             <textarea id="freeContentCk" class="form-control" name="freeContent" rows="5" placeholder="Enter ...">{{news.freeContent}}</textarea>

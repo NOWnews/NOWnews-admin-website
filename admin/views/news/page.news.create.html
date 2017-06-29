@@ -142,32 +142,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="control-label">
-                                版型(業務使用)
-                            </label>
-                            <select name="template" class="form-control" required>
-                            {% for key, type in NEWS_TEMPLATES %}
-                                <option value="{{ key }}">{{ type }}</option>
-                            {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="control-label">
-                                版型廣告(業務使用)
-                            </label>
-                            <select name="templateAD" class="form-control" required>
-                            {% for key, type in NEWS_TEMPLATES_AD %}
-                                <option value="{{ key }}">{{ type }}</option>
-                            {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
 
