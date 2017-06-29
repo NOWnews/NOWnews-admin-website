@@ -327,7 +327,7 @@ $('#autocomplete-ajax').autocomplete({
             $('#multiselect_'+k+ ' option').each(function(i){
                 if (($('#multiselect_'+k+ ' option')[i].innerText.length ===0) === true){
                     $(this).remove();
-                $('#multiselect_'+k).multiselect('refresh')
+                $('#multiselect_'+k).multiselect('refresh');
                 }
             });
 
