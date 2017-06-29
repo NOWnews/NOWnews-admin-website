@@ -13,12 +13,12 @@
         {% for value in specialTopics %}
             <tr>
                 <td>
-                    <a href="#">
+                    <a href="/topic/{{value._id}}">
                         {{ value.title }}
                     </a>
                 </td>
                 <td>
-                    <a href="{{ value.url }}" target="_blank">
+                    <a href="{{ officialUrl }}{{ value.url }}" target="_blank">
                         {{ value.url }}
                     </a>
                 </td>
