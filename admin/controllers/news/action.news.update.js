@@ -93,13 +93,13 @@ module.exports = async (req, res, next) => {
                 redirectUrl = '/news/reviewList';
                 break;
             case 'release':
-                let now = moment.tz('Asia/Taipei').valueOf();
-                let start = moment.tz(data.startedAt ,'Asia/Taipei').valueOf();
-                let formatTime = moment.tz(now ,'Asia/Taipei').format('YYYY-MM-DD HH:mm:ss');
+                // let now = moment.tz('Asia/Taipei').valueOf();
+                // let start = moment.tz(data.startedAt ,'Asia/Taipei').valueOf();
+                // let formatTime = moment.tz(now ,'Asia/Taipei').format('YYYY-MM-DD HH:mm:ss');
 
-                if (now > start) {
-                    data.startedAt = formatTime;
-                }
+                // if (now > start) {
+                //     data.startedAt = formatTime;
+                // }
                 break;
             case 'close':
                 delete data.LastReviewer;
