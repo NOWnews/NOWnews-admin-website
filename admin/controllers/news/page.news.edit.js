@@ -3,7 +3,7 @@ import Debug from 'debug';
 import moment from 'moment-timezone';
 import { NEWS_TYPES, NEWS_STATUS, NEWS_TEMPLATES, NEWS_TEMPLATES_AD } from '../../util/constants';
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.edit');
-
+import checkSchedule from '../../util/checkSchedule.js';
 module.exports = async (req, res, next) => {
 
     try {
@@ -55,7 +55,9 @@ module.exports = async (req, res, next) => {
         }
 
         debug('news = %j', news);
-
+        //是否為預約發稿
+        let isScheduled = checkSchedule(news.startedAt);
+        news.isScheduled = isScheduled;
         // 紀錄更新完要回去的網址
         req.session.prevUrl = req.headers.referer;
 
