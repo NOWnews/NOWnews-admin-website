@@ -219,6 +219,7 @@
 <script src="/static/js/jquery-ui.min.js"></script>
 <script src="/static/js/jquery.caret.min.js"></script>
 <script src="/static/js/jquery.tag-editor.min.js"></script>
+<script src="/static/js/moment-timezone.min.js"></script>
 
 <style>
     .memo-box .box-comments{
@@ -619,4 +620,26 @@
         });
     });
 </script>
+
+ {% if news.status == 'REVIEW' and not isScheduled %}
+    <script>
+        //現在時間顯示
+        var startedAt = $('#reservation-datetimepicker').val()+':00';
+        var showNowTime = function(){
+            if($('#isUpdateStatedAt').is(':checked')){
+                $('#reservation-datetimepicker').val(moment.tz('Asia/Taipei').format('YYYY-MM-DD HH:mm:ss'));
+            }
+        };
+        var timer = setInterval(showNowTime,1000);
+        $('#isUpdateStatedAt').on('ifChecked', function () {
+            $('#reservation-datetimepicker').val(moment.tz('Asia/Taipei').format('YYYY-MM-DD HH:mm:ss'));
+            timer = setInterval(showNowTime,1000);
+        });
+        $('#isUpdateStatedAt').on('ifUnchecked', function () {
+             clearInterval(timer);
+             $('#reservation-datetimepicker').val(startedAt);
+         });
+    </script>
+{% endif %}
+
 {% endblock %}
