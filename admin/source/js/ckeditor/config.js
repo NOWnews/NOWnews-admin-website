@@ -21,10 +21,10 @@ CKEDITOR.editorConfig = function( config ) {
 	config.format_tags = 'p;h1;h2;h3;pre';
 
 	// Simplify the dialog windows.
-	config.removeDialogTabs = 'image:advanced;link:advanced'
+	config.removeDialogTabs = 'image:advanced;link:advanced';
 
 	//一般貼上時 強迫純文字
-	config.forcePasteAsPlainText = true
+	config.forcePasteAsPlainText = true;
 
 	//嵌入影片需要額外允許的tag
 	config.extraAllowedContent = 'script;blockquote(*);img[data-isdeliver];iframe[*]';
