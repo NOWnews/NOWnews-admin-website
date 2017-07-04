@@ -365,6 +365,8 @@
         });
 
         $("form").submit(function( event ) {
+            //取消離開頁面確認dialog
+            window.onbeforeunload = null;
             // 加一個遮罩
             $('.control-sidebar-bg').css({
                 'z-index': '9999',
@@ -606,6 +608,7 @@
             return "你的變更可能不會被儲存。";
             }
         }
+
     });
 </script>
 {% endblock %}
