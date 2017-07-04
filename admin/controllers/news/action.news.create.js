@@ -3,6 +3,7 @@ import Debug from 'debug';
 const debug = Debug('NOWnews-admin-website: controllers:news:action.news.create');
 
 import htmlToText from '../../util/htmlToText';
+import newsContentFilter from '../../util/newsContentFilter';
 
 module.exports = async (req, res, next) => {
 
@@ -13,6 +14,9 @@ module.exports = async (req, res, next) => {
         let redirectUrl = '/news/myList';
 
         debug('req.body = %j', req.body);
+
+        //把MLB的iframe是http連結的換成https
+        data.content = newsContentFilter(data.content);
 
         data.CreatedBy = userId;
         data.UpdatedBy = userId;
@@ -97,7 +101,7 @@ module.exports = async (req, res, next) => {
                 break;
         }
 
-        debug('FinalCreatedNewsData = %j', data);
+        // debug('FinalCreatedNewsData = %j', data);
 
         let { data: news } = await axios.post('/news', data);
 
@@ -107,10 +111,10 @@ module.exports = async (req, res, next) => {
                 content: newsMemoContent,
                 CreatedBy: userId,
             });
-            debug('createdNewsMemo = %j', newsMemo);
+            // debug('createdNewsMemo = %j', newsMemo);
         }
 
-        debug('createdNews = %j', news);
+        // debug('createdNews = %j', news);
 
         return res.redirect(redirectUrl);
     }

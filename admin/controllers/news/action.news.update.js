@@ -2,6 +2,7 @@ import Debug from 'debug';
 const debug = Debug('NOWnews-admin-website: controllers:news:action.news.update');
 
 import htmlToText from '../../util/htmlToText';
+import newsContentFilter from '../../util/newsContentFilter';
 import moment from 'moment-timezone';
 
 module.exports = async (req, res, next) => {
@@ -14,6 +15,8 @@ module.exports = async (req, res, next) => {
         let redirectUrl = req.session.prevUrl || 'back';
 
         debug('req.body = %j', data);
+        //把MLB的iframe是http連結的換成https
+        data.content = newsContentFilter(data.content);
 
         data.isDeliver = data.isDeliver ? true : false ;
         data.isSponsored = data.isSponsored ? true : false ;
