@@ -383,6 +383,8 @@
             }
         });
         $("form").submit(function( event ) {
+            //取消離開頁面確認dialog
+            window.onbeforeunload = null;
             // 加一個遮罩
             $('.control-sidebar-bg').css({
                 'z-index': '9999',
@@ -618,6 +620,16 @@
                 $('.sponsored-setting').addClass('hide');
             }
         });
+
+        // 若改變form的資料後離開頁面 問一下確認離開嗎
+        var formData = $("#fileupload").serialize();
+        window.onbeforeunload = function(){
+        if(formData!==$("#fileupload").serialize()){
+            return "你的變更可能不會被儲存。";
+            }
+        }
+
+
     });
 </script>
 
@@ -639,6 +651,7 @@
              clearInterval(timer);
              $('#reservation-datetimepicker').val(startedAt);
          });
+
     </script>
 {% endif %}
 
