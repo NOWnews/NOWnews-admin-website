@@ -101,7 +101,7 @@ module.exports = async (req, res, next) => {
                 break;
         }
 
-        // debug('FinalCreatedNewsData = %j', data);
+        debug('FinalCreatedNewsData = %j', data);
 
         let { data: news } = await axios.post('/news', data);
 
@@ -111,10 +111,10 @@ module.exports = async (req, res, next) => {
                 content: newsMemoContent,
                 CreatedBy: userId,
             });
-            // debug('createdNewsMemo = %j', newsMemo);
+            debug('createdNewsMemo = %j', newsMemo);
         }
 
-        // debug('createdNews = %j', news);
+        debug('createdNews = %j', news);
 
         return res.redirect(redirectUrl);
     }
