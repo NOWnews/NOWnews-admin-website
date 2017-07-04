@@ -9,7 +9,7 @@ const debug = Debug('NOWnews-admin-website: util: newsContentFilter');
 
 module.exports = (content) =>{
 
-    let $ = cheerio.load( content );
+    let $ = cheerio.load( content, { decodeEntities: false } );
     $('iframe').filter((i, el) => {
         if($(el).attr('src').startsWith('http://m.mlb.com/shared/video/embed/embed.html?')){
             let src = $(el).attr('src');
