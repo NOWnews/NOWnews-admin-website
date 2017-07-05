@@ -4,6 +4,9 @@ import config from 'config';
 module.exports = async (req, res, next) => {
 
     try{
+        let checkPath = '/topic';
+        await axios.get(`/policies/check?path=${checkPath}&roleId=${req.session.adminUser.Role._id}`);
+
         let userId = req.session.adminUser._id;
         let { data: topic } = await axios.get('/specialtopics');
 

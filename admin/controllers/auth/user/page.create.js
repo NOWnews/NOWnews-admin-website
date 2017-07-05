@@ -4,6 +4,9 @@ import { USER_STATUS } from '../../../util/constants';
 module.exports = async (req, res, next) => {
 
     try {
+        let checkPath = '/auth/user';
+        await axios.get(`/policies/check?path=${checkPath}&roleId=${req.session.adminUser.Role._id}`);
+
         let [
             { data: departmentList },
             { data: roleList },

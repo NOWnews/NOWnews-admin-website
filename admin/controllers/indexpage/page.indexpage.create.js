@@ -6,6 +6,9 @@ const debug = Debug('NOWnews-admin-website: controllers:indexpage:page.create');
 module.exports = async (req, res, next) => {
 
     try{
+        let checkPath = '/indexpage/create';
+        await axios.get(`/policies/check?path=${checkPath}&roleId=${req.session.adminUser.Role._id}`);
+
         let userId = req.session.adminUser._id;
 
         let results = await Promise.all([

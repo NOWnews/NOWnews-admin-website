@@ -3,6 +3,9 @@ const debug = Debug('NOWnews-admin-website:controllers:app:page.versionlist');
 
 module.exports = async (req, res, next) => {
     try{
+        let checkPath = '/app/version';
+        await axios.get(`/policies/check?path=${checkPath}&roleId=${req.session.adminUser.Role._id}`);
+
         let { data: appInfoList } = await axios.get(`/app/version`);
         debug('app info list = %j', appInfoList);
 
