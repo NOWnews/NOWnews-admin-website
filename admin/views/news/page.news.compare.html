@@ -42,11 +42,9 @@
 
                     {{ compare.text('次分類', before.MenusString, after.MenusString) }}
 
-                    {{ compare.text('是否為成人', before.isAdult, after.isAdult) }}
+                    {{ compare.text('是否為成人新聞', before.isAdult, after.isAdult) }}
 
                     {{ compare.text('是否可外送', before.isDeliver, after.isDeliver) }}
-
-                    {{ compare.text('是否為業配文', before.isSponsored, after.isSponsored) }}
 
 
                     {# 圖片設定上傳區 #}
@@ -81,15 +79,25 @@
                     {{ compare.text('最後的新聞審稿者', before.LastReviewer.name, after.LastReviewer.name) }}
 
 
+                    {# 業配文 #}
+
+                    {{ compare.text('是否為業配文', before.isSponsored, after.isSponsored) }}
+
+                    {{ compare.text('版型', NEWS_TEMPLATES[before.template], NEWS_TEMPLATES[after.template]) }}
+
+                    {{ compare.text('版型廣告代碼', NEWS_TEMPLATES_AD[before.templateAd], NEWS_TEMPLATES_AD[after.templateAd]) }}
+
+
+                    {{ compare.text('追蹤碼', before.traceCode, after.traceCode) }}
+
+                    {{ compare.html('自由欄位', 'freeContent', before, after) }}
+
                     {# 後續版本先隱藏起來 / 其他新聞類別
 
                         {{ compare.text('新聞圖片', before.Photos, after.Photos) }}
 
                         {{ compare.text('新聞影音', before.Videos, after.Videos) }}
 
-                        {{ compare.text('追蹤碼', before.traceCode, after.traceCode) }}
-
-                        {{ compare.html('自由內容', 'freeContent', before, after) }}
                     #}
                 </div>
             </div>
@@ -102,8 +110,7 @@
 
         diffUsingJS('content');
 
-        // 第一版先隱藏起來
-        // diffUsingJS('freeContent');
+        diffUsingJS('freeContent');
 
         // 清除空白行 & 套件產生的 header, footer
         $('td.equal').parent('tr').remove();
@@ -115,10 +122,9 @@
             $('.df-content-name').parent().remove();
         }
 
-        // 第一版先隱藏起來
-        // if ($('#df-freeContent-output table tr').length === 0) {
-            // $('.df-freeContent-name').parent().remove();
-        // }
+        if ($('#df-freeContent-output table tr').length === 0) {
+            $('.df-freeContent-name').parent().remove();
+        }
     </script>
 {% endblock %}
 
