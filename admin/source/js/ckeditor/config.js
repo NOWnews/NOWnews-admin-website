@@ -32,5 +32,5 @@ CKEDITOR.editorConfig = function( config ) {
 	// 中文語系
 	config.language = 'zh';
 
-
+	config.allowedContent = true;
 };
