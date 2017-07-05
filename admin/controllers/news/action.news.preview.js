@@ -6,6 +6,7 @@ module.exports = async (req, res, next) => {
 
     try {
         let officialUrl = config.get('officialUrl');
+        let soureceTags = req.body.Tags === '' ? [] : req.body.Tags.split(',');
 
         // preview 格式
         let previewData = {
@@ -28,7 +29,9 @@ module.exports = async (req, res, next) => {
             },
             Photos: req.body.Photos ? JSON.parse(req.body.Photos) : null,
             content: req.body.content,
-            Tags: _.map(req.body.Tags.split(','), (tag)=>{ return {name: tag}; }),
+            traceCode: req.body.traceCode,
+            freeContent: req.body.freeContent,
+            Tags: _.map(soureceTags, (tag, index) => { return {sn: index, name: tag}; }),
         };
 
         if (previewData.type === 'NEWS'){

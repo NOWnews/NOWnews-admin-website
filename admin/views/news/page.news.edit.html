@@ -594,6 +594,8 @@
                 MainMenu: $('[name=MainMenu] option:selected').text(),
                 newsBy: $('[name=newsBy]').val(),
                 content: CKEDITOR.instances.contentCk.getData(),
+                freeContent: CKEDITOR.instances.freeContentCk.getData(),
+                traceCode: $('[name=traceCode]').val(),
                 Tags: $('[name=tags]').val(),
                 type: $('[name=type]').val(),
                 MainPhotoUrl: $('.image-preview img').attr('src'),
