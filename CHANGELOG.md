@@ -8,6 +8,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 ### Bug
 -  修正編輯器無法複製圖片問題 @wb @appleoxxo
 -  確認頁面有端點權限才可以瀏覽 @esbb48
+-  取得預覽所需的資料：`traceCode`, `freeContent` @esbb48
 
 ## 1.0.2 - 2017-07-04
 ### Add
