@@ -31,7 +31,7 @@
                                         --
                                     {% else %}
                                         <a class="btn btn-success"
-                                            href="/news/compare?beforeLogId={{newslog._id}}&afterLogId={{newslogList[loop.index0 - 1]._id}}">
+                                            href="/news/compare?beforeLogId={{newslogList[loop.index0 - 1]._id}}&afterLogId={{newslog._id}}">
                                             與 #{{ loop.index0 - 1 }} 比較
                                         </a>
                                     {% endif %}
