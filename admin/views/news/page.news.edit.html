@@ -115,7 +115,7 @@
                         </div>
                     </div>
                     <div class="col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group newsSecondCat">
                             <label for="Menus" class="control-label">新聞次分類</label>
                             <select id='Menus' name="Menus" multiple="multiple" style="display: none;">
                                 {% for menu in menus %}
@@ -619,6 +619,16 @@
             } else {
                 $('.sponsored-setting').addClass('hide');
             }
+        });
+
+        //新聞次分類 可toggle縮放
+        $('.newsSecondCat li.multiple').css('display','none');
+        $('.newsSecondCat label.optgroup').prepend('<i style="color:#97a0b3; float:left;" class="fa fa-plus"></i>');
+        $('.newsSecondCat li.group').on('click',function(e){
+            e.preventDefault();
+            $(this).find('i.fa').toggleClass('fa-plus fa-minus');
+            $(this).nextUntil("li.group").slideToggle();
+            $('.newsSecondCat li.ms-no-results').remove();
         });
 
         // 若改變form的資料後離開頁面 問一下確認離開嗎
