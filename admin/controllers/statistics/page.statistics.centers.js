@@ -8,6 +8,9 @@ const debug = Debug('NOWnews-admin-website: controllers:statistics:page.centersL
 module.exports = async (req, res, next) => {
 
     try{
+        let checkPath = '/statistics/centers';
+        await axios.get(`/policies/check?path=${checkPath}&roleId=${req.session.adminUser.Role._id}`);
+
         let query = req.query;
 
         if (!query.startedAt) {

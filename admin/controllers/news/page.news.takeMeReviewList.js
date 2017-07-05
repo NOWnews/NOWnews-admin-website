@@ -6,6 +6,10 @@ import { NEWS_TYPES, NEWS_STATUS, NEWS_TEMPLATES, NEWS_TEMPLATES_AD } from '../.
 module.exports = async (req, res, next) => {
 
     try {
+
+        let checkPath = '/news/takeMeReviewList';
+        await axios.get(`/policies/check?path=${checkPath}&roleId=${req.session.adminUser.Role._id}`);
+
         let officialUrl = config.get('officialUrl');
         let queryString = req._parsedUrl.query? '?' + req._parsedUrl.query: '';
         let userId = req.session.adminUser._id;

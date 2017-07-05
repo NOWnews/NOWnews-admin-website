@@ -8,6 +8,10 @@ import checkSchedule from '../../util/checkSchedule';
 module.exports = async (req, res, next) => {
 
     try {
+
+        let checkPath = '/news/myList';
+        await axios.get(`/policies/check?path=${checkPath}&roleId=${req.session.adminUser.Role._id}`);
+
         let officialUrl = config.get('officialUrl');
         let { query, originalUrl } = req;
         let queryString = req._parsedUrl.query? '?' + req._parsedUrl.query: '';

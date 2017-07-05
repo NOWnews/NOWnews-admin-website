@@ -5,6 +5,9 @@ const debug = Debug('NOWnews-admin-website: controllers:priority:page.list');
 module.exports = async (req, res, next) => {
 
     try {
+        let checkPath = '/priority';
+        await axios.get(`/policies/check?path=${checkPath}&roleId=${req.session.adminUser.Role._id}`);
+
         let { menuId }= req.query;
         let { data: menus } = await axios.get('menus/struction');
 

@@ -6,6 +6,9 @@ const debug = Debug('NOWnews-admin-website: controllers:dailyplan:page.create');
 module.exports = async (req, res, next) => {
 
     try {
+        let checkPath = '/dailyplan/create';
+        await axios.get(`/policies/check?path=${checkPath}&roleId=${req.session.adminUser.Role._id}`);
+
         let { data : departments } = await axios.get('/departments');
         let taipeiTimeNow = moment.tz('Asia/Taipei').format('YYYY-MM-DDTHH:mm');
         departments = _.filter(departments,(department)=>{

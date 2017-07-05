@@ -5,6 +5,8 @@ import Promise from 'bluebird';
 
 module.exports = async (req, res, next) => {
     try{
+        let checkPath = '/app/splash';
+        await axios.get(`/policies/check?path=${checkPath}&roleId=${req.session.adminUser.Role._id}`);
 
         let [ { data: phoneSplash }, { data: tabletSplash }, { data: boxSplash } ] = await Promise.all([
             axios.get(`/app/splash?device=PHONE`),

@@ -4,6 +4,9 @@ const debug = Debug('NOWnews-admin-website: controllers:tags:page.list');
 module.exports = async (req, res, next) => {
 
     try{
+
+        let checkPath = '/tags';
+        await axios.get(`/policies/check?path=${checkPath}&roleId=${req.session.adminUser.Role._id}`);
         let queryString = req._parsedUrl.query? '?' + req._parsedUrl.query: '';
 
         let userId = req.session.adminUser._id;

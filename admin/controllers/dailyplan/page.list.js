@@ -8,6 +8,8 @@ module.exports = async (req, res, next) => {
 
 
     try {
+        let checkPath = '/dailyplan';
+        await axios.get(`/policies/check?path=${checkPath}&roleId=${req.session.adminUser.Role._id}`);
 
         let qsObj = qs.parse(req._parsedUrl.query);
 
@@ -24,7 +26,7 @@ module.exports = async (req, res, next) => {
         }
         let queryString = qs.stringify(qsObj);
 
-        let { data: {dailyPlans, pageData} } = await axios.get(`/dailyPlan?${queryString}`);;
+        let { data: {dailyPlans, pageData} } = await axios.get(`/dailyPlan?${queryString}`);
 
         //只取新聞部底下的中心
         let { data : departments } = await axios.get('/departments');
