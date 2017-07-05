@@ -24,7 +24,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 
 	//一般貼上時 強迫純文字
-	config.forcePasteAsPlainText = true;
+	config.forcePasteAsPlainText = false;
 
 	//嵌入影片需要額外允許的tag
 	config.extraAllowedContent = 'script;blockquote(*);img[data-isdeliver];iframe[*]';
@@ -32,5 +32,5 @@ CKEDITOR.editorConfig = function( config ) {
 	// 中文語系
 	config.language = 'zh';
 
-
+	config.allowedContent = true;
 };
