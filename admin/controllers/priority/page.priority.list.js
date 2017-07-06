@@ -1,5 +1,6 @@
 import Debug from 'debug';
 import moment from 'moment-timezone';
+import _ from 'lodash';
 const debug = Debug('NOWnews-admin-website: controllers:priority:page.list');
 
 module.exports = async (req, res, next) => {
@@ -20,6 +21,13 @@ module.exports = async (req, res, next) => {
         debug('startedAt = %s', startedAt );
 
         let { data } = await axios.get(`/scores?menuId=${menuId}&endedAt=${endedAt}&startedAt=${startedAt}`);
+
+        if(data.length>0){
+            _.map(data,(news)=>{
+                news.startedAt = moment.tz(news.startedAt,'Asia/Taipei').format('YYYY-MM-DD HH:mm');
+                return news;
+            });
+        }
 
         debug('menus = %j', menus);
         debug('NewsByMenu = %j', data);

@@ -1,6 +1,7 @@
 <table id="tags-table" class="table table-bordered table-striped">
     <thead>
         <tr>
+            <th>發布時間</th>
             <th>建立時間</th>
             <th>標題</th>
             <th>PV</th>
@@ -11,6 +12,7 @@
     <tbody>
         {% for value in data %}
             <tr>
+                <td>{{ value.startedAt }}</td>
                 <td>{{ value.createdAt }}</td>
                 <td>{{ value.title }}</td>
                 <td>{{ value.originalPageviews }}</td>
@@ -25,6 +27,7 @@
     </tbody>
     <tfoot>
         <tr>
+            <th>發布時間</th>
             <th>建立時間</th>
             <th>標題</th>
             <th>PV</th>
