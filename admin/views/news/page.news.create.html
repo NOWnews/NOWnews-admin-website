@@ -596,7 +596,7 @@
         $('.newsSecondCat label.optgroup').prepend('<i style="color:#97a0b3; float:left;" class="fa fa-plus"></i>');
         $('.newsSecondCat li.group').on('click',function(e){
             e.preventDefault();
-            $(this).find('.newsSecondCat i.fa').toggleClass('fa-plus fa-minus');
+            $(this).find('i.fa').toggleClass('fa-plus fa-minus');
             $(this).nextUntil("li.group").slideToggle();
             $('.newsSecondCat li.ms-no-results').remove();
         });
