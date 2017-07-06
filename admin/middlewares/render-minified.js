@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
             html = Minifier.minify(html, {
                 removeComments: true,
                 removeCommentsFromCDATA: true,
-                collapseWhitespace: true,
+                collapseWhitespace: false,
                 collapseBooleanAttributes: true,
                 removeAttributeQuotes: true,
                 removeEmptyAttributes: true
