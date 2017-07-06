@@ -24,7 +24,9 @@ module.exports = async (req, res, next) => {
 
         if(data.length>0){
             _.map(data,(news)=>{
-                news.startedAt = moment.tz(news.startedAt,'Asia/Taipei').format('YYYY-MM-DD HH:mm');
+                if(news.startedAt){
+                    news.startedAt = moment.tz(news.startedAt,'Asia/Taipei').format('YYYY-MM-DD HH:mm');
+                }
                 return news;
             });
         }
