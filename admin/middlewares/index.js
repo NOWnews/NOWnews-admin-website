@@ -63,7 +63,7 @@ module.exports = function(app) {
     app.use(logger('dev'));
     app.use(isLogin);
     app.use(checkLoginedTime);
-    app.use(setLocals());
+    app.use(setLocals);
     app.use(checkAuth);
 
 
