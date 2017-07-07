@@ -21,10 +21,9 @@ module.exports = async (req, res, next) => {
             return next();
         }
 
-        console.log(method, checkList, path, checkList.indexOf(path));
-
         await axios.get(`/policies/check?path=${path}&roleId=${req.session.adminUser.Role._id}`);
 
+        return next();
      }
      catch(err) {
          return next(err);
