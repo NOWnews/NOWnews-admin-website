@@ -9,6 +9,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 -  增加 CheckAuth @esbb48
 ### Changed
 -  調整 Preview 參數 @esbb48
+-  調整列表查詢寬度 @esbb48
 
 ## 1.0.4 - 2017-07-06
 ### Added
