@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
         if (queryString === null) {
             queryString = "";
         }
-        let { data: { videos, pageData } } = await axios.get(`/videos?limit=8&`+queryString);
+        let { data: { videos, pageData } } = await axios.get(`/videos?limit=9&`+queryString);
 
         debug('videos = %j', videos);
 
