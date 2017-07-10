@@ -263,7 +263,7 @@ $(function () {
         var desc = $('#library input[name=desc]').val();
         var isPhotosNews = $('select[name=type]').val() === 'PHOTO' ? true : false;
         $('#img-loading').show();
-        console.log('start...');
+
         $.ajax({
             type:'GET',
             url:'/image?' + queryString,
@@ -438,5 +438,9 @@ $(function () {
             return;
         }
         undoBtn.removeClass('hidden');
+    });
+    //圖片新聞 加入已上傳圖片
+    $('#addAllImages').on('click',function(){
+        $('tr.template-download button.manyPhotoEle').click();
     });
 });
