@@ -5,6 +5,11 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## 1.0.5 - 2017-07-07
+### Changed
+-  暫時註解中央社圖片選項UI @appleoxxo
+-  限制前端選擇圖片和影片的檔案類型 @appleoxxo
+
+## 1.0.5 - 2017-07-07
 ### Added
 -  增加 CheckAuth @esbb48
 ### Changed
