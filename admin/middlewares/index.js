@@ -12,6 +12,7 @@ import methodOverride from 'method-override';
 
 import setLocals from './setLocals';
 import isLogin from './isLogin';
+import checkAuth from './checkAuth';
 import checkLoginedTime from './checkLoginedTime';
 import renderMinified from './render-minified';
 
@@ -62,7 +63,9 @@ module.exports = function(app) {
     app.use(logger('dev'));
     app.use(isLogin);
     app.use(checkLoginedTime);
-    app.use(setLocals());
+    app.use(setLocals);
+    app.use(checkAuth);
+
 
     return function(req, res, next) {
         return next();

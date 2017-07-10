@@ -24,7 +24,7 @@ module.exports = async (req, res, next) => {
         }
         let queryString = qs.stringify(qsObj);
 
-        let { data: {dailyPlans, pageData} } = await axios.get(`/dailyPlan?${queryString}`);;
+        let { data: {dailyPlans, pageData} } = await axios.get(`/dailyPlan?${queryString}`);
 
         //只取新聞部底下的中心
         let { data : departments } = await axios.get('/departments');

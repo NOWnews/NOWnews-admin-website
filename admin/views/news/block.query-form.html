@@ -1,10 +1,7 @@
 <form action="{{ url }}" method="get">
     <div class="row">
-        <div class="form-group col-md-2">
-            <input class="form-control" name="title" placeholder="搜尋：標題" type="text" value="{{ query.title }}" />
-        </div>
         {% if userList %}
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
                 <select class="form-control" id="dept-and-center" name="CreatedBy">
                         <option value="">建立者</option>
                         {% for user in userList %}
@@ -18,7 +15,7 @@
         {% endif %}
 
         {% if mainMenus %}
-            <div class="form-group col-md-1">
+            <div class="form-group col-md-3">
                 <select class="form-control" id="dept-and-center" name="MainMenu">
                         <option value="">主分類</option>
                         {% for mainMenu in mainMenus %}
@@ -30,8 +27,12 @@
                     </select>
             </div>
         {% endif %}
-
-        <div class="form-group col-sm-1">
+    </div>
+    <div class="row">
+        <div class="form-group col-md-2">
+            <input class="form-control" name="title" placeholder="搜尋：標題" type="text" value="{{ query.title }}" />
+        </div>
+        <div class="form-group col-md-1">
             <select name="status" class="form-control select2">
                         <option value>狀態</option>
 
@@ -43,23 +44,23 @@
             </select>
         </div>
 
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-3">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="exampleInputName2">起始日期</label>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <input value="{{ query.startedAt }}" class="form-control" name="startedAt" type="date" />
                 </div>
             </div>
         </div>
 
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-3">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="exampleInputName2">結束日期</label>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <input value="{{ query.endedAt }}" class="form-control" name="endedAt" type="date" />
                 </div>
             </div>

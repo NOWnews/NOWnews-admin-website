@@ -4,6 +4,13 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 格式基於 [Keep a Changelog](http://keepachangelog.com/zh-TW/0.3.0/)
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
+## 1.0.5 - 2017-07-07
+### Added
+-  增加 CheckAuth @esbb48
+### Changed
+-  調整 Preview 參數 @esbb48
+-  調整列表查詢寬度 @esbb48
+
 ## 1.0.4 - 2017-07-06
 ### Added
 -  CKeditor加上符號選擇器 @appleoxxo
