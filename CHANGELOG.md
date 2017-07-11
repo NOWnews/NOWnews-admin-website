@@ -4,6 +4,10 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 格式基於 [Keep a Changelog](http://keepachangelog.com/zh-TW/0.3.0/)
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
+## 1.0.6 - 2017-07-11
+### Fixed
+-  修正上傳太寬或太長的圖時預覽圖無法顯示 @appleoxxo
+
 ## 1.0.5 - 2017-07-07
 ### Added
 -  圖片新聞新增'加入全部已上傳圖片'按鈕 @appleoxxo
