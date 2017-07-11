@@ -168,8 +168,10 @@ $(function () {
         uploadTemplate: function (o) {
             var rows = $();
             $.each(o.files, function (index, file) {
+
                 var blobURL = URL.createObjectURL(file);
                 var row = $($('#template-upload').html());
+                row.find('span.preview2').append('<img width="80" height="40" src="' + URL.createObjectURL(o.files[index]) + '"/>');
                 row.find('button.crop').attr('data-blobURL', blobURL);
                 if (file.error) {
                     row.find('.crop').addClass('hidden');
