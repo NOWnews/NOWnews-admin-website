@@ -167,6 +167,9 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
+                if($('select[name="type"').val()==='PHOTO'){
+                    $('#addAllImages').removeClass('hide');
+                }
                 var that = $(this).data('blueimp-fileupload') ||
                         $(this).data('fileupload'),
                     getFilesFromResponse = data.getFilesFromResponse ||
