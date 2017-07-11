@@ -1,7 +1,7 @@
 {
     "mode": "staging",
     "officialUrl": "https://www.nownews.com",
-    "apiServer": "http://10.140.0.6:10000",
+    "apiServer": "http://10.140.0.4:10000",
     "expiredDay": 3,
     "headers": {
         "X-NOWnews-API": ["NOWnewsIsFeature"]
