@@ -7,6 +7,17 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 ### Changed
 -  更新 staging 設定黨 @esbb48
 
+## 1.0.6 - 2017-07-11
+### Fixed
+-  修正上傳太寬或太長的圖時預覽圖無法顯示 @appleoxxo
+
+## 1.0.5 - 2017-07-07
+### Added
+-  圖片新聞新增'加入全部已上傳圖片'按鈕 @appleoxxo
+### Changed
+-  暫時註解中央社圖片選項UI @appleoxxo
+-  限制前端選擇圖片和影片的檔案類型 @appleoxxo
+
 ## 1.0.5 - 2017-07-07
 ### Added
 -  增加 CheckAuth @esbb48

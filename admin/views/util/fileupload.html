@@ -7,9 +7,9 @@
         <li role="presentation" class="library">
             <a href="#library" aria-controls="library" role="tab" data-toggle="tab" data-from="INTERNAL">自家圖庫</a>
         </li>
-        <li role="presentation" class="library">
+        <!--<li role="presentation" class="library">
             <a href="#library" aria-controls="library" role="tab" data-toggle="tab" data-from="EXTERNAL">中央社</a>
-        </li>
+        </li>-->
     </ul>
 
     <br />
@@ -23,12 +23,19 @@
                     <label class="btn btn-success fileinput-button" for="image-file">
                         <i class="fa fa-plus"></i>
                         <span>新增檔案</span>
-                        <input id="image-file" type="file" name="files[]" multiple class="sr-only">
+                        <input id="image-file" type="file" name="files[]" multiple class="sr-only" accept="image/png, image/jpg, image/jpeg">
                     </label>
                     <button type="button" class="btn btn-primary start">
                         <i class="fa fa-upload"></i>
                         <span>全部上傳</span>
                     </button>
+                    <button id="addAllImages" type="button" class="btn btn-primary addAllImages hide">
+                        <i class="fa fa-plus"></i>
+                        <span>加入全部已上傳圖片</span>
+                    </button>
+                    <div class="row">
+                        <div class="col-sm-12"><span class="text-muted">限定檔案類型：jpg / png</span></div>
+                    </div>
                     <!-- The global file processing state -->
                     <span class="fileupload-process"></span>
                 </div>
@@ -106,9 +113,11 @@
 <script id="template-upload" type="text/x-custom-template">
     <tr class="template-upload fade">
         <td>
-            <span class="preview">
-                <img class="upload-img hidden" width="80" height="40"/>
+            <span class="preview2">
             </span>
+            <!--<span class="preview">
+                <img class="upload-img hidden" width="80" height="40"/>
+            </span>-->
             <p>
                 <label><input type="checkbox" name="isDeliver" checked="checked" />可外送</label>
                 <label><input type="checkbox" name="isWatermark" checked="checked" />加浮水印</label>

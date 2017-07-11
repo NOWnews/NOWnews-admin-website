@@ -70,8 +70,11 @@
                             <label class="btn btn-success fileinput-button" for="fileupload-video">
                                 <i class="fa fa-plus"></i>
                                 <span>上傳影片檔</span>
-                                <input id="fileupload-video" type="file" name="files[]" multiple class="sr-only">
+                                <input id="fileupload-video" type="file" name="files[]" multiple class="sr-only" accept="video/mp4,video/x-m4v,video/*">
                             </label>
+                            <div class="row">
+                                <div class="col-sm-12"><span class="text-muted">限定檔案類型：mp4</span></div>
+                            </div>
                             <br>
                             <table role="presentation" class="table table-striped">
                                 <tbody id="files-video"></tbody>

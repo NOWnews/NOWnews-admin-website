@@ -168,8 +168,10 @@ $(function () {
         uploadTemplate: function (o) {
             var rows = $();
             $.each(o.files, function (index, file) {
+
                 var blobURL = URL.createObjectURL(file);
                 var row = $($('#template-upload').html());
+                row.find('span.preview2').append('<img width="80" height="40" src="' + URL.createObjectURL(o.files[index]) + '"/>');
                 row.find('button.crop').attr('data-blobURL', blobURL);
                 if (file.error) {
                     row.find('.crop').addClass('hidden');
@@ -263,7 +265,7 @@ $(function () {
         var desc = $('#library input[name=desc]').val();
         var isPhotosNews = $('select[name=type]').val() === 'PHOTO' ? true : false;
         $('#img-loading').show();
-        console.log('start...');
+
         $.ajax({
             type:'GET',
             url:'/image?' + queryString,
@@ -438,5 +440,9 @@ $(function () {
             return;
         }
         undoBtn.removeClass('hidden');
+    });
+    //圖片新聞 加入已上傳圖片
+    $('#addAllImages').on('click',function(){
+        $('tr.template-download button.manyPhotoEle').click();
     });
 });
