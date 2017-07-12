@@ -441,8 +441,9 @@ $(function () {
         }
         undoBtn.removeClass('hidden');
     });
-    //圖片新聞 加入已上傳圖片
-    $('#addAllImages').on('click',function(){
-        $('tr.template-download button.manyPhotoEle').click();
-    });
+
+    // //圖片新聞 加入已上傳圖片
+    // $('#addAllImages').on('click',function(){
+    //     $('tr.template-download button.manyPhotoEle').click();
+    // });
 });
