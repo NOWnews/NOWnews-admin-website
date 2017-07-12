@@ -443,7 +443,7 @@ $(function () {
     });
 
     //圖片新聞 加入已上傳圖片
-    $('#addAllImages').on('click',function(){
+    $('#addAllImages').on('click', function(){
         $('tr.template-download button.manyPhotoEle').click();
     });
 });
