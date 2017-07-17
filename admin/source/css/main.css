@@ -9,3 +9,12 @@
 .icheckbox_square-red, .iradio_square-red {
     top: -2px;
 }
+
+/* 以下css是為了解 符號選擇器被遮罩蓋住的bug
+  CKeditor 彈出 符號選擇器之後 在 Safari 有時候 z-index數值會是 5020 導致選擇器被遮罩蓋過去
+  現在在 符號選擇器 的父元素 div.cke_editor_contentCk_dialog 加上 z-index 強制所有子元素都z-index: 10010
+*/
+div.cke_editor_contentCk_dialog{
+  position: relative;
+  z-index: 10010;
+}
