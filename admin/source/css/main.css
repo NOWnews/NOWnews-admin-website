@@ -10,7 +10,7 @@
     top: -2px;
 }
 
-/* 為了解 符號選擇器被遮罩蓋住的bug
+/* 為了解決 符號選擇器被遮罩蓋住的bug
   CKeditor 彈出 符號選擇器之後 在 Safari 有時候 z-index數值會調成是 5020（正常狀況10010) 導致選擇器被遮罩蓋過去
   以下為在符號選擇器的父元素 div.cke_editor_contentCk_dialog 加上 z-index 強制所有子元素都z-index: 10010
 */
@@ -18,3 +18,9 @@ div.cke_editor_contentCk_dialog{
   position: relative;
   z-index: 10010;
 }
+
+div.div-restore-form{
+  border-left: 5px solid #3c8dbc;
+}
+
+
