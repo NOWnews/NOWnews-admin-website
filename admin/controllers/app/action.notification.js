@@ -22,6 +22,10 @@ module.exports = async (req, res, next) => {
             let { data: result } = await axios.post('/app/notification/android', options);
         }
 
+        if(os === 'WEB') {
+            let { data: result } = await axios.post('/app/notification/web', options);
+        }
+
         return res.redirect('/app/notification');
     }
     catch(err) {
