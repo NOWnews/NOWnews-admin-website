@@ -4,6 +4,7 @@
             <th>使用者名稱</th>
             <th>新聞總數</th>
             <th>PageView總數</th>
+            <th>平均PageView</th>
         </tr>
     </thead>
     <tbody>
@@ -18,14 +19,16 @@
                     {{ value.newsTotal }}
                 </td>
                 <td>{{ value.pvTotal }}</td>
+                <td>{{ value.pvAverage }}</td>
             </tr>
         {% endfor %}
     </tbody>
     <tfoot>
         <tr>
-            <th>使用者名稱</th>
-            <th>新聞總數</th>
-            <th>PageView總數</th>
+            <th>總計</th>
+            <th>{{ center.newsTotal }}</th>
+            <th>{{ center.todayTotal }}</th>
+            <th></th>
         </tr>
     </tfoot>
 </table>

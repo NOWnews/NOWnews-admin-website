@@ -21,10 +21,16 @@ module.exports = async (req, res, next) => {
         let { data: centersList } = await axios.get(`/statistics/centers?${queryString}`);
 
         let centers = centersList.centersInfo;
+        let newsTotal = centersList.newsTotal;
+        let todayTotal = centersList.todayTotal;
+
         debug('centersList = %j', centers );
+        debug('todayTotal = %j', todayTotal)
 
         return res.render('statistics/page.centers.html', {
             centers,
+            newsTotal,
+            todayTotal,
             query
         });
     }
