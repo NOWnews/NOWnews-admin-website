@@ -3,6 +3,11 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 格式基於 [Keep a Changelog](http://keepachangelog.com/zh-TW/0.3.0/)
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
+
+## 1.0.7 - 2017-08-03
+### Added
+-  統計增加ＰＶ平均數和總計 @appleoxxo
+
 ## 1.0.6 - 2017-07-11
 ### Changed
 -  更新 staging 設定黨 @esbb48
