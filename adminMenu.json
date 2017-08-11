@@ -158,5 +158,26 @@
             "url": "/app/notification",
             "name": "推播新聞"
         }]
+    },
+    "ott": {
+        "url": "#",
+        "name": "ott控制",
+        "icon": "fa-sliders",
+        "children": [{
+            "url": "/ott/info",
+            "name": "頻道平台資訊建立"
+        },{
+            "url": "/ott/providers/list",
+            "name": "頻道平台資訊列表"
+        },{
+            "url": "/ott/category",
+            "name": "頻道分類建立"
+        }, {
+            "url": "/ott/channels",
+            "name": "頻道建立"
+        },{
+            "url": "/ott/channels/list",
+            "name": "頻道分類排序列表"
+        }]
     }
 }

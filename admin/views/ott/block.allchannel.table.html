@@ -1,0 +1,58 @@
+<table id="menus-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>分類</th>
+            <th>分類權重</th>
+            <th>頻道名稱</th>
+            <th>頻道權重</th>
+            <th>建立時間</th>
+            <th>移除</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category in providerOne.data %}
+            <tr>
+                <td>{{ category.name }}</td>
+                <td><input class="category" data-categoryid="{{ category._id }}" type="text" value="{{ category.weight }}"></td>
+                <td>----------------</td>
+                <td>----------------</td>
+                <td>{{ category.formatCreatedAt }}</td>
+                <td>
+                    <button item-id="/ott/category/{{category._id}}" class="btn btn-danger delete-menu">移除</button>
+                </td>
+                <td></td>
+            </tr>
+            {% for channel in category.channels %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    <a href="/ott/providers/{{channel._id}}">
+                        {{ channel.title }}
+                    </a>
+                </td>
+                <td><input class="channel" data-channelid="{{ channel._id }}" type="text" value="{{ channel.weight }}"></td>
+                <td>{{ channel.formatCreatedAt }}</td>
+
+                <td>
+                    <button item-id="/ott/channels/{{channel._id}}" class="btn btn-danger delete-menu">移除</button>
+                </td>
+                <td></td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>分類</th>
+            <th>分類權重</th>
+            <th>頻道名稱</th>
+            <th>頻道權重</th>
+            <th>建立時間</th>
+            <th>移除</th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+

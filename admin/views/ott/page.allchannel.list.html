@@ -1,0 +1,96 @@
+{% extends "../base.html" %}
+{% from "../util/form-user-record.html" import formUserRecord %}
+
+{% block headTitle %}
+    <title>大編輯台 | OTT平台管理</title>
+{% endblock %}
+
+{% block container %}
+    <section class="content">
+        <div class="box">
+            <div class="box-header">
+                <div class="col-md-12">
+                    <div class="row">
+                        {% include "./block.select.allchannel.html" %}
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                   <a class="btn btn-success channel-update" href="#">更新頻道</a>
+                </div>
+                {# include "./block.query-form.html" #}
+                {% include "./block.allchannel.table.html" %}
+            </div>
+            {#
+            <div class="box-body dataTables_wrapper">
+                {% include "../util/pagination.html" %}
+            </div>
+            #}
+        </div>
+    </section>
+    <script>
+        $(document).ready(function() {
+            $('#menus-table').DataTable({
+                "paging": false,
+                "searching": false,
+                "ordering": false
+            });
+        });
+        $('.delete-menu').on('click', function(){
+            var confirmed = confirm('您確定要刪除嗎？');
+            if (!confirmed) { return; }
+            var itemurl = $(this).attr('item-id');
+            $.ajax({
+                url: itemurl,
+                type: 'DELETE',
+                success: function(result) {
+                    location.reload();
+                }
+            });
+
+        });
+
+
+
+        $('.channel-update').on('click', function(){
+            var data = {
+                categoryArray: [],
+                channelArray: []
+            }
+
+            $( ".category" ).each(function( index, element ) {
+                var key = $(this).attr("data-categoryid");
+                var value = $(this).val();
+                var obj = {
+                    _id: key,
+                    weight: value
+                };
+                data.categoryArray.push(obj);
+            });
+
+            $( ".channel" ).each(function( index, element ) {
+                var key = $(this).attr("data-channelid");
+                var value = $(this).val();
+                var obj = {
+                    _id: key,
+                    weight: value
+                };
+                data.channelArray.push(obj);
+
+            });
+
+
+            $.ajax({
+                type: 'PUT',
+                contentType: "application/json; charset=utf-8",
+                url: '/ott/channels/list',
+                data: JSON.stringify(data),
+                dataType: "json",
+                success: function (data) {
+                    console.log(123)
+                    window.location.reload();
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
