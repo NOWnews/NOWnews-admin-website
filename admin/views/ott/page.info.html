@@ -32,13 +32,13 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="watchtime" class="control-label">可以觀看時間</label>
-                                <input type="number" step="5" id="watchtime"  name="watchTime" class="form-control" placeholder="" required value="20">
+                                <input type="number" step="5" min="0" id="watchtime"  name="watchTime" class="form-control" placeholder="" required value="20">
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="locktime" class="control-label">鎖定觀看時間</label>
-                                <input type="number" step="5" id="locktime"  name="locktime" class="form-control" placeholder="" required value="20">
+                                <input type="number" step="5" min="0" id="locktime"  name="lockTime" class="form-control" placeholder="" required value="20">
                             </div>
                         </div>
 
@@ -69,7 +69,7 @@
                         <div class="col-sm-5">
                             <div class="form-group linkBox">
                                 <label for="shortTitle" class="control-label categoryLink">右邊按鈕</label>
-                                <input type="text" name="right" class="form-control" placeholder="rightbutton" required value="">
+                                <input type="text" name="rightbutton" class="form-control" placeholder="rightbutton" required value="">
                             </div>
                         </div>
                         <div class="col-sm-12">

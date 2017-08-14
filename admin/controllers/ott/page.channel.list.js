@@ -15,7 +15,7 @@ module.exports = async (req, res, next) => {
         }
         if(providerId) {
             let { data:providerOne } = await axios.get(`ott/providers/${providerId}`);
-
+            console.log(123)
             return res.render('ott/page.allchannel.list.html', {
                 allChannel,
                 providerOne,
