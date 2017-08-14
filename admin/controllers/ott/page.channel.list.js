@@ -9,25 +9,39 @@ module.exports = async (req, res, next) => {
 
         let { data: allChannel } = await axios.get('/ott/providers');
 
-
-        if (providerId) {
-            let { data:providerOne } = await axios.get(`ott/providers/${providerId}`);
-                return res.render('ott/page.allchannel.list.html', {
-                    allChannel,
-                    providerOne,
-                    providerId
-                });
-        } else {
-
+        let providerOne;
+        if (allChannel.length > 0) {
             providerId = allChannel[0]._id;
-            let { data:providerOne } = await axios.get(`ott/providers/${providerId}`);
-                console.log(providerId);
-                return res.render('ott/page.allchannel.list.html', {
-                    providerOne,
-                    allChannel,
-                    providerId
-                })
         }
+        if(providerId) {
+            let { data:providerOne } = await axios.get(`ott/providers/${providerId}`);
+
+            return res.render('ott/page.allchannel.list.html', {
+                allChannel,
+                providerOne,
+                providerId
+            });
+        }else{
+            return res.render('ott/page.allchannel.list.html', {
+                allChannel,
+                providerOne,
+                providerId
+            });
+        }
+        // if (providerId) {
+
+
+        // } else {
+
+        //     providerId = allChannel[0]._id;
+        //     let { data:providerOne } = await axios.get(`ott/providers/${providerId}`);
+        //         console.log(providerId);
+        //         return res.render('ott/page.allchannel.list.html', {
+        //             providerOne,
+        //             allChannel,
+        //             providerId
+        //         })
+        // }
         debug('allChannelList = %j', allChannel );
 
 
