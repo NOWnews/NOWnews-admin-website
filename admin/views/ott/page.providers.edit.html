@@ -23,9 +23,8 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="groupType" class="control-label">平台選擇</label>
-                                <select id="groupType" class="form-control" name="platform">
-                                    <option value="{{ platform.platform }}" hidden>{{ platform.platform }}</option>
-                                </select>
+
+                                    <input value="{{ platform.platform }}" class="form-control" disabled>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -57,6 +56,18 @@
                             <div class="form-group linkBox">
                                 <label for="shortTitle" class="control-label categoryLink">androidDownloadLinkURL</label>
                                 <input type="text" name="androidDownloadLink" class="form-control" placeholder="androidDownloadLink" required value="{{ platform.androidDownloadLink }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group linkBox">
+                                <label for="shortTitle" class="control-label categoryLink">leftbutton</label>
+                                <input type="text" name="leftbutton" class="form-control" placeholder="leftbutton" required value="{{ platform.leftbutton }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group linkBox">
+                                <label for="shortTitle" class="control-label categoryLink">rightbutton</label>
+                                <input type="text" name="rightbutton" class="form-control" placeholder="rightbutton" required value="{{ platform.rightbutton }}">
                             </div>
                         </div>
                         <div class="col-sm-12">
