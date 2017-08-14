@@ -13,8 +13,6 @@ module.exports = async (req, res, next) => {
         data.CreatedBy = userId;
         let { data: categoryData } = await axios.post('/ott/categories', data);
 
-        console.log(categoryData,"L16")
-
         debug('categoryData = %j', categoryData);
 
         return res.redirect('/ott/channels/list');

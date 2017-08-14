@@ -11,17 +11,22 @@ module.exports = async (req, res, next) => {
 
 
         if (providerId) {
-        let { data:providerOne } = await axios.get(`ott/providers/${providerId}`);
-            return res.render('ott/page.allchannel.list.html', {
-                allChannel,
-                providerOne,
-                providerId
-            });
+            let { data:providerOne } = await axios.get(`ott/providers/${providerId}`);
+                return res.render('ott/page.allchannel.list.html', {
+                    allChannel,
+                    providerOne,
+                    providerId
+                });
         } else {
-            return res.render('ott/page.allchannel.list.html', {
-                allChannel,
-                providerId
-            })
+
+            providerId = allChannel[0]._id;
+            let { data:providerOne } = await axios.get(`ott/providers/${providerId}`);
+                console.log(providerId);
+                return res.render('ott/page.allchannel.list.html', {
+                    providerOne,
+                    allChannel,
+                    providerId
+                })
         }
         debug('allChannelList = %j', allChannel );
 
