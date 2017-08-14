@@ -1,0 +1,60 @@
+{% set title = "分類建立" %}
+{% extends "../base.html" %}
+
+{% block headTitle %}
+    <title>大編輯台 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+<section class="content">
+    <form action="/ott/category" method="post">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">頻道類別設定</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="categoryName" class="control-label">平台選擇</label>
+                            <select id="categoryName" class="form-control" name="providerId">
+                                {% for value in platform %}
+                                    <option value="{{ value._id }}">{{ value.platform }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="title" class="control-label">頻道類別名稱</label>
+                            <input type="text" id="categoryname" maxlength="6" name="name" class="form-control" placeholder="範例：娛樂、新聞、卡通、電影、綜合" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group linkBox">
+                            <label for="shortTitle" class="control-label categoryLink">頻道英文別名</label>
+                            <input type="text" name="categoryName" class="form-control" placeholder="movies、sports" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit-footer text-center">
+            <button type="submit" class="btn bg-olive btn-flat margin">儲存</button>
+            <button type="button" class="btn bg-maroon btn-flat margin">取消</button>
+        </div>
+    </form>
+</section>
+
+<!-- tagEditor JS -->
+<link rel="stylesheet" type="text/css" href="/static/css/jquery-ui.min.css">
+
+<script src="/static/js/jquery-ui.min.js"></script>
+
+
+{% endblock %}

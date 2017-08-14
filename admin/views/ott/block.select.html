@@ -1,0 +1,40 @@
+<div id="main">
+    <select class="remote-loading" style="width: 30%" name="categoryId">
+        {% for item in providerList %}
+            <option value="{{ item._id }}" disabled>{{ item.platform }}</option>
+            {% for category in item.data %}
+                <option value="{{ category.Provider }}|{{ category._id }}">{{ category.name }}</option>
+            {% endfor %}
+        {% endfor %}
+
+    </select>
+</div>
+<style>
+#main {
+    padding: 20px;
+}
+
+</style>
+<script>
+
+$(".remote-loading").select2({
+    templateResult: function(state) {
+        if (!state.id) { return state.text; }
+        if (state.title === '0') {
+            var $state = $('<strong>' + state.text + '</strong>')
+            return $state;
+        }
+        var $state = $('<span style="padding-left: 15px;">' + state.text + '</span>');
+        return $state;
+    }
+});
+
+//選擇時拿出選到的值
+$(".remote-loading").on("select2:select", function(e) {
+    var selectVal = $(e.currentTarget).val();
+    // window.location = '/ott/channels?menuId=' + selectVal;
+});
+
+
+</script>
+
