@@ -5,7 +5,7 @@
             <th>標題</th>
             <th>類別</th>
             <th>建立者</th>
-            <th>PV<br>FB統計<small>(讚/留言/分享/網站留言)</small></th>
+            <th>PV<br>FB統計<small>(讚/留言/分享)</small></th>
             <th>主分類</th>
             <th>次分類</th>
             <th>狀態</th>
@@ -47,8 +47,8 @@
                     {{ value.pageviews }}<br>
                     {{value.facebookInfo.engagement.reaction_count}}/
                     {{value.facebookInfo.engagement.comment_count}}/
-                    {{value.facebookInfo.engagement.share_count}}/
-                    {{value.facebookInfo.engagement.comment_plugin_count}}
+                    {{value.facebookInfo.engagement.share_count}}
+                    <!-- {{value.facebookInfo.engagement.comment_plugin_count}} -->
                 </td>
                 <td>
                     {{ value.MainMenu.name }}
