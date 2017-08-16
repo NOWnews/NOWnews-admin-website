@@ -442,7 +442,7 @@ $("#autocomplete-ajax4").autocomplete('setOptions', {
     $(function() {
         var defaultOptions = {
             //availableListPosition: 'bottom',
-            moveEffect: 'blind',
+            moveEffect: 'highlight',
             moveEffectOptions: {direction:'vertical'},
             moveEffectSpeed: 'fast'
         };
@@ -459,15 +459,30 @@ $("#autocomplete-ajax4").autocomplete('setOptions', {
             }),
             'simple2': $.extend($.extend({}, defaultOptions), {
                 sortMethod: null,
-                sortable: true
+                sortable: true,
+                optionRenderer: function(option){
+                    var linkHtml = '<a class="link" target="_blank" href="'+ option.attr('item-url') +'">Link</a>';
+                    var optionHtml = '<div>' + option.html() + '</div>';
+                    return linkHtml + optionHtml;
+                }
             }),
             'simple3': $.extend($.extend({}, defaultOptions), {
                 sortMethod: null,
-                sortable: true
+                sortable: true,
+                optionRenderer: function(option){
+                    var linkHtml = '<a class="link" target="_blank" href="'+ option.attr('item-url') +'">Link</a>';
+                    var optionHtml = '<div>' + option.html() + '</div>';
+                    return linkHtml + optionHtml;
+                }
             }),
             'simple4': $.extend($.extend({}, defaultOptions), {
                 sortMethod: null,
-                sortable: true
+                sortable: true,
+                optionRenderer: function(option){
+                    var linkHtml = '<a class="link" target="_blank" href="'+ option.attr('item-url') +'">Link</a>';
+                    var optionHtml = '<div>' + option.html() + '</div>';
+                    return linkHtml + optionHtml;
+                }
             })
         };
 
@@ -478,6 +493,7 @@ $("#autocomplete-ajax4").autocomplete('setOptions', {
                 if (window.linkCheck) {
                     $(ui.optionElements).prop('selected', !ui.selected);
                     $('#multiselect_'+k).multiselect('refresh');
+                    window.linkCheck = false;
                 }
                 var values = $.map(ui.optionElements, function(opt) { return $(opt).attr('value'); }).join(', ');
                 $('#debug_'+k).prepend( $('<div></div>').text('Multiselect change event! ' + (ui.optionElements.length == $('#multiselect_'+k).find('option').size() ? 'all ' : '') + (ui.optionElements.length + ' value' + (ui.optionElements.length > 1 ? 's were' : ' was')) + ' ' + (ui.selected ? 'selected' : 'deselected') + ' (' + values + ')') );
