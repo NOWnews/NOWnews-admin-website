@@ -39,10 +39,10 @@
 
                                 <select id="multiselect_simple" name="carousels" class="multiselect fa-select" multiple="multiple" style="width:100%">
                                     {% for item in indexpage.carousels %}
-                                        <option value="{{ item._id }}" selected="selected">TOP {{ loop.index }} - {{ item.title }}</option>
+                                        <option value="{{ item._id }}" item-url="{{ item.completeUrl }}" selected>TOP {{ loop.index }} - {{ item.title }}</option>
                                     {% endfor %}
                                     {% for item in predata.newsList %}
-                                        <option value="{{ item._id }}">{{ item.title }}</option>
+                                        <option item-url="{{ item.completeUrl }}" value="{{ item._id }}">{{ item.title }}</option>
                                     {% endfor %}
                                 </select>
 
@@ -99,10 +99,10 @@
                             <div class="example-container ui-helper-clearfix">
                                 <select id="multiselect_simple2" name="specialTopics" class="multiselect" multiple="multiple" style="width:100%">
                                     {% for item in indexpage.specialTopics %}
-                                        <option value="{{ item._id }}" selected="selected">TOP {{ loop.index }} - {{ item.title }}</option>
+                                        <option value="{{ item._id }}" item-url="https://www.nownews.com{{ item.url }}" selected>TOP {{ loop.index }} - {{ item.title }}</option>
                                     {% endfor %}
                                     {% for item in pretopic.specialTopics %}
-                                        <option value="{{ item._id }}">{{ item.title }}</option>
+                                        <option item-url="https://www.nownews.com{{ item.url }}" value="{{ item._id }}">{{ item.title }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -158,10 +158,10 @@
                             <div class="example-container ui-helper-clearfix">
                                 <select id="multiselect_simple3" name="specialChannels" class="multiselect" multiple="multiple" style="width:100%">
                                     {% for item in indexpage.specialChannels %}
-                                        <option value="{{ item._id }}" selected="selected">TOP {{ loop.index }} - {{ item.title }}</option>
+                                        <option value="{{ item._id }}" item-url="https://www.nownews.com/channel/{{ item.sn }}" selected>TOP {{ loop.index }} - {{ item.title }}</option>
                                     {% endfor %}
                                     {% for item in prespecialchannel.specialChannels %}
-                                        <option value="{{ item._id }}">{{ item.title }}</option>
+                                        <option item-url="https://www.nownews.com/channel/{{ item.sn }}" value="{{ item._id }}">{{ item.title }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -217,10 +217,10 @@
                             <div class="example-container ui-helper-clearfix">
                                 <select id="multiselect_simple4" name="videos" class="multiselect" multiple="multiple" style="width:100%">
                                     {% for item in indexpage.videos %}
-                                        <option value="{{ item._id }}" selected="selected">TOP {{ loop.index }} - {{ item.title }}</option>
+                                        <option value="{{ item._id }}" item-url="{{ item.completeUrl }}" selected>TOP {{ loop.index }} - {{ item.title }}</option>
                                     {% endfor %}
                                     {% for item in prevideo.newsList %}
-                                        <option value="{{ item._id }}">{{ item.title }}</option>
+                                        <option item-url="{{ item.completeUrl }}" value="{{ item._id }}">{{ item.title }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -248,218 +248,6 @@
     </form>
 </section>
 
-<style>
-.search {
-  position: relative;
-  height: 80px;
-}
-#autocomplete-ajax, #autocomplete-ajax2, #autocomplete-ajax3, #autocomplete-ajax4 {
-  border: 1px solid #CCC;
-  display: block;
-  position: absolute;
-  background: transparent;
-  z-index: 2;
-  background: url('/static/img/icon/search.svg') no-repeat center right 5px;
-  background-size: 15px;
-}
-
-#autocomplete-ajax-x, #autocomplete-ajax-x2, #autocomplete-ajax-x3, #autocomplete-ajax-x4  {
-  color: #CCC;
-  z-index: 1;
-  display: none;
-}
-.selection-ajax {
-  position: relative;
-
-}
-
-.load {
-  display: inline-block;
-  position: relative;
-  left: 270px;
-  top: -18px;
-}
-.loader {
-  font-size: 10px;
-  margin: 50px auto;
-  text-indent: -9999em;
-  width: 3em;
-  height: 3em;
-  border-radius: 50%;
-  background: #7be4ff;
-  background: -moz-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
-  background: -webkit-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
-  background: -o-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
-  background: -ms-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
-  background: linear-gradient(to right, #7be4ff 10%, rgba(123,228,255, 0) 42%);
-  position: relative;
-  -webkit-animation: load3 1.4s infinite linear;
-  animation: load3 1.4s infinite linear;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-}
-.loader:before {
-  width: 50%;
-  height: 50%;
-  background: #7be4ff;
-  border-radius: 100% 0 0 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: '';
-}
-.loader:after {
-  background: #fff;
-  width: 75%;
-  height: 75%;
-  border-radius: 50%;
-  content: '';
-  margin: auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
-@-webkit-keyframes load3 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@keyframes load3 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-.autocomplete-suggestions {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  border: 1px solid #999;
-  background: #FFF;
-  cursor: default;
-  overflow: auto;
-  -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
-  -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
-  box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
-}
-.autocomplete-suggestion {
-  padding: 2px 5px;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.autocomplete-no-suggestion {
-  padding: 2px 5px;
-}
-.autocomplete-selected {
-  background: #F0F0F0;
-}
-.autocomplete-suggestions strong {
-  font-weight: bold;
-  color: #000;
-}
-.autocomplete-group {
-  padding: 2px 5px;
-}
-.autocomplete-group strong {
-  font-weight: bold;
-  font-size: 16px;
-  color: #000;
-  display: block;
-  border-bottom: 1px solid #000;
-}
-
-.multiselect {
-    width: 450px;
-    height: 100%!important;
-}
-div.debug_uiControls {
-    margin-top: 16px;
-}
-div.debug_log {
-    height: 100px;
-    overflow: auto;
-    border: 1px solid black;
-    padding: 8px;
-    margin-top: 16px;
-    display: none;
-}
-.example-container {
-    overflow:visible;
-    width:100%;
-}
-
-
-.uix-multiselect {
-    display: block!important;
-    height:260px;
-}
-
-/** font awesome use unicode**/
-.option-element > div:after {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    float: right;
-    padding: 3px;
-    content: "\f067";
-}
-
-.option-element.option-selected > div:after {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    float: right;
-    padding: 3px;
-    content: "\f068";
-
-}
-
-.option-element > div:before {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    float: left;
-    margin-right:5px;
-    padding:3px;
-    content: "\f047";
-}
-
-.option-element.option-selected > div:before {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    float: left;
-    margin-right: 5px;
-    padding:3px;
-    content: "\f047";
-
-}
-
-</style>
 {#  script 暫時放這   #}
 
 <script src="/static/js/jquery-ui.min.js"></script>
@@ -469,6 +257,7 @@ div.debug_log {
 <script src="/static/js/sweetalert.min.js"></script>
 <link rel="stylesheet" href="/static/css/jquery-ui.min.css">
 <link rel="stylesheet" href="/static/css/jquery.uix.multiselect.css">
+<link rel="stylesheet" href="/static/css/page/indexpage.css">
 <link rel="stylesheet" href="/static/css/sweetalert.min.css">
 
 <script>
@@ -661,7 +450,12 @@ $("#autocomplete-ajax4").autocomplete('setOptions', {
         var widgets = {
             'simple': $.extend($.extend({}, defaultOptions), {
                 sortMethod: null,
-                sortable: true
+                sortable: true,
+                optionRenderer: function(option){
+                    var linkHtml = '<a class="link" target="_blank" href="'+ option.attr('item-url') +'">Link</a>';
+                    var optionHtml = '<div>' + option.html() + '</div>';
+                    return linkHtml + optionHtml;
+                }
             }),
             'simple2': $.extend($.extend({}, defaultOptions), {
                 sortMethod: null,
@@ -680,6 +474,11 @@ $("#autocomplete-ajax4").autocomplete('setOptions', {
         $.each(widgets, function(k, i) {
             console.log(k);
             $('#multiselect_'+k).multiselect(i).on('multiselectChange', function(evt, ui) {
+                //  如果是點擊 link, 就不改變狀態
+                if (window.linkCheck) {
+                    $(ui.optionElements).prop('selected', !ui.selected);
+                    $('#multiselect_'+k).multiselect('refresh');
+                }
                 var values = $.map(ui.optionElements, function(opt) { return $(opt).attr('value'); }).join(', ');
                 $('#debug_'+k).prepend( $('<div></div>').text('Multiselect change event! ' + (ui.optionElements.length == $('#multiselect_'+k).find('option').size() ? 'all ' : '') + (ui.optionElements.length + ' value' + (ui.optionElements.length > 1 ? 's were' : ' was')) + ' ' + (ui.selected ? 'selected' : 'deselected') + ' (' + values + ')') );
             }).on('multiselectSearch', function(evt, ui) {
@@ -710,6 +509,13 @@ $("#autocomplete-ajax4").autocomplete('setOptions', {
                 }
             });
         });
+
+        // 為每篇都加上 Link
+        setTimeout(function(){
+            $('.ui-state-default .link').on('click', function (){
+                window.linkCheck = true;
+            });
+        }, 500);
     });
 </script>
 {% endblock %}
