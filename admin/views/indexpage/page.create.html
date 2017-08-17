@@ -276,7 +276,7 @@ var customOption = $.extend($.extend({}, defaultOptions), {
         var newsUrl = option.attr('item-url');
         var date = option.attr('item-date') ? option.attr('item-date').replace(/-/g, '').split(' ')[0] : 0;
         var pv = option.attr('item-pv') || '-';
-        var linkHtml = '<a class="link" target="_blank" href="'+ newsUrl +'">Link</a>';
+        var linkHtml = '<a class="link" target="_blank" href="'+ newsUrl +'">編輯</a>';
         var optionHtml = '<div><span class="date">' + date + '</span>' + option.html() + '<span class="pv">' + pv + '</span></div>';
         return linkHtml + optionHtml;
     }
@@ -485,9 +485,9 @@ $("#autocomplete-ajax4").autocomplete('setOptions', {
             splitRatio: 0.50,
             optionRenderer: function(option){
                 var newsUrl = option.attr('item-url');
-                var date = option.attr('item-date') ? option.attr('item-date').replace(/-/g, '').split(' ')[0] : '-';
+                var date = option.attr('item-date') ? option.attr('item-date').replace(/-/g, '') : '-';
                 var pv = option.attr('item-pv') || '-';
-                var linkHtml = '<a class="link" target="_blank" href="'+ newsUrl +'">Link</a>';
+                var linkHtml = '<a class="link" target="_blank" href="'+ newsUrl +'">編輯</a>';
                 var optionHtml = '<div><span class="date">' + date + '</span>' + option.html() + '<span class="pv">' + pv + '</span></div>';
                 return linkHtml + optionHtml;
             }

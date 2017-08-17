@@ -26,11 +26,13 @@ module.exports = async (req, res, next) => {
 
         predata.newsList = _.map(predata.newsList, (news, index) => {
             news.completeUrl = `/news/${news._id}`;
+            news.formatStartedAt = moment.tz(news.formatStartedAt, 'Asia/Taipei').format('YYYYMMDD HH:MM');
             return news;
         });
 
         prevideo.newsList = _.map(prevideo.newsList, (news, index) => {
             news.completeUrl = `/news/${news._id}`;
+            news.formatStartedAt = moment.tz(news.formatStartedAt, 'Asia/Taipei').format('YYYYMMDD HH:MM');
             return news;
         });
 
