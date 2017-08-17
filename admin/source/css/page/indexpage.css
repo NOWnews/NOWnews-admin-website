@@ -1,0 +1,238 @@
+.search {
+    position: relative;
+    height: 80px;
+}
+#autocomplete-ajax, #autocomplete-ajax2, #autocomplete-ajax3, #autocomplete-ajax4 {
+    border: 1px solid #CCC;
+    display: block;
+    position: absolute;
+    background: transparent;
+    z-index: 2;
+    background: url('/static/img/icon/search.svg') no-repeat center right 5px;
+    background-size: 15px;
+}
+
+#autocomplete-ajax-x, #autocomplete-ajax-x2, #autocomplete-ajax-x3, #autocomplete-ajax-x4  {
+    color: #CCC;
+    z-index: 1;
+    display: none;
+}
+.selection-ajax {
+    position: relative;
+}
+
+.load {
+    display: inline-block;
+    position: relative;
+    left: 270px;
+    top: -18px;
+}
+.loader {
+    font-size: 10px;
+    margin: 50px auto;
+    text-indent: -9999em;
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    background: #7be4ff;
+    background: -moz-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
+    background: -webkit-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
+    background: -o-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
+    background: -ms-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
+    background: linear-gradient(to right, #7be4ff 10%, rgba(123,228,255, 0) 42%);
+    position: relative;
+    -webkit-animation: load3 1.4s infinite linear;
+    animation: load3 1.4s infinite linear;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+.loader:before {
+    width: 50%;
+    height: 50%;
+    background: #7be4ff;
+    border-radius: 100% 0 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+}
+.loader:after {
+    background: #fff;
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    content: '';
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+@-webkit-keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+.autocomplete-suggestions {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #999;
+    background: #FFF;
+    cursor: default;
+    overflow: auto;
+    -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+    -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+    box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+}
+.autocomplete-suggestion {
+    padding: 2px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.autocomplete-no-suggestion {
+    padding: 2px 5px;
+}
+.autocomplete-selected {
+    background: #F0F0F0;
+}
+.autocomplete-suggestions strong {
+    font-weight: bold;
+    color: #000;
+}
+.autocomplete-group {
+    padding: 2px 5px;
+}
+.autocomplete-group strong {
+    font-weight: bold;
+    font-size: 16px;
+    color: #000;
+    display: block;
+    border-bottom: 1px solid #000;
+}
+
+/* multiselect start */
+
+.multiselect {
+    width: 450px;
+    height: 100%!important;
+}
+div.debug_uiControls {
+    margin-top: 16px;
+}
+div.debug_log {
+    height: 100px;
+    overflow: auto;
+    border: 1px solid black;
+    padding: 8px;
+    margin-top: 16px;
+    display: none;
+}
+.example-container {
+    overflow:visible;
+    width:100%;
+}
+
+
+.uix-multiselect {
+    display: block!important;
+    height:260px;
+}
+
+/** font awesome use unicode**/
+.option-element > div:after {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    float: right;
+    padding: 3px;
+    content: "\f067";
+}
+
+.option-element.option-selected > div:after {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    float: right;
+    padding: 3px;
+    content: "\f068";
+
+}
+
+.option-element > div:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    float: left;
+    /*margin-right:5px;*/
+    padding:3px;
+    content: "\f047";
+}
+
+.option-element.option-selected > div:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    float: left;
+    /*margin-right: 5px;*/
+    padding:3px;
+    content: "\f047";
+
+}
+.ui-state-default {
+    position: relative;
+    margin-left: 35px;
+}
+.ui-state-default .link {
+    position: absolute;
+    background: #000;
+    color: #fff !important;
+    padding: 0 3px;
+    z-index: 10;
+    left: -37px;
+}
+
+.ui-state-default .pv{
+    border: 2px solid #3c3cb2;
+    background: #7373c9;
+    color: #fff;
+    padding: 0 3px;
+    margin-left: 5px;
+}
+
+.ui-state-default .date{
+    border: 2px solid #8686cd;
+    background: #b0b0cf;
+    color: #020202;
+    padding: 0 3px;
+    margin-right: 3px;
+}
