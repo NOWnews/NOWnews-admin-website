@@ -1,6 +1,6 @@
 {
     "mode": "staging",
-    "officialUrl": "https://www.nownews.com",
+    "officialUrl": "https://dev.nownews.com",
     "apiServer": "http://10.140.0.4:10000",
     "expiredDay": 3,
     "headers": {
