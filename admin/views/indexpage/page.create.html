@@ -297,14 +297,14 @@ $('#autocomplete-ajax').autocomplete({
                 var title = item.title;
                 var url = '/news/' + item._id;
                 var pv = item.pageviews;
-                return { value: title, data: item._id, url: url, date: startTime, pv: pv};
+                return { title: title, value: startTime + ' - ' + title, data: item._id, url: url, date: startTime, pv: pv};
             })
         };
     },
     onSelect: function (suggestion) {
         text = suggestion.data;
         if ($("#multiselect_simple option[value='"+text+"']").length === 0) {
-            $('#multiselect_simple').prepend('<option item-pv="'+ suggestion.pv +'" item-date="'+ suggestion.date +'" item-url="' + suggestion.url + '" value="'+suggestion.data+'">'+ suggestion.value +'</option>');
+            $('#multiselect_simple').prepend('<option item-pv="'+ suggestion.pv +'" item-date="'+ suggestion.date +'" item-url="' + suggestion.url + '" value="'+suggestion.data+'">'+ suggestion.title +'</option>');
 
         } else {
             sweetAlert({
@@ -430,7 +430,7 @@ $('#autocomplete-ajax4').autocomplete({
                 var title = item.title;
                 var url = '/news/' + item._id;
                 var pv = item.pageviews;
-                return { value: title, data: item._id, url: url, date: startTime, pv: pv};
+                return { title: title, value: startTime + ' - ' + title, data: item._id, url: url, date: startTime, pv: pv};
             })
         };
     },
@@ -438,7 +438,7 @@ $('#autocomplete-ajax4').autocomplete({
 
         text = suggestion.data;
         if ($("#multiselect_simple4 option[value='"+text+"']").length === 0) {
-            $('#multiselect_simple4').prepend('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
+            $('#multiselect_simple4').prepend('<option value="'+suggestion.data+'">'+ suggestion.title +'</option>');
 
         } else {
             sweetAlert({
