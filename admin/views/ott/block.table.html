@@ -1,0 +1,34 @@
+<table id="menus-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>平台</th>
+            <th>建立日期</th>
+            <th>編輯</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for value in platform %}
+            <tr>
+                <td>
+                    {{ value.platform }}
+                </td>
+                <td>{{ value.formatCreatedAt }}</td>
+                <td>
+                    <a class="btn btn-info"
+                        href="/ott/providers/{{value._id}}">
+                        編輯
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>平台</th>
+            <th>建立日期</th>
+            <th>編輯</th>
+        </tr>
+    </tfoot>
+</table>
+<script>
+</script>

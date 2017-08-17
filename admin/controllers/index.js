@@ -20,7 +20,8 @@ let adminPageRouter = {
     indexpage: require('./indexpage'),
     statistics: require('./statistics'),
     priority: require('./priority'),
-    app: require('./app')
+    app: require('./app'),
+    ott: require('./ott')
 };
 
 module.exports = function(app) {

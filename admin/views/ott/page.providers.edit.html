@@ -1,0 +1,195 @@
+{% set title = "平台資訊修改" %}
+{% extends "../base.html" %}
+
+{% block headTitle %}
+    <title>大編輯台 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+<section class="content">
+    <form action="/ott/providers/{{ platform._id }}" method="post">
+    <input type="hidden" name="_method" value="put">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">平台設定</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="groupType" class="control-label">平台選擇</label>
+
+                                    <input value="{{ platform.platform }}" class="form-control" disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="watchtime" class="control-label">可以觀看時間</label>
+                                <input type="number" step="5" id="watchtime"  name="watchTime" class="form-control" placeholder="" required  min="0" value="{{ platform.watchTime }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="locktime" class="control-label">鎖定觀看時間</label>
+                                <input type="number" step="5" id="locktime"  name="lockTime" class="form-control" placeholder="" required min="0" value="{{ platform.lockTime }}">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <div class="form-group linkBox">
+                                <label for="shortTitle" class="control-label categoryLink">圖片URL</label>
+                                <input type="text" name="icon" class="form-control" placeholder="http://www.nownews.com/icon.png" required value="{{ platform.icon }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group linkBox">
+                                <label for="shortTitle" class="control-label categoryLink">IOS 下載連結</label>
+                                <input type="text" name="iosDownloadLink" class="form-control" placeholder="iosDownloadLink" required value="{{ platform.iosDownloadLink }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group linkBox">
+                                <label for="shortTitle" class="control-label categoryLink">Android 下載連結</label>
+                                <input type="text" name="androidDownloadLink" class="form-control" placeholder="androidDownloadLink" required value="{{ platform.androidDownloadLink }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group linkBox">
+                                <label for="shortTitle" class="control-label categoryLink">左邊按鈕</label>
+                                <input type="text" name="leftbutton" class="form-control" placeholder="leftbutton" required value="{{ platform.leftbutton }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group linkBox">
+                                <label for="shortTitle" class="control-label categoryLink">右邊按鈕</label>
+                                <input type="text" name="rightbutton" class="form-control" placeholder="rightbutton" required value="{{ platform.rightbutton }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group linkBox">
+                                <label for="shortTitle" class="control-label categoryLink">文字描述</label>
+                                <textarea rows="4" cols="50" name="titleMessage" class="form-control" placeholder="本服務由天暢國際股份有限公司提供\n\n線上客服請搜尋 LINE/wechat ID：nowlink_cs">{{ platform.titleMessage }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                    {% if platform.watchable == true %}
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="watchable" id="status1" value="true" checked>
+                                                可觀看 開啟
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="watchable" id="status2" value="false">
+                                                可觀看 關閉
+                                            </label>
+                                        </div>
+                                    {% else %}
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="watchable" id="status1" value="true">
+                                                可觀看 開啟
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="watchable" id="status2" value="false" checked>
+                                                可觀看 關閉
+                                            </label>
+                                        </div>
+                                    {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                    {% if platform.downloadable == true %}
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="downloadable" id="status1" value="true" checked>
+                                                可下載 開啟
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="downloadable" id="status2" value="false">
+                                                可下載 關閉
+                                            </label>
+                                        </div>
+                                    {% else %}
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="downloadable" id="status1" value="true">
+                                                可下載 開啟
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="downloadable" id="status2" value="false" checked>
+                                                可下載 關閉
+                                            </label>
+                                        </div>
+                                    {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                    {% if platform.videoAD == true %}
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="videoAD" id="status1" value="true" checked>
+                                                影音廣告 開啟
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="videoAD" id="status2" value="false">
+                                                影音廣告 關閉
+                                            </label>
+                                        </div>
+                                    {% else %}
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="videoAD" id="status1" value="true">
+                                                影音廣告 開啟
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="videoAD" id="status2" value="false" checked>
+                                                影音廣告 關閉
+                                            </label>
+                                        </div>
+                                    {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="edit-footer text-center">
+            <button type="submit" class="btn bg-olive btn-flat margin">儲存</button>
+            <button type="button" class="btn bg-maroon btn-flat margin">取消</button>
+        </div>
+    </form>
+</section>
+
+<!-- tagEditor JS -->
+<link rel="stylesheet" type="text/css" href="/static/css/jquery-ui.min.css">
+
+<script src="/static/js/jquery-ui.min.js"></script>
+
+
+{% endblock %}
