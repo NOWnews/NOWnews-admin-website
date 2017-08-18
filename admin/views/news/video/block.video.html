@@ -591,6 +591,12 @@
             var embed = function(url, $targetEle){
 
                 return $.embedly.oembed(url).progress(function(obj){
+
+                    if(obj['provider_url'].includes('facebook.com')){
+                      obj.html = `<iframe
+                      src="https://www.facebook.com/plugins/video.php?href=${obj.original_url}?show_text=0&width=400&height=280" width="400" height="280" scrolling="no" frameBorder="0" allowTransparency="true" allowFullScreen="true" />`;
+                    }
+
                     if (!obj.html){
                         $targetEle.html('');
                         window.alert('影片的連結有問題！');
@@ -647,7 +653,7 @@
 
                 var id = $(this).attr('data-id');
                 $.ajax({
-                    url: removeVideoUrl + id,
+                    url: removeVideoUrl + '/' + id,
                     type: 'DELETE',
                     success: function(data) {
                         $urlResultElm.html('');
