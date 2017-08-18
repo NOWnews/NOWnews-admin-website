@@ -221,12 +221,17 @@ div.debug_log {
     left: -37px;
 }
 
+.ui-state-default.option-selected .pv {
+    display: inline;
+}
+
 .ui-state-default .pv{
     border: 2px solid #3c3cb2;
     background: #7373c9;
     color: #fff;
     padding: 0 3px;
     margin-left: 5px;
+    display: none;
 }
 
 .ui-state-default .date{
