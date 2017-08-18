@@ -3,6 +3,11 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 格式基於 [Keep a Changelog](http://keepachangelog.com/zh-TW/0.3.0/)
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
+
+## [Unreleased]
+### Changed
+- 修復facebook嵌入影片問題 @appleoxxo
+
 ## 1.0.9 - 2017-08-14
 ### Changed
 -  新增ott後台 操作使用@wayne1025
