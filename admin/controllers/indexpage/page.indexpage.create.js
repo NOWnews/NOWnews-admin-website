@@ -37,7 +37,6 @@ module.exports = async (req, res, next) => {
         });
 
         pretopic.specialTopics = _.map(pretopic.specialTopics, (news, index) => {
-            console.log(news, index);
             news.completeUrl = `/topic/${news._id}`;
             news.formatStartedAt = moment.tz(news.createdAt, 'Asia/Taipei').format('YYYYMMDD HH:MM');
             return news;
