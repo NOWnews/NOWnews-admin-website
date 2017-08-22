@@ -6,6 +6,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ## [Unreleased]
 ### Changed
+- 修復上傳過大mp4檔案會失敗的問題 @appleoxxo
 - 修復facebook嵌入影片問題 @appleoxxo
 - 頭版控版頁，可否點擊文稿標題即可閱讀該文。 @wb
 - 頭版控版頁，可否在文稿標題右端出現發稿時間、PV數。 @wb
