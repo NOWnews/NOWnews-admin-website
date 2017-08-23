@@ -38,7 +38,7 @@ module.exports = async (req, res, next) => {
 
         let { data: video } = await axios.post('/videos/upload', formData, {
             headers,
-            timeout: 20000000
+            timeout: 30 * 60 * 1000
         });
 
         debug('video = %j', video);
@@ -56,7 +56,6 @@ module.exports = async (req, res, next) => {
         return res.json( video );
     }
     catch(err) {
-        console.error('err....',err);
         return next(err);
     }
 };
