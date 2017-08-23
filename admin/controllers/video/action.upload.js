@@ -5,8 +5,13 @@ import FormData from 'form-data';
 const debug = Debug('NOWnews-admin-website: controllers:video:action.upload');
 
 module.exports = async (req, res, next) => {
-
     try {
+        // 影片檔案若太大等太久連線會斷 延長斷線時間至30分鐘
+        req.socket.setTimeout(30 * 60 * 1000);
+        req.socket.addListener('timeout', () => {
+            req.socket.destroy();
+        });
+
         let { _id: userId } = req.session.adminUser;
 
         let { originalname, path } = req.file;
@@ -33,7 +38,7 @@ module.exports = async (req, res, next) => {
 
         let { data: video } = await axios.post('/videos/upload', formData, {
             headers,
-            timeout: 200000
+            timeout: 30 * 60 * 1000
         });
 
         debug('video = %j', video);
