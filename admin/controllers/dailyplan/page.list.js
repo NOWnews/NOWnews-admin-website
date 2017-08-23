@@ -1,7 +1,6 @@
 import moment from 'moment-timezone';
 import Debug from 'debug';
 import qs from 'querystring';
-import fs from 'fs';
 import _ from  'lodash';
 const debug = Debug('NOWnews-admin-website: controllers:dailyplan:page.list');
 
