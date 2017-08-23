@@ -18,3 +18,9 @@ div.cke_editor_contentCk_dialog{
   position: relative;
   z-index: 10010;
 }
+
+
+/*每日稿單中的group表格樣式*/
+table#dailyplans-table tr.group{
+  background-color: #f9f9f9;
+}
