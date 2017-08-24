@@ -1,8 +1,8 @@
-<table id="tags-table" class="table table-bordered table-striped">
+<table id="dailyplans-table" class="table table-bordered">
     <thead>
         <tr>
-            <th>標題</th>
             <th>作者</th>
+            <th>標題</th>
             <th>中心</th>
             <th>新聞日期</th>
             <th>建立日期</th>
@@ -12,10 +12,21 @@
     </thead>
     <tbody id="daily-plan-tbody">
 
-        {% for dailyPlan in dailyPlans %}
+        {% for user in users %}
+            <tr class="group">
+              <td>{{ user.name }}</td>
+              <td colspan="6"><small>稿單數: {{ user.dailyPlans|length }}</small></td>
+            </tr>
+            {% if user.dailyPlans|length == 0 %}
             <tr>
+              <td></td>
+              <td colspan="6">無</td>
+            </tr>
+            {% endif %}
+            {% for dailyPlan in user.dailyPlans %}
+              <tr>
+                <td></td>
                 <td><a href="./dailyplan/view/{{dailyPlan._id}}">{{ dailyPlan.title }}</a></td>
-                <td>{{ dailyPlan.CreatedBy.name }} </td>
                 <td>{{ dailyPlan.Center.name }} </td>
                 <td>{{ dailyPlan.formatStartedAt }}</td>
                 <td>{{ dailyPlan.formatCreatedAt }}</td>
@@ -26,12 +37,15 @@
                     <button data-id="{{dailyPlan._id}}" class="btn btn-danger delete-daily-plan">移除</button>
                 </td>
             </tr>
+            {% endfor %}
+
         {% endfor %}
+
     </tbody>
     <tfoot>
         <tr>
-            <th>標題</th>
             <th>作者</th>
+            <th>標題</th>
             <th>中心</th>
             <th>新聞日期</th>
             <th>建立日期</th>

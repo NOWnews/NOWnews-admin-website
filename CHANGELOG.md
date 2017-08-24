@@ -7,6 +7,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 ## [Unreleased]
 ## 1.0.10 - 2017-08-24
 ### Changed
+- 每日稿單顯示每一位使用者 @appleoxxo
 - 修復上傳過大mp4檔案會失敗的問題 @appleoxxo
 - 修復facebook嵌入影片問題 @appleoxxo
 - 頭版控版頁，可否點擊文稿標題即可閱讀該文。 @wb

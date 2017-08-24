@@ -1,6 +1,7 @@
 import moment from 'moment-timezone';
 import Debug from 'debug';
 import qs from 'querystring';
+import _ from  'lodash';
 const debug = Debug('NOWnews-admin-website: controllers:dailyplan:page.list');
 
 module.exports = async (req, res, next) => {
@@ -20,30 +21,38 @@ module.exports = async (req, res, next) => {
         }
 
         if(!qsObj.limit){
-            qsObj.limit = 40;
+            qsObj.limit = 1000;
         }
         let queryString = qs.stringify(qsObj);
 
-        let { data: {dailyPlans, pageData} } = await axios.get(`/dailyPlan?${queryString}`);
 
-        //只取新聞部底下的中心
         let { data : departments } = await axios.get('/departments');
-        departments = _.filter(departments,(department)=>{
+        //篩選出新聞部
+        departments = _.filter(departments, (department)=>{
             return department.name.indexOf('新聞部')>-1;
         });
+        //[0]是新聞部
+        let newsDepartmentId = departments[0] ? departments[0]._id : '';
+        let centerId = qsObj.Center ? qsObj.Center : '';
+        let [
+            { data : { dailyPlans } },
+            { data : { users }}
+        ] = await Promise.all([
+            axios.get(`/dailyPlan?${queryString}`),
+            axios.get(`/users?Department=${newsDepartmentId}&Center=${centerId}&limit=1000`)
+        ]);
 
-        let qsNoPage = qs.parse(req._parsedUrl.query);
-        delete qsNoPage.page;
-        qsNoPage = qs.stringify(qsNoPage);
-        pageData.qsNoPage = qsNoPage?'&'+qsNoPage:'';
+        dailyPlans = _.groupBy(dailyPlans,"CreatedBy._id");
+        users = _.forEach(users, ( user )=>{
+            user.dailyPlans = dailyPlans[user._id] || [];
+        });
 
         debug('dailyPlan = %j', dailyPlans);
 
         return res.render('dailyPlan/page.list.html', {
+            users,
             qsObj,
-            departments,
-            dailyPlans,
-            pageData
+            departments
         });
     }
     catch(err) {
