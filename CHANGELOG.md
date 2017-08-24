@@ -5,6 +5,11 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+
+## 1.0.27 - 2017-08-24
+###Fixed
+- 修正首頁控版的時間格式 @wb
+
 ## 1.0.10 - 2017-08-24
 ### Changed
 - 修復上傳過大mp4檔案會失敗的問題 @appleoxxo
