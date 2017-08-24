@@ -25,11 +25,13 @@ module.exports = async (req, res, next) => {
         }
         let queryString = qs.stringify(qsObj);
 
-        //只取新聞部底下的中心
+
         let { data : departments } = await axios.get('/departments');
-        departments = _.filter(departments,(department)=>{
+        //篩選出新聞部
+        departments = _.filter(departments, (department)=>{
             return department.name.indexOf('新聞部')>-1;
         });
+        //[0]是新聞部
         let newsDepartmentId = departments[0] ? departments[0]._id : '';
         let centerId = qsObj.Center ? qsObj.Center : '';
         let [
