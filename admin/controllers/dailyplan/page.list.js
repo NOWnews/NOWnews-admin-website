@@ -31,13 +31,13 @@ module.exports = async (req, res, next) => {
             return department.name.indexOf('新聞部')>-1;
         });
         let newsDepartmentId = departments[0] ? departments[0]._id : '';
-
+        let centerId = qsObj.Center ? qsObj.Center : '';
         let [
             { data : { dailyPlans } },
             { data : { users }}
         ] = await Promise.all([
             axios.get(`/dailyPlan?${queryString}`),
-            axios.get(`/users?Department=${newsDepartmentId}&Center=${qsObj.Center}&limit=1000`)
+            axios.get(`/users?Department=${newsDepartmentId}&Center=${centerId}&limit=1000`)
         ]);
 
         dailyPlans = _.groupBy(dailyPlans,"CreatedBy._id");
