@@ -5,6 +5,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+- 調整每日稿單內容顯示方式 @appleoxxo
 ## 1.0.10 - 2017-08-24
 ### Changed
 - 修復上傳過大mp4檔案會失敗的問題 @appleoxxo

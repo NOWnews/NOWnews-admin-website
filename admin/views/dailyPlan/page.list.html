@@ -8,8 +8,9 @@
         <div class="box">
             <div class="box-header">
                 <div class="row">
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-12">
                         <a class="btn btn-success" href="/dailyplan/create">新增稿單</a>
+                        <span id="view-dialyplan" class="btn btn-warning">顯示內容</span>
                     </div>
                 </div>
                 {% include "./block.query-form.html" %}
@@ -26,6 +27,13 @@
                 "order":false,
                 "paging": false,
                 "searching": false,
+            });
+
+            $('#view-dialyplan').on('click',function(){
+                $(this).text() === '顯示內容' ? $(this).text('隱藏內容') : $(this).text('顯示內容');
+                $('.toggle').toggle();
+                //自動調整textarea的高度至文字高度
+                autosize(document.querySelectorAll('textarea'));
             });
         });
 
