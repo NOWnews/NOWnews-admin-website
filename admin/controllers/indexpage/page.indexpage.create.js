@@ -26,25 +26,25 @@ module.exports = async (req, res, next) => {
 
         predata.newsList = _.map(predata.newsList, (news, index) => {
             news.completeUrl = `/news/${news._id}`;
-            news.formatStartedAt = moment.tz(news.formatStartedAt, 'Asia/Taipei').format('YYYYMMDD HH:MM');
+            news.formatStartedAt = moment.tz(news.formatStartedAt, 'Asia/Taipei').format('YYYYMMDD HH:mm');
             return news;
         });
 
         prevideo.newsList = _.map(prevideo.newsList, (news, index) => {
             news.completeUrl = `/news/${news._id}`;
-            news.formatStartedAt = moment.tz(news.formatStartedAt, 'Asia/Taipei').format('YYYYMMDD HH:MM');
+            news.formatStartedAt = moment.tz(news.formatStartedAt, 'Asia/Taipei').format('YYYYMMDD HH:mm');
             return news;
         });
 
         pretopic.specialTopics = _.map(pretopic.specialTopics, (news, index) => {
             news.completeUrl = `/topic/${news._id}`;
-            news.formatStartedAt = moment.tz(news.createdAt, 'Asia/Taipei').format('YYYYMMDD HH:MM');
+            news.formatStartedAt = moment.tz(news.createdAt, 'Asia/Taipei').format('YYYYMMDD HH:mm');
             return news;
         });
 
         prespecialchannel.specialChannels = _.map(prespecialchannel.specialChannels , (news, index) => {
             news.completeUrl = `/specialchannel/${news._id}`;
-            news.formatStartedAt = moment.tz(news.createdAt, 'Asia/Taipei').format('YYYYMMDD HH:MM');
+            news.formatStartedAt = moment.tz(news.createdAt, 'Asia/Taipei').format('YYYYMMDD HH:mm');
             return news;
         });
 
