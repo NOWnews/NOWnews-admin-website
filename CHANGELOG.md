@@ -6,6 +6,9 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ## [Unreleased]
 
+### Changed
+- 內文的縮圖加上縮圖 api @wb
+
 ## 1.0.27 - 2017-08-24
 ###Fixed
 - 修正首頁控版的時間格式 @wb
