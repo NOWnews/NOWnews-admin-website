@@ -6,7 +6,19 @@
 {% endblock %}
 {% block container %}
 <section class="content">
-    <form id="fileupload" action="/news/{{news._id}}" method="post" enctype="multipart/form-data">
+    <div class="box hide div-restore-form">
+      <div class="box-body">
+          <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fa fa-minus"></i>
+              </button>
+          </div>
+        <strong>你瀏覽器中此文章的備份與以下版本不同。需要還原至備份嗎？</strong>
+        <button class="btn btn-default btn-restore-form">復原備份</button>
+      </div>
+    </div>
+
+    <form id="fileupload" action="/news/{{news._id}}" method="post" enctype="multipart/form-data" data-newsid="{{news._id}}">
         <input type="hidden" name="_method" value="put">
         <div class="box">
             <div class="box-header with-border">
@@ -220,6 +232,8 @@
 <script src="/static/js/jquery.caret.min.js"></script>
 <script src="/static/js/jquery.tag-editor.min.js"></script>
 <script src="/static/js/moment-timezone.min.js"></script>
+<!--jquery deserialize for restoring form data from sessionStorage -->
+<script src="/static/js/jquery.deserialize.js"></script>
 
 <style>
     .memo-box .box-comments{
@@ -644,9 +658,69 @@
         var formData = $("#fileupload").serialize();
         window.onbeforeunload = function(){
         if(formData!==$("#fileupload").serialize()){
-            return "你的變更可能不會被儲存。";
-            }
+          return "你的變更可能不會被儲存。";
+          }
         }
+        // 如果sessionStorage裡的文章內容不同 跳復原備份提示
+        if(sessionStorage.getItem("autosave")){
+          var autosave = JSON.parse(sessionStorage.getItem("autosave"));
+          if(autosave[$("#fileupload").data('newsid')]){
+            var savedFormData = autosave[$("#fileupload").data('newsid')].formData;
+            //忽略發布時間這個input的不同 因為那個值會一直自動更新
+            var currentFormData = $("#fileupload").find('input[name!=startedAt]').serialize();
+            if(savedFormData !== currentFormData){
+              window.savedFormData = savedFormData;
+              $('div.div-restore-form').hide().removeClass('hide').slideDown('slow');
+            }
+          }
+        }
+        //離上次儲存超過 backupInterval 毫秒才真的存進sessionStorage 所以開一個物件存時間狀態
+        var backupObj = {
+          backupInterval: 5000,
+          lastCalledTime: null,
+          firstCall: true,
+          backup: function() {
+            if (this.firstCall) {
+                  this.firstCall= false;
+                  this.lastCalledTime = Date.now();
+                  this.saveToStorage();
+            } else {
+              if( Date.now() - this.lastCalledTime > this.backupInterval){
+                this.lastCalledTime = Date.now();
+                this.saveToStorage();
+              }
+            }
+          },
+          saveToStorage:function(){
+              var autosave = JSON.parse(sessionStorage.getItem("autosave")) || {};
+              //忽略發布時間這個input的不同 因為那個值會一直自動更新
+              var formData = $("#fileupload").find('input[name!=startedAt]').serialize();
+              autosave[$("#fileupload").data('newsid')] = {
+                formData : formData,
+                savetime : Date.now()
+              };
+              sessionStorage.setItem("autosave", JSON.stringify(autosave));
+          }
+        };
+        //CKeditor的文字改變
+        for (var i in CKEDITOR.instances) {
+          CKEDITOR.instances[i].on('change', function() {
+            backupObj.backup();
+          });
+        }
+        //form底下所有input改變
+        $("#fileupload").find('input[name!=startedAt]').on('keyup',function(){
+          backupObj.backup();
+        });
+
+        //復原sessionStorage內的備份文章
+        $("button.btn-restore-form").on('click',function(){
+          $("#fileupload").deserialize(window.savedFormData);
+          $("button.btn-restore-form").html('復原成功');
+          setTimeout(function(){
+            $('div.div-restore-form').slideUp();
+          },1000);
+        });
 
 
     });
