@@ -40,13 +40,16 @@ $(function () {
         var desc = parentBlock.find('span.desc')[0].outerHTML;
 
         // 加上縮圖 api
+        var imgUrl = $(img).attr('src');
         var imgWidth = $(img).attr('img-width');
-        if (imgWidth && imgWidth > 640) {
-            imgWidth = 640;
+        // 確認是否為 nownews.com 的網域
+        if (/http(?:s?):\/\/(.+?\.)?nownews\.com(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?/.test(imgUrl)) {
+            if (imgWidth && imgWidth > 640) {
+                imgWidth = 640;
+            }
+            var imgSrc = 'https://imgapiv2.nownews.com/?w=' + imgWidth + '&q=85&src=' + imgUrl;
+            img = $(img).attr('src', imgSrc)[0].outerHTML;
         }
-        var imgSrc = 'https://imgapiv2.nownews.com/?w=' + imgWidth + '&q=85&src=' + $(img).attr('src');
-        img = $(img).attr('src', imgSrc)[0].outerHTML;
-
         var htmlString = "<p>" + img + "<br/>" + desc + "</p>";
         doc.write(htmlString);
         doc.close('');
