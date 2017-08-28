@@ -38,6 +38,18 @@ $(function () {
         var parentBlock = targetBtn.parent().parent();
         var img = parentBlock.find('img.image')[0].outerHTML;
         var desc = parentBlock.find('span.desc')[0].outerHTML;
+
+        // 加上縮圖 api
+        var imgUrl = $(img).attr('src');
+        var imgWidth = $(img).attr('img-width');
+        // 確認是否為 nownews.com 的網域
+        if (/http(?:s?):\/\/(.+?\.)?nownews\.com(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?/.test(imgUrl)) {
+            if (imgWidth && imgWidth > 640) {
+                imgWidth = 640;
+            }
+            var imgSrc = 'https://imgapiv2.nownews.com/?w=' + imgWidth + '&q=85&src=' + imgUrl;
+            img = $(img).attr('src', imgSrc)[0].outerHTML;
+        }
         var htmlString = "<p>" + img + "<br/>" + desc + "</p>";
         doc.write(htmlString);
         doc.close('');
@@ -122,6 +134,7 @@ $(function () {
                 row.find('.setManyPhoto').attr('data-url', file.url);
                 row.find('span.desc').text(file.desc);
                 row.find('img').attr('src', file.url);
+                row.find('img').attr('img-width', file.width);
                 row.find('img').attr('data-isdeliver', file.isDeliver);
 
                 if (file.isDeliver) {
@@ -274,6 +287,7 @@ $(function () {
                 $.each(result.images, function(index, image) {
                     var block = $($('#template-image-block').html());
                     block.find('img').attr('src', image.url);
+                    block.find('img').attr('img-width', image.width);
                     block.find('img').attr('data-isdeliver', image.isDeliver);
 
                     if (image.isDeliver) {
