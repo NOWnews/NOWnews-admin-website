@@ -8,8 +8,10 @@
         <div class="box">
             <div class="box-header">
                 <div class="row">
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-12">
                         <a class="btn btn-success" href="/dailyplan/create">新增稿單</a>
+                        <span class="btn btn-warning show-content-btn toggle">顯示內容</span>
+                        <span class="btn btn-warning show-content-btn toggle" style="display:none;">隱藏內容</span>
                     </div>
                 </div>
                 {% include "./block.query-form.html" %}
@@ -26,6 +28,12 @@
                 "order":false,
                 "paging": false,
                 "searching": false,
+            });
+
+            $('span.show-content-btn').on('click',function(){
+                $('.toggle').toggle();
+                //自動調整textarea的高度至文字高度
+                autosize(document.querySelectorAll('textarea'));
             });
         });
 
