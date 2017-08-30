@@ -6,9 +6,11 @@ module.exports = async (req, res, next) => {
     try {
 
         let { newsId } = req.params;
+        let userId = req.session.adminUser._id;
 
-        let { data: news } = await axios.delete( `/news/${newsId}` );
-
+        let { data: news } = await axios.delete( `/news/${newsId}`, {
+            data: { UpdatedBy: userId }
+        });
         debug('removedNews = %j', news);
 
         return res.json({ news });

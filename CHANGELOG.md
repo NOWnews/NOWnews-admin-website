@@ -5,7 +5,12 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+
+### Changed
 -  恢復之前註解的中央社圖片搜尋UI @appleoxxo
+- 調整每日稿單內容顯示方式 @appleoxxo
+- 內文的縮圖加上縮圖 api @wb
+- 刪除新聞資料的時候，必須帶入 `UpdatedBy` 欄位 @SimonSun
 
 ## 1.0.27 - 2017-08-24
 ###Fixed

@@ -1,13 +1,15 @@
-<table id="tags-table" class="table table-bordered table-striped">
+
+<table id="daily-plan-table" class="table table-bordered">
     <thead>
         <tr>
             <th>標題</th>
             <th>作者</th>
+            <th class="dailyplan-content toggle" style="display:none;" colspan="3">內容</th>
             <th>中心</th>
             <th>新聞日期</th>
-            <th>建立日期</th>
-            <th>編輯</th>
-            <th>移除</th>
+            <th class="toggle">建立日期</th>
+            <th class="toggle">編輯</th>
+            <th class="toggle">移除</th>
         </tr>
     </thead>
     <tbody id="daily-plan-tbody">
@@ -16,13 +18,14 @@
             <tr>
                 <td><a href="./dailyplan/view/{{dailyPlan._id}}">{{ dailyPlan.title }}</a></td>
                 <td>{{ dailyPlan.CreatedBy.name }} </td>
+                <td class="dailyplan-content toggle" style="display:none;" colspan="3"> <textarea disabled> {{ dailyPlan.content}} </textarea></td>
                 <td>{{ dailyPlan.Center.name }} </td>
                 <td>{{ dailyPlan.formatStartedAt }}</td>
-                <td>{{ dailyPlan.formatCreatedAt }}</td>
-                <td>
+                <td class="toggle">{{ dailyPlan.formatCreatedAt }}</td>
+                <td class="toggle">
                     <a href="./dailyplan/{{dailyPlan._id}}" class="btn btn-info">編輯</a>
                 </td>
-                <td>
+                <td class="toggle">
                     <button data-id="{{dailyPlan._id}}" class="btn btn-danger delete-daily-plan">移除</button>
                 </td>
             </tr>
@@ -32,11 +35,12 @@
         <tr>
             <th>標題</th>
             <th>作者</th>
+            <th class="toggle" style="display:none;" colspan="3">內容</th>
             <th>中心</th>
             <th>新聞日期</th>
-            <th>建立日期</th>
-            <th>編輯</th>
-            <th>移除</th>
+            <th class="toggle">建立日期</th>
+            <th class="toggle">編輯</th>
+            <th class="toggle">移除</th>
         </tr>
     </tfoot>
 </table>
@@ -58,6 +62,7 @@
                     }
                 });
             });
+
 
 
 
