@@ -64,9 +64,10 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <select name="Author" class="form-control select2" required>
+                              <option value=""></option>
                                 {% for user in userList %}
                                     {% if user._id == currentUser.defaultSettings.Author %}
-                                        <option value="{{ user._id }}" selected>
+                                        <option value="{{ user._id }}">
                                             {{ user.staffId or 'NN00xxx' }} / {{ user.name }}
                                         </option>
                                     {% else %}
