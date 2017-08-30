@@ -7,7 +7,10 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 ## [Unreleased]
 
 ### Changed
--  恢復之前註解的中央社圖片搜尋UI @appleoxxo
+- 頭版控版頁，預設顯示的新聞照發佈時間排序。@wb
+- 首頁大五小五設定，預設顯示拉到40筆(api抓60筆，但要扣除被選的20筆) @wb
+- 首頁影片設定，預設顯示拉到10筆(api抓30筆，但要扣除被選的20筆) @wb
+- 恢復之前註解的中央社圖片搜尋UI @appleoxxo
 - 調整每日稿單內容顯示方式 @appleoxxo
 - 內文的縮圖加上縮圖 api @wb
 - 刪除新聞資料的時候，必須帶入 `UpdatedBy` 欄位 @SimonSun
