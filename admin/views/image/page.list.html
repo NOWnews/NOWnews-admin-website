@@ -32,6 +32,11 @@
 <script>
     $(document).ready(function() {
         $('.imageLibQueryForm').click();
+        $('input#imgKeywords').on('keypress',function(e){
+          if(e.keyCode === 13){
+            $('button.imageLibQueryForm').click();
+          }
+        });
     });
 </script>
 {% endblock %}
