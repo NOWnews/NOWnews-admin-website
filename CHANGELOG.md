@@ -5,6 +5,9 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+### Added 
+- 增加廠商專屬的列表「我的新聞(廠商)」 @esbb48
+
 ### Changed
 - 調整每日稿單內容顯示方式 @appleoxxo
 - 內文的縮圖加上縮圖 api @wb

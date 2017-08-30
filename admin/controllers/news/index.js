@@ -10,6 +10,7 @@ import pageNewsMyList from './page.news.myList';
 import pageNewsReviewList from './page.news.reviewList';
 import pageNewsCreateList from './page.news.createList';
 import pageNewsTakeMeReviewList from './page.news.takeMeReviewList';
+import pageNewsVendorList from './page.news.vendorList';
 import pageNewsCreate from './page.news.create';
 import pageNewsEdit from './page.news.edit';
 import pageNewsCompare from './page.news.compare';
@@ -27,6 +28,9 @@ router.route('/reviewList')
 
 router.route('/takeMeReviewList')
     .get(pageNewsTakeMeReviewList);
+
+router.route('/vendorList')
+    .get(pageNewsVendorList);
 
 router.route('/create')
     .get(pageNewsCreate)
