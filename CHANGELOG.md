@@ -6,6 +6,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ## [Unreleased]
 ### Changed
+- 審稿時可直接編輯主圖圖說 @appleoxxo
 - 調整每日稿單內容顯示方式 @appleoxxo
 - 內文的縮圖加上縮圖 api @wb
 - 刪除新聞資料的時候，必須帶入 `UpdatedBy` 欄位 @SimonSun
