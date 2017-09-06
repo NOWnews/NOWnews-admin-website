@@ -25,20 +25,20 @@
                         {% endif %}
                     </small>
                 </div>
-                  <div class="mainPhotoWrapper">
+                <div class="mainPhotoWrapper">
                       <img class="image mainPhotoEle" name="MainPhoto" src="{{photo.url}}" />
-                  </div>
-                  <div class="row">
+                </div>
+                <div class="row">
                     <div class="col-sm-12">
-                      <input type="hidden" name="main-photo" value="{{photo._id}}" />
-                      <p class="preview-desc mainPhotoDescEle">{{photo.desc}}</p>
-                      <textarea class="main-photo-desc-textarea hide">{{photo.desc}}</textarea>
+                        <input type="hidden" name="main-photo" value="{{photo._id}}" />
+                        <p class="preview-desc mainPhotoDescEle">{{photo.desc}}</p>
+                        <textarea class="main-photo-desc-textarea hide">{{photo.desc}}</textarea>
                     </div>
                     <div class="col-sm-12 main-photo-edit-area hide">
-                      <i class="fa fa-pencil-square-o btn btn-success edit-main-photo-desc">編輯</i>
-                      <i class="fa fa-save btn btn-primary save-main-photo-desc hide">儲存</i>
+                        <i class="fa fa-pencil-square-o btn btn-success edit-main-photo-desc">編輯</i>
+                        <i class="fa fa-save btn btn-primary save-main-photo-desc hide">儲存</i>
                     </div>
-                  </div>
+                </div>
 
 
                 {% for p in photos %}
@@ -71,38 +71,38 @@
                 $('.mainPhotoDescEle').addClass('hide');
                 $('.main-photo-desc-textarea').removeClass('hide');
                 $('.save-main-photo-desc').removeClass('hide');
-        });
+            });
 
-        $('.save-main-photo-desc').on('click',function(){
-          var mainPhotoDesc = $('.mainPhotoDescEle').first().text();
-          var newMainPhotoDesc = $('.main-photo-desc-textarea').first().val();
-          var mainPhotoId = $ ('input[name=main-photo]').val();
+            $('.save-main-photo-desc').on('click',function(){
+                var mainPhotoDesc = $('.mainPhotoDescEle').first().text();
+                var newMainPhotoDesc = $('.main-photo-desc-textarea').first().val();
+                var mainPhotoId = $ ('input[name=main-photo]').val();
 
-          if (mainPhotoDesc !== newMainPhotoDesc) {
-              $.ajax({
-                  url: '/image/' + mainPhotoId + '/clone',
-                  data: { desc: newMainPhotoDesc },
-                  method: 'POST'
-              }).done(function(result) {
-                var mainPhotoEle = $('input[name=MainPhoto]');
-                mainPhotoEle.val(result._id);
-                $('.mainPhotoDescEle').first().text(newMainPhotoDesc);
-              }).fail(function() {
-                  alert('主圖圖說更新失敗！');
-              }).complete(function(){
-                  $('.save-main-photo-desc').addClass('hide');
-                  $('.main-photo-desc-textarea').addClass('hide');
-                  $('.mainPhotoDescEle').removeClass('hide');
-                  $('.edit-main-photo-desc').removeClass('hide');
-              });
-          }else{
-              alert('沒有更新');
-              $(this).addClass('hide');
-              $('.main-photo-desc-textarea').addClass('hide');
-              $('.mainPhotoDescEle').removeClass('hide');
-              $('.edit-main-photo-desc').removeClass('hide');
-          }
-        });
-      }
+                if (mainPhotoDesc !== newMainPhotoDesc) {
+                    $.ajax({
+                        url: '/image/' + mainPhotoId + '/clone',
+                        data: { desc: newMainPhotoDesc },
+                        method: 'POST'
+                    }).done(function(result) {
+                        var mainPhotoEle = $('input[name=MainPhoto]');
+                        mainPhotoEle.val(result._id);
+                        $('.mainPhotoDescEle').first().text(newMainPhotoDesc);
+                    }).fail(function() {
+                        alert('主圖圖說更新失敗！');
+                    }).complete(function(){
+                        $('.save-main-photo-desc').addClass('hide');
+                        $('.main-photo-desc-textarea').addClass('hide');
+                        $('.mainPhotoDescEle').removeClass('hide');
+                        $('.edit-main-photo-desc').removeClass('hide');
+                    });
+                }else{
+                    alert('沒有更新');
+                    $(this).addClass('hide');
+                    $('.main-photo-desc-textarea').addClass('hide');
+                    $('.mainPhotoDescEle').removeClass('hide');
+                    $('.edit-main-photo-desc').removeClass('hide');
+                }
+            });
+        }
     });
 </script>
