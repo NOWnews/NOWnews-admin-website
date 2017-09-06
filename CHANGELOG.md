@@ -7,6 +7,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 ## [Unreleased]
 
 ### Changed
+- 新增新聞時預設作者改為空白 而不是許家禎 @appleoxxo
 - 審稿時可直接編輯主圖圖說 @appleoxxo
 - 新增版主班表管理(先暫時隱蔽) @wb
 
