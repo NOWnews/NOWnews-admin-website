@@ -117,6 +117,7 @@
                 </li>
                 <!-- User Account Menu -->
                 #}
+                {# 今天版主是誰 #}
                 <li class="dropdown messages-menu" style="padding-top: 3px;">
                     <span class="label bg-orange">{{ Moderator.morning }}</span><br>
                     <span class="label bg-teal">{{ Moderator.night }}</span>
@@ -142,10 +143,6 @@
                         <li class="user-footer">
                             <div class="pull-left">
                                 <a href="/auth/me" class="btn btn-default btn-flat">個人設定</a>
-                                <a href="/moderator" class="btn btn-default btn-flat">
-                                    <i class="fa-table fa"></i>
-                                    班表
-                                </a>
                             </div>
                             <div class="pull-right">
                                 <a href="/auth/logout" class="btn btn-default btn-flat">登出</a>
