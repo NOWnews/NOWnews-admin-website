@@ -8,6 +8,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ### Changed
 - 審稿時可直接編輯主圖圖說 @appleoxxo
+- 新增版主班表管理(先暫時隱蔽) @wb
 
 ## 1.0.11 - 2017-08-31
 ### Changed
