@@ -30,6 +30,8 @@ module.exports = async (req, res, next) => {
             UpdatedBy
         });
 
+        req.session.moderator = data;
+
         debug('moderator = %j', data);
 
         return res.redirect('/moderator');
