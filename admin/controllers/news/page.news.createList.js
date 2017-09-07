@@ -15,7 +15,7 @@ module.exports = async (req, res, next) => {
         let isFeed = 'false';
         if( queryString.includes('CreatedBy=530000000000000000000002') || //鉅亨網
             queryString.includes('CreatedBy=530000000000000000000004') || //中央社
-            queryString.includes('CreatedBy=530000000000000000000004') //軍聞社
+            queryString.includes('CreatedBy=530000000000000000000005') //軍聞社
            ){
             isFeed = 'true';
            }
