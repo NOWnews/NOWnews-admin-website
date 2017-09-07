@@ -4,11 +4,10 @@ const debug = Debug('NOWnews-admin-website: controllers:page:indexpage.getnews')
 
 module.exports = async (req, res, next) => {
     try {
-        let {title, status, type}= req.query;
-
+        let { title, status, type }= req.query;
+        let queryString = req._parsedUrl.query;
         debug('req.query = %j',req.query);
-
-        let { data: {newsList} } = await axios.get(`/news?title=${encodeURIComponent(title)}&status=${status}&type=${type}&isScheduled=false&isFeed=false`);
+        let { data: {newsList} } = await axios.get(`/news?${queryString}&isScheduled=false&isFeed=false`);
 
         debug('news = %j', newsList);
         return res.json({
