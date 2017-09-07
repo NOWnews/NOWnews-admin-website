@@ -5,6 +5,8 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+### Added
+- 增加專欄管理（特輯版型） @esbb48
 
 ## 1.0.11 - 2017-08-31
 ### Changed

@@ -19,7 +19,8 @@ module.exports = {
     },
     NEWS_TEMPLATES: {
         DEFAULT: '預設版型',
-        COLUMN: '專欄版型'
+        COLUMN: '專欄版型',
+        SPECIALCHANNEL: '特輯版型'
     },
     NEWS_TEMPLATES_AD: {
         'DEFAULT': '預設廣告代碼',

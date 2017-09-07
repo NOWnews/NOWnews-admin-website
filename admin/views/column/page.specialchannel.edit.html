@@ -1,0 +1,84 @@
+{% set title = "編輯專欄(特輯版型)" %}
+{% extends "../base.html" %}
+{% from "../util/form-user-record.html" import formUserRecord %}
+
+{% block headTitle %}
+    <title>大編輯台 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+<section class="content">
+    <form action="/column/specialchannel/{{column._id}}" method="POST" >
+        <input type="hidden" name="_method" value="put">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title"></h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="Menu" class="control-label">
+                                主項
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select id='Menu' name="Menu" class="form-control select2" required>
+                                <option>請選擇</option>
+                                {% for m in menus %}
+                                    <option value="{{ m._id }}"
+                                        {{ "selected" if m._id == column.Menu }}>
+                                        {{ m.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="SubMenus" class="control-label">
+                                子項
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select id='SubMenus' name="SubMenus" class="form-control select2" required multiple="multiple">
+                                {% for m in menus %}
+                                    <option value="{{ m._id }}" 
+                                        {{ "selected" if (column.SubMenus.indexOf(m._id) >= 0) }}>
+                                        {{ m.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                {{ formUserRecord(column) }}
+            </div>
+        </div>
+        <div class="edit-footer text-center">
+            <a href="/column/specialchannel" class="btn bg-maroon btn-flat margin">返回</a>
+            <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
+        </div>
+    </form>
+</section>
+
+<style>
+</style>
+{#  script 暫時放這   #}
+<script type="text/javascript">
+    $(function() {
+        $("#Menu").select2();
+        $("#SubMenus").select2({
+            placeholder: '搜尋子項 ...',
+            allowClear: true
+        });
+
+    });
+</script>
+{% endblock %}
+

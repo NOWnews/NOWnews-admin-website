@@ -1,0 +1,50 @@
+<table id="column-specialchannel-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>主項</th>
+            <th>子項</th>
+            <th>建立日期</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for column in columns %}
+            <tr>
+                <td>
+                    <a href="/menu/{{column.Menu._id}}" target='_blank'>
+                        {{ column.Menu.name }}
+                    </a>
+                </td>
+                <td> 
+                    {% for subMenu in column.SubMenus %}
+                        <a href="/menu/{{subMenu._id}}" target='_blank'>
+                            <span class='label label-default'>{{subMenu.name}}</span>
+                        </a>
+                    {% endfor %}
+                </td>
+                <td>{{ column.formatCreatedAt }}</td>
+                <td>
+                    <a class="btn btn-info"
+                        href="/column/specialchannel/{{column._id}}">
+                        編輯
+                    </a>
+                </td>
+                <td>
+                    <button item-id="{{column._id}}" class="btn btn-danger delete-column-specialchannel">移除</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>主項</th>
+            <th>子項</th>
+            <th>建立日期</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </tfoot>
+</table>
+<script>
+</script>

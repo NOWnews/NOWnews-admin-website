@@ -138,7 +138,7 @@
     "priority": {
         "url": "#",
         "name": "新聞順序",
-        "icon": "fa-sliders",
+        "icon": "fa-sort-amount-asc",
         "children": [{
             "url": "/priority",
             "name": "新聞順序設定"
@@ -178,6 +178,18 @@
         },{
             "url": "/ott/channels/list",
             "name": "排序控制"
+        }]
+    },
+    "column": {
+        "url": "#",
+        "name": "專欄管理",
+        "icon": "fa-columns",
+        "children": [{
+            "url": "/column/specialchannel/create",
+            "name": "新增專欄(特輯版型)"
+        },{
+            "url": "/column/specialchannel",
+            "name": "專欄列表(特輯版型)"
         }]
     }
 }
