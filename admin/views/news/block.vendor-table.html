@@ -1,0 +1,98 @@
+<table id="news-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>標題</th>
+            <th>類別</th>
+            <th>建立者</th>
+            <th>主分類</th>
+            <th>次分類</th>
+            <th>狀態</th>
+            <th>發布日期</th>
+            <th>審稿者</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for value in newsListInfo.newsList %}
+            <tr>
+                <td>
+                    {{value.sn}}
+                    {% if value.isDeliver %}
+                    <small class="label pull-left bg-green">可外送</small>
+                    {% else %}
+                    <small class="label pull-left bg-yellow">不可外送</small>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if NEWS_STATUS[value.status]=='發佈' %}
+                        <a target="_blank" href="{{ officialUrl+value.parseUrl }}">
+                            {{ value.title }}
+                        </a>
+                    {% else %}
+                        <a href="/news/{{ value._id}}">
+                            {{ value.title }}
+                        </a>
+                    {% endif %}
+                </td>
+                <td>
+                    {{ NEWS_TYPES[value.type] }}
+                </td>
+                <td>
+                    {{ value.CreatedBy.name }}
+                </td>
+                <td>
+                    {{ value.MainMenu.name }}
+                </td>
+                <td>
+                    {% for menu in value.Menus %}
+                        {% if loop.first %}
+                            {{ menu.name }}
+                        {% else %}
+                            ,{{ menu.name }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <!--<td>0</td>-->
+                <td class="{{'success' if NEWS_STATUS[value.status]=='發佈'}}">
+                    {% if value.isSchedule %}
+                        預約發佈
+                    {% else %}
+                        {{ NEWS_STATUS[value.status] }}
+                    {% endif %}
+                </td>
+                <td>{{ value.formatStartedAt }}</td>
+                <td>
+                        {{ value.LastReviewer.name if value.LastReviewer else "--" }}
+                </td>
+                <td>
+                    <a class="btn btn-info"
+                        href="/news/{{value._id}}">
+                        編輯
+                    </a>
+                </td>
+                <td>
+                    <button item-id="{{value._id}}" class="btn btn-danger delete-news">移除</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>ID</th>
+            <th>標題</th>
+            <th>類別</th>
+            <th>建立者</th>
+            <th>主分類</th>
+            <th>次分類</th>
+            <th>狀態</th>
+            <th>發布日期</th>
+            <th>審稿者</th>
+            <th>編輯</th>
+            <th>移除</th>
+        </tr>
+    </tfoot>
+</table>
+<script>
+</script>

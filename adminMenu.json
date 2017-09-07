@@ -29,6 +29,9 @@
         },{
             "url": "/news/takeMeReviewList",
             "name": "待我審核新聞"
+        },{
+            "url": "/news/vendorList",
+            "name": "我的新聞(廠商)"
         }]
     },
     "tags": {
