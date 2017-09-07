@@ -4,6 +4,7 @@ import trend from './trend';
 import map from './map';
 import postBoard from './postBoard';
 import robot from './robot';
+import moderator from './moderator';
 import _ from 'lodash';
 
 let adminPageRouter = {
@@ -33,6 +34,7 @@ module.exports = function(app) {
     app.use('/trend', trend);
     app.use('/map', map);
     app.use('/postBoard', postBoard);
+    app.use('/moderator', moderator);
     app.use('/', home);
 
     return function(req, res, next) {

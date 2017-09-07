@@ -1,0 +1,95 @@
+{% extends "../base.html" %}
+{% block headTitle %}<title>大編輯台 | 版主班表</title>{% endblock %}
+{% set title = "班表" %}
+
+{% block container %}
+    <section class="content">
+        <div class="box box-primary">
+            <div class="box-header">
+                <div class="moderator input-group-sm">
+                    <h3 class="box-title text">{{ moderator.year }} 年 {{ moderator.month }} 月</h3>
+                    <select id="year-text" class="form-control edit" style="width: 100px;">
+                        {% for year in years %}
+                            {% if year == moderator.year %}
+                                <option selected="selected">{{ year }} 年</option>
+                            {% else %}
+                                <option>{{ year }} 年</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <select id="month-text" class="form-control edit" style="width: 100px;">
+                        {% for month in months %}
+                            {% if loop.index == moderator.month %}
+                                <option selected="selected">{{ loop.index }} 月</option>
+                            {% else %}
+                                <option>{{ loop.index }} 月</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="box-tools">
+                    <div class="btn-group input-group-sm" style="width: 160px;">
+                        <button type="button" class="btn btn-default edit-btn">編輯</button>
+                        <button type="button" class="btn btn-default moderator-submit">確認</button>
+                        <button type="button" class="btn btn-default cancel-btn">取消</button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <form class="moderator table-responsive" action="/moderator" method="post">
+                    <input type="hidden" name="_method" value="put">
+                    <input id="month" type="hidden" name="month" value="{{ moderator.month }}">
+                    <input id="year" type="hidden" name="year" value="{{ moderator.year }}">
+                    <table class="table table-bordered">
+                        <tr>
+                        {% for item in moderator.schedule %}
+                            <td>
+                                <h3 class="text-right">{{loop.index}}</h3>
+                                <div class="input-group-sm">
+                                    <p class="text">{{item[0]}}</p>
+                                    <span class="edit">早班:</span>
+                                    <input class="edit form-control" name="day{{ loop.index }}_0" type="text" value="{{ item[0] }}" />
+                                </div>
+                                <div class="input-group-sm">
+                                    <p class="text">{{item[1]}}</p>
+                                    <span class="edit">晚班:</span>
+                                    <input class="edit form-control" name="day{{ loop.index }}_1" type="text" value="{{ item[1] }}" />
+                                </div>
+                            </td>
+                            {% if loop.index % 7 == 0 %}
+                                </tr><tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(function(){
+            $('.edit-btn').on('click', function(){
+                $('.moderator .edit').show();
+                $('.moderator .text').hide();
+            });
+            $('.cancel-btn').on('click', function(){
+                $('.moderator .edit').hide();
+                $('.moderator .text').show();
+            });
+            $('.moderator-submit').on('click', function(){
+                $('#month').val($('#month-text').val());
+                $('#year').val($('#year-text').val());
+                $('form.moderator').submit();
+            });
+        });
+    </script>
+    <style>
+        .moderator .edit {
+            display: none;
+        }
+        .moderator .box-title {
+            font-size: 24px;
+        }
+    </style>
+{% endblock %}
