@@ -1,9 +1,8 @@
 import config from 'config';
 import Debug from 'debug';
-import _ from 'lodash';
+const debug = Debug('NOWnews-admin-website: controllers:news:page.news.vendorList');
 import qs from 'querystring';
-const debug = Debug('NOWnews-admin-website: controllers:news:page.news.myList');
-import { NEWS_TYPES, NEWS_STATUS } from '../../util/constants';
+import { NEWS_TYPES, NEWS_STATUS, NEWS_TEMPLATES, NEWS_TEMPLATES_AD } from '../../util/constants';
 import checkSchedule from '../../util/checkSchedule';
 
 module.exports = async (req, res, next) => {
@@ -11,23 +10,18 @@ module.exports = async (req, res, next) => {
     try {
         let officialUrl = config.get('officialUrl');
         let { query, originalUrl } = req;
-        let queryString = req._parsedUrl.query? '?' + req._parsedUrl.query: '?';
-        let isFeed = 'false';
-        if( queryString.includes('CreatedBy=530000000000000000000002') || //鉅亨網
-            queryString.includes('CreatedBy=530000000000000000000004') || //中央社
-            queryString.includes('CreatedBy=530000000000000000000005') //軍聞社
-           ){
-            isFeed = 'true';
-           }
-        let [{ data: { users: userList } },{ data: newsListInfo }, { data: mainMenus}] = await Promise.all([
-            axios.get('/users?limit=10000&isInitUser=true'),
-            axios.get(`/news${queryString}&isFeed=${isFeed}`),
-            axios.get(`/menus?level=0`),
-        ]);
+        let queryString = req._parsedUrl.query? '?' + req._parsedUrl.query: '';
+        let userId = req.session.adminUser._id;
+        let { data: newsListInfo } = await axios.get(`/news${queryString}`, {
+            params: {
+                CreatedBy: userId
+            }
+        });
+
         let pageData = newsListInfo.pageData;
         let listDescription = {
-            title: '所有新聞',
-            subtitle: '新聞列表，照時間排序，狀態有草稿、審核、...等等 的項目。',
+            title: '我的新聞(廠商)',
+            subtitle: '由我建立的所有新聞列表。',
         };
 
         newsListInfo.newsList = _.map(newsListInfo.newsList, (news) => {
@@ -44,14 +38,15 @@ module.exports = async (req, res, next) => {
         pageData.qsNoPage = qsNoPage ? '&' + qsNoPage : '';
 
         debug('newsListInfo = %j', newsListInfo );
-        return res.render('news/page.news.myList.html', {
+
+        return res.render('news/page.news.vendorList.html', {
             officialUrl,
-            mainMenus,
             query,
             originalUrl,
             NEWS_STATUS,
             NEWS_TYPES,
-            userList,
+            NEWS_TEMPLATES,
+            NEWS_TEMPLATES_AD,
             newsListInfo,
             pageData,
             listDescription

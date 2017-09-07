@@ -442,7 +442,7 @@ $(function () {
 
     });
 
-    imageBlocks.on('change', 'textarea[name=desc]', function(e, c) {
+    imageBlocks.on('keyup', 'textarea[name=desc]', function(e, c) {
         var parentBlock = $(this).parent();
         var newsDesc = $(this).val().trim();
         var originDesc = parentBlock.find('span.desc').text();

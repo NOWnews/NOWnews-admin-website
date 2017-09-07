@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
             { data: { users: userList } },
             { data: menus },
         ] = await Promise.all([
-            axios.get('/users?limit=10000'),
+            axios.get('/users?limit=10000&sort=staffId'),
             axios.get('/menus/struction')
         ]);
 

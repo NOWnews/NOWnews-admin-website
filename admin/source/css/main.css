@@ -15,14 +15,28 @@
   以下為在符號選擇器的父元素 div.cke_editor_contentCk_dialog 加上 z-index 強制所有子元素都z-index: 10010
 */
 div.cke_editor_contentCk_dialog{
-  position: relative;
-  z-index: 10010;
+    position: relative;
+    z-index: 10010;
 }
 
 .dailyplan-content{
-  width: 50%;
+    width: 50%;
 }
 td.dailyplan-content textarea{
-  width: 100%;
-  border: 0;
+    width: 100%;
+    border: 0;
+}
+
+
+.main-photo-desc-textarea{
+    width:100%;
+    border: 1px solid black;
+
+}
+.mainPhotoWrapper{
+    width: 100%;
+    margin-bottom:10px;
+}
+.mainPhotoEle{
+    display: inline-block;
 }

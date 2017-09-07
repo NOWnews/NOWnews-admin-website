@@ -9,6 +9,8 @@ module.exports = async (req, res, next) => {
 
         let { remember } = req.body;
         let { data: loginUser } = await axios.post('/users/login', req.body);
+        // TODO 版主班表 暫時不開啟
+        // let { data: moderator} = await axios.get(`/moderator/512000000000000000000001`);
 
         if (!loginUser){
             new Error('找不到 USER');
@@ -73,6 +75,8 @@ module.exports = async (req, res, next) => {
         debug('login user= %j', adminUser);
 
         req.session.adminUser = adminUser;
+        // TODO 版主班表 暫時不開啟
+        // req.session.moderator = moderator;
 
         if (remember) {
             res.cookie('_now_admin', adminUser.email, { httpOnly: true });
