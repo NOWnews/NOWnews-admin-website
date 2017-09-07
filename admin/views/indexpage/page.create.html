@@ -24,7 +24,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-sm-8">
-                        <label class="control-label">新聞搜尋</label>
+                        <label class="control-label">自家新聞搜尋</label>
                         <div class="container-search">
                               <div class="search">
                                 <input type="text" id="autocomplete-ajax" class="input form-control input-autocomplete-ajax" placeholder="search" />
@@ -33,6 +33,22 @@
                               </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-8">
+                        <label class="control-label">匯入新聞搜尋</label>
+                        <div class="container-search">
+                              <div class="search">
+                                <input type="text" id="autocomplete-ajax5" class="input form-control input-autocomplete-ajax" placeholder="search" />
+                                <input type="text" id="autocomplete-ajax-x5" class="input-autocomplete-ajax-x" disabled="disabled" />
+                                <span class="load"></span>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-sm-12">
                         <small>最多30則</small>
                         <div class="usage_simple" style="position:relative;">
@@ -40,7 +56,7 @@
 
                                 <select id="multiselect_simple" name="carousels" class="multiselect fa-select" multiple="multiple" style="width:100%">
                                     {% for item in indexpage.carousels %}
-                                        <option value="{{ item._id }}" item-date="{{ item.formatStartedAt }}" item-pv="{{ item.pageviews }}" item-url="{{ item.completeUrl }}" selected>TOP {{ loop.index }} - {{ item.title }}</option>
+                                        <option value="{{ item._id }}" item-feedFrom="{{ item.feedFrom}}" item-date="{{ item.formatStartedAt }}" item-pv="{{ item.pageviews }}" item-url="{{ item.completeUrl }}" selected>TOP {{ loop.index }} - {{ item.title }}</option>
                                     {% endfor %}
                                     {% for item in predata.newsList %}
                                         <option item-date="{{ item.formatStartedAt }}" item-pv="{{ item.pageviews }}" item-url="{{ item.completeUrl }}" value="{{ item._id }}">{{ item.title }}</option>
@@ -278,11 +294,26 @@ var customOption = $.extend($.extend({}, defaultOptions), {
     splitRatio: 0.50,
     optionRenderer: function(option){
         var newsUrl = option.attr('item-url');
-        var date = option.attr('item-date') ? option.attr('item-date').replace(/-/g, '').split(' ')[0] : 0;
+        var date = option.attr('item-date') ? option.attr('item-date').replace(/-/g, '') : '-';
         var pv = option.attr('item-pv') || '-';
+        var feedFrom = option.attr('item-feedFrom') ? option.attr('item-feedFrom') : '';
+        switch(feedFrom){
+            case 'MNA':
+                feedFrom = '軍聞社';
+                break;
+            case 'CNA':
+                feedFrom = '中央社';
+                break;
+            case 'CNYES':
+                feedFrom = '鉅亨網';
+                break;
+            default:
+                feedFrom = '';
+        }
+        var feedFromHtml = feedFrom ? '<span class="feed-news">'+feedFrom+'</span>' : '';
         var linkHtml = '<a class="link" target="_blank" href="'+ newsUrl +'">編輯</a>';
         var optionHtml = '<div><span class="date">' + date + '</span>' + option.html() + '<span class="pv">' + pv + '</span></div>';
-        return linkHtml + optionHtml;
+        return feedFromHtml + linkHtml + optionHtml;
     }
 });
 
@@ -291,7 +322,7 @@ $('#autocomplete-ajax').autocomplete({
     dataType: 'json',
     deferRequestBy: 600,
     paramName: "title",
-    params: { status: 'RELEASE' },
+    params: { status: 'RELEASE', isFeed : 'true' },
     onSearchStart: function(){ $('.load').addClass('loader'); console.log('onSearchStart') },
     onSearchComplete: function(){ $('.load').removeClass('loader');console.log('onSearchComplete') },
     onSearchError: function(){ $('.load').removeClass('loader');console.log('onSearchError') },
@@ -318,12 +349,10 @@ $('#autocomplete-ajax').autocomplete({
                 text: '<span>'+ $('#autocomplete-ajax').val() +'<span>',
                 html: true
             });
-            $('#autocomplete-ajax2').val("");
+
         }
-
         $('#multiselect_simple').multiselect('destroy').multiselect(customOption);
-        // $('#autocomplete-ajax').val("");
-
+        $('#autocomplete-ajax').val("");
       },
       onHint: function (hint) {
         $('#autocomplete-ajax-x').val(hint);
@@ -364,10 +393,10 @@ $('#autocomplete-ajax2').autocomplete({
                 text: '<span>'+ $('#autocomplete-ajax2').val() +'<span>',
                 html: true
             });
-            $('#autocomplete-ajax2').val("");
+
         }
         $('#multiselect_simple2').multiselect('destroy').multiselect(customOption);
-
+        $('#autocomplete-ajax2').val("");
       },
       onHint: function (hint) {
         $('#autocomplete-ajax-x2').val(hint);
@@ -401,17 +430,15 @@ $('#autocomplete-ajax3').autocomplete({
         text = suggestion.data;
         if ($("#multiselect_simple3 option[value='"+text+"']").length === 0) {
             $('#multiselect_simple3').prepend('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
-
         } else {
             sweetAlert({
                 title: '<small>已經加入過了</small>!',
                 text: '<span>'+ $('#autocomplete-ajax3').val() +'<span>',
                 html: true
             });
-            $('#autocomplete-ajax3').val("");
         }
         $('#multiselect_simple3').multiselect('destroy').multiselect(customOption);
-
+        $('#autocomplete-ajax3').val("");
       },
       onHint: function (hint) {
         $('#autocomplete-ajax-x3').val(hint);
@@ -453,9 +480,9 @@ $('#autocomplete-ajax4').autocomplete({
                 text: '<span>'+ $('#autocomplete-ajax4').val() +'<span>',
                 html: true
             });
-            $('#autocomplete-ajax4').val("");
         }
         $('#multiselect_simple4').multiselect('destroy').multiselect(customOption);
+        $('#autocomplete-ajax4').val("");
 
       },
       onHint: function (hint) {
@@ -466,6 +493,52 @@ $('#autocomplete-ajax4').autocomplete({
       }
 });
 
+
+$('#autocomplete-ajax5').autocomplete({
+    serviceUrl: '/indexpage/news',
+    dataType: 'json',
+    deferRequestBy: 600,
+    paramName: "title",
+    params: { status: 'RELEASE', isFeed : 'true', select:'title sn startedAt feedFrom' },
+    onSearchStart: function(){ $('.load').addClass('loader'); console.log('onSearchStart') },
+    onSearchComplete: function(){ $('.load').removeClass('loader');console.log('onSearchComplete') },
+    onSearchError: function(){ $('.load').removeClass('loader');console.log('onSearchError') },
+    transformResult: function(response) {
+
+        return {
+            suggestions: $.map(response.newsList, function(item) {
+                var startTime = item.formatStartedAt;
+                var title = item.title;
+                var url = '/news/' + item._id;
+                var pv = item.pageviews;
+                var feedFrom = item.feedFrom;
+                return { title: title, value: startTime + ' - ' + title, data: item._id, url: url, date: startTime, pv: pv , feedFrom: feedFrom };
+            })
+        };
+    },
+    onSelect: function (suggestion) {
+        text = suggestion.data;
+        if ($("#multiselect_simple option[value='"+text+"']").length === 0) {
+            $('#multiselect_simple').prepend('<option item-feedFrom="'+ suggestion.feedFrom +'" item-pv="'+ suggestion.pv +'" item-date="'+ suggestion.date +'" item-url="' + suggestion.url + '" value="'+suggestion.data+'" selected>'+ suggestion.title +'</option>');
+
+        } else {
+            sweetAlert({
+                title: '<small>已經加入過了</small>!',
+                text: '<span>'+ $('#autocomplete-ajax5').val() +'<span>',
+                html: true
+            });
+        }
+        $('#multiselect_simple').multiselect('destroy').multiselect(customOption);
+        $('#autocomplete-ajax5').val("");
+
+      },
+      onHint: function (hint) {
+        $('#autocomplete-ajax-x5').val(hint);
+      },
+      onInvalidateSelection: function() {
+        $('.selection-ajax').html('None selected');
+      }
+});
 
 </script>
 
@@ -486,9 +559,24 @@ $('#autocomplete-ajax4').autocomplete({
                 var newsUrl = option.attr('item-url');
                 var date = option.attr('item-date') ? option.attr('item-date').replace(/-/g, '') : '-';
                 var pv = option.attr('item-pv') || '-';
+                var feedFrom = option.attr('item-feedFrom') ? option.attr('item-feedFrom') : '';
+                switch(feedFrom){
+                    case 'MNA':
+                        feedFrom = '軍聞社';
+                        break;
+                    case 'CNA':
+                        feedFrom = '中央社';
+                        break;
+                    case 'CNYES':
+                        feedFrom = '鉅亨網';
+                        break;
+                    default:
+                        feedFrom = '';
+                }
+                var feedFromHtml = feedFrom ? '<span class="feed-news">'+feedFrom+'</span>' : '';
                 var linkHtml = '<a class="link" target="_blank" href="'+ newsUrl +'">編輯</a>';
                 var optionHtml = '<div><span class="date">' + date + '</span>' + option.html() + '<span class="pv">' + pv + '</span></div>';
-                return linkHtml + optionHtml;
+                return feedFromHtml + linkHtml + optionHtml;
             }
         });
 
@@ -496,7 +584,7 @@ $('#autocomplete-ajax4').autocomplete({
             'simple': customOption,
             'simple2': customOption,
             'simple3': customOption,
-            'simple4': customOption
+            'simple4': customOption,
         };
 
         $.each(widgets, function(k, i) {

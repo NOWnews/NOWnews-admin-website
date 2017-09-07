@@ -241,3 +241,12 @@ div.debug_log {
     padding: 0 3px;
     margin-right: 3px;
 }
+
+.ui-state-default .feed-news{
+    float: left;
+    background-color: forestgreen;
+    color: white;
+    padding: 0 2px 0 2px;
+}
+
+

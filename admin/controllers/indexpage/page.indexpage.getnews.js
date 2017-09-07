@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
         let { title, status, type }= req.query;
         let queryString = req._parsedUrl.query;
         debug('req.query = %j',req.query);
-        let { data: {newsList} } = await axios.get(`/news?${queryString}&isScheduled=false&isFeed=false`);
+        let { data: {newsList} } = await axios.get(`/news?${queryString}&isScheduled=false`);
 
         debug('news = %j', newsList);
         return res.json({
