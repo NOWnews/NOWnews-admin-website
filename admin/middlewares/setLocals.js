@@ -4,6 +4,7 @@
 import config from 'config';
 import adminMenu from '../../adminMenu.json';
 import _ from 'lodash';
+import moment from 'moment-timezone';
 
 module.exports = (req, res, next) => {
 
@@ -36,7 +37,18 @@ module.exports = (req, res, next) => {
         res.locals.adminMenu = realMenus;
     }
 
+    if (req.session.moderator) {
+        let todayInfo = moment.tz('Asia/Taipei').toObject();
+        let year = req.session.moderator.year;
+        let month = req.session.moderator.month;
+        if (year == todayInfo.years && month == todayInfo.months + 1) {
+            req.session.moderator.morning = req.session.moderator.schedule['day' + todayInfo.date][0];
+            req.session.moderator.night = req.session.moderator.schedule['day' + todayInfo.date][1];
+        }
+    }
+
     res.locals.pathname = pathname;
     res.locals.currentUser = req.session.adminUser;
+    res.locals.Moderator = req.session.moderator;
     return next();
 };

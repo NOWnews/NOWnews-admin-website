@@ -6,6 +6,15 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ## [Unreleased]
 
+### Changed
+- 所有新聞列表和編輯新聞使用者改成由staffId排序 @appleoxxo
+- 取得使用者列表時 加上 isInitUser 藉此篩選出匯入新聞 @appleoxxo
+- 所有新聞列表 預設只顯示非匯入新聞 @appleoxxo
+- 圖片列表 在關鍵字輸入框按下Enter就啟動搜尋 @appleoxxo
+- 新增新聞時預設作者改為空白 而不是許家禎 @appleoxxo
+- 審稿時可直接編輯主圖圖說 @appleoxxo
+- 新增版主班表管理(目前隱藏) @wb
+
 ## 1.0.11 - 2017-08-31
 ### Changed
 - 頭版控版頁，預設顯示的新聞照發佈時間排序。@wb

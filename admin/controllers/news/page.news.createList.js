@@ -11,10 +11,17 @@ module.exports = async (req, res, next) => {
     try {
         let officialUrl = config.get('officialUrl');
         let { query, originalUrl } = req;
-        let queryString = req._parsedUrl.query? '?' + req._parsedUrl.query: '';
+        let queryString = req._parsedUrl.query? '?' + req._parsedUrl.query: '?';
+        let isFeed = 'false';
+        if( queryString.includes('CreatedBy=530000000000000000000002') || //鉅亨網
+            queryString.includes('CreatedBy=530000000000000000000004') || //中央社
+            queryString.includes('CreatedBy=530000000000000000000004') //軍聞社
+           ){
+            isFeed = 'true';
+           }
         let [{ data: { users: userList } },{ data: newsListInfo }, { data: mainMenus}] = await Promise.all([
-            axios.get('/users?limit=10000'),
-            axios.get(`/news${queryString}`),
+            axios.get('/users?limit=10000&isInitUser=true'),
+            axios.get(`/news${queryString}&isFeed=${isFeed}`),
             axios.get(`/menus?level=0`),
         ]);
         let pageData = newsListInfo.pageData;
