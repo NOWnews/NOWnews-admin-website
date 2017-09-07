@@ -5,6 +5,8 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+### Added 
+- 增加廠商專屬的列表「我的新聞(廠商)」 @esbb48
 
 ### Changed
 - 所有新聞列表和編輯新聞使用者改成由staffId排序 @appleoxxo
