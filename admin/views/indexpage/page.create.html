@@ -285,11 +285,13 @@ var customOption = $.extend($.extend({}, defaultOptions), {
         return linkHtml + optionHtml;
     }
 });
+
 $('#autocomplete-ajax').autocomplete({
     serviceUrl: '/indexpage/news',
     dataType: 'json',
     deferRequestBy: 600,
     paramName: "title",
+    params: { status: 'RELEASE' },
     onSearchStart: function(){ $('.load').addClass('loader'); console.log('onSearchStart') },
     onSearchComplete: function(){ $('.load').removeClass('loader');console.log('onSearchComplete') },
     onSearchError: function(){ $('.load').removeClass('loader');console.log('onSearchError') },
@@ -424,6 +426,7 @@ $('#autocomplete-ajax4').autocomplete({
     dataType: 'json',
     deferRequestBy: 600,
     paramName: "title",
+    params: {status: 'RELEASE',type: 'VIDEO'},
     onSearchStart: function(){ $('.load').addClass('loader'); console.log('onSearchStart4') },
     onSearchComplete: function(){ $('.load').removeClass('loader');console.log('onSearchComplete4')},
     onSearchError: function(){ $('.load').removeClass('loader');console.log('onSearchError4') },
@@ -461,14 +464,6 @@ $('#autocomplete-ajax4').autocomplete({
       onInvalidateSelection: function() {
         $('.selection-ajax').html('None selected');
       }
-});
-
-$("#autocomplete-ajax").autocomplete('setOptions', {
-        params: {status: 'RELEASE',type: 'NEWS'}
-});
-
-$("#autocomplete-ajax4").autocomplete('setOptions', {
-        params: {status: 'RELEASE',type: 'VIDEO'}
 });
 
 
