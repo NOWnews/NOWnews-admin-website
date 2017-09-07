@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
             { data: newsMemos },
         ] = await Promise.all([
             axios.get(`/news/${newsId}`),
-            axios.get('/users?limit=10000&isInitUser=true'),
+            axios.get('/users?limit=10000&isInitUser=true&sort=staffId'),
             axios.get('/menus/struction'),
             axios.get(`/newsmemo?News=${newsId}&sort=createdAt`),
         ]);

@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
             isFeed = 'true';
            }
         let [{ data: { users: userList } },{ data: newsListInfo }, { data: mainMenus}] = await Promise.all([
-            axios.get('/users?limit=10000&isInitUser=true'),
+            axios.get('/users?limit=10000&isInitUser=true&sort=staffId'),
             axios.get(`/news${queryString}&isFeed=${isFeed}`),
             axios.get(`/menus?level=0`),
         ]);
@@ -43,11 +43,7 @@ module.exports = async (req, res, next) => {
         qsNoPage = qs.stringify(qsNoPage);
         pageData.qsNoPage = qsNoPage ? '&' + qsNoPage : '';
 
-        console.log('userList.length',userList.length);
-        _.forEach(userList, (user,index) =>{
-          console.log('user.name... ',user.name,index);
-        });
-        // debug('newsListInfo = %j', newsListInfo );
+        debug('newsListInfo = %j', newsListInfo );
         return res.render('news/page.news.myList.html', {
             officialUrl,
             mainMenus,
