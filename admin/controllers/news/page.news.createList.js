@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
             isFeed = 'true';
            }
         let [{ data: { users: userList } },{ data: newsListInfo }, { data: mainMenus}] = await Promise.all([
-            axios.get('/users?limit=10000&isInitUser=true&sort=staffId'),
+            axios.get('/users?limit=10000&isInitUser=true'),
             axios.get(`/news${queryString}&isFeed=${isFeed}`),
             axios.get(`/menus?level=0`),
         ]);
