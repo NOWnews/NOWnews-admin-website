@@ -2,7 +2,7 @@
     position: relative;
     height: 80px;
 }
-#autocomplete-ajax, #autocomplete-ajax2, #autocomplete-ajax3, #autocomplete-ajax4 {
+input.input-autocomplete-ajax {
     border: 1px solid #CCC;
     display: block;
     position: absolute;
@@ -12,7 +12,7 @@
     background-size: 15px;
 }
 
-#autocomplete-ajax-x, #autocomplete-ajax-x2, #autocomplete-ajax-x3, #autocomplete-ajax-x4  {
+input.input-autocomplete-ajax-x{
     color: #CCC;
     z-index: 1;
     display: none;
