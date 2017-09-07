@@ -16,11 +16,10 @@ module.exports = async (req, res, next) => {
         let todayInfo = moment.tz('Asia/Taipei').toObject();
         let year = todayInfo.years;
         let years = [ year - 1, year, year + 1 ]
-
         if (moderator.year && moderator.month){
-            daysInMonth = moment.tz(`${moderator.year}-${moderator.month}`, 'Asia/Taipei').daysInMonth();
+            let month = moderator.month < 10 ? `0${moderator.month}` : moderator.month;
+            daysInMonth = moment.tz(`${moderator.year}-${month}`, 'Asia/Taipei').daysInMonth();
         }
-
 
         let schedule = [];
         _.forIn(moderator.schedule, function(value, key) {

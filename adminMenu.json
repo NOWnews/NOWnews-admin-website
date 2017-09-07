@@ -124,6 +124,9 @@
         "children": [{
             "url": "/indexpage/create",
             "name": "首頁管理建立"
+        },{
+            "url": "/moderator",
+            "name": "版主班表管理"
         }]
     },
     "statistics": {
