@@ -39,7 +39,12 @@
                             <span></span>
                         </span>
                         <span>
-                            <span data-id="{{ level0._id }}" class="itemTitle">{{ level0.name }}</span>
+                            <span data-id="{{ level0._id }}" class="itemTitle">
+                                {{ level0.name }}
+                                {% if level0.template != 'DEFAULT' %}
+                                    <span>({{NEWS_TEMPLATES[level0.template]}})</span>
+                                {% endif %}
+                            </span>
                             <div class="pull-right">
                                 {% if level0.isExternal %}
                                     <span title="對外連結" class="btn bg-teal color-palette btn-xs"><a href="{{ level0.url }}"><i class="fa fa-link"></i></a>
@@ -70,7 +75,12 @@
                                         <span></span>
                                     </span>
                                     <span>
-                                        <span data-id="{{ level1._id }}" class="itemTitle">{{ level1.name }}</span>
+                                        <span data-id="{{ level1._id }}" class="itemTitle">
+                                            {{ level1.name }}
+                                            {% if level1.template != 'DEFAULT' %}
+                                                <span>({{NEWS_TEMPLATES[level1.template]}})</span>
+                                            {% endif %}
+                                        </span>
                                         <div class="pull-right">
                                             {% if level1.isExternal %}
                                                 <span title="對外連結" class="btn bg-teal color-palette btn-xs"><a href="{{ level1.url }}"><i class="fa fa-link"></i></a>
@@ -82,6 +92,7 @@
                                                     <span></span>
                                                 </span>
                                             {% endif %}
+
                                             <button title="" class="btn btn-primary  btn-xs category-edit" data-original-title="Edit"><a href="/menu/{{ level1._id }}"><i class="fa fa-pencil"></i></a></button>
                                             <span title="Click to delete item." data-id="{{ level1._id }}" class="deleteMenu btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i>
                                                 <span></span>

@@ -1,4 +1,5 @@
 import Debug from 'debug';
+import { NEWS_TEMPLATES } from '../../util/constants';
 const debug = Debug('NOWnews-admin-website: controllers:menu:page.sort');
 
 module.exports = async (req, res, next) => {
@@ -7,10 +8,11 @@ module.exports = async (req, res, next) => {
         let userId = req.session.adminUser._id;
         let { data: struction } = await axios.get('/menus/struction');
 
-        debug('menuSort = %j', struction );
+        debug('menuSort = %j', struction);
 
         return res.render('menu/page.sort.html', {
-            struction
+            struction,
+            NEWS_TEMPLATES
         });
     }
     catch(err) {
