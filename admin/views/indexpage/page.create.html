@@ -27,9 +27,9 @@
                         <label class="control-label">自家新聞搜尋</label>
                         <div class="container-search">
                               <div class="search">
-                                <input type="text" id="autocomplete-ajax" class="input form-control input-autocomplete-ajax" placeholder="search" />
-                                <input type="text" id="autocomplete-ajax-x" class="input-autocomplete-ajax-x" disabled="disabled" />
-                                <span class="load"></span>
+                                  <input type="text" id="autocomplete-ajax" class="input form-control input-autocomplete-ajax" placeholder="search" />
+                                  <input type="text" id="autocomplete-ajax-x" class="input-autocomplete-ajax-x" disabled="disabled" />
+                                  <span class="load"></span>
                               </div>
                         </div>
                     </div>
@@ -40,9 +40,9 @@
                         <label class="control-label">匯入新聞搜尋</label>
                         <div class="container-search">
                               <div class="search">
-                                <input type="text" id="autocomplete-ajax5" class="input form-control input-autocomplete-ajax" placeholder="search" />
-                                <input type="text" id="autocomplete-ajax-x5" class="input-autocomplete-ajax-x" disabled="disabled" />
-                                <span class="load"></span>
+                                  <input type="text" id="autocomplete-ajax5" class="input form-control input-autocomplete-ajax" placeholder="search" />
+                                  <input type="text" id="autocomplete-ajax-x5" class="input-autocomplete-ajax-x" disabled="disabled" />
+                                  <span class="load"></span>
                               </div>
                         </div>
                     </div>
@@ -105,10 +105,10 @@
                         <label class="control-label">專題搜尋</label>
                         <div class="container-search">
                               <div class="search">
-                                <input type="text" id="autocomplete-ajax2" class="input form-control input-autocomplete-ajax" placeholder="search" />
-                                <input type="text" id="autocomplete-ajax-x2" class="input-autocomplete-ajax-x" disabled="disabled" />
-                                <span class="load"></span>
-                              </div>
+                                  <input type="text" id="autocomplete-ajax2" class="input form-control input-autocomplete-ajax" placeholder="search" />
+                                  <input type="text" id="autocomplete-ajax-x2" class="input-autocomplete-ajax-x" disabled="disabled" />
+                                  <span class="load"></span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -165,9 +165,9 @@
                         <label class="control-label">特輯搜尋</label>
                         <div class="container-search">
                               <div class="search">
-                                <input type="text" id="autocomplete-ajax3" class="input form-control input-autocomplete-ajax" placeholder="search" />
-                                <input type="text" id="autocomplete-ajax-x3" class="input-autocomplete-ajax-x" disabled="disabled" />
-                                <span class="load"></span>
+                                  <input type="text" id="autocomplete-ajax3" class="input form-control input-autocomplete-ajax" placeholder="search" />
+                                  <input type="text" id="autocomplete-ajax-x3" class="input-autocomplete-ajax-x" disabled="disabled" />
+                                  <span class="load"></span>
                               </div>
                         </div>
                     </div>
@@ -225,9 +225,9 @@
                         <label class="control-label">影片搜尋</label>
                         <div class="container-search">
                               <div class="search">
-                                <input type="text" id="autocomplete-ajax4" class="input form-control input-autocomplete-ajax" placeholder="search" />
-                                <input type="text" id="autocomplete-ajax-x4" class="input-autocomplete-ajax-x" disabled="disabled" />
-                                <span class="load"></span>
+                                  <input type="text" id="autocomplete-ajax4" class="input form-control input-autocomplete-ajax" placeholder="search" />
+                                  <input type="text" id="autocomplete-ajax-x4" class="input-autocomplete-ajax-x" disabled="disabled" />
+                                  <span class="load"></span>
                               </div>
                         </div>
                     </div>
@@ -323,9 +323,9 @@ $('#autocomplete-ajax').autocomplete({
     deferRequestBy: 600,
     paramName: "title",
     params: { status: 'RELEASE', isFeed : 'true' },
-    onSearchStart: function(){ $('.load').addClass('loader'); console.log('onSearchStart') },
-    onSearchComplete: function(){ $('.load').removeClass('loader');console.log('onSearchComplete') },
-    onSearchError: function(){ $('.load').removeClass('loader');console.log('onSearchError') },
+    onSearchStart: function(){ $(this).siblings('.load').addClass('loader'); console.log('onSearchStart') },
+    onSearchComplete: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchComplete') },
+    onSearchError: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchError') },
     transformResult: function(response) {
 
         return {
@@ -367,9 +367,9 @@ $('#autocomplete-ajax2').autocomplete({
     dataType: 'json',
     deferRequestBy: 600,
     paramName: "title",
-    onSearchStart: function(){ $('.load').addClass('loader'); console.log('onSearchStart2') },
-    onSearchComplete: function(){ $('.load').removeClass('loader');console.log('onSearchComplete2')},
-    onSearchError: function(){ $('.load').removeClass('loader');console.log('onSearchError2') },
+    onSearchStart: function(){ $(this).siblings('.load').addClass('loader'); console.log('onSearchStart2') },
+    onSearchComplete: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchComplete2')},
+    onSearchError: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchError2') },
     transformResult: function(response) {
         return {
             suggestions: $.map(response.specialTopics, function(item) {
@@ -411,9 +411,9 @@ $('#autocomplete-ajax3').autocomplete({
     dataType: 'json',
     deferRequestBy: 600,
     paramName: "title",
-    onSearchStart: function(){ $('.load').addClass('loader'); console.log('onSearchStart3') },
-    onSearchComplete: function(){ $('.load').removeClass('loader');console.log('onSearchComplete3')},
-    onSearchError: function(){ $('.load').removeClass('loader');console.log('onSearchError3') },
+    onSearchStart: function(){ $(this).siblings('.load').addClass('loader'); console.log('onSearchStart3') },
+    onSearchComplete: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchComplete3')},
+    onSearchError: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchError3') },
     transformResult: function(response) {
         return {
             suggestions: $.map(response.specialChannels, function(item) {
@@ -454,9 +454,9 @@ $('#autocomplete-ajax4').autocomplete({
     deferRequestBy: 600,
     paramName: "title",
     params: {status: 'RELEASE',type: 'VIDEO'},
-    onSearchStart: function(){ $('.load').addClass('loader'); console.log('onSearchStart4') },
-    onSearchComplete: function(){ $('.load').removeClass('loader');console.log('onSearchComplete4')},
-    onSearchError: function(){ $('.load').removeClass('loader');console.log('onSearchError4') },
+    onSearchStart: function(){ $(this).siblings('.load').addClass('loader'); console.log('onSearchStart4') },
+    onSearchComplete: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchComplete4')},
+    onSearchError: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchError4') },
     transformResult: function(response) {
         return {
             suggestions: $.map(response.newsList, function(item) {
@@ -500,9 +500,9 @@ $('#autocomplete-ajax5').autocomplete({
     deferRequestBy: 600,
     paramName: "title",
     params: { status: 'RELEASE', isFeed : 'true', select:'title sn startedAt feedFrom' },
-    onSearchStart: function(){ $('.load').addClass('loader'); console.log('onSearchStart') },
-    onSearchComplete: function(){ $('.load').removeClass('loader');console.log('onSearchComplete') },
-    onSearchError: function(){ $('.load').removeClass('loader');console.log('onSearchError') },
+    onSearchStart: function(){ $(this).siblings('.load').addClass('loader'); console.log('onSearchStart') },
+    onSearchComplete: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchComplete') },
+    onSearchError: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchError') },
     transformResult: function(response) {
 
         return {
