@@ -18,6 +18,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 - 新增新聞時預設作者改為空白 而不是許家禎 @appleoxxo
 - 審稿時可直接編輯主圖圖說 @appleoxxo
 - 新增版主班表管理(目前隱藏) @wb
+- 增加至 15 個廣告代碼 @esbb48
 
 ## 1.0.11 - 2017-08-31
 ### Changed
