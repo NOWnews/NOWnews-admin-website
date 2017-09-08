@@ -17,12 +17,16 @@ module.exports = {
         TEMP: '暫存',
         CLOSE: '關閉',
     },
-    NEWS_TEMPLATES: {
+    MENU_TEMPLATES: {
         DEFAULT: '預設版型',
         COLUMN: '專欄版型',
         SPECIALCHANNEL: '特輯版型'
     },
-    NEWS_TEMPLATES_AD: {
+    NEWS_TEMPLATES: {
+        DEFAULT: '預設版型',
+        COLUMN: '專欄版型',
+    },
+    TEMPLATES_AD: {
         'DEFAULT': '預設廣告代碼',
         '1': '客戶 01',
         '2': '客戶 02',

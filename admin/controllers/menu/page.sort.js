@@ -1,5 +1,5 @@
 import Debug from 'debug';
-import { NEWS_TEMPLATES } from '../../util/constants';
+import { MENU_TEMPLATES } from '../../util/constants';
 const debug = Debug('NOWnews-admin-website: controllers:menu:page.sort');
 
 module.exports = async (req, res, next) => {
@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
 
         return res.render('menu/page.sort.html', {
             struction,
-            NEWS_TEMPLATES
+            TEMPLATES: MENU_TEMPLATES
         });
     }
     catch(err) {

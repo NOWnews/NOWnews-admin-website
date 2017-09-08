@@ -42,7 +42,7 @@
                             <span data-id="{{ level0._id }}" class="itemTitle">
                                 {{ level0.name }}
                                 {% if level0.template != 'DEFAULT' %}
-                                    <span>({{NEWS_TEMPLATES[level0.template]}})</span>
+                                    <span>({{TEMPLATES[level0.template]}})</span>
                                 {% endif %}
                             </span>
                             <div class="pull-right">
@@ -78,7 +78,7 @@
                                         <span data-id="{{ level1._id }}" class="itemTitle">
                                             {{ level1.name }}
                                             {% if level1.template != 'DEFAULT' %}
-                                                <span>({{NEWS_TEMPLATES[level1.template]}})</span>
+                                                <span>({{TEMPLATES[level1.template]}})</span>
                                             {% endif %}
                                         </span>
                                         <div class="pull-right">

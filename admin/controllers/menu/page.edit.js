@@ -1,5 +1,5 @@
 import Debug from 'debug';
-import { NEWS_TEMPLATES, NEWS_TEMPLATES_AD } from '../../util/constants';
+import { MENU_TEMPLATES, TEMPLATES_AD } from '../../util/constants';
 const debug = Debug('NOWnews-admin-website: controllers:menu:page.edit');
 
 module.exports = async (req, res, next) => {
@@ -14,8 +14,8 @@ module.exports = async (req, res, next) => {
 
         return res.render('menu/page.edit.html', {
             menu,
-            NEWS_TEMPLATES,
-            NEWS_TEMPLATES_AD
+            TEMPLATES: MENU_TEMPLATES,
+            TEMPLATES_AD
         });
     } catch(err) {
         return next(err);

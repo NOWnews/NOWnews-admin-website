@@ -1,5 +1,4 @@
 import Debug from 'debug';
-import { NEWS_TEMPLATES, NEWS_TEMPLATES_AD } from '../../util/constants';
 const debug = Debug('NOWnews-admin-website: controllers:column:specialchannel:page.edit');
 
 module.exports = async (req, res, next) => {
