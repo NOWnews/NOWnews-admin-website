@@ -6,8 +6,20 @@ module.exports = async (req, res, next) => {
     try {
 
         const userId = req.session.adminUser._id;
-        let data = req.body;
-        data.CreatedBy = userId;
+        let { Menu, SubMenus } = req.body;
+        const repeatMenuIndex = SubMenus.indexOf(Menu);
+
+        //  避免主分類重複拉到子項
+        if (repeatMenuIndex !== -1) {
+            SubMenus.splice(repeatMenuIndex, 1);
+        }
+
+        const data = {
+            Menu,
+            SubMenus,
+            UpdatedBy: userId
+        }
+        
         let { data: menu } = await axios.post('/column/specialchannels', data);
 
         debug('createdMenu = %j', menu);
