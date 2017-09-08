@@ -322,7 +322,7 @@ $('#autocomplete-ajax').autocomplete({
     dataType: 'json',
     deferRequestBy: 600,
     paramName: "title",
-    params: { status: 'RELEASE', isFeed : 'true' },
+    params: { status: 'RELEASE', isFeed : 'false' },
     onSearchStart: function(){ $(this).siblings('.load').addClass('loader'); console.log('onSearchStart') },
     onSearchComplete: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchComplete') },
     onSearchError: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchError') },
