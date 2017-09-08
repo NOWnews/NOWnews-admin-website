@@ -23,7 +23,6 @@ module.exports = async (req, res, next) => {
         let prespecialchannel = results[3].data;
         let prevideo = results[4].data;
 
-        console.log('indexpage...',indexpage);
         predata.newsList = _.map(predata.newsList, (news, index) => {
             news.completeUrl = `/news/${news._id}`;
             news.formatStartedAt = moment.tz(news.formatStartedAt, 'Asia/Taipei').format('YYYYMMDD HH:mm');
@@ -56,7 +55,7 @@ module.exports = async (req, res, next) => {
             prevideo
         };
 
-        // debug('indexpageList = %j', indexpage );
+        debug('indexpageList = %j', indexpage );
         return res.render('indexpage/page.create.html', data);
     }
     catch(err) {
