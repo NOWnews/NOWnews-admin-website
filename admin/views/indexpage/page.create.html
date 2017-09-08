@@ -592,9 +592,8 @@ $('#autocomplete-ajax5').autocomplete({
             var selectedItem = $(ui.optionElements[0]);
             //如果是外匯新聞 點擊後直接移除 不移到右邊待選列表
             if( selectedItem.attr('item-feedFrom') !== 'OWN' ){
-                  selectedItem.remove();
-            $('#multiselect_'+k).multiselect('destroy').multiselect(customOption);
-
+                selectedItem.remove();
+                $('#multiselect_'+k).multiselect('destroy').multiselect(customOption);
             }
             $(ui.optionElements).before( '#multiselect_'+k );
             //  如果是點擊 link, 就不改變狀態
@@ -646,67 +645,67 @@ $('#autocomplete-ajax5').autocomplete({
     * 根據NOWnews-api config文件下admin.indexpage設定的數量
     */
     var indexpage = {
-            "carousels": 30,
-            "specialTopics": 8,
-            "specialChannels": 8,
-            "videos": 20
+        "carousels": 30,
+        "specialTopics": 8,
+        "specialChannels": 8,
+        "videos": 20
     };
       //新聞
-      $('#fileupload').on('submit',function(e){
-          var limit = indexpage.carousels;
-          var selectedCount = $("option:selected", $('#multiselect_simple')).length;
-          if( selectedCount > limit ){
-          swal({
-              title: '新聞最多'+limit+'則喔',
-              text: '',
-              type: 'warning',
-              timer: 1000
-          })
-          e.preventDefault();
-          }
-      });
-      //專題
-      $('#fileupload2').on('submit',function(e){
-          var limit = indexpage.specialTopics;
-          var selectedCount = $("option:selected", $('#multiselect_simple2')).length;
-          if( selectedCount > limit ){
-            swal({
-              title: '專題最多'+limit+'則喔',
-              text: '',
-              type: 'warning',
-              timer: 1000
-            })
-            e.preventDefault();
-          }
-      });
-      //特輯
-      $('#fileupload3').on('submit',function(e){
-          var limit = indexpage.specialChannels;
-          var selectedCount = $("option:selected", $('#multiselect_simple3')).length;
-          if( selectedCount > limit ){
-            swal({
-              title: '特輯最多'+limit+'則喔',
-              text: '',
-              type: 'warning',
-              timer: 1000
-            })
-            e.preventDefault();
-          }
-      });
-      //影音
-      $('#fileupload4').on('submit',function(e){
-          var limit = indexpage.videos;
-          var selectedCount = $("option:selected", $('#multiselect_simple4')).length;
-          if( selectedCount > limit ){
-            swal({
-              title: '影片最多'+limit+'則喔',
-              text: '',
-              type: 'warning',
-              timer: 1000
-            })
-            e.preventDefault();
-          }
-      });
+    $('#fileupload').on('submit',function(e){
+    var limit = indexpage.carousels;
+    var selectedCount = $("option:selected", $('#multiselect_simple')).length;
+    if( selectedCount > limit ){
+    swal({
+        title: '新聞最多'+limit+'則喔',
+        text: '',
+        type: 'warning',
+        timer: 1000
+    });
+    e.preventDefault();
+    }
+    });
+    //專題
+    $('#fileupload2').on('submit',function(e){
+    var limit = indexpage.specialTopics;
+    var selectedCount = $("option:selected", $('#multiselect_simple2')).length;
+    if( selectedCount > limit ){
+    swal({
+        title: '專題最多'+limit+'則喔',
+        text: '',
+        type: 'warning',
+        timer: 1000
+    });
+    e.preventDefault();
+    }
+    });
+    //特輯
+    $('#fileupload3').on('submit',function(e){
+    var limit = indexpage.specialChannels;
+    var selectedCount = $("option:selected", $('#multiselect_simple3')).length;
+    if( selectedCount > limit ){
+    swal({
+        title: '特輯最多'+limit+'則喔',
+        text: '',
+        type: 'warning',
+        timer: 1000
+    })
+    e.preventDefault();
+    }
+    });
+    //影音
+    $('#fileupload4').on('submit',function(e){
+    var limit = indexpage.videos;
+    var selectedCount = $("option:selected", $('#multiselect_simple4')).length;
+    if( selectedCount > limit ){
+    swal({
+        title: '影片最多'+limit+'則喔',
+        text: '',
+        type: 'warning',
+        timer: 1000
+    });
+    e.preventDefault();
+    }
+    });
 </script>
 {% endblock %}
 
