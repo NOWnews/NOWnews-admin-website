@@ -353,13 +353,13 @@ $('#autocomplete-ajax').autocomplete({
         }
         $('#multiselect_simple').multiselect('destroy').multiselect(customOption);
         $('#autocomplete-ajax').val("");
-      },
-      onHint: function (hint) {
+    },
+    onHint: function (hint) {
         $('#autocomplete-ajax-x').val(hint);
-      },
-      onInvalidateSelection: function() {
+    },
+    onInvalidateSelection: function() {
         $('.selection-ajax').html('None selected');
-      }
+    }
 });
 
 $('#autocomplete-ajax2').autocomplete({
@@ -397,13 +397,13 @@ $('#autocomplete-ajax2').autocomplete({
         }
         $('#multiselect_simple2').multiselect('destroy').multiselect(customOption);
         $('#autocomplete-ajax2').val("");
-      },
-      onHint: function (hint) {
-          $('#autocomplete-ajax-x2').val(hint);
-      },
-      onInvalidateSelection: function() {
+    },
+    onHint: function (hint) {
+        $('#autocomplete-ajax-x2').val(hint);
+    },
+    onInvalidateSelection: function() {
         $('.selection-ajax').html('None selected');
-      }
+    }
 });
 
 $('#autocomplete-ajax3').autocomplete({
@@ -439,13 +439,13 @@ $('#autocomplete-ajax3').autocomplete({
         }
         $('#multiselect_simple3').multiselect('destroy').multiselect(customOption);
         $('#autocomplete-ajax3').val("");
-      },
-      onHint: function (hint) {
+    },
+    onHint: function (hint) {
         $('#autocomplete-ajax-x3').val(hint);
-      },
-      onInvalidateSelection: function() {
+    },
+    onInvalidateSelection: function() {
         $('.selection-ajax').html('None selected');
-      }
+    }
 });
 
 $('#autocomplete-ajax4').autocomplete({
@@ -484,13 +484,13 @@ $('#autocomplete-ajax4').autocomplete({
         $('#multiselect_simple4').multiselect('destroy').multiselect(customOption);
         $('#autocomplete-ajax4').val("");
 
-      },
-      onHint: function (hint) {
+    },
+    onHint: function (hint) {
         $('#autocomplete-ajax-x4').val(hint);
-      },
-      onInvalidateSelection: function() {
+    },
+    onInvalidateSelection: function() {
         $('.selection-ajax').html('None selected');
-      }
+    }
 });
 
 
@@ -531,13 +531,13 @@ $('#autocomplete-ajax5').autocomplete({
         $('#multiselect_simple').multiselect('destroy').multiselect(customOption);
         $('#autocomplete-ajax5').val("");
 
-      },
-      onHint: function (hint) {
+    },
+    onHint: function (hint) {
         $('#autocomplete-ajax-x5').val(hint);
-      },
-      onInvalidateSelection: function() {
+    },
+    onInvalidateSelection: function() {
         $('.selection-ajax').html('None selected');
-      }
+    }
 });
 
 </script>
@@ -652,59 +652,59 @@ $('#autocomplete-ajax5').autocomplete({
     };
       //新聞
     $('#fileupload').on('submit',function(e){
-    var limit = indexpage.carousels;
-    var selectedCount = $("option:selected", $('#multiselect_simple')).length;
-    if( selectedCount > limit ){
-    swal({
-        title: '新聞最多'+limit+'則喔',
-        text: '',
-        type: 'warning',
-        timer: 1000
-    });
-    e.preventDefault();
-    }
+        var limit = indexpage.carousels;
+        var selectedCount = $("option:selected", $('#multiselect_simple')).length;
+        if( selectedCount > limit ){
+            swal({
+                title: '新聞最多'+limit+'則喔',
+                text: '',
+                type: 'warning',
+                timer: 1000
+            });
+            e.preventDefault();
+        }
     });
     //專題
     $('#fileupload2').on('submit',function(e){
-    var limit = indexpage.specialTopics;
-    var selectedCount = $("option:selected", $('#multiselect_simple2')).length;
-    if( selectedCount > limit ){
-    swal({
-        title: '專題最多'+limit+'則喔',
-        text: '',
-        type: 'warning',
-        timer: 1000
-    });
-    e.preventDefault();
-    }
+        var limit = indexpage.specialTopics;
+        var selectedCount = $("option:selected", $('#multiselect_simple2')).length;
+        if( selectedCount > limit ){
+            swal({
+                title: '專題最多'+limit+'則喔',
+                text: '',
+                type: 'warning',
+                timer: 1000
+            });
+            e.preventDefault();
+        }
     });
     //特輯
     $('#fileupload3').on('submit',function(e){
-    var limit = indexpage.specialChannels;
-    var selectedCount = $("option:selected", $('#multiselect_simple3')).length;
-    if( selectedCount > limit ){
-    swal({
-        title: '特輯最多'+limit+'則喔',
-        text: '',
-        type: 'warning',
-        timer: 1000
-    })
-    e.preventDefault();
-    }
+        var limit = indexpage.specialChannels;
+        var selectedCount = $("option:selected", $('#multiselect_simple3')).length;
+        if( selectedCount > limit ){
+            swal({
+                title: '特輯最多'+limit+'則喔',
+                text: '',
+                type: 'warning',
+                timer: 1000
+            })
+            e.preventDefault();
+        }
     });
     //影音
     $('#fileupload4').on('submit',function(e){
-    var limit = indexpage.videos;
-    var selectedCount = $("option:selected", $('#multiselect_simple4')).length;
-    if( selectedCount > limit ){
-    swal({
-        title: '影片最多'+limit+'則喔',
-        text: '',
-        type: 'warning',
-        timer: 1000
-    });
-    e.preventDefault();
-    }
+        var limit = indexpage.videos;
+        var selectedCount = $("option:selected", $('#multiselect_simple4')).length;
+        if( selectedCount > limit ){
+            swal({
+                title: '影片最多'+limit+'則喔',
+                text: '',
+                type: 'warning',
+                timer: 1000
+            });
+            e.preventDefault();
+        }
     });
 </script>
 {% endblock %}
