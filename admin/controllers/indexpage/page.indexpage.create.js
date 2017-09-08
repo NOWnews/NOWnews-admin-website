@@ -12,12 +12,11 @@ module.exports = async (req, res, next) => {
 
         let results = await Promise.all([
             axios.get('/indexpage'),
-            axios.get('/news?limit=60&status=RELEASE&isScheduled=false&select=title sn startedAt&noSponsored=true&sort=-startedAt'),
+            axios.get('/news?limit=60&status=RELEASE&isScheduled=false&select=title sn startedAt&noSponsored=true&sort=-startedAt&isFeed=false'),
             axios.get('/specialtopics?limit=20&select=title createdAt'),
             axios.get('/specialchannels?limit=20&select=title createdAt'),
             axios.get('/news?limit=30&status=RELEASE&type=VIDEO&isScheduled=false&select=title sn startedAt&noSponsored=true&sort=-startedAt')
         ]);
-
         let indexpage = results[0].data;
         let predata = results[1].data;
         let pretopic = results[2].data;

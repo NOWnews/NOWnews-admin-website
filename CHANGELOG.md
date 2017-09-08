@@ -9,6 +9,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 - 增加廠商專屬的列表「我的新聞(廠商)」 @esbb48
 
 ### Changed
+- 首頁管理 大五小五的地方 修改為自家新聞和外匯新聞兩個搜尋框 @appleoxxo
 - 所有新聞列表和編輯新聞使用者改成由staffId排序 @appleoxxo
 - 取得使用者列表時 加上 isInitUser 藉此篩選出匯入新聞 @appleoxxo
 - 所有新聞列表 預設只顯示非匯入新聞 @appleoxxo
