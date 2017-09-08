@@ -399,7 +399,7 @@ $('#autocomplete-ajax2').autocomplete({
         $('#autocomplete-ajax2').val("");
       },
       onHint: function (hint) {
-        $('#autocomplete-ajax-x2').val(hint);
+          $('#autocomplete-ajax-x2').val(hint);
       },
       onInvalidateSelection: function() {
         $('.selection-ajax').html('None selected');
@@ -584,27 +584,27 @@ $('#autocomplete-ajax5').autocomplete({
             'simple': customOption,
             'simple2': customOption,
             'simple3': customOption,
-            'simple4': customOption,
+            'simple4': customOption
         };
 
         $.each(widgets, function(k, i) {
             $('#multiselect_'+k).multiselect(customOption).on('multiselectChange', function(evt, ui) {
-              var selectedItem = $(ui.optionElements[0]);
-              //如果是外匯新聞 點擊後直接移除 不移到右邊待選列表
-              if( selectedItem.attr('item-feedFrom') !== 'OWN' ){
-                selectedItem.remove();
-                $('#multiselect_'+k).multiselect('destroy').multiselect(customOption);
+            var selectedItem = $(ui.optionElements[0]);
+            //如果是外匯新聞 點擊後直接移除 不移到右邊待選列表
+            if( selectedItem.attr('item-feedFrom') !== 'OWN' ){
+                  selectedItem.remove();
+            $('#multiselect_'+k).multiselect('destroy').multiselect(customOption);
 
-              }
-                $(ui.optionElements).before( '#multiselect_'+k );
-                //  如果是點擊 link, 就不改變狀態
-                if (window.linkCheck) {
-                    $(ui.optionElements).prop('selected', !ui.selected);
-                    $('#multiselect_'+k).multiselect('refresh');
-                    window.linkCheck = false;
-                }
-                var values = $.map(ui.optionElements, function(opt) { return $(opt).attr('value'); }).join(', ');
-                $('#debug_'+k).prepend( $('<div></div>').text('Multiselect change event! ' + (ui.optionElements.length == $('#multiselect_'+k).find('option').size() ? 'all ' : '') + (ui.optionElements.length + ' value' + (ui.optionElements.length > 1 ? 's were' : ' was')) + ' ' + (ui.selected ? 'selected' : 'deselected') + ' (' + values + ')') );
+            }
+            $(ui.optionElements).before( '#multiselect_'+k );
+            //  如果是點擊 link, 就不改變狀態
+            if (window.linkCheck) {
+                $(ui.optionElements).prop('selected', !ui.selected);
+                $('#multiselect_'+k).multiselect('refresh');
+                window.linkCheck = false;
+            }
+            var values = $.map(ui.optionElements, function(opt) { return $(opt).attr('value'); }).join(', ');
+            $('#debug_'+k).prepend( $('<div></div>').text('Multiselect change event! ' + (ui.optionElements.length == $('#multiselect_'+k).find('option').size() ? 'all ' : '') + (ui.optionElements.length + ' value' + (ui.optionElements.length > 1 ? 's were' : ' was')) + ' ' + (ui.selected ? 'selected' : 'deselected') + ' (' + values + ')') );
             }).on('multiselectSearch', function(evt, ui) {
                 $('#debug_'+k).prepend( $('<div></div>').text('Multiselect beforesearch event! searching for "' + ui.term + '"') );
             }).parents('.usage_simple').find('.btnGet_value').click(function(evt) {
@@ -653,59 +653,59 @@ $('#autocomplete-ajax5').autocomplete({
     };
       //新聞
       $('#fileupload').on('submit',function(e){
-        var limit = indexpage.carousels;
-        var selectedCount = $("option:selected", $('#multiselect_simple')).length;
-        if( selectedCount > limit ){
+          var limit = indexpage.carousels;
+          var selectedCount = $("option:selected", $('#multiselect_simple')).length;
+          if( selectedCount > limit ){
           swal({
-            title: '新聞最多'+limit+'則喔',
-            text: '',
-            type: 'warning',
-            timer: 1000
+              title: '新聞最多'+limit+'則喔',
+              text: '',
+              type: 'warning',
+              timer: 1000
           })
           e.preventDefault();
-        }
+          }
       });
       //專題
       $('#fileupload2').on('submit',function(e){
-        var limit = indexpage.specialTopics;
-        var selectedCount = $("option:selected", $('#multiselect_simple2')).length;
-        if( selectedCount > limit ){
-          swal({
-            title: '專題最多'+limit+'則喔',
-            text: '',
-            type: 'warning',
-            timer: 1000
-          })
-          e.preventDefault();
-        }
+          var limit = indexpage.specialTopics;
+          var selectedCount = $("option:selected", $('#multiselect_simple2')).length;
+          if( selectedCount > limit ){
+            swal({
+              title: '專題最多'+limit+'則喔',
+              text: '',
+              type: 'warning',
+              timer: 1000
+            })
+            e.preventDefault();
+          }
       });
       //特輯
       $('#fileupload3').on('submit',function(e){
-        var limit = indexpage.specialChannels;
-        var selectedCount = $("option:selected", $('#multiselect_simple3')).length;
-        if( selectedCount > limit ){
-          swal({
-            title: '特輯最多'+limit+'則喔',
-            text: '',
-            type: 'warning',
-            timer: 1000
-          })
-          e.preventDefault();
-        }
+          var limit = indexpage.specialChannels;
+          var selectedCount = $("option:selected", $('#multiselect_simple3')).length;
+          if( selectedCount > limit ){
+            swal({
+              title: '特輯最多'+limit+'則喔',
+              text: '',
+              type: 'warning',
+              timer: 1000
+            })
+            e.preventDefault();
+          }
       });
       //影音
       $('#fileupload4').on('submit',function(e){
-        var limit = indexpage.videos;
-        var selectedCount = $("option:selected", $('#multiselect_simple4')).length;
-        if( selectedCount > limit ){
-          swal({
-            title: '影片最多'+limit+'則喔',
-            text: '',
-            type: 'warning',
-            timer: 1000
-          })
-          e.preventDefault();
-        }
+          var limit = indexpage.videos;
+          var selectedCount = $("option:selected", $('#multiselect_simple4')).length;
+          if( selectedCount > limit ){
+            swal({
+              title: '影片最多'+limit+'則喔',
+              text: '',
+              type: 'warning',
+              timer: 1000
+            })
+            e.preventDefault();
+          }
       });
 </script>
 {% endblock %}
