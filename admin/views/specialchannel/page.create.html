@@ -254,21 +254,59 @@ div.debug_log {
 $('#autocomplete-ajax').autocomplete({
     serviceUrl: '/specialchannel/news',
     dataType: 'json',
-    deferRequestBy: 10000,
+    deferRequestBy: 2000,
     paramName: "title",
+    params: { status: 'RELEASE' },
+    preserveInput: true,
+    showNoSuggestionNotice: true,
+    noSuggestionNotice: '查無結果',
     onSearchStart: function(){ $('#load').addClass('loader'); console.log('onSearchStart') },
     onSearchComplete: function(){ $('#load').removeClass('loader');console.log('onSearchComplete')},
     onSearchError: function(){ $('#load').removeClass('loader');console.log('onSearchError') },
-    transformResult: function(response) {
+    transformResult: function(response, originalQuery) {
+      var suggestions =  $.map(response.newsList, function(item) {
+                return { value: item.formatStartedAt + item.title, data: item._id};
+          });
+      window.suggestions = suggestions;
         return {
-            suggestions: $.map(response.newsList, function(item) {
-                return { value: item.title, data: item._id};
-            })
+            suggestions: suggestions
         };
     },
     onSelect: function (suggestion) {
+        var suggestions = window.suggestions;
+        var selectedItemIndex;
+        for(var i = 0 ; i< suggestions.length ; i++){
+          if(suggestion.data === suggestions[i].data){
+            selectedItemIndex = i;
+          }
+        }
+        $('div.autocomplete-suggestion[data-index='+ selectedItemIndex +']').css('background-color','red');
+        $('div.autocomplete-suggestions').css('display', 'block');
+        $('div.autocomplete-suggestions').on('mouseleave',function(){
+          alert(123);
+        });
+        $('div.autocomplete-suggestions').unbind('click');
 
-        text = suggestion.data;
+        $('div.autocomplete-suggestions div').unbind('click');
+        $('div.autocomplete-suggestions div').on('click',function(){
+            $(this).css('background-color','red');
+            var index = $(this).data('index');
+            var suggestion = suggestions[index];
+            var newsId = suggestion.data;
+            if ($("#multiselect_simple option[value='"+ newsId +"']").length === 0) {
+              $('#multiselect_simple').prepend('<option value="'+ newsId +'">'+ suggestion.value +'</option>');
+              $('#multiselect_simple').multiselect('destroy').multiselect({});
+            } else {
+                sweetAlert({
+                    title: '<small>已經加入過了</small>!',
+                    text: '<span>'+ $('#autocomplete-ajax').val() +'<span>',
+                    html: true
+                });
+                $('#autocomplete-ajax').val("");
+            }
+        });
+
+        var text = suggestion.data;
         if ($("#multiselect_simple option[value='"+text+"']").length === 0) {
             $('#multiselect_simple').append('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
 
@@ -280,8 +318,7 @@ $('#autocomplete-ajax').autocomplete({
             });
             $('#autocomplete-ajax').val("");
         }
-        $('#multiselect_simple').multiselect('destroy');
-        $('#multiselect_simple').multiselect();
+        $('#multiselect_simple').multiselect('refresh');
 
       },
       onHint: function (hint) {
@@ -292,9 +329,6 @@ $('#autocomplete-ajax').autocomplete({
       }
     });
 
-$("#autocomplete-ajax").autocomplete('setOptions', {
-        params: {status: 'RELEASE',type: 'NEWS'}
-});
 // $(':text').keyup(logFunc).bind('text', logFunc);
 //         console.log(logFunc,'L290');
 
