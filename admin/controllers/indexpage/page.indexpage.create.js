@@ -12,18 +12,18 @@ module.exports = async (req, res, next) => {
 
         let results = await Promise.all([
             axios.get('/indexpage'),
-            axios.get('/news?limit=60&status=RELEASE&isScheduled=false&select=title sn startedAt&noSponsored=true&sort=-startedAt'),
+            axios.get('/news?limit=60&status=RELEASE&isScheduled=false&select=title sn startedAt&noSponsored=true&sort=-startedAt&isFeed=false'),
             axios.get('/specialtopics?limit=20&select=title createdAt'),
             axios.get('/specialchannels?limit=20&select=title createdAt'),
             axios.get('/news?limit=30&status=RELEASE&type=VIDEO&isScheduled=false&select=title sn startedAt&noSponsored=true&sort=-startedAt')
         ]);
-
         let indexpage = results[0].data;
         let predata = results[1].data;
         let pretopic = results[2].data;
         let prespecialchannel = results[3].data;
         let prevideo = results[4].data;
 
+        console.log('indexpage...',indexpage);
         predata.newsList = _.map(predata.newsList, (news, index) => {
             news.completeUrl = `/news/${news._id}`;
             news.formatStartedAt = moment.tz(news.formatStartedAt, 'Asia/Taipei').format('YYYYMMDD HH:mm');
@@ -56,7 +56,7 @@ module.exports = async (req, res, next) => {
             prevideo
         };
 
-        debug('indexpageList = %j', indexpage );
+        // debug('indexpageList = %j', indexpage );
         return res.render('indexpage/page.create.html', data);
     }
     catch(err) {
