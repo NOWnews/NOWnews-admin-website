@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
         const data = {
             Menu,
             SubMenus,
-            UpdatedBy: userId
+            CreatedBy: userId
         }
         
         let { data: menu } = await axios.post('/column/specialchannels', data);
