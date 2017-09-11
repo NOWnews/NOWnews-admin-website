@@ -22,7 +22,7 @@ module.exports = async (req, res, next) => {
         }
 
         if (SubMenus.length === 0) {
-            throw({ data: '子項不可以是空的 / 講同一個分類同時設為主與子項' });
+            throw({ data: '子項不可以是空的 / 同一個分類不可同時設為主與子項' });
         }
 
         const data = {
