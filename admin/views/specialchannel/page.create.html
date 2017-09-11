@@ -100,8 +100,8 @@
     #load {
         display: inline-block;
         position: relative;
-        left: 270px;
-        top: -18px;
+        left: 150px;
+        top: -50px;
     }
 
     .loader {
@@ -243,6 +243,15 @@
         display: block!important;
         height: 260px;
     }
+
+    div.close-circle {
+        position: absolute;
+        right: 10px;
+        top: 2px;
+        background-color: black;
+        border: 2px solid;
+        border-radius: 25px;
+    }
 </style>
 {# script 暫時放這 #}
 
@@ -293,7 +302,7 @@
         transformResult: function(response, originalQuery) {
             var suggestions = $.map(response.newsList, function(item) {
                 return {
-                    value: item.formatStartedAt +'   '+ item.title,
+                    value: item.formatStartedAt + '   ' + item.title,
                     data: item._id
                 };
             });
@@ -338,7 +347,6 @@
                         text: '<span>' + $('#autocomplete-ajax').val() + '<span>',
                         html: true
                     });
-                    $('#autocomplete-ajax').val("");
                 }
             });
 
@@ -352,7 +360,6 @@
                     text: '<span>' + $('#autocomplete-ajax').val() + '<span>',
                     html: true
                 });
-                $('#autocomplete-ajax').val("");
             }
             $('#multiselect_simple').multiselect('refresh');
 
@@ -392,7 +399,7 @@
                 direction: 'vertical'
             },
             moveEffectSpeed: 'fast',
-            sortable : true
+            sortable: true
         };
 
         var widgets = {

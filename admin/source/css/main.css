@@ -40,13 +40,3 @@ td.dailyplan-content textarea{
 .mainPhotoEle{
     display: inline-block;
 }
-
-div.close-circle{
-    position: absolute;
-    right: 0;
-    top: 0;
-    background-color: black;
-    border: 2px solid;
-    border-radius: 25px;
-
-}
