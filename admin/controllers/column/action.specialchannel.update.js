@@ -36,8 +36,7 @@ module.exports = async (req, res, next) => {
         let { data: column } = await axios.put(`/column/specialchannels/${columnId}`, data);
 
         debug('updatedColumn = %j', column);
-
-        return res.redirect(`/column/specialchannel/${columnId}`);
+        return res.redirect('/column/specialchannel');
     }
     catch(err) {
         return next(err);
