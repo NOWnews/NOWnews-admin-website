@@ -17,11 +17,16 @@ module.exports = {
         TEMP: '暫存',
         CLOSE: '關閉',
     },
+    MENU_TEMPLATES: {
+        DEFAULT: '預設版型',
+        COLUMN: '專欄版型',
+        SPECIALCHANNEL: '特輯版型'
+    },
     NEWS_TEMPLATES: {
         DEFAULT: '預設版型',
-        COLUMN: '專欄版型'
+        COLUMN: '專欄版型',
     },
-    NEWS_TEMPLATES_AD: {
+    TEMPLATES_AD: {
         'DEFAULT': '預設廣告代碼',
         '1': '客戶 01',
         '2': '客戶 02',
@@ -32,6 +37,11 @@ module.exports = {
         '7': '客戶 07',
         '8': '客戶 08',
         '9': '客戶 09',
-        '10': '客戶 10'
+        '10': '客戶 10',
+        '11': '客戶 11',
+        '12': '客戶 12',
+        '13': '客戶 13',
+        '14': '客戶 14',
+        '15': '客戶 15'
     },
 };

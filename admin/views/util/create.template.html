@@ -5,7 +5,7 @@
                 版型(業務使用)
             </label>
             <select name="template" class="form-control">
-                {% for key, type in NEWS_TEMPLATES %}
+                {% for key, type in TEMPLATES %}
                     <option value="{{ key }}"
                         {{ "selected" if key == "DEFAULT" }}>{{ type }}</option>
                 {% endfor %}
@@ -18,7 +18,7 @@
                 版型廣告代碼(業務使用)
             </label>
             <select name="templateAD" class="form-control">
-                {% for key, type in NEWS_TEMPLATES_AD %}
+                {% for key, type in TEMPLATES_AD %}
                     <option value="{{ key }}"
                         {{ "selected" if key == "DEFAULT" }}>{{ type }}</option>
                 {% endfor %}
