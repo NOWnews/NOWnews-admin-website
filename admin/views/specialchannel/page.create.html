@@ -331,7 +331,7 @@
                 var newsId = suggestion.data;
                 if ($("#multiselect_simple option[value='" + newsId + "']").length === 0) {
                     $('#multiselect_simple').prepend('<option value="' + newsId + '">' + suggestion.value + '</option>');
-                    $('#multiselect_simple').multiselect('destroy').multiselect({});
+                    $('#multiselect_simple').multiselect('refresh').multiselect({});
                 } else {
                     sweetAlert({
                         title: '<small>已經加入過了</small>!',
@@ -387,12 +387,12 @@
     $(function() {
 
         var defaultOptions = {
-            //availableListPosition: 'bottom',
             moveEffect: 'blind',
             moveEffectOptions: {
                 direction: 'vertical'
             },
-            moveEffectSpeed: 'fast'
+            moveEffectSpeed: 'fast',
+            sortable : true
         };
 
         var widgets = {
@@ -401,6 +401,8 @@
                 sortable: true
             })
         };
+
+        // $('#multiselect_simple').multiselect();
 
         $.each(widgets, function(k, i) {
             $('#multiselect_' + k).multiselect(i).on('multiselectChange', function(evt, ui) {
