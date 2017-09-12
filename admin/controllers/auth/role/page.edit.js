@@ -7,6 +7,7 @@ module.exports = async (req, res, next) => {
     try {
 
         let { data: role } = await axios.get(`/roles/${req.params.id}`);
+        let { data: roleList } = await axios.get('/roles?limit=50');
 
         let { data: defaultPolicies } = await axios.get('/policies/group');
 
@@ -22,6 +23,7 @@ module.exports = async (req, res, next) => {
             checkedPolicies,
             defaultPolicies,
             role,
+            roleList,
         });
     }
     catch(err) {

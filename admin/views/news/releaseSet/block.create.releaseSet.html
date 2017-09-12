@@ -45,7 +45,7 @@
                     <label class="control-label"><span class="text-danger">*</span>指定送審人</label>
                     <select name="LastReviewer" class="form-control select2" required>
                         <option value=""></option>
-                        {% for user in userList %}
+                        {% for user in reviewers %}
                             {% if user._id != currentUser._id %}
                                 <option value="{{ user._id }}">{{ user.name }}</option>
                             {% endif %}
