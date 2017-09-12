@@ -11,6 +11,8 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 - 增加版型提醒在選單排序頁 @esbb48
 
 ### Changed
+- 修正首頁管理 點擊左側項目後項目直接消失bug  @appleoxxo
+- 特輯/新增特輯修改UI和autocomplete搜尋等待時間 @appleoxxo
 - 每個刪除端點補上 updateBy @wb
 - 首頁管理 大五小五的地方 修改為自家新聞和外匯新聞兩個搜尋框 @appleoxxo
 - 所有新聞列表和編輯新聞使用者改成由staffId排序 @appleoxxo

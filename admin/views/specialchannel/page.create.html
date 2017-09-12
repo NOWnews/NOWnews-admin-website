@@ -1,14 +1,8 @@
-{% set title = "新增特輯" %}
-{% extends "../base.html" %}
-{% from "../util/form-user-record.html" import formUserRecord %}
-
-{% block headTitle %}
-    <title>大編輯台 | {{ title }}</title>
-{% endblock %}
-
-{% block container %}
+{% set title = "新增特輯" %} {% extends "../base.html" %} {% from "../util/form-user-record.html" import formUserRecord %} {% block headTitle %}
+<title>大編輯台 | {{ title }}</title>
+{% endblock %} {% block container %}
 <section class="content">
-    <form id="fileupload" action="/specialchannel/create" method="POST" >
+    <form id="fileupload" action="/specialchannel/create" method="POST">
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">特輯設定</h3>
@@ -21,7 +15,7 @@
             <div class="box-body">
                 <div class="row">
                     <div id="selction-ajax">
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
 
                             <div class="form-group">
                                 <label for="shortTitle" class="control-label">
@@ -34,20 +28,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-5">
+                    <div class="col-sm-3">
                         <label class="control-label">新聞搜尋</label>
                         <div class="container-search">
-                              <div class="search">
+                            <div class="search">
                                 <input type="text" id="autocomplete-ajax" class="input form-control" placeholder="search" />
                                 <input type="text" id="autocomplete-ajax-x" disabled="disabled" />
                                 <span id="load"></span>
-                              </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-12">
+                    <div class="col-sm-9">
                         <div id="usage_simple" style="position:relative;">
                             <div class="example-container ui-helper-clearfix">
-                                <select id="multiselect_simple" name="newsList" class="multiselect" multiple="multiple" style="width:60%">
+                                <select id="multiselect_simple" name="newsList" class="multiselect" multiple="multiple" style="width:80%">
                                 </select>
                             </div>
                             <!-- debug留用參考 -->
@@ -66,8 +60,7 @@
             </div>
         </div>
 
-        {# 主圖設定 #}
-        {% include "../news/newsBlock/photo.html" %}
+        {# 主圖設定 #} {% include "../news/newsBlock/photo.html" %}
         <div class="edit-footer text-center">
             <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
             <a href="#" class="btn bg-maroon btn-flat margin">取消</a>
@@ -76,166 +69,191 @@
 </section>
 
 <style>
-.search {
-  position: relative;
-  height: 80px;
-}
-#autocomplete-ajax {
-  border: 1px solid #CCC;
-  display: block;
-  position: absolute;
-  background: transparent;
-}
-#autocomplete-ajax {
-  z-index: 2;
-  background: url('https://icon.now.sh/search/32') no-repeat center right 5px;
-  background-size: contain;
-}
-#autocomplete-ajax-x {
-  color: #CCC;
-  z-index: 1;
-  display: none;
-}
-#selection-ajax {
-  position: relative;
+    .search {
+        position: relative;
+        height: 80px;
+    }
 
-}
+    #autocomplete-ajax {
+        border: 1px solid #CCC;
+        display: block;
+        position: absolute;
+        background: transparent;
+    }
 
-#load {
-  display: inline-block;
-  position: relative;
-  left: 270px;
-  top: -18px;
-}
-.loader {
-  font-size: 10px;
-  margin: 50px auto;
-  text-indent: -9999em;
-  width: 3em;
-  height: 3em;
-  border-radius: 50%;
-  background: #7be4ff;
-  background: -moz-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
-  background: -webkit-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
-  background: -o-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
-  background: -ms-linear-gradient(left, #7be4ff 10%, rgba(123,228,255, 0) 42%);
-  background: linear-gradient(to right, #7be4ff 10%, rgba(123,228,255, 0) 42%);
-  position: relative;
-  -webkit-animation: load3 1.4s infinite linear;
-  animation: load3 1.4s infinite linear;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-}
-.loader:before {
-  width: 50%;
-  height: 50%;
-  background: #7be4ff;
-  border-radius: 100% 0 0 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: '';
-}
-.loader:after {
-  background: #fff;
-  width: 75%;
-  height: 75%;
-  border-radius: 50%;
-  content: '';
-  margin: auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
-@-webkit-keyframes load3 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@keyframes load3 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-.autocomplete-suggestions {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  border: 1px solid #999;
-  background: #FFF;
-  cursor: default;
-  overflow: auto;
-  -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
-  -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
-  box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
-}
-.autocomplete-suggestion {
-  padding: 2px 5px;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.autocomplete-no-suggestion {
-  padding: 2px 5px;
-}
-.autocomplete-selected {
-  background: #F0F0F0;
-}
-.autocomplete-suggestions strong {
-  font-weight: bold;
-  color: #000;
-}
-.autocomplete-group {
-  padding: 2px 5px;
-}
-.autocomplete-group strong {
-  font-weight: bold;
-  font-size: 16px;
-  color: #000;
-  display: block;
-  border-bottom: 1px solid #000;
-}
+    #autocomplete-ajax {
+        z-index: 2;
+        background: url('https://icon.now.sh/search/32') no-repeat center right 5px;
+        background-size: contain;
+    }
 
-.multiselect {
-    width: 450px;
-    height: 100%!important;
-}
-div.debug_uiControls {
-    margin-top: 16px;
-}
-div.debug_log {
-    height: 100px;
-    overflow: auto;
-    border: 1px solid black;
-    padding: 8px;
-    margin-top: 16px;
-    display: none;
-}
-.example-container {
-    overflow:visible;
-    width:100%;
-}
+    #autocomplete-ajax-x {
+        color: #CCC;
+        z-index: 1;
+        display: none;
+    }
 
+    #selection-ajax {
+        position: relative;
+    }
 
-.uix-multiselect {
-    display: block!important;
-    height:260px;
-}
+    #load {
+        display: inline-block;
+        position: relative;
+        left: 150px;
+        top: -50px;
+    }
 
+    .loader {
+        font-size: 10px;
+        margin: 50px auto;
+        text-indent: -9999em;
+        width: 3em;
+        height: 3em;
+        border-radius: 50%;
+        background: #7be4ff;
+        background: -moz-linear-gradient(left, #7be4ff 10%, rgba(123, 228, 255, 0) 42%);
+        background: -webkit-linear-gradient(left, #7be4ff 10%, rgba(123, 228, 255, 0) 42%);
+        background: -o-linear-gradient(left, #7be4ff 10%, rgba(123, 228, 255, 0) 42%);
+        background: -ms-linear-gradient(left, #7be4ff 10%, rgba(123, 228, 255, 0) 42%);
+        background: linear-gradient(to right, #7be4ff 10%, rgba(123, 228, 255, 0) 42%);
+        position: relative;
+        -webkit-animation: load3 1.4s infinite linear;
+        animation: load3 1.4s infinite linear;
+        -webkit-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+
+    .loader:before {
+        width: 50%;
+        height: 50%;
+        background: #7be4ff;
+        border-radius: 100% 0 0 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+    }
+
+    .loader:after {
+        background: #fff;
+        width: 75%;
+        height: 75%;
+        border-radius: 50%;
+        content: '';
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+
+    @-webkit-keyframes load3 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes load3 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    .autocomplete-suggestions {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        border: 1px solid #999;
+        background: #FFF;
+        cursor: default;
+        overflow: auto;
+        -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+        -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+        box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+    }
+
+    .autocomplete-suggestion {
+        padding: 2px 5px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .autocomplete-no-suggestion {
+        padding: 2px 5px;
+    }
+
+    .autocomplete-selected {
+        background: #F0F0F0;
+    }
+
+    .autocomplete-suggestions strong {
+        font-weight: bold;
+        color: #000;
+    }
+
+    .autocomplete-group {
+        padding: 2px 5px;
+    }
+
+    .autocomplete-group strong {
+        font-weight: bold;
+        font-size: 16px;
+        color: #000;
+        display: block;
+        border-bottom: 1px solid #000;
+    }
+
+    .multiselect {
+        width: 450px;
+        height: 100%!important;
+    }
+
+    div.debug_uiControls {
+        margin-top: 16px;
+    }
+
+    div.debug_log {
+        height: 100px;
+        overflow: auto;
+        border: 1px solid black;
+        padding: 8px;
+        margin-top: 16px;
+        display: none;
+    }
+
+    .example-container {
+        overflow: visible;
+        width: 100%;
+    }
+
+    .uix-multiselect {
+        display: block!important;
+        height: 260px;
+    }
+
+    div.close-circle {
+        position: absolute;
+        right: 10px;
+        top: 2px;
+        background-color: black;
+        border: 2px solid;
+        border-radius: 25px;
+    }
 </style>
-{#  script 暫時放這   #}
+{# script 暫時放這 #}
 
 
 <script src="/static/js/jquery-ui.min.js"></script>
@@ -250,71 +268,138 @@ div.debug_log {
 <script src="/static/js/sweetalert.min.js"></script>
 
 <script>
-// Initialize ajax autocomplete:
-$('#autocomplete-ajax').autocomplete({
-    serviceUrl: '/specialchannel/news',
-    dataType: 'json',
-    deferRequestBy: 10000,
-    paramName: "title",
-    onSearchStart: function(){ $('#load').addClass('loader'); console.log('onSearchStart') },
-    onSearchComplete: function(){ $('#load').removeClass('loader');console.log('onSearchComplete')},
-    onSearchError: function(){ $('#load').removeClass('loader');console.log('onSearchError') },
-    transformResult: function(response) {
-        return {
-            suggestions: $.map(response.newsList, function(item) {
-                return { value: item.title, data: item._id};
-            })
-        };
-    },
-    onSelect: function (suggestion) {
-
-        text = suggestion.data;
-        if ($("#multiselect_simple option[value='"+text+"']").length === 0) {
-            $('#multiselect_simple').append('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
-
-        } else {
-            sweetAlert({
-                title: '<small>已經加入過了</small>!',
-                text: '<span>'+ $('#autocomplete-ajax').val() +'<span>',
-                html: true
+    var autoCompleteOptions = {
+        serviceUrl: '/specialchannel/news',
+        dataType: 'json',
+        deferRequestBy: 2000,
+        paramName: "title",
+        params: {
+            status: 'RELEASE'
+        },
+        preserveInput: true,
+        showNoSuggestionNotice: true,
+        noSuggestionNotice: '查無結果',
+        onSearchStart: function() {
+            $('#load').addClass('loader');
+            console.log('onSearchStart')
+        },
+        onSearchComplete: function() {
+            $('#load').removeClass('loader');
+            $('div.autocomplete-suggestions').append(
+                '<div class="close-circle"><svg width="19" height="19" viewBox="-1 -1 50 50" data-icon="close" style="stroke-width: 2; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255); vertical-align: bottom;"><path d="M37.98 34.827l-9.9-9.9 9.9-9.898c.78-.782.78-2.05 0-2.83-.78-.78-2.047-.78-2.828 0l-9.9 9.9-9.898-9.9c-.78-.78-2.048-.78-2.828 0-.78.78-.78 2.047 0 2.828l9.9 9.9-9.9 9.898c-.78.78-.78 2.047 0 2.828.78.78 2.047.78 2.828 0l9.9-9.9 9.898 9.9c.78.78 2.048.78 2.828 0 .782-.78.782-2.047 0-2.827z"></path></svg></div>'
+            );
+            $('div.autocomplete-suggestions').on('click', 'div.close-circle', function() {
+                $('#autocomplete-ajax').autocomplete().dispose();
+                $('#autocomplete-ajax').autocomplete(autoCompleteOptions);
+                $(this).remove();
             });
-            $('#autocomplete-ajax').val("");
+            console.log('onSearchComplete');
+        },
+        onSearchError: function() {
+            $('#load').removeClass('loader');
+            console.log('onSearchError')
+        },
+        transformResult: function(response, originalQuery) {
+            var suggestions = $.map(response.newsList, function(item) {
+                return {
+                    value: item.formatStartedAt + '   ' + item.title,
+                    data: item._id
+                };
+            });
+            window.suggestions = suggestions;
+            return {
+                suggestions: suggestions
+            };
+        },
+        onSelect: function(suggestion) {
+            //取消原autocomplete點擊事件
+            $('div.autocomplete-suggestions').unbind('click');
+            $('div.autocomplete-suggestions').on('click', 'div.close-circle', function() {
+                $('#autocomplete-ajax').autocomplete().dispose();
+                $('#autocomplete-ajax').autocomplete(autoCompleteOptions);
+                $(this).remove();
+            });
+            //將第一次點擊的項目變色
+            var suggestions = window.suggestions;
+            var selectedItemIndex;
+            for (var i = 0; i < suggestions.length; i++) {
+                if (suggestion.data === suggestions[i].data) {
+                    selectedItemIndex = i;
+                }
+            }
+            $('div.autocomplete-suggestion[data-index=' + selectedItemIndex + ']').css('background-color', 'gray');
+
+            //點擊後 suggestions list 保持原位置 不隱藏
+            $('div.autocomplete-suggestions').css('display', 'block');
+
+            //onSelect只監聽第一次點擊 這裡加上之後的suggestion click監聽
+            $('div.autocomplete-suggestions div.autocomplete-suggestion').on('click', function() {
+                $(this).css('background-color', 'gray');
+                var index = $(this).data('index');
+                var suggestion = suggestions[index];
+                var newsId = suggestion.data;
+                if ($("#multiselect_simple option[value='" + newsId + "']").length === 0) {
+                    $('#multiselect_simple').prepend('<option value="' + newsId + '">' + suggestion.value + '</option>');
+                    $('#multiselect_simple').multiselect('refresh').multiselect({});
+                } else {
+                    sweetAlert({
+                        title: '<small>已經加入過了</small>!',
+                        text: '<span>' + $('#autocomplete-ajax').val() + '<span>',
+                        html: true
+                    });
+                }
+            });
+
+            var text = suggestion.data;
+            if ($("#multiselect_simple option[value='" + text + "']").length === 0) {
+                $('#multiselect_simple').append('<option value="' + suggestion.data + '">' + suggestion.value + '</option>');
+
+            } else {
+                sweetAlert({
+                    title: '<small>已經加入過了</small>!',
+                    text: '<span>' + $('#autocomplete-ajax').val() + '<span>',
+                    html: true
+                });
+            }
+            $('#multiselect_simple').multiselect('refresh');
+
+        },
+        onHint: function(hint) {
+            $('#autocomplete-ajax-x').val(hint);
+        },
+        onInvalidateSelection: function() {
+            $('#selection-ajax').html('None selected');
         }
-        $('#multiselect_simple').multiselect('destroy');
-        $('#multiselect_simple').multiselect();
+    };
 
-      },
-      onHint: function (hint) {
-        $('#autocomplete-ajax-x').val(hint);
-      },
-      onInvalidateSelection: function() {
-        $('#selection-ajax').html('None selected');
-      }
+
+    // Initialize ajax autocomplete:
+    $('#autocomplete-ajax').autocomplete(autoCompleteOptions);
+
+
+
+    // $(':text').keyup(logFunc).bind('text', logFunc);
+    //         console.log(logFunc,'L290');
+
+    // 讓 input 按 enter 沒有效果
+    $('.input').keypress(function(e) {
+        var code = e.keyCode ? e.keyCode : e.which;
+        if (code == 13) {
+            e.preventDefault();
+        }
     });
-
-$("#autocomplete-ajax").autocomplete('setOptions', {
-        params: {status: 'RELEASE',type: 'NEWS'}
-});
-// $(':text').keyup(logFunc).bind('text', logFunc);
-//         console.log(logFunc,'L290');
-
-// 讓 input 按 enter 沒有效果
-  $('.input').keypress(function(e) {
-      var code = e.keyCode ? e.keyCode : e.which;
-      if(code == 13) {
-          e.preventDefault();
-      }
-  });
 </script>
 
 <script type="text/javascript">
     $(function() {
 
         var defaultOptions = {
-            //availableListPosition: 'bottom',
             moveEffect: 'blind',
-            moveEffectOptions: {direction:'vertical'},
-            moveEffectSpeed: 'fast'
+            moveEffectOptions: {
+                direction: 'vertical'
+            },
+            moveEffectSpeed: 'fast',
+            sortable: true
         };
 
         var widgets = {
@@ -324,21 +409,30 @@ $("#autocomplete-ajax").autocomplete('setOptions', {
             })
         };
 
+        // $('#multiselect_simple').multiselect();
+
         $.each(widgets, function(k, i) {
-            $('#multiselect_'+k).multiselect(i).on('multiselectChange', function(evt, ui) {
-                var values = $.map(ui.optionElements, function(opt) { return $(opt).attr('value'); }).join(', ');
-                $('#debug_'+k).prepend( $('<div></div>').text('Multiselect change event! ' + (ui.optionElements.length == $('#multiselect_'+k).find('option').size() ? 'all ' : '') + (ui.optionElements.length + ' value' + (ui.optionElements.length > 1 ? 's were' : ' was')) + ' ' + (ui.selected ? 'selected' : 'deselected') + ' (' + values + ')') );
+            $('#multiselect_' + k).multiselect(i).on('multiselectChange', function(evt, ui) {
+                var values = $.map(ui.optionElements, function(opt) { 
+                    return $(opt).attr('value');
+                }).join(', ');
+                $('#debug_' + k).prepend($('<div></div>').text('Multiselect change event! ' + (ui.optionElements.length ==
+                    $('#multiselect_' + k).find('option').size() ? 'all ' : '') + (ui.optionElements.length +
+                    ' value' + (ui.optionElements.length > 1 ? 's were' : ' was')) + ' ' + (ui.selected ?
+                    'selected' : 'deselected') + ' (' + values + ')'));
             }).on('multiselectSearch', function(evt, ui) {
-                $('#debug_'+k).prepend( $('<div></div>').text('Multiselect beforesearch event! searching for "' + ui.term + '"') );
+                $('#debug_' + k).prepend($('<div></div>').text('Multiselect beforesearch event! searching for "' +
+                    ui.term + '"'));
             }).parents('#usage_simple').find('#btnGet_value').click(function(evt) {
-                evt.preventDefault(); evt.stopPropagation();
-                $('#debug_'+k).prepend( $('<div></div>').text("Submit query = " + $('form').serialize() ) );
+                evt.preventDefault();
+                evt.stopPropagation();
+                $('#debug_' + k).prepend($('<div></div>').text("Submit query = " + $('form').serialize()));
 
                 return false;
             });
 
-            $('#btnToggleOriginal_'+k).click(function() {
-                var _m = $('#multiselect_'+k);
+            $('#btnToggleOriginal_' + k).click(function() {
+                var _m = $('#multiselect_' + k);
                 if (_m.is(':visible')) {
                     _m.next().toggle().end().toggleClass('uix-multiselect-original').multiselect('refresh');
                 } else {
@@ -346,13 +440,13 @@ $("#autocomplete-ajax").autocomplete('setOptions', {
                 }
                 return false;
             });
-            $('#btnSearch_'+k).click(function() {
-                $('#multiselect_'+k).multiselect('search', $('#txtSearch_'+k).val());
+            $('#btnSearch_' + k).click(function() {
+                $('#multiselect_' + k).multiselect('search', $('#txtSearch_' + k).val());
             });
-            $('#multiselect_'+k+ ' option').each(function(){
+            $('#multiselect_' + k + ' option').each(function() {
                 text = $(this).val();
-                if ($("#multiselect_"+k+ " option[value='"+text+"']").length >1){
-                    $("#multiselect_"+k+ " option[value='"+text+"']:gt(0)").remove();
+                if ($("#multiselect_" + k + " option[value='" + text + "']").length > 1) {
+                    $("#multiselect_" + k + " option[value='" + text + "']:gt(0)").remove();
                 }
             });
 
