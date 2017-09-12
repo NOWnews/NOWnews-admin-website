@@ -5,8 +5,10 @@ module.exports = async (req, res, next) => {
 
     try {
         let { menuId } = req.params;
+        let UpdatedBy = req.session.adminUser._id;
+        let data = {UpdatedBy};
 
-        let { data: menu } = await axios.delete( `/menus/${menuId}` );
+        let { data: menu } = await axios.delete( `/menus/${menuId}`, { data });
 
         debug('removedMenu = %j', menu);
 

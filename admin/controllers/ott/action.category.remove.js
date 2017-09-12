@@ -5,8 +5,9 @@ module.exports = async (req, res, next) => {
 
     try {
         let { id } = req.params;
-        console.log(id,"L8")
-        let { data: ott } = await axios.delete(`/ott/categories/${id}`);
+        let UpdatedBy = req.session.adminUser._id;
+        let data = {UpdatedBy};
+        let { data: ott } = await axios.delete(`/ott/categories/${id}`, { data });
 
         debug('removedOttNameCategory = %j', ott);
 
