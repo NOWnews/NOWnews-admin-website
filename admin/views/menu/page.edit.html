@@ -71,6 +71,9 @@
                 {# 版型 #}
                 {% set data = menu %}
                 {% include "../util/edit.template.html" %}
+                <span class="control">
+                    Note: 如果為<label class='label label-info'>特輯版型</label>，記得建立完畢到<a href='/column/specialchannel' target="_blank">專欄（特輯版型）</a>管理
+                </span>
             </div>
         </div>
         {# 第一版先隱藏起來
@@ -170,7 +173,7 @@
         </div>
         <div class="edit-footer text-center">
             <button type="submit" class="btn bg-olive btn-flat margin">儲存</button>
-            <button type="button" class="btn bg-maroon btn-flat margin">取消</button>
+            <button type="reset" class="btn bg-maroon btn-flat margin">取消</button>
         </div>
     </form>
 </section>

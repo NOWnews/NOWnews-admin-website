@@ -1,7 +1,7 @@
 
 import Debug from 'debug';
 import moment from 'moment-timezone';
-import { NEWS_TYPES, NEWS_STATUS, NEWS_TEMPLATES, NEWS_TEMPLATES_AD } from '../../util/constants';
+import { NEWS_TYPES, NEWS_STATUS, NEWS_TEMPLATES, TEMPLATES_AD } from '../../util/constants';
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.edit');
 import checkSchedule from '../../util/checkSchedule.js';
 module.exports = async (req, res, next) => {
@@ -64,8 +64,8 @@ module.exports = async (req, res, next) => {
         return res.render('news/page.news.edit.html', {
             NEWS_TYPES,
             NEWS_STATUS,
-            NEWS_TEMPLATES,
-            NEWS_TEMPLATES_AD,
+            TEMPLATES: NEWS_TEMPLATES,
+            TEMPLATES_AD,
             news,
             newsMemos,
             menus,

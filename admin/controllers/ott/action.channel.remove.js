@@ -5,7 +5,9 @@ module.exports = async (req, res, next) => {
 
     try {
         let { id } = req.params;
-        let { data: ott } = await axios.delete(`/ott/channels/${id}`);
+        let UpdatedBy = req.session.adminUser._id;
+        let data = {UpdatedBy};
+        let { data: ott } = await axios.delete(`/ott/channels/${id}`, { data });
 
         debug('removedOttNameChannel = %j', ott);
 

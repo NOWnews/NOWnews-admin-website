@@ -6,8 +6,10 @@ module.exports = async (req, res, next) => {
     try {
 
         let { id } = req.params;
+        let UpdatedBy = req.session.adminUser._id;
+        let data = {UpdatedBy};
 
-        let { data: removedPost } = await axios.delete( `/postBoard/${id}` );
+        let { data: removedPost } = await axios.delete( `/postBoard/${id}`, { data });
 
         debug('removedRemovedPost = %j', removedPost);
 
