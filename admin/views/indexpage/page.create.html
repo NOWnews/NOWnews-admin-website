@@ -590,11 +590,6 @@ $('#autocomplete-ajax5').autocomplete({
         $.each(widgets, function(k, i) {
             $('#multiselect_'+k).multiselect(customOption).on('multiselectChange', function(evt, ui) {
             var selectedItem = $(ui.optionElements[0]);
-            //如果是外匯新聞 點擊後直接移除 不移到右邊待選列表
-            if( selectedItem.attr('item-feedFrom') !== 'OWN' ){
-                selectedItem.remove();
-                $('#multiselect_'+k).multiselect('destroy').multiselect(customOption);
-            }
             $(ui.optionElements).before( '#multiselect_'+k );
             //  如果是點擊 link, 就不改變狀態
             if (window.linkCheck) {
