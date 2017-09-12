@@ -96,6 +96,7 @@ module.exports = async (req, res, next) => {
                 redirectUrl = '/news/reviewList';
                 break;
             case 'release':
+                data.UpdateUserRole = req.session.adminUser.Role._id;
                 // let now = moment.tz('Asia/Taipei').valueOf();
                 // let start = moment.tz(data.startedAt ,'Asia/Taipei').valueOf();
                 // let formatTime = moment.tz(now ,'Asia/Taipei').format('YYYY-MM-DD HH:mm:ss');

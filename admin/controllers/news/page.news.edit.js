@@ -9,17 +9,20 @@ module.exports = async (req, res, next) => {
     try {
 
         let { newsId } = req.params;
+        let roleId = req.session.adminUser.Role._id;
 
         let [
             { data: news },
             { data: { users: userList } },
             { data: menus },
             { data: newsMemos },
+            { data: reviewers },
         ] = await Promise.all([
             axios.get(`/news/${newsId}`),
             axios.get('/users?limit=10000&isInitUser=true&sort=staffId'),
             axios.get('/menus/struction'),
             axios.get(`/newsmemo?News=${newsId}&sort=createdAt`),
+            axios.get(`/roles/${roleId}/reviewers`),
         ]);
 
         let selectMenus = _.map( news.Menus, (menu) => {
@@ -62,6 +65,7 @@ module.exports = async (req, res, next) => {
         req.session.prevUrl = req.headers.referer;
 
         return res.render('news/page.news.edit.html', {
+            reviewers,
             NEWS_TYPES,
             NEWS_STATUS,
             NEWS_TEMPLATES,
