@@ -5,8 +5,10 @@ module.exports = async (req, res, next) => {
 
     try {
         let { columnId } = req.params;
+        let UpdatedBy = req.session.adminUser._id;
+        let data = {UpdatedBy};
 
-        let { data: column } = await axios.delete( `/column/specialchannels/${columnId}` );
+        let { data: column } = await axios.delete( `/column/specialchannels/${columnId}`, { data });
 
         debug('removedColumn = %j', column);
 

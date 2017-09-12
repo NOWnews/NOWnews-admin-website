@@ -5,8 +5,10 @@ module.exports = async (req, res, next) => {
     try {
 
         let { id } = req.params;
+        let UpdatedBy = req.session.adminUser._id;
+        let data = {UpdatedBy};
 
-        let { data: removedDailyPlan } = await axios.delete( `/dailyPlan/${id}` );
+        let { data: removedDailyPlan } = await axios.delete( `/dailyPlan/${id}`, { data });
 
         debug('removedDailyPlan = %j', removedDailyPlan);
 
