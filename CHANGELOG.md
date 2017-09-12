@@ -7,6 +7,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 ## [Unreleased]
 ### Added 
 - 增加廠商專屬的列表「我的新聞(廠商)」 @esbb48
+- 增加下拉選單「可被什麼角色審稿」於角色新增編輯頁面 @esbb48
 
 ### Changed
 - 首頁管理 大五小五的地方 修改為自家新聞和外匯新聞兩個搜尋框 @appleoxxo
