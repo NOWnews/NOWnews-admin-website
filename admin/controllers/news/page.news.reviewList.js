@@ -2,7 +2,7 @@ import config from 'config';
 import Debug from 'debug';
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.reviewList');
 import qs from 'querystring';
-import { NEWS_TYPES, NEWS_STATUS, NEWS_TEMPLATES, NEWS_TEMPLATES_AD } from '../../util/constants';
+import { NEWS_TYPES, NEWS_STATUS, NEWS_TEMPLATES, TEMPLATES_AD } from '../../util/constants';
 import checkSchedule from '../../util/checkSchedule';
 
 module.exports = async (req, res, next) => {
@@ -42,8 +42,8 @@ module.exports = async (req, res, next) => {
             officialUrl,
             NEWS_STATUS,
             NEWS_TYPES,
-            NEWS_TEMPLATES,
-            NEWS_TEMPLATES_AD,
+            TEMPLATES: NEWS_TEMPLATES,
+            TEMPLATES_AD,
             newsListInfo,
             pageData,
             listDescription

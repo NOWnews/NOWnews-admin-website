@@ -7,10 +7,13 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 ## [Unreleased]
 ### Added
 - 增加廠商專屬的列表「我的新聞(廠商)」 @esbb48
+- 增加專欄管理（特輯版型） @esbb48
+- 增加版型提醒在選單排序頁 @esbb48
 
 ### Changed
 - 修正首頁管理 點擊左側項目後項目直接消失bug  @appleoxxo
 - 特輯/新增特輯修改UI和autocomplete搜尋等待時間 @appleoxxo
+- 每個刪除端點補上 updateBy @wb
 - 首頁管理 大五小五的地方 修改為自家新聞和外匯新聞兩個搜尋框 @appleoxxo
 - 所有新聞列表和編輯新聞使用者改成由staffId排序 @appleoxxo
 - 取得使用者列表時 加上 isInitUser 藉此篩選出匯入新聞 @appleoxxo
@@ -19,6 +22,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 - 新增新聞時預設作者改為空白 而不是許家禎 @appleoxxo
 - 審稿時可直接編輯主圖圖說 @appleoxxo
 - 新增版主班表管理(目前隱藏) @wb
+- 增加至 15 個廣告代碼 @esbb48
 
 ## 1.0.11 - 2017-08-31
 ### Changed

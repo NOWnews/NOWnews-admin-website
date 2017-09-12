@@ -10,11 +10,11 @@ module.exports = async (req, res, next) => {
         let { messageId } = req.body;
         let UpdatedBy = req.session.adminUser._id;
 
-        let data = {messageId, UpdatedBy};
+        let data = { messageId, UpdatedBy };
 
         debug('removedRemovedData = %j', data);
 
-        let { data: removedMessage } = await axios.delete( `/postBoard/${id}/message`, { data } );
+        let { data: removedMessage } = await axios.delete( `/postBoard/${id}/message`, { data });
 
         debug('removedRemovedMessage = %j', removedMessage);
 
