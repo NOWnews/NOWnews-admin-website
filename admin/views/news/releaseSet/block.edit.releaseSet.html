@@ -43,6 +43,12 @@
                     {% elif news.status == 'RELEASE' %}
                         <div class="radio">
                             <label>
+                                <input type="radio" name="status" id="status-review" value="REVIEW">
+                                送審
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
                                 <input type="radio" name="status" id="status-release" value="RELEASE" {{ "checked" if news.status == 'RELEASE' }}>
                                 發布
                             </label>
