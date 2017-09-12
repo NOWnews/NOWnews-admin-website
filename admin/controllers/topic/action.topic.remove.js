@@ -6,10 +6,10 @@ module.exports = async (req, res, next) => {
     try {
         let { topicId } = req.params;
 
-        let userId = req.session.adminUser._id;
+        let UpdatedBy = req.session.adminUser._id;
         let data = req.body;
 
-        data.UpdatedBy = userId;
+        data.UpdatedBy = UpdatedBy;
 
         let { data: topic } = await axios({method: 'delete', url: `/specialtopics/${topicId}`, data: data});
 
