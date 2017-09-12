@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
 
     try {
 
-       let { title, status, type }= req.query;
+        let { title, status, type }= req.query;
         let queryString = req._parsedUrl.query;
 
         debug('req.query = %j',req.query);
@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
         debug('news = %j', newsList);
 
         _.map( newsList , (news)=>{
-          news.formatStartedAt = moment.tz(news.formatStartedAt,'Asia/Taipei').format('YYYY-MM-DD HH:mm')
+            news.formatStartedAt = moment.tz(news.formatStartedAt,'Asia/Taipei').format('YYYY-MM-DD HH:mm')
         });
 
 
