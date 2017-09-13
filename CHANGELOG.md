@@ -13,6 +13,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 - 新聞發布時增加角色驗證 @esbb48
 
 ### Changed
+- 原本發布的新聞也可以改成審稿狀態 @wb
 - 修正首頁管理 點擊左側項目後項目直接消失bug  @appleoxxo
 - 特輯/新增特輯修改UI和autocomplete搜尋等待時間 @appleoxxo
 - 每個刪除端點補上 updateBy @wb
