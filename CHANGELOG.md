@@ -5,6 +5,8 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+
+## 1.0.12 - 2017-09-13
 ### Added
 - 增加廠商專屬的列表「我的新聞(廠商)」 @esbb48
 - 增加專欄管理（特輯版型） @esbb48
