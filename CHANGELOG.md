@@ -6,6 +6,8 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ## [Unreleased]
 
+## 1.0.14 - 2017-09-14
+### Fixed
 - 修復新增新聞 指定送審人未選擇無法儲存草稿的bug @appleoxxo
 - 修復新增新聞 預設作者失效的bug @appleoxxo
 
