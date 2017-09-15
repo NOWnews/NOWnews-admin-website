@@ -17,13 +17,14 @@ module.exports = async (req, res, next) => {
 
         //取得 FormData 和 Headers
         let { formData, headers } = await new Promise((resolve) => {
-            let { title, desc, type, isDeliver, isWatermark } = req.body;
+            let { title, desc, type, isDeliver, isWatermark, keyword } = req.body;
             let fd = new FormData();
             if (isWatermark === 'true') {
                 fd.append('isWatermark', isWatermark);
             }
             fd.append('title', title);
             fd.append('desc', desc);
+            fd.append('keyword', keyword);
             fd.append('type', type);
             fd.append('isDeliver', isDeliver);
             fd.append('CreatedBy', userId);

@@ -5,6 +5,9 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+
+### Added
+- 新增圖片關鍵字功能 供內部搜尋圖片使用
 ### Fixed
 - 修復新增特輯 搜尋顯示列表的時間順序改為發佈時間 且僅搜尋自家新聞 @appleoxxo
 ## 1.0.14 - 2017-09-14

@@ -165,13 +165,14 @@ $(function () {
             var isWatermark = submitRow.find('input[name=isWatermark]:checked').length === 1;
             var isDeliver = submitRow.find('input[name=isDeliver]:checked').length === 1;
             var desc = submitRow.find('textarea[name=desc]').val();
-
+            var keywords =  submitRow.find('textarea[name=keyword]').val();
             data.formData = {
                 title: desc,
                 desc: desc,
                 type: 'NEWS',
                 isDeliver: isDeliver,
-                isWatermark: isWatermark
+                isWatermark: isWatermark,
+                keyword: keywords
             };
 
             if (nextRow.attr('id') === 'crop-row') {
@@ -191,6 +192,12 @@ $(function () {
                     row.find('.start').addClass('hidden');
                     row.find('.error').text(file.error);
                 }
+                row.find('textarea[name="keyword"]').tagEditor({
+                    delimiter: ',',
+                    placeholder: '請用 Enter 或逗號加入關鍵字 ',
+                    maxTags: 15,
+                    forceLowercase: false
+                });
                 rows = rows.add(row);
             });
             return rows;
