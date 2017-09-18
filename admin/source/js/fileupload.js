@@ -287,7 +287,8 @@ $(function () {
                 $.each(result.images, function(index, image) {
                     var block = $($('#template-image-block').html());
                     block.find('img').attr('src', image.url);
-                    block.find('img').attr('img-width', image.width);
+                    //圖片沒寬度時預設給imageapi的寬度400px
+                    block.find('img').attr('img-width', image.width ? image.width : "400");
                     block.find('img').attr('data-isdeliver', image.isDeliver);
 
                     if (image.isDeliver) {
