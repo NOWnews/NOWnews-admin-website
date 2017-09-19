@@ -99,7 +99,7 @@
 
                     <div class='input-group date'>
                     {% if wasReleased %}
-                        <input id="reservation-datetimepicker" name="startedAt" value="{{ news.startedAt }}" type='text' class="form-control input" readonly/>
+                        <input id="reservation-datetimepicker" name="startedAt" value="{{ news.startedAt }}" type='text' class="form-control input" disabled/>
                     {% else %}
                         <input id="reservation-datetimepicker" name="startedAt" value="{{ news.startedAt }}" type='text' class="form-control input"/>
                     {% endif %}

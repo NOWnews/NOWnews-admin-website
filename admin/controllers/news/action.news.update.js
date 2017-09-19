@@ -16,9 +16,9 @@ module.exports = async (req, res, next) => {
         let redirectUrl = req.session.prevUrl || 'back';
 
         //新聞一旦發佈過 就無法變更發佈時間
-        let [{ data: { wasReleased } }, { data: { startedAt } } ] = await Promise.all( [ axios.get(`/news/${newsId}/wasreleased`), axios.get(`/news/${newsId}`) ]);
+        let [ { data: { wasReleased } }, { data: { startedAt } } ] = await Promise.all( [ axios.get(`/news/${newsId}/wasreleased`), axios.get(`/news/${newsId}`) ]);
         if( wasReleased ){
-            data.startedAt = moment.tz(startedAt,'Asia/Taipei').format('YYYY-MM-DD HH:mm:ss');
+            data.startedAt = moment.tz(startedAt, 'Asia/Taipei').format('YYYY-MM-DD HH:mm:ss');
         }
 
         debug('req.body = %j', data);
