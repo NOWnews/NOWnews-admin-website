@@ -450,7 +450,11 @@
                     $('.lastReviewer').css('visibility', 'inherit');
                     $('.reservation').css('visibility', 'inherit');
                     $('select[name="LastReviewer"]').prop('disabled', false);
-                    $('#reservation-datetimepicker').prop('disabled', false);
+                    {% if wasReleased %}
+                        $('#reservation-datetimepicker').prop('disabled', true);
+                    {% else %}
+                        $('#reservation-datetimepicker').prop('disabled', false);
+                    {% endif %}
                     $('#location').prop('required', true);
                     $('#shortTitle').prop('required', true);
                     break;
@@ -458,7 +462,11 @@
                     $('.lastReviewer').css('visibility', 'inherit');
                     $('.reservation').css('visibility', 'inherit');
                     $('select[name="LastReviewer"]').prop('disabled', true);
-                    $('#reservation-datetimepicker').prop('disabled', false);
+                    {% if wasReleased %}
+                        $('#reservation-datetimepicker').prop('disabled', true);
+                    {% else %}
+                        $('#reservation-datetimepicker').prop('disabled', false);
+                    {% endif %}
                     $('#location').prop('required', true);
                     $('#shortTitle').prop('required', true);
                     break;
@@ -661,7 +669,7 @@
     });
 </script>
 
- {% if news.status == 'REVIEW' and not isScheduled %}
+ {% if news.status == 'REVIEW' and not wasReleased %}
     <script>
         //現在時間顯示
         var startedAt = $('#reservation-datetimepicker').val()+':00';

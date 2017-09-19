@@ -83,14 +83,26 @@
                 </div>
                 <div class="form-group reservation">
                     <label class="control-label">發布時間</label>
-                     {% if news.status == 'REVIEW' and not isScheduled %}
-                    <div class="checkbox">
+                    {% if news.status == 'REVIEW' and not wasReleased %}
+                        {% if news.isScheduled  %}
+                        <div class="checkbox">
+                            <input id="isUpdateStatedAt" type="checkbox">
+                            將發布時間更新至現在時間
+                        </div>
+                        {% else %}
+                        <div class="checkbox">
                             <input id="isUpdateStatedAt" type="checkbox" checked>
                             將發布時間更新至現在時間
-                    </div>
+                        </div>
+                        {% endif %}
                     {% endif %}
+
                     <div class='input-group date'>
-                        <input id="reservation-datetimepicker" name="startedAt" value="{{ news.startedAt }}" type='text' class="form-control input" />
+                    {% if wasReleased %}
+                        <input id="reservation-datetimepicker" name="startedAt" value="{{ news.startedAt }}" type='text' class="form-control input" readonly/>
+                    {% else %}
+                        <input id="reservation-datetimepicker" name="startedAt" value="{{ news.startedAt }}" type='text' class="form-control input"/>
+                    {% endif %}
                         <label for="reservation-datetimepicker" class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </label>

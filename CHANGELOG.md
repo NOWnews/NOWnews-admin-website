@@ -7,7 +7,8 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 ## [Unreleased]
 
 ### Added
-- 新增圖片關鍵字功能 供內部搜尋圖片使用
+- 新增圖片關鍵字功能 供內部搜尋圖片使用 @appleoxxo
+- 一旦新聞曾經發佈過 就無法變更新聞發稿時間(startedAt) @appleoxxo
 ### Fixed
 - 修復新增特輯 搜尋顯示列表的時間順序改為發佈時間 且僅搜尋自家新聞 @appleoxxo
 - 修復中央社插入內文圖片時 圖片模糊的問題 @appleoxxo
