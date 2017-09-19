@@ -17,8 +17,16 @@
             <tr>
                 <td>{{ user.staffId }}</td>
                 <td>{{ user.name }}</td>
-                <td>{{ user.Department.name }} - {{ user.Center.name }}</td>
-                <td>{{ user.Role.name }}</td>
+                <td>
+                    <a href="/auth/department/{{user.Department._id}}" target='_blank'>
+                        {{ user.Department.name }} - {{ user.Center.name }}
+                    </a>
+                </td>
+                <td>
+                    <a href="/auth/role/{{user.Role._id}}" target='_blank'>
+                        {{ user.Role.name }}
+                    </a>
+                </td>
                 <td>{{ USER_STATUS[user.status] }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.formatCreatedAt }}</td>

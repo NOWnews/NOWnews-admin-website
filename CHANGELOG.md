@@ -11,7 +11,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ### Changed
 - 優化角色審稿權限顯示 @esbb48
-
+- 優化使用者列表的角色與部門操作 @esbb48
 
 ### Fixed
 - 修復新增特輯 搜尋顯示列表的時間順序改為發佈時間 且僅搜尋自家新聞 @appleoxxo
