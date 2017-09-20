@@ -1,4 +1,5 @@
 import Debug from 'debug';
+import _ from 'lodash';
 const debug = Debug('NOWnews-admin-website: controllers:auth:role:page.list');
 
 module.exports = async (req, res, next) => {
@@ -11,6 +12,7 @@ module.exports = async (req, res, next) => {
 
         return res.render('auth/role/page.list.html', {
             roleList,
+            roleMapping: _.keyBy(roleList, '_id')
         });
     }
     catch(err) {
