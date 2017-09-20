@@ -3,6 +3,7 @@
         <tr>
             <th>名稱</th>
             <th>描述</th>
+            <th>可被什麼角色審稿</th>
             <th>編輯</th>
             <th>移除</th>
         </tr>
@@ -12,6 +13,11 @@
             <tr>
                 <td>{{ role.name }}</td>
                 <td>{{ role.desc }}</td>
+                <td>
+                    {% for roleId in role.SuperiorRoles %}
+                        <span class='label label-default'>{{roleMapping[roleId].name}}</span>
+                    {% endfor %}
+                </td>
                 <td>
                     <a class="btn btn-info btn-flat" href="/auth/role/{{role._id}}">
                         編輯
@@ -28,6 +34,7 @@
         <tr>
             <th>名稱</th>
             <th>描述</th>
+            <th>可被什麼角色審稿</th>
             <th>編輯</th>
             <th>移除</th>
         </tr>
