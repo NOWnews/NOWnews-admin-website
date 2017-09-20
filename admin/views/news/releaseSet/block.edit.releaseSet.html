@@ -43,6 +43,12 @@
                     {% elif news.status == 'RELEASE' %}
                         <div class="radio">
                             <label>
+                                <input type="radio" name="status" id="status-review" value="REVIEW">
+                                送審
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
                                 <input type="radio" name="status" id="status-release" value="RELEASE" {{ "checked" if news.status == 'RELEASE' }}>
                                 發布
                             </label>
@@ -67,10 +73,9 @@
                 <div class="form-group lastReviewer">
                     <label class="control-label">指定送審人</label>
                     <select name="LastReviewer" class="form-control select2">
-                        {% for user in userList %}
-                            {% if user._id == news.LastReviewer._id %}
-                                <option value="{{ user._id }}" selected>{{ user.name }}</option>
-                            {% elif user._id != currentUser._id %}
+                        <option value="{{ news.LastReviewer._id }}" selected>{{ news.LastReviewer.name }}</option>
+                        {% for user in reviewers %}
+                            {% if user._id != currentUser._id %}
                                 <option value="{{ user._id }}">{{ user.name }}</option>
                             {% endif %}
                         {% endfor %}

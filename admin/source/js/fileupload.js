@@ -165,13 +165,14 @@ $(function () {
             var isWatermark = submitRow.find('input[name=isWatermark]:checked').length === 1;
             var isDeliver = submitRow.find('input[name=isDeliver]:checked').length === 1;
             var desc = submitRow.find('textarea[name=desc]').val();
-
+            var keywords =  submitRow.find('textarea[name=keyword]').val();
             data.formData = {
                 title: desc,
                 desc: desc,
                 type: 'NEWS',
                 isDeliver: isDeliver,
-                isWatermark: isWatermark
+                isWatermark: isWatermark,
+                keyword: keywords
             };
 
             if (nextRow.attr('id') === 'crop-row') {
@@ -191,6 +192,12 @@ $(function () {
                     row.find('.start').addClass('hidden');
                     row.find('.error').text(file.error);
                 }
+                row.find('textarea[name="keyword"]').tagEditor({
+                    delimiter: ',',
+                    placeholder: '請用 Enter 或逗號加入關鍵字 ',
+                    maxTags: 15,
+                    forceLowercase: false
+                });
                 rows = rows.add(row);
             });
             return rows;
@@ -287,7 +294,8 @@ $(function () {
                 $.each(result.images, function(index, image) {
                     var block = $($('#template-image-block').html());
                     block.find('img').attr('src', image.url);
-                    block.find('img').attr('img-width', image.width);
+                    //圖片沒寬度時預設寬度400px
+                    block.find('img').attr('img-width', image.width ? image.width : "400");
                     block.find('img').attr('data-isdeliver', image.isDeliver);
 
                     if (image.isDeliver) {

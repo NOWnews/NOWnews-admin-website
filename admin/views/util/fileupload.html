@@ -112,7 +112,7 @@
 
 <script id="template-upload" type="text/x-custom-template">
     <tr class="template-upload fade">
-        <td>
+        <td style="width:800px;">
             <span class="preview2">
             </span>
             <!--<span class="preview">
@@ -121,8 +121,11 @@
             <p>
                 <label><input type="checkbox" name="isDeliver" checked="checked" />可外送</label>
                 <label><input type="checkbox" name="isWatermark" checked="checked" />加浮水印</label>
+                <p>圖說</p>
                 <textarea name="desc" style="width: 100%"
                     placeholder="圖說" rows="2">▲（圖／ＯＯＯ攝 , 2017.xx.xx）</textarea>
+                <p>圖片關鍵字<small>（選填，僅供內部搜尋使用）</small></p>
+                <textarea name="keyword" style="width: 100%" rows="1" placeholder="圖片關鍵字"></textarea>
             </p>
             <strong class="error text-danger"></strong>
         </td>
@@ -257,6 +260,12 @@
 
 <!-- The main application script -->
 <script src="/static/js/fileupload.js"></script>
+
+
+<!-- tagEditor CSS JS -->
+<link rel="stylesheet" href="/static/css/jquery.tag-editor.css" />
+<script src="/static/js/jquery.caret.min.js"></script>
+<script src="/static/js/jquery.tag-editor.min.js"></script>
 
 <style type="text/css">
     .copy-area {

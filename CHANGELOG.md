@@ -5,12 +5,36 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+
+### Added
+- 新增圖片關鍵字功能 供內部搜尋圖片使用
+
+### Changed
+- 優化角色審稿權限顯示 @esbb48
+- 優化使用者列表的角色與部門操作 @esbb48
+
+### Fixed
+- 修復新增特輯 搜尋顯示列表的時間順序改為發佈時間 且僅搜尋自家新聞 @appleoxxo
+- 修復中央社插入內文圖片時 圖片模糊的問題 @appleoxxo
+- 影音新聞要有主圖才能送審 @esbb48
+
+## 1.0.14 - 2017-09-14
+### Fixed
+- 修復新增新聞 指定送審人未選擇無法儲存草稿的bug @appleoxxo
+- 修復新增新聞 預設作者失效的bug @appleoxxo
+
+## 1.0.12 - 2017-09-13
 ### Added
 - 增加廠商專屬的列表「我的新聞(廠商)」 @esbb48
 - 增加專欄管理（特輯版型） @esbb48
 - 增加版型提醒在選單排序頁 @esbb48
+- 增加下拉選單「可被什麼角色審稿」於角色新增編輯頁面 @esbb48
+- 新聞發布時增加角色驗證 @esbb48
 
 ### Changed
+- 原本發布的新聞也可以改成審稿狀態 @wb
+- 修正首頁管理 點擊左側項目後項目直接消失bug  @appleoxxo
+- 特輯/新增特輯修改UI和autocomplete搜尋等待時間 @appleoxxo
 - 每個刪除端點補上 updateBy @wb
 - 首頁管理 大五小五的地方 修改為自家新聞和外匯新聞兩個搜尋框 @appleoxxo
 - 所有新聞列表和編輯新聞使用者改成由staffId排序 @appleoxxo
@@ -21,6 +45,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 - 審稿時可直接編輯主圖圖說 @appleoxxo
 - 新增版主班表管理(目前隱藏) @wb
 - 增加至 15 個廣告代碼 @esbb48
+- 調整新聞新增編輯時的送審人名單 @esbb48
 
 ## 1.0.11 - 2017-08-31
 ### Changed

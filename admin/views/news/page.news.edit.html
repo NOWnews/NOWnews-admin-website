@@ -390,6 +390,15 @@
             }
         });
         $("form").submit(function( event ) {
+            var reviewBtn = $('#status-review');
+            if(reviewBtn.prop('checked') && $('select[name="LastReviewer"]').val() === ''){
+                sweetAlert({
+                title: '請選擇指定送審人！',
+            });
+                event.preventDefault();
+                return;
+            }
+
             //取消離開頁面確認dialog
             window.onbeforeunload = null;
             // 加一個遮罩
@@ -492,7 +501,6 @@
             var hasPhoto = mainPhotoEle.val()? mainPhotoEle.val() !== '': false;
             var hasVideo = mainVideoEle.val()? mainVideoEle.val() !== '': false;
             var hasPhotos = manyPhotosEle.val()? manyPhotosEle.val() !== '': false;
-
             function setBtnDisabled (bool) {
                 reviewBtn.prop('disabled', bool);
                 releaseBtn.prop('disabled', bool);
@@ -522,7 +530,7 @@
                     setBtnDisabled(true);
                     break;
                 case 'VIDEO':
-                    if (hasVideo) {
+                    if (hasVideo && hasPhoto) {
                         setBtnDisabled(false);
                         break;
                     }

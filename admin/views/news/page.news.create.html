@@ -67,7 +67,7 @@
                                 <option value=""></option>
                                 {% for user in userList %}
                                     {% if user._id == currentUser.defaultSettings.Author %}
-                                        <option value="{{ user._id }}">
+                                        <option value="{{ user._id }}" selected>
                                             {{ user.staffId or 'NN00xxx' }} / {{ user.name }}
                                         </option>
                                     {% else %}
@@ -373,6 +373,14 @@
         });
 
         $("form").submit(function( event ) {
+            var reviewBtn = $('#status-review');
+            if(reviewBtn.prop('checked') && $('select[name="LastReviewer"]').val() === ''){
+                sweetAlert({
+                title: '請選擇指定送審人！',
+            });
+                event.preventDefault();
+                return;
+            }
             //取消離開頁面確認dialog
             window.onbeforeunload = null;
             // 加一個遮罩
@@ -494,7 +502,7 @@
                     setBtnDisabled(true);
                     break;
                 case 'VIDEO':
-                    if (hasVideo) {
+                    if (hasVideo && hasPhoto) {
                         setBtnDisabled(false);
                         break;
                     }
