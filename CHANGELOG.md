@@ -6,6 +6,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ## [Unreleased]
 
+## 1.0.14 - 2017-09-14
 ### Added
 - 新增圖片關鍵字功能 供內部搜尋圖片使用
 
@@ -18,7 +19,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 - 修復中央社插入內文圖片時 圖片模糊的問題 @appleoxxo
 - 影音新聞要有主圖才能送審 @esbb48
 
-## 1.0.14 - 2017-09-14
+## 1.0.13 - 2017-09-14
 ### Fixed
 - 修復新增新聞 指定送審人未選擇無法儲存草稿的bug @appleoxxo
 - 修復新增新聞 預設作者失效的bug @appleoxxo
