@@ -20,6 +20,7 @@
                 <div>
                 </div>
                 <input type="hidden" name="MainVideo" value="{{news.MainVideo._id}}" />
+                <input type="hidden" name="MainVideoUrl" value="{{news.MainVideo.url}}" />
                 <div id="video-preview">
                     {% if news.MainVideo and news.MainVideo.videoFrom == 'INTERNAL' %}
                         <video class="video" width="400" height="280" controls>

@@ -5,6 +5,8 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+### Fixed
+- 修復影片預覽沒有辦法播放的問題 @esbb48
 
 ## 1.0.14 - 2017-09-21
 ### Added
