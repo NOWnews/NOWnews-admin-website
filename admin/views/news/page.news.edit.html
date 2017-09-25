@@ -616,8 +616,8 @@
                 MainPhotoUrl: $('.image-preview img').attr('src'),
                 MainPhotoWidth: 970,
                 MainPhotoDesc: $('.image-preview p').text(),
-                MainVideoUrl: $('.setMainVideo').length ? $('.setMainVideo').attr('data-url') : $("input[name=MainVideoUrl]").val(),
-                MainVideoDesc: $('#video-preview strong').length ? $('#video-preview strong').text() : $("input.new-title").val(),
+                MainVideoUrl: $('input[name=MainVideoUrl]').val(),
+                MainVideoDesc: $('input[name=MainVideoDesc]').val(),
                 Photos: JSON.stringify(photoList)
             };
 

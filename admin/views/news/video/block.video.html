@@ -21,6 +21,7 @@
                 </div>
                 <input type="hidden" name="MainVideo" value="{{news.MainVideo._id}}" />
                 <input type="hidden" name="MainVideoUrl" value="{{news.MainVideo.url}}" />
+                <input type="hidden" name="MainVideoDesc" value="{{news.MainVideo.desc}}" />
                 <div id="video-preview">
                     <div id="video-preview-player"></div>
                     <div class="preview-toolbar">
@@ -281,10 +282,13 @@
                 var videoId = parentElm.find('input[name=videoId]').val();
                 var title = parentElm.find('.title').text();
                 var desc = parentElm.find('.desc').text();
+                var url = setBtn.attr('data-url');
 
                 $('input[name=MainVideo]').val(videoId).trigger('change');
+                $('input[name=MainVideoDesc]').val(desc);
+                $('input[name=MainVideoUrl]').val(url);
 
-                var url = setBtn.attr('data-url');
+
                 var previewHtml = videoUrlToPlayer().playerHtml(url, videoPreviewSize);
                 previewHtml += '<br><strong class="title">' + title + '</strong><br><span>' + desc + '</span>';
                 $('#video-preview').html(previewHtml);
