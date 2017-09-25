@@ -22,42 +22,21 @@
                 <input type="hidden" name="MainVideo" value="{{news.MainVideo._id}}" />
                 <input type="hidden" name="MainVideoUrl" value="{{news.MainVideo.url}}" />
                 <div id="video-preview">
-                    {% if news.MainVideo and news.MainVideo.videoFrom == 'INTERNAL' %}
-                        <video class="video" width="400" height="280" controls>
-                            <source src="{{news.MainVideo.url}}" type="video/mp4" >
-                        </video>
-                        <div class="preview-toolbar">
-                            <a class="btn btn-success fa fa-save"></a>
-                            <a class="btn btn-warning fa fa-undo hidden"></a>
-                        </div>
-                        <div class="input-group" style="margin: 7px 0;">
-                            <span class="hide origin-title">{{news.MainVideo.title}}</span>
-                            <span class="input-group-addon">標題</span>
-                            <input type="text" class="input form-control new-title" value="{{news.MainVideo.title}}" />
-                        </div>
-                        <div class="input-group">
-                            <span class="hide origin-desc">{{news.MainVideo.desc}}</span>
-                            <span class="input-group-addon">描述</span>
-                            <textarea class="form-control new-desc" rows="4">{{news.MainVideo.desc}}</textarea>
-                        </div>
-                    {% elif news.MainVideo and news.MainVideo.videoFrom == 'EXTERNAL' %}
-                        <input type="hidden" name="EXTERNAL" value="{{news.MainVideo.url}}" />
-                        <div class="preview-toolbar">
-                            <a class="btn btn-success fa fa-save"></a>
-                            <a class="btn btn-warning fa fa-undo hidden"></a>
-                        </div>
-                        <div class="input-group" style="margin: 7px 0;">
-                            <span class="hide origin-title">{{news.MainVideo.title}}</span>
-                            <span class="input-group-addon">標題</span>
-                            <input type="text" class="input form-control new-title" value="{{news.MainVideo.title}}" />
-                        </div>
-                        <div class="input-group">
-                            <span class="hide origin-desc">{{news.MainVideo.desc}}</span>
-                            <span class="input-group-addon">描述</span>
-                            <textarea class="form-control new-desc" rows="4">{{news.MainVideo.desc}}</textarea>
-                        </div>
-                    {% endif %}
-                    {# 這裡會插入選擇的主影片 HTML #}
+                    <div id="video-preview-player"></div>
+                    <div class="preview-toolbar">
+                        <a class="btn btn-success fa fa-save"></a>
+                        <a class="btn btn-warning fa fa-undo hidden"></a>
+                    </div>
+                    <div class="input-group" style="margin: 7px 0;">
+                        <span class="hide origin-title">{{news.MainVideo.title}}</span>
+                        <span class="input-group-addon">標題</span>
+                        <input type="text" class="input form-control new-title" value="{{news.MainVideo.title}}" />
+                    </div>
+                    <div class="input-group">
+                        <span class="hide origin-desc">{{news.MainVideo.desc}}</span>
+                        <span class="input-group-addon">描述</span>
+                        <textarea class="form-control new-desc" rows="4">{{news.MainVideo.desc}}</textarea>
+                    </div>
                 </div>
                 <div class="content">
                     <ul class="nav nav-tabs ui-sortable-handle">
@@ -93,11 +72,11 @@
                             </ul>
                             <div class="url-form">
                                 <br>
-                                <label for="MainVideo">影片 URL</label>
+                                <label>影片 URL</label>
                                 <div class="input-group">
-                                    <input id="MainVideo" name="urlVideo" type="text" placeholder="https://www.youtube.com/watch?v=VRThxEYVJGs" value="https://www.youtube.com/watch?v=VRThxEYVJGs" class="form-control">
+                                    <input name="video-url" type="text" placeholder="https://www.youtube.com/watch?v=VRThxEYVJGs" value="https://www.youtube.com/watch?v=VRThxEYVJGs" class="form-control">
                                     <div class="input-group-btn">
-                                        <a class="btn btn-info">預覽影片</a>
+                                        <a class="btn btn-info preview">預覽影片</a>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +123,8 @@
         </div>
     </div>
     {# 模板 #}
-        {# 上傳回來的結果 #}
+
+    {# 上傳回來的結果 #}
     <script id="video-upload-template" type="text/x-custom-template">
         <tr class="template-upload fade">
             <td>
@@ -184,16 +164,12 @@
         </tr>
     </script>
 
-        {# 回傳回來的結果 #}
+    {# 回傳回來的結果 #}
     <script id="video-result-template" type="text/x-custom-template">
         <tr class="template-download fade">
             <input name="videoId" type="hidden" />
             <td>
-                <div class="preview text-center">
-                    <video width="400" height="280" controls>
-                        <source src="" type="">
-                    </video>
-                </div>
+                <div class="preview text-center"></div>
                 <strong class="title"></strong><br>
                 <span class="desc"></span>
                 <strong class="error text-danger"></strong>
@@ -218,12 +194,6 @@
                 </button>
             </td>
         </tr>
-    </script>
-
-    <script id="video-player-template" type="text/x-custom-template">
-        <video class="video" width="400" height="280" controls>
-            <source src="{{news.MainVideo.url}}" type="video/mp4" >
-        </video>
     </script>
 
     {# 影片列表 #}
@@ -266,7 +236,7 @@
             var uploadVideoUrl = '/video/upload';
             var createVideoUrl = '/video';
             var removeVideoUrl = '/video';
-            var videoIframe = '';
+            var videoPreviewSize = { width: 400, height: 280 };
             var videoResultTemplate = $($('#video-result-template').html());
             var videoBlocks = $('.video-blocks');
             var videoStartElm = $('input[name=videoStartedAt]');
@@ -305,7 +275,7 @@
             };
 
             // 設定主按鈕
-            var setMainVideo = function(setBtn, type) {
+            var setMainVideo = function(setBtn) {
                 var parentElm = setBtn.parent().parent();
                 var previewHtml = '';
                 var videoId = parentElm.find('input[name=videoId]').val();
@@ -314,26 +284,15 @@
 
                 $('input[name=MainVideo]').val(videoId).trigger('change');
 
-                if (type === 'url') {
-                    previewHtml = $(videoIframe).attr({
-                        width: 400,
-                        height: 280
-                    });
-                } else if(type == 'search'){
-                    previewHtml = $(videoUrlToPlayer().playerHtml(setBtn.attr('data-url'),{width:400,height:280}));
-                } else {
-                    previewHtml = $($('#video-player-template').html());
-                    previewHtml.find('source').attr('src', setBtn.attr('data-url'));
-                }
-
-                previewHtml = previewHtml.add('<br><strong class="title">'+ title +'</strong><br><span>'+ desc +'</span>')
-
+                var url = setBtn.attr('data-url');
+                var previewHtml = videoUrlToPlayer().playerHtml(url, videoPreviewSize);
+                previewHtml += '<br><strong class="title">' + title + '</strong><br><span>' + desc + '</span>';
                 $('#video-preview').html(previewHtml);
 
             };
 
-            // 處理不同來源的 Player
-            function videoUrlToPlayer(){
+            // 產生不同來源的 Player
+            var videoUrlToPlayer = function (){
                 return {
                     fbV:function(url){
                         var exp = /^http(?:s?):\/\/(?:www\.|web\.|m\.)?facebook\.com\/([A-z0-9\.]+)\/videos(?:\/[0-9A-z].+)?\/(\d+)(?:.+)?$/;
@@ -362,7 +321,7 @@
             }
 
             // 透過檔案資料，產生 Video Row Template
-            var setVideoResultTemplate = function (videoResultTemplate, file, type) {
+            var setVideoResultTemplate = function (videoResultTemplate, file) {
 
                 videoResultTemplate.find('.delete').attr('data-id', file._id);
                 videoResultTemplate.find('.setMainVideo').attr({
@@ -378,34 +337,17 @@
                     videoResultTemplate.find('.canNotDeliver').remove();
                 }
 
-                if (type === 'url') {
-                    videoResultTemplate.find('.preview').html(videoIframe);
-                } else {
-                    videoResultTemplate.find('source').attr({
-                        'src': file.url,
-                        'type': file.mimetype
-                    });
-                }
-
+                var videoPlayer = videoUrlToPlayer().playerHtml(file.url);
+                videoResultTemplate.find('.preview').html(videoPlayer);
                 return videoResultTemplate;
             };
 
         /* -- 編輯頁面進來開始 -- */
 
-            // 初始化：如果影片是外部連結，會產生 Player
-            if ($('input[name=EXTERNAL]').length > 0){
-                var url = $('input[name=EXTERNAL]').val();
-                $.embedly.oembed(url).progress(function(obj){
-                    if (!obj.html){
-                        $('#video-preview').html('影片的連結有問題！');
-                        return false;
-                    }
-                    var previewHtml = $(obj.html).attr({
-                        width: 400,
-                        height: 280
-                    })
-                    $('#video-preview input[name=EXTERNAL]').after(previewHtml);
-                });
+            // 初始化 VideoPlayar
+            if ($('input[name=MainVideoUrl]').length > 0){
+                var url = $('input[name=MainVideoUrl]').val();
+                $('#video-preview-player').html(videoUrlToPlayer().playerHtml(url, videoPreviewSize));
             }
 
             // 工具列：儲存、取消編輯
@@ -524,26 +466,21 @@
         /* -- Tab: 影片上傳 結束 -- */
 
         /* -- Tab: 影片網址 開始 -- */
-            var $url = $('#MainVideo');
+            var $url = $('#video-url input[name=video-url]');
             var $urlResultElm = $('#url-video');
-            // 預覽
-            $('.url-form a').on('click', function(){
+            // 預覽影片網址
+            $('#video-url a.preview').on('click', function(){
                 var url = $url.val();
                 var $targetEle = $urlResultElm;
                 $.embedly.oembed(url).progress(function(obj){
-
-                    if(obj['provider_url'].includes('facebook.com')){
-                      obj.html = `<iframe
-                      src="https://www.facebook.com/plugins/video.php?href=${obj.original_url}?show_text=0&width=400&height=280" width="400" height="280" scrolling="no" frameBorder="0" allowTransparency="true" allowFullScreen="true" />`;
-                    }
                     if (!obj.html){
                         $targetEle.html('');
                         window.alert('影片的連結有問題！');
                         return false;
                     }
-                    videoIframe = obj.html;
+                    var videoIframe = videoUrlToPlayer().playerHtml(obj.original_url);
                     var row = $($('#video-upload-template').html());
-                    row.find('.preview').html(obj.html);
+                    row.find('.preview').html(videoIframe);
                     row.find('input[name=title]').val(obj.title);
                     row.find('input[name=url]').val(obj.original_url);
                     row.find('textarea[name=desc]').val(obj.description);
@@ -555,21 +492,17 @@
             });
 
             // Tab: 影片網址：上傳後結果處理
-            // var player = null;
             $urlResultElm.on('click', '.start', function(){
                 var defaultTime = 10;
                 var progressEle = $(this).parents('tr').find('.progress-bar');
                 var formData = getFormData($urlResultElm);
                 $(this).attr('disabled', 'disabled');
-
-                $.post( createVideoUrl, formData)
+                $.post(createVideoUrl, formData)
                     .success(function(data){
                         progressEle.css('width', '100%');
                         window.clearInterval(timer);
-
-                        // 換下個步驟
                         var videoResultTemplate = $($('#video-result-template').html());
-                        videoResultTemplate = setVideoResultTemplate(videoResultTemplate, data, 'url')
+                        videoResultTemplate = setVideoResultTemplate(videoResultTemplate, data)
                         $urlResultElm.html(videoResultTemplate).find('.fade').addClass('in');
                     })
                     .fail(function(err){
@@ -601,33 +534,13 @@
                     }
                 });
             }).on('click', '.setMainVideo', function(){
-                setMainVideo($(this), 'url')
+                setMainVideo($(this))
             });
         /* -- Tab: 影片網址 結束 -- */
 
         /* -- Tab: 自家影片庫 開始 -- */
 
-            $('.videoLibQueryForm').on('click', queryVideoLibrary);
-            $('button.videoPrev').on('click', function() {
-                var page = parseInt($('#videoPageIndex').val(), 10);
-                queryVideoLibrary(page - 1);
-            });
-            $('button.videoNext').on('click', function() {
-                var page = parseInt($('#videoPageIndex').val(), 10);
-                queryVideoLibrary(page + 1);
-            });
-
-            $('input#videoKeywords').on('keypress', function(e){
-                if(e.keyCode === 13){
-                    $('button.videoLibQueryForm').click();
-                }
-            });
-
-            videoBlocks.on('click', 'button.setMainVideo', function() {
-                setMainVideo($(this),'search');
-            });
-
-            function queryVideoLibrary (page) {
+            var queryVideoLibrary = function (page) {
                 var page = (typeof page === 'number') ? page : 1;
                 videoBlocks.html('');
                 var queryString = 'startedAt=' + videoStartElm.val();
@@ -638,8 +551,8 @@
                 $.get('/video?' + queryString, function(result) {
                     $.each(result.videos, function(index, video) {
                         var block = $($('#template-video-block').html());
-                        var player = videoUrlToPlayer().playerHtml(video.url);
-                        block.find('.text-center').html(player);
+                        var videoPlayer = videoUrlToPlayer().playerHtml(video.url);
+                        block.find('.text-center').html(videoPlayer);
                         block.find('input[name=videoId]').val(video._id);
                         block.find('span.desc').text(video.desc);
                         block.find('span.title').text(video.title);
@@ -667,6 +580,26 @@
 
                 });
             }
+
+            $('.videoLibQueryForm').on('click', queryVideoLibrary);
+            $('button.videoPrev').on('click', function() {
+                var page = parseInt($('#videoPageIndex').val(), 10);
+                queryVideoLibrary(page - 1);
+            });
+            $('button.videoNext').on('click', function() {
+                var page = parseInt($('#videoPageIndex').val(), 10);
+                queryVideoLibrary(page + 1);
+            });
+
+            $('input#videoKeywords').on('keypress', function(e){
+                if(e.keyCode === 13){
+                    $('button.videoLibQueryForm').click();
+                }
+            });
+
+            videoBlocks.on('click', 'button.setMainVideo', function() {
+                setMainVideo($(this));
+            });
 
             videoBlocks.on('click', 'button.fa-save', function() {
                 var parentBlock = $(this).parent().parent();
