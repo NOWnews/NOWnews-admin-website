@@ -374,6 +374,7 @@
                 }).done(function(result) {
                     originTitleElm.text(newTitle);
                     originDescElm.text(newDesc);
+                    $('input[name=MainVideoDesc]').val(newDesc);
                     undoBtn.addClass('hidden');
                     alert('影片更新成功！');
                 }).fail(function() {
