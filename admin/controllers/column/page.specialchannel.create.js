@@ -5,7 +5,7 @@ const debug = Debug('NOWnews-admin-website: controllers:column:specialchannel:pa
 module.exports = async (req, res, next) => {
 
     try {
-        let { data: menus } = await axios.get('/menus?template=SPECIALCHANNEL');
+        let { data: menus } = await axios.get('/menus?template=SPECIALCHANNEL&sort=weight');
         return res.render('column/page.specialchannel.create.html', {
         	menus
         });
