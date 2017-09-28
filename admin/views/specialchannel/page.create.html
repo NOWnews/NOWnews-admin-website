@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <label class="control-label">自家新聞搜尋</label>
                         <div class="container-search">
                             <div class="search">
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <div id="usage_simple" style="position:relative;">
                             <div class="example-container ui-helper-clearfix">
                                 <select id="multiselect_simple" name="newsList" class="multiselect" multiple="multiple" style="width:80%">
@@ -331,6 +331,14 @@
 
             //點擊後 suggestions list 保持原位置 不隱藏
             $('div.autocomplete-suggestions').css('display', 'block');
+            var inputHeight = $('input#autocomplete-ajax').outerHeight()
+            var closeTip = '<div id="close-tip" style="position: absolute;font-size: 1.5em;height:'+inputHeight+'px;width:100%;z-index:99;"></div>';
+            $('#autocomplete-ajax').after(closeTip);
+            $('div.search').on('click','div#close-tip',function(){
+                $('#autocomplete-ajax').autocomplete().dispose();
+                $('#autocomplete-ajax').autocomplete(autoCompleteOptions);
+                $(this).remove();
+            });
 
             //onSelect只監聽第一次點擊 這裡加上之後的suggestion click監聽
             $('div.autocomplete-suggestions div.autocomplete-suggestion').on('click', function() {
