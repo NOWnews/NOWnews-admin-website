@@ -20,43 +20,24 @@
                 <div>
                 </div>
                 <input type="hidden" name="MainVideo" value="{{news.MainVideo._id}}" />
+                <input type="hidden" name="MainVideoUrl" value="{{news.MainVideo.url}}" />
+                <input type="hidden" name="MainVideoDesc" value="{{news.MainVideo.desc}}" />
                 <div id="video-preview">
-                    {% if news.MainVideo and news.MainVideo.videoFrom == 'INTERNAL' %}
-                        <video class="video" width="400" height="280" controls>
-                            <source src="{{news.MainVideo.url}}" type="video/mp4" >
-                        </video>
-                        <div class="preview-edit-area">
-                            <a class="btn btn-success fa fa-save"></a>
-                            <a class="btn btn-warning fa fa-undo hidden"></a>
-                        </div>
-                        <div class="input-group" style="margin: 7px 0;">
-                            <span class="hide origin-title">{{news.MainVideo.title}}</span>
-                            <span class="input-group-addon">標題</span>
-                            <input type="text" class="input form-control new-title" value="{{news.MainVideo.title}}" />
-                        </div>
-                        <div class="input-group">
-                            <span class="hide origin-desc">{{news.MainVideo.desc}}</span>
-                            <span class="input-group-addon">描述</span>
-                            <textarea class="form-control new-desc" rows="4">{{news.MainVideo.desc}}</textarea>
-                        </div>
-                    {% elif news.MainVideo and news.MainVideo.videoFrom == 'EXTERNAL' %}
-                        <input type="hidden" name="EXTERNAL" value="{{news.MainVideo.url}}" />
-                        <div class="preview-edit-area">
-                            <a class="btn btn-success fa fa-save"></a>
-                            <a class="btn btn-warning fa fa-undo hidden"></a>
-                        </div>
-                        <div class="input-group" style="margin: 7px 0;">
-                            <span class="hide origin-title">{{news.MainVideo.title}}</span>
-                            <span class="input-group-addon">標題</span>
-                            <input type="text" class="input form-control new-title" value="{{news.MainVideo.title}}" />
-                        </div>
-                        <div class="input-group">
-                            <span class="hide origin-desc">{{news.MainVideo.desc}}</span>
-                            <span class="input-group-addon">描述</span>
-                            <textarea class="form-control new-desc" rows="4">{{news.MainVideo.desc}}</textarea>
-                        </div>
-                    {% endif %}
-                    {# 這裡會插入選擇的主影片 HTML #}
+                    <div id="video-preview-player"></div>
+                    <div class="preview-toolbar">
+                        <a class="btn btn-success fa fa-save"></a>
+                        <a class="btn btn-warning fa fa-undo hidden"></a>
+                    </div>
+                    <div class="input-group" style="margin: 7px 0;">
+                        <span class="hide origin-title">{{news.MainVideo.title}}</span>
+                        <span class="input-group-addon">標題</span>
+                        <input type="text" class="input form-control new-title" value="{{news.MainVideo.title}}" />
+                    </div>
+                    <div class="input-group">
+                        <span class="hide origin-desc">{{news.MainVideo.desc}}</span>
+                        <span class="input-group-addon">描述</span>
+                        <textarea class="form-control new-desc" rows="4">{{news.MainVideo.desc}}</textarea>
+                    </div>
                 </div>
                 <div class="content">
                     <ul class="nav nav-tabs ui-sortable-handle">
@@ -92,11 +73,11 @@
                             </ul>
                             <div class="url-form">
                                 <br>
-                                <label for="MainVideo">影片 URL</label>
+                                <label>影片 URL</label>
                                 <div class="input-group">
-                                    <input id="MainVideo" name="urlVideo" type="text" placeholder="https://www.youtube.com/watch?v=VRThxEYVJGs" value="https://www.youtube.com/watch?v=VRThxEYVJGs" class="form-control">
+                                    <input name="video-url" type="text" placeholder="https://www.youtube.com/watch?v=VRThxEYVJGs" value="https://www.youtube.com/watch?v=VRThxEYVJGs" class="form-control">
                                     <div class="input-group-btn">
-                                        <a class="btn btn-info">預覽影片</a>
+                                        <a class="btn btn-info preview">預覽影片</a>
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +124,8 @@
         </div>
     </div>
     {# 模板 #}
-        {# 上傳回來的結果 #}
+
+    {# 上傳回來的結果 #}
     <script id="video-upload-template" type="text/x-custom-template">
         <tr class="template-upload fade">
             <td>
@@ -183,16 +165,12 @@
         </tr>
     </script>
 
-        {# 回傳回來的結果 #}
+    {# 回傳回來的結果 #}
     <script id="video-result-template" type="text/x-custom-template">
         <tr class="template-download fade">
             <input name="videoId" type="hidden" />
             <td>
-                <div class="preview text-center">
-                    <video width="400" height="280" controls>
-                        <source src="" type="">
-                    </video>
-                </div>
+                <div class="preview text-center"></div>
                 <strong class="title"></strong><br>
                 <span class="desc"></span>
                 <strong class="error text-danger"></strong>
@@ -217,12 +195,6 @@
                 </button>
             </td>
         </tr>
-    </script>
-
-    <script id="video-player-template" type="text/x-custom-template">
-        <video class="video" width="400" height="280" controls>
-            <source src="{{news.MainVideo.url}}" type="video/mp4" >
-        </video>
     </script>
 
     {# 影片列表 #}
@@ -261,11 +233,11 @@
         $(function () {
             'use strict';
 
-            /* 公用變數 */
+        /* 公用變數 */
             var uploadVideoUrl = '/video/upload';
             var createVideoUrl = '/video';
             var removeVideoUrl = '/video';
-            var videoIframe = '';
+            var videoPreviewSize = { width: 400, height: 280 };
             var videoResultTemplate = $($('#video-result-template').html());
             var videoBlocks = $('.video-blocks');
             var videoStartElm = $('input[name=videoStartedAt]');
@@ -273,8 +245,9 @@
             var videoStartElm = $('input[name=videoStartedAt]');
             var videoEndElm = $('input[name=videoEndedAt]');
 
+            $.embedly.defaults.key = '3ee528c9eb4b4908b268ce1ace120c92';
 
-            /* 初始化 */
+        /* 初始化 + 公用函式*/
             initQueryFrom();
             function initQueryFrom() {
                 var today = moment().format('YYYY-MM-DD');
@@ -286,52 +259,293 @@
             }
 
 
+            // 取得要被送出的資料
+            var getFormData = function (targetEle) {
+                var isDeliver = targetEle.find('input[name=isDeliver]:checked').length === 1;
+                var desc = targetEle.find('textarea[name=desc]').val();
+                var title = targetEle.find('input[name=title]').val();
+                var url = targetEle.find('input[name=url]').val();
 
+                return {
+                    title: title,
+                    desc: desc,
+                    url: url,
+                    type: 'NEWS',
+                    isDeliver: isDeliver
+                };
+            };
 
             // 設定主按鈕
-            var setMainVideo = function(setBtn, type) {
+            var setMainVideo = function(setBtn) {
                 var parentElm = setBtn.parent().parent();
                 var previewHtml = '';
                 var videoId = parentElm.find('input[name=videoId]').val();
                 var title = parentElm.find('.title').text();
                 var desc = parentElm.find('.desc').text();
+                var url = setBtn.attr('data-url');
 
                 $('input[name=MainVideo]').val(videoId).trigger('change');
+                $('input[name=MainVideoDesc]').val(desc);
+                $('input[name=MainVideoUrl]').val(url);
 
-                if (type === 'url') {
-                    previewHtml = $(videoIframe).attr({
-                        width: 400,
-                        height: 280
-                    });
-                } else if(type == 'search'){
-                    previewHtml = $(videoUrlToPlayer().playerHtml(setBtn.attr('data-url'),{width:400,height:280}));
-                }
-                else {
-                    previewHtml = $($('#video-player-template').html());
-                    previewHtml.find('source').attr('src', setBtn.attr('data-url'));
-                }
 
-                previewHtml = previewHtml.add('<br><strong class="title">'+ title +'</strong><br><span>'+ desc +'</span>')
-
+                var previewHtml = videoUrlToPlayer().playerHtml(url, videoPreviewSize);
+                previewHtml += '<br><strong class="title">' + title + '</strong><br><span>' + desc + '</span>';
                 $('#video-preview').html(previewHtml);
 
             };
 
-            /* 影片庫 */
+            // 產生不同來源的 Player
+            var videoUrlToPlayer = function (){
+                return {
+                    fbV:function(url){
+                        var exp = /^http(?:s?):\/\/(?:www\.|web\.|m\.)?facebook\.com\/([A-z0-9\.]+)\/videos(?:\/[0-9A-z].+)?\/(\d+)(?:.+)?$/;
+                        return (url.match(exp)) ? RegExp.$2 : false;
+                    },
+                    ytV:function(url){
+                        let exp = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+                        return (url.match(exp)) ? RegExp.$1 : false;
+                    },
+                    playerHtml:function(url,setting){
+                        setting = setting ? setting : {};
+                        var width = setting.width || 300;
+                        var height = setting.height || 150;
 
-            $('.videoLibQueryForm').on('click', queryVideoLibrary);
-            $('button.videoPrev').on('click', function() {
-                var page = parseInt($('#videoPageIndex').val(), 10);
-                queryVideoLibrary(page - 1);
+                        if(this.fbV(url)){
+                            return '<iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fsunnyhundalorg%2Fvideos%2F' + this.fbV(url) + '%2F&show_text=0" height="'+height+'" width="'+width+'" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>';
+                        }
+                        else if(this.ytV(url)){
+                            return '<iframe src="https://www.youtube.com/embed/' + this.ytV(url) + '?ecver=2" height="'+height+'" width="'+width+'" frameborder="0" allowfullscreen></iframe>';
+                        }
+                        else{
+                            return '<video class="video" width="'+width+'" height="'+height+'" controls> <source src="'+ url +'" type="video/mp4" > </video>'
+                        }
+                    }
+                }
+            }
+
+            // 透過檔案資料，產生 Video Row Template
+            var setVideoResultTemplate = function (videoResultTemplate, file) {
+
+                videoResultTemplate.find('.delete').attr('data-id', file._id);
+                videoResultTemplate.find('.setMainVideo').attr({
+                    'data-id': file._id,
+                    'data-url': file.url
+                });
+                videoResultTemplate.find('input[name=videoId]').val(file._id)
+                videoResultTemplate.find('.title').text(file.title);
+                videoResultTemplate.find('.desc').text(file.desc);
+                videoResultTemplate.find('img').attr('data-isdeliver', file.isDeliver);
+
+                if (file.isDeliver) {
+                    videoResultTemplate.find('.canNotDeliver').remove();
+                }
+
+                var videoPlayer = videoUrlToPlayer().playerHtml(file.url);
+                videoResultTemplate.find('.preview').html(videoPlayer);
+                return videoResultTemplate;
+            };
+
+        /* -- 編輯頁面進來開始 -- */
+
+            // 初始化 VideoPlayar
+            if ($('input[name=MainVideoUrl]').length > 0){
+                var url = $('input[name=MainVideoUrl]').val();
+                $('#video-preview-player').html(videoUrlToPlayer().playerHtml(url, videoPreviewSize));
+            }
+
+            // 工具列：儲存、取消編輯
+            $('.preview-toolbar').on('click', '.fa-save', function () {
+                var parentBlock = $('#video-preview');
+                var newTitle = parentBlock.find('input.new-title').val().trim();
+                var originTitleElm = parentBlock.find('span.origin-title');
+                var newDesc = parentBlock.find('textarea.new-desc').val().trim();
+                var originDescElm = parentBlock.find('span.origin-desc');
+                var undoBtn =  parentBlock.find('.btn.fa-undo');
+
+                if (newTitle === originTitleElm.text() && newDesc === originDescElm.text() ) {
+                    return alert('標題跟描述沒有更新！');
+                }
+                var videoId = $('input[name=MainVideo]').val();
+                $.ajax({
+                    url: '/video/' + videoId,
+                    data: { title: newTitle, desc: newDesc },
+                    method: 'PUT'
+                }).done(function(result) {
+                    originTitleElm.text(newTitle);
+                    originDescElm.text(newDesc);
+                    $('input[name=MainVideoDesc]').val(newDesc);
+                    undoBtn.addClass('hidden');
+                    alert('影片更新成功！');
+                }).fail(function() {
+                    alert('影片更新失敗！');
+                });
+            }).on('click', '.fa-undo', function () {
+                var parentBlock = $('#video-preview');
+                var newTitleElm = parentBlock.find('input.new-title');
+                var originTitle = parentBlock.find('span.origin-title').text().trim();
+                var newDescElm = parentBlock.find('textarea.new-desc');
+                var originDesc = parentBlock.find('span.origin-desc').text().trim();
+
+                newTitleElm.val(originTitle)
+                newDescElm.val(originDesc);
+                $(this).addClass('hidden');
             });
-            $('button.videoNext').on('click', function() {
-                var page = parseInt($('#videoPageIndex').val(), 10);
-                queryVideoLibrary(page + 1);
+
+            // 偵測是否有編輯標題與描述
+            $('#video-preview').on('change', 'textarea.new-desc, input.new-title', function() {
+                var parentBlock = $('#video-preview');
+                var originTitle = parentBlock.find('span.origin-title').text().trim();
+                var originDesc = parentBlock.find('span.origin-desc').text().trim();
+                var newTitle = parentBlock.find('input.new-title').val().trim();
+                var newDesc = parentBlock.find('textarea.new-desc').val().trim();
+                var undoBtn =  parentBlock.find('.btn.fa-undo');
+
+                if (originTitle === newTitle && originDesc === newDesc ) {
+                    undoBtn.addClass('hidden');
+                    return;
+                }
+                undoBtn.removeClass('hidden');
             });
-            videoBlocks.on('click', 'button.setMainVideo', function() {
-                setMainVideo($(this),'search');
+        /* -- 編輯頁面進來結束 -- */
+
+        /* -- Tab: 影片上傳 開始 -- */
+            $('#fileupload-video').fileupload({
+                filesContainer: $('#files-video'),
+                downloadTemplateId: null,
+                paramName: 'video',
+                url: uploadVideoUrl,
+                uploadTemplateId: null,
+                destroy: function (e, data) {
+                    var that = this;
+                    // 自己上傳的當下可以真刪除
+                    $.ajax({
+                        url: removeVideoUrl + '/' + data.id,
+                        type: 'DELETE',
+                        success: function(result) {
+                            // 再去呼叫原生 library destroy 該做的事情
+                            $.blueimp.fileupload.prototype.options.destroy.call(that, e, data);
+                        }
+                    });
+                },
+                downloadTemplate: function (o) {
+                    var rows = $();
+                    $.each(o.files, function (index, file) {
+                        var row = $($('#video-result-template').html());
+                        row = setVideoResultTemplate(row, file)
+
+                        if (file.error) {
+                            row.find('.setMainVideo').addClass('hidden');
+                            row.find('.delete').addClass('hidden');
+                            row.find('.cancel').removeClass('hidden');
+                            row.find('.error').text(file.error);
+                        }
+                        rows = rows.add(row);
+                    });
+                    return rows;
+                },
+                getFilesFromResponse: function (data) {
+                    return [data.result];
+                },
+                submit: function (e, data) {
+                    var submitRow = $(data.context);
+                    data.formData = getFormData(submitRow);
+                },
+                uploadTemplate: function (o) {
+                    var rows = $();
+                    $.each(o.files, function (index, file) {
+                        var row = $($('#video-upload-template').html());
+                        if (file.error) {
+                            row.find('.start').addClass('hidden');
+                            row.find('.error').text(file.error);
+                        }
+                        rows = rows.add(row);
+                    });
+                    return rows;
+                }
             });
-            function queryVideoLibrary (page) {
+
+            $('#files-video').on('click', '.setMainVideo', function(){
+                setMainVideo($(this));
+            });
+        /* -- Tab: 影片上傳 結束 -- */
+
+        /* -- Tab: 影片網址 開始 -- */
+            var $url = $('#video-url input[name=video-url]');
+            var $urlResultElm = $('#url-video');
+            // 預覽影片網址
+            $('#video-url a.preview').on('click', function(){
+                var url = $url.val();
+                var $targetEle = $urlResultElm;
+                $.embedly.oembed(url).progress(function(obj){
+                    if (!obj.html){
+                        $targetEle.html('');
+                        window.alert('影片的連結有問題！');
+                        return false;
+                    }
+                    var videoIframe = videoUrlToPlayer().playerHtml(obj.original_url);
+                    var row = $($('#video-upload-template').html());
+                    row.find('.preview').html(videoIframe);
+                    row.find('input[name=title]').val(obj.title);
+                    row.find('input[name=url]').val(obj.original_url);
+                    row.find('textarea[name=desc]').val(obj.description);
+                    row.find('.size').hide();
+                    $targetEle.html(row).find('.fade').addClass('in');
+                });
+
+                return false;
+            });
+
+            // Tab: 影片網址：上傳後結果處理
+            $urlResultElm.on('click', '.start', function(){
+                var defaultTime = 10;
+                var progressEle = $(this).parents('tr').find('.progress-bar');
+                var formData = getFormData($urlResultElm);
+                $(this).attr('disabled', 'disabled');
+                $.post(createVideoUrl, formData)
+                    .success(function(data){
+                        progressEle.css('width', '100%');
+                        window.clearInterval(timer);
+                        var videoResultTemplate = $($('#video-result-template').html());
+                        videoResultTemplate = setVideoResultTemplate(videoResultTemplate, data)
+                        $urlResultElm.html(videoResultTemplate).find('.fade').addClass('in');
+                    })
+                    .fail(function(err){
+                        console.error(err.responseJSON)
+                    });
+
+                // 設定進度條
+                var timer = window.setInterval(function progressbarGo (){
+                    defaultTime--;
+                    var progress = 100 - defaultTime*10 + '%';
+                    progressEle.css('width', progress)
+                    if(defaultTime===0){
+                        window.clearInterval(timer);
+                        return false;
+                    }
+                }, 10);
+            }).on('click', '.cancel', function(){
+                return $urlResultElm.html('');
+            }).on('click', '.delete', function(){
+                var confirmed = confirm('您確定要刪除嗎？');
+                if (!confirmed) { return; }
+
+                var id = $(this).attr('data-id');
+                $.ajax({
+                    url: removeVideoUrl + '/' + id,
+                    type: 'DELETE',
+                    success: function(data) {
+                        $urlResultElm.html('');
+                    }
+                });
+            }).on('click', '.setMainVideo', function(){
+                setMainVideo($(this))
+            });
+        /* -- Tab: 影片網址 結束 -- */
+
+        /* -- Tab: 自家影片庫 開始 -- */
+
+            var queryVideoLibrary = function (page) {
                 var page = (typeof page === 'number') ? page : 1;
                 videoBlocks.html('');
                 var queryString = 'startedAt=' + videoStartElm.val();
@@ -342,8 +556,8 @@
                 $.get('/video?' + queryString, function(result) {
                     $.each(result.videos, function(index, video) {
                         var block = $($('#template-video-block').html());
-                        var player = videoUrlToPlayer().playerHtml(video.url);
-                        block.find('.text-center').html(player);
+                        var videoPlayer = videoUrlToPlayer().playerHtml(video.url);
+                        block.find('.text-center').html(videoPlayer);
                         block.find('input[name=videoId]').val(video._id);
                         block.find('span.desc').text(video.desc);
                         block.find('span.title').text(video.title);
@@ -371,6 +585,26 @@
 
                 });
             }
+
+            $('.videoLibQueryForm').on('click', queryVideoLibrary);
+            $('button.videoPrev').on('click', function() {
+                var page = parseInt($('#videoPageIndex').val(), 10);
+                queryVideoLibrary(page - 1);
+            });
+            $('button.videoNext').on('click', function() {
+                var page = parseInt($('#videoPageIndex').val(), 10);
+                queryVideoLibrary(page + 1);
+            });
+
+            $('input#videoKeywords').on('keypress', function(e){
+                if(e.keyCode === 13){
+                    $('button.videoLibQueryForm').click();
+                }
+            });
+
+            videoBlocks.on('click', 'button.setMainVideo', function() {
+                setMainVideo($(this));
+            });
 
             videoBlocks.on('click', 'button.fa-save', function() {
                 var parentBlock = $(this).parent().parent();
@@ -452,301 +686,10 @@
             $('button.videoCollapse').on('click', function() {
                 $('.video-setting-area .video-btn-collapse').click();
             });
-
-            function videoUrlToPlayer(){
-                return {
-                    fbV:function(url){
-                        var exp = /^http(?:s?):\/\/(?:www\.|web\.|m\.)?facebook\.com\/([A-z0-9\.]+)\/videos(?:\/[0-9A-z].+)?\/(\d+)(?:.+)?$/;
-                        return (url.match(exp)) ? RegExp.$2 : false;
-                    },
-                    ytV:function(url){
-                        let exp = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-                        return (url.match(exp)) ? RegExp.$1 : false;
-                    },
-                    playerHtml:function(url,setting){
-                        setting = setting ? setting : {};
-                        var width = setting.width || 300;
-                        var height = setting.height || 150;
-
-                        if(this.fbV(url)){
-                            return '<iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fsunnyhundalorg%2Fvideos%2F' + this.fbV(url) + '%2F&show_text=0" height="'+height+'" width="'+width+'" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>';
-                        }
-                        else if(this.ytV(url)){
-                            return '<iframe src="https://www.youtube.com/embed/' + this.ytV(url) + '?ecver=2" height="'+height+'" width="'+width+'" frameborder="0" allowfullscreen></iframe>';
-                        }
-                        else{
-                            return '<video class="video" width="'+width+'" height="'+height+'" controls> <source src="'+ url +'" type="video/mp4" > </video>'
-                        }
-                    }
-                }
-            }
-
-            // 取得要被送出的資料
-            var getFormData = function (targetEle) {
-                var isDeliver = targetEle.find('input[name=isDeliver]:checked').length === 1;
-                var desc = targetEle.find('textarea[name=desc]').val();
-                var title = targetEle.find('input[name=title]').val();
-                var url = targetEle.find('input[name=url]').val();
-
-                return {
-                    title: title,
-                    desc: desc,
-                    url: url,
-                    type: 'NEWS',
-                    isDeliver: isDeliver
-                };
-            };
-
-            var setVideoResultTemplate = function (videoResultTemplate, file, type) {
-
-                videoResultTemplate.find('.delete').attr('data-id', file._id);
-                videoResultTemplate.find('.setMainVideo').attr({
-                    'data-id': file._id,
-                    'data-url': file.url
-                });
-                videoResultTemplate.find('input[name=videoId]').val(file._id)
-                videoResultTemplate.find('.title').text(file.title);
-                videoResultTemplate.find('.desc').text(file.desc);
-                videoResultTemplate.find('img').attr('data-isdeliver', file.isDeliver);
-
-                if (file.isDeliver) {
-                    videoResultTemplate.find('.canNotDeliver').remove();
-                }
-
-                if (type === 'url') {
-                    videoResultTemplate.find('.preview').html(videoIframe);
-                } else {
-                    videoResultTemplate.find('source').attr({
-                        'src': file.url,
-                        'type': file.mimetype
-                    });
-                }
-
-                return videoResultTemplate;
-            };
-
-
-            /* 檔案上傳 */
-            $('#fileupload-video').fileupload({
-                filesContainer: $('#files-video'),
-                downloadTemplateId: null,
-                paramName: 'video',
-                url: uploadVideoUrl,
-                uploadTemplateId: null,
-                destroy: function (e, data) {
-                    var that = this;
-                    // 自己上傳的當下可以真刪除
-                    $.ajax({
-                        url: removeVideoUrl + data.id,
-                        type: 'DELETE',
-                        success: function(result) {
-                            // 再去呼叫原生 library destroy 該做的事情
-                            $.blueimp.fileupload.prototype.options.destroy.call(that, e, data);
-                        }
-                    });
-                },
-                downloadTemplate: function (o) {
-                    var rows = $();
-                    $.each(o.files, function (index, file) {
-                        var row = $($('#video-result-template').html());
-                        row = setVideoResultTemplate(row, file)
-
-                        if (file.error) {
-                            row.find('.setMainVideo').addClass('hidden');
-                            row.find('.delete').addClass('hidden');
-                            row.find('.cancel').removeClass('hidden');
-                            row.find('.error').text(file.error);
-                        }
-                        rows = rows.add(row);
-                    });
-                    return rows;
-                },
-                getFilesFromResponse: function (data) {
-                    return [data.result];
-                },
-                submit: function (e, data) {
-                    var submitRow = $(data.context);
-                    data.formData = getFormData(submitRow);
-                },
-                uploadTemplate: function (o) {
-                    var rows = $();
-                    $.each(o.files, function (index, file) {
-                        var row = $($('#video-upload-template').html());
-                        if (file.error) {
-                            row.find('.start').addClass('hidden');
-                            row.find('.error').text(file.error);
-                        }
-                        rows = rows.add(row);
-                    });
-                    return rows;
-                }
-            });
-
-            $('#files-video').on('click', '.setMainVideo', function(){
-                setMainVideo($(this));
-            });
-
-            // 一般影片連結
-            var player = null;
-            var $urlResultElm = $('#url-video');
-            var embed = function(url, $targetEle){
-
-                return $.embedly.oembed(url).progress(function(obj){
-
-                    if(obj['provider_url'].includes('facebook.com')){
-                      obj.html = `<iframe
-                      src="https://www.facebook.com/plugins/video.php?href=${obj.original_url}?show_text=0&width=400&height=280" width="400" height="280" scrolling="no" frameBorder="0" allowTransparency="true" allowFullScreen="true" />`;
-                    }
-
-                    if (!obj.html){
-                        $targetEle.html('');
-                        window.alert('影片的連結有問題！');
-                        return false;
-                    }
-                    videoIframe = obj.html;
-                    var row = $($('#video-upload-template').html());
-                    row.find('.preview').html(obj.html);
-                    row.find('input[name=title]').val(obj.title);
-                    row.find('input[name=url]').val(obj.original_url);
-                    row.find('textarea[name=desc]').val(obj.description);
-                    row.find('.size').hide();
-                    $targetEle.html(row).find('.fade').addClass('in');
-                });
-            };
-
-            $urlResultElm.on('click', '.start', function(){
-                var defaultTime = 10;
-                var progressEle = $(this).parents('tr').find('.progress-bar');
-                var formData = getFormData($urlResultElm);
-                $(this).attr('disabled', 'disabled');
-
-                $.post( createVideoUrl, formData)
-                    .success(function(data){
-                        progressEle.css('width', '100%');
-                        window.clearInterval(timer);
-
-                        // 換下個步驟
-                        var videoResultTemplate = $($('#video-result-template').html());
-                        videoResultTemplate = setVideoResultTemplate(videoResultTemplate, data, 'url')
-                        $urlResultElm.html(videoResultTemplate).find('.fade').addClass('in');
-                    })
-                    .fail(function(err){
-                        console.error(err.responseJSON)
-                    });
-
-                // 設定進度條
-                var timer = window.setInterval(function progressbarGo (){
-                    defaultTime--;
-                    var progress = 100 - defaultTime*10 + '%';
-                    progressEle.css('width', progress)
-                    if(defaultTime===0){
-                        window.clearInterval(timer);
-                        return false;
-                    }
-                }, 10);
-            });
-
-            $urlResultElm.on('click', '.cancel', function(){
-                return $urlResultElm.html('');
-            }).on('click', '.delete', function(){
-                var confirmed = confirm('您確定要刪除嗎？');
-                if (!confirmed) { return; }
-
-                var id = $(this).attr('data-id');
-                $.ajax({
-                    url: removeVideoUrl + '/' + id,
-                    type: 'DELETE',
-                    success: function(data) {
-                        $urlResultElm.html('');
-                    }
-                });
-            }).on('click', '.setMainVideo', function(){
-                setMainVideo($(this), 'url')
-            });
-
-            // Preview Edit Text
-            $('.preview-edit-area').on('click', '.fa-save', function () {
-                var parentBlock = $('#video-preview');
-                var newTitle = parentBlock.find('input.new-title').val().trim();
-                var originTitleElm = parentBlock.find('span.origin-title');
-                var newDesc = parentBlock.find('textarea.new-desc').val().trim();
-                var originDescElm = parentBlock.find('span.origin-desc');
-                var undoBtn =  parentBlock.find('.btn.fa-undo');
-
-                if (newTitle === originTitleElm.text() && newDesc === originDescElm.text() ) {
-                    return alert('標題跟描述沒有更新！');
-                }
-
-                var videoId = $('input[name=MainVideo]').val();
-                $.ajax({
-                    url: '/video/' + videoId,
-                    data: { title: newTitle, desc: newDesc },
-                    method: 'PUT'
-                }).done(function(result) {
-                    originTitleElm.text(newTitle);
-                    originDescElm.text(newDesc);
-                    undoBtn.addClass('hidden');
-                    alert('影片更新成功！');
-                }).fail(function() {
-                    alert('影片更新失敗！');
-                });
-
-            }).on('click', '.fa-undo', function () {
-                var parentBlock = $('#video-preview');
-                var newTitleElm = parentBlock.find('input.new-title');
-                var originTitle = parentBlock.find('span.origin-title').text().trim();
-                var newDescElm = parentBlock.find('textarea.new-desc');
-                var originDesc = parentBlock.find('span.origin-desc').text().trim();
-
-                newTitleElm.val(originTitle)
-                newDescElm.val(originDesc);
-                $(this).addClass('hidden');
-            });
-
-            $('#video-preview').on('change', 'textarea.new-desc, input.new-title', function() {
-                var parentBlock = $('#video-preview');
-                var originTitle = parentBlock.find('span.origin-title').text().trim();
-                var originDesc = parentBlock.find('span.origin-desc').text().trim();
-                var newTitle = parentBlock.find('input.new-title').val().trim();
-                var newDesc = parentBlock.find('textarea.new-desc').val().trim();
-                var undoBtn =  parentBlock.find('.btn.fa-undo');
-
-                if (originTitle === newTitle && originDesc === newDesc ) {
-                    undoBtn.addClass('hidden');
-                    return;
-                }
-                undoBtn.removeClass('hidden');
-            });
-
-            // URL inpute
-            var $url = $('#MainVideo');
-            $('.url-form a').on('click', function(){
-                embed($url.val(), $urlResultElm);
-                return false;
-            });
-
-            if ($('input[name=EXTERNAL]').length > 0){
-                var url = $('input[name=EXTERNAL]').val();
-                $.embedly.oembed(url).progress(function(obj){
-                    if (!obj.html){
-                        $('#video-preview').html('影片的連結有問題！');
-                        return false;
-                    }
-                    var previewHtml = $(obj.html).attr({
-                        width: 400,
-                        height: 280
-                    })
-                    $('#video-preview input[name=EXTERNAL]').after(previewHtml);
-                });
-            }
+        /* -- Tab: 自家影片庫 結束 -- */
 
         });
-        $.embedly.defaults.key = '3ee528c9eb4b4908b268ce1ace120c92';
 
-        $('input#videoKeywords').on('keypress', function(e){
-            if(e.keyCode === 13){
-                $('button.videoLibQueryForm').click();
-            }
-        });
+
     </script>
 </div>

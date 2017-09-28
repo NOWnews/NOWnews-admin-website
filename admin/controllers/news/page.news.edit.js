@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
 
         let { newsId } = req.params;
         let roleId = req.session.adminUser.Role._id;
-
+        let { data: { wasReleased } } = await axios.get(`/news/${newsId}/wasreleased`);
         let [
             { data: news },
             { data: { users: userList } },
@@ -73,7 +73,8 @@ module.exports = async (req, res, next) => {
             news,
             newsMemos,
             menus,
-            userList
+            userList,
+            wasReleased
         });
 
     }

@@ -4,6 +4,7 @@ const debug = Debug('NOWnews-admin-website: controllers:news:action.news.update'
 import htmlToText from '../../util/htmlToText';
 import newsContentFilter from '../../util/newsContentFilter';
 import moment from 'moment-timezone';
+import Promise from 'bluebird';
 
 module.exports = async (req, res, next) => {
 
@@ -13,6 +14,12 @@ module.exports = async (req, res, next) => {
         let { newsMemoContent, ...data } = req.body;
         let newsStatus = data.status.toLowerCase();
         let redirectUrl = req.session.prevUrl || 'back';
+
+        //新聞一旦發佈過 就無法變更發佈時間
+        let { data: { wasReleased } } = await axios.get(`/news/${newsId}/wasreleased`);
+        if( wasReleased ){
+            delete data.startedAt;
+        }
 
         debug('req.body = %j', data);
         //把MLB的iframe是http連結的換成https
