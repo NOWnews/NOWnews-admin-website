@@ -5,10 +5,19 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+### Changed
+- 專欄選單列表依據權重排序 @esbb48
+
+## 1.0.16 - 2017-09-29
+### Fixed
+- 修復審稿時'將發布時間更新至現在時間'應預設打勾卻沒打勾的問題 @appleoxxo
+
+## 1.0.15 - 2017-09-28
+### Added
+- 一旦新聞曾經發佈過 就無法變更新聞發稿時間(startedAt) @appleoxxo
 
 ### Changed
 - 重構 `block.video.html` @esbb48
-- 專欄選單列表依據權重排序 @esbb48
 
 ### Fixed
 - 修復影片預覽沒有辦法播放的問題 @esbb48
@@ -16,7 +25,6 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 ## 1.0.14 - 2017-09-21
 ### Added
 - 新增圖片關鍵字功能 供內部搜尋圖片使用 @appleoxxo
-- 一旦新聞曾經發佈過 就無法變更新聞發稿時間(startedAt) @appleoxxo
 
 ### Changed
 - 優化角色審稿權限顯示 @esbb48
