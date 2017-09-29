@@ -338,6 +338,7 @@
                 $('#autocomplete-ajax').autocomplete().dispose();
                 $('#autocomplete-ajax').autocomplete(autoCompleteOptions);
                 $(this).remove();
+                $('#autocomplete-ajax').focus();
             });
 
             //onSelect只監聽第一次點擊 這裡加上之後的suggestion click監聽
