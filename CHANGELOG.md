@@ -6,6 +6,9 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ## [Unreleased]
 
+### Fixed
+- 修復審稿時'將發布時間更新至現在時間'應預設打勾卻沒打勾的問題 @esbb48
+
 ## 1.0.15 - 2017-09-28
 ### Added
 - 一旦新聞曾經發佈過 就無法變更新聞發稿時間(startedAt) @appleoxxo
