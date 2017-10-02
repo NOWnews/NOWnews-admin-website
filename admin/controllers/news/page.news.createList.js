@@ -1,4 +1,3 @@
-import config from 'config';
 import Debug from 'debug';
 import _ from 'lodash';
 import qs from 'querystring';
@@ -9,7 +8,6 @@ import checkSchedule from '../../util/checkSchedule';
 module.exports = async (req, res, next) => {
 
     try {
-        let officialUrl = config.get('officialUrl');
         let { query, originalUrl } = req;
         let queryString = req._parsedUrl.query? '?' + req._parsedUrl.query: '?';
         let isFeed = 'false';
@@ -45,7 +43,6 @@ module.exports = async (req, res, next) => {
 
         debug('newsListInfo = %j', newsListInfo );
         return res.render('news/page.news.myList.html', {
-            officialUrl,
             mainMenus,
             query,
             originalUrl,

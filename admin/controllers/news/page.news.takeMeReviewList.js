@@ -1,4 +1,3 @@
-import config from 'config';
 import Debug from 'debug';
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.myList');
 import qs from 'querystring';
@@ -6,7 +5,6 @@ import { NEWS_TYPES, NEWS_STATUS, NEWS_TEMPLATES, TEMPLATES_AD } from '../../uti
 module.exports = async (req, res, next) => {
 
     try {
-        let officialUrl = config.get('officialUrl');
         let queryString = req._parsedUrl.query? '?' + req._parsedUrl.query: '';
         let userId = req.session.adminUser._id;
         let { data: newsListInfo } = await axios.get(`/news${queryString}`, {
@@ -30,7 +28,6 @@ module.exports = async (req, res, next) => {
         debug('newsListInfo = %j', newsListInfo );
 
         return res.render('news/page.news.myList.html', {
-            officialUrl,
             NEWS_STATUS,
             NEWS_TYPES,
             TEMPLATES: NEWS_TEMPLATES,
