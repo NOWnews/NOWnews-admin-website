@@ -27,7 +27,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    {% if NEWS_STATUS[value.status]=='發佈' %}
+                    {% if (NEWS_STATUS[value.status]=='發佈' and not value.isSchedule) %}
                         <a target="_blank" href="{{ officialUrl+value.parseUrl }}">
                             {{ value.title }}
                         </a>
