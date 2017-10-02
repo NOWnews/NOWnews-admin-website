@@ -1,6 +1,7 @@
 import adminMenu from '../../adminMenu.json';
 import home from './home';
 import trend from './trend';
+import recommend from './recommend';
 import map from './map';
 import postBoard from './postBoard';
 import robot from './robot';
@@ -33,6 +34,7 @@ module.exports = function(app) {
 
     app.use('/robots.txt', robot);
     app.use('/trend', trend);
+    app.use('/recommend', recommend);
     app.use('/map', map);
     app.use('/postBoard', postBoard);
     app.use('/moderator', moderator);

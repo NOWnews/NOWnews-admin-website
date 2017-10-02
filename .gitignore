@@ -43,3 +43,5 @@ AdminLTE-2.3.7/
 
 uploads/
 admin/public/dist
+
+package-lock.json

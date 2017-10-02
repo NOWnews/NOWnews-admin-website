@@ -5,6 +5,10 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+
+### Added
+- 根據標題與內容找出推薦關鍵字 @SimonSun
+
 ### Changed
 - 專欄選單列表依據權重排序 @esbb48
 
