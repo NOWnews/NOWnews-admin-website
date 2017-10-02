@@ -28,7 +28,7 @@
                 </td>
                 <td>
                     {% if (NEWS_STATUS[value.status]=='發佈' and not value.isSchedule) %}
-                        <a target="_blank" href="{{ officialUrl+value.parseUrl }}">
+                        <a target="_blank" href="{{ value.completeUrl }}">
                             {{ value.title }}
                         </a>
                     {% else %}
