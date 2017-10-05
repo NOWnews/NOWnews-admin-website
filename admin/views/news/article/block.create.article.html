@@ -20,6 +20,10 @@
             <label>關鍵字 (最多七個)</label>
             <textarea name="tags" id="keywords"></textarea>
             <p class="help-block text-right">( 請用 Enter 或逗號加入關鍵字 ... )</p>
+            <button id="recommendKeywordsButton" class="btn-lg btn-primary">關鍵字產生器</button>
+            <p>以下關鍵字會依據標題與內容的重複性字詞，產生推薦關鍵字:</p>
+            <div id="recommend-box"></div>
+            <hr>
             <p> Google 推薦關鍵字:</p>
             <div id="suggest-box"></div>
         </div>
@@ -41,6 +45,33 @@
                         $('#suggest-box').html(suggestElement);
                     })
                 $('#suggest-box').on('click', '.suggest-btn', function(e, a){
+                    $('#keywords').tagEditor('addTag', $(e.currentTarget).text());
+                });
+            });
+
+            $("#recommendKeywordsButton").click(function(event) {
+                event.preventDefault();
+                $('#recommend-box').html('<div class="callout callout-warning"><h4>分析標題與內容中，請勿關閉</h4></div>');
+
+                var title = $("#title").val();
+                var content = CKEDITOR.instances.contentCk.getData();
+
+                $.post("/recommend/newskeywords", { title: title, content: content })
+                    .done(function( data ) {
+                        $('#recommend-box').empty();
+
+                        if(data.length === 0) {
+                            $('#recommend-box').html('<div class="callout callout-danger"><h4>無法產生推薦關鍵字，請嘗試調整標題或內容後重新送出</h4></div>');
+                            return;
+                        }
+
+                        var recommendElements = '';
+                        data.forEach(function(value) {
+                            recommendElements = recommendElements + '<a class="recommend-btn btn btn-info">' + value.keyword + '</a>';
+                        });
+                        $('#recommend-box').html(recommendElements);
+                    });
+                $('#recommend-box').on('click', '.recommend-btn', function(e, a){
                     $('#keywords').tagEditor('addTag', $(e.currentTarget).text());
                 });
             });

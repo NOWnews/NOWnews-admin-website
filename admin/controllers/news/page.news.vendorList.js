@@ -1,4 +1,3 @@
-import config from 'config';
 import Debug from 'debug';
 const debug = Debug('NOWnews-admin-website: controllers:news:page.news.vendorList');
 import qs from 'querystring';
@@ -8,7 +7,6 @@ import checkSchedule from '../../util/checkSchedule';
 module.exports = async (req, res, next) => {
 
     try {
-        let officialUrl = config.get('officialUrl');
         let { query, originalUrl } = req;
         let queryString = req._parsedUrl.query? '?' + req._parsedUrl.query: '';
         let userId = req.session.adminUser._id;
@@ -40,7 +38,6 @@ module.exports = async (req, res, next) => {
         debug('newsListInfo = %j', newsListInfo );
 
         return res.render('news/page.news.vendorList.html', {
-            officialUrl,
             query,
             originalUrl,
             NEWS_STATUS,

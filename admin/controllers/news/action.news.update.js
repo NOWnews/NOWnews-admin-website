@@ -3,6 +3,7 @@ const debug = Debug('NOWnews-admin-website: controllers:news:action.news.update'
 
 import htmlToText from '../../util/htmlToText';
 import newsContentFilter from '../../util/newsContentFilter';
+import checkSchedule from '../../util/checkSchedule';
 import moment from 'moment-timezone';
 import Promise from 'bluebird';
 
@@ -104,6 +105,8 @@ module.exports = async (req, res, next) => {
                 break;
             case 'release':
                 data.UpdateUserRole = req.session.adminUser.Role._id;
+                 // 是不是預發稿 & 會影響後續要不要更新 fb share cache
+                data.isSchedule = checkSchedule(data.startedAt);
                 // let now = moment.tz('Asia/Taipei').valueOf();
                 // let start = moment.tz(data.startedAt ,'Asia/Taipei').valueOf();
                 // let formatTime = moment.tz(now ,'Asia/Taipei').format('YYYY-MM-DD HH:mm:ss');

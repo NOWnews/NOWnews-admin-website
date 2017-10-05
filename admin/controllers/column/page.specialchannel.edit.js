@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
 
         let { columnId } = req.params;
 
-        let { data: menus } = await axios.get('/menus?template=SPECIALCHANNEL');
+        let { data: menus } = await axios.get('/menus?template=SPECIALCHANNEL&sort=weight');
         
         let { data: column } = await axios.get(`/column/specialchannels/${columnId}`);
 
