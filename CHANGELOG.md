@@ -6,6 +6,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ## [Unreleased]
 
+## 1.0.17 - 2017-10-05
 ### Added
 - 根據標題與內容找出推薦關鍵字 @SimonSun
 
