@@ -1,0 +1,205 @@
+{% set title = "審核權限管理" %}
+{% extends "../../base.html" %}
+{% block headTitle %}
+    <title>大編輯台 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+<section class="content">
+    <form action="/menu/create" method="post">
+
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="switch">
+                <div class="container-switch">
+                    <input type="checkbox" name="timeAndRole" id="timeAndRole" class="switch-check" checked="checked">
+                    <label for="timeAndRole" class="switch-label">
+                    <span class="status"></span>
+                    <span class="switch-btn"></span>
+                    </label>
+                </div>
+                </div>
+                <h3 class="box-title">特定中心、時段、角色 可自己發佈</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+             <div class="box-body">
+                <div class="row">
+                     <div class="col-sm-4">
+                         從
+                        <div class="well">
+                        <div id="datetimepicker3" class="input-append">
+                            <input data-format="hh:mm:ss" type="text"></input>
+                            <span class="add-on">
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                            </i>
+                            </span>
+                        </div>
+                        </div>
+                        到
+                        <!-- <div class="well">
+                        <div id="datetimepicker3" class="input-append">
+                            <input data-format="hh:mm:ss" type="text"></input>
+                            <span class="add-on">
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                            </i>
+                            </span>
+                        </div>
+                        </div> -->
+                        <!-- <div class="form-group">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="status" id="status1" value="OPEN">
+                                    開啟
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="status" id="status2" value="CLOSE" checked>
+                                    關閉
+                                </label>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="switch">
+                <div class="container-switch">
+                    <input type="checkbox" name="sameUser" id="sameUser" class="switch-check" checked="checked">
+                    <label for="sameUser" class="switch-label">
+                    <span class="status"></span>
+                    <span class="switch-btn"></span>
+                    </label>
+                </div>
+                </div>
+                <h3 class="box-title">新聞審核者和建立者不能為同一位使用者</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="checkbox">
+                            <label>
+                                <input name="isExternal" type="checkbox" class="checkbox_link"> 外部連結
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input name="isAdult" type="checkbox"> 是否為成人
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group linkBox">
+                            <label for="shortTitle" class="control-label categoryLink">頻道連結</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">/cat/</span>
+                                <input type="text" name="categoryName" class="form-control" placeholder="範例  頻道名稱 sport" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="title" class="control-label">選單名稱</label>
+                            <input type="text" id="categoryname" maxlength="6" name="name" class="form-control" placeholder="限制字數為6" required>
+                        </div>
+                    </div>
+                </div>
+
+            </div> -->
+        </div>
+
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="switch">
+                <div class="container-switch">
+                    <input type="checkbox" name="sameCenter" id="sameCenter" class="switch-check" checked="checked">
+                    <label for="sameCenter" class="switch-label">
+                    <span class="status"></span>
+                    <span class="switch-btn"></span>
+                    </label>
+                </div>
+                </div>
+                <h3 class="box-title">新聞建立者同中心的同仁擁有審核權</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="switch">
+                <div class="container-switch">
+                    <input type="checkbox" name="sameCenter" id="sameCenter" class="switch-check" checked="checked">
+                    <label for="sameCenter" class="switch-label">
+                    <span class="status"></span>
+                    <span class="switch-btn"></span>
+                    </label>
+                </div>
+                </div>
+                <h3 class="box-title">審稿角色</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="edit-footer text-center">
+            <button type="submit" class="btn bg-olive btn-flat margin">儲存</button>
+            <button type="reset" class="btn bg-maroon btn-flat margin">取消</button>
+        </div>
+    </form>
+</section>
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<script src="/static/js/bootstrap-datetimepicker.min.js"></script>
+
+<script type="text/javascript">
+  $('#datetimepicker3').datetimepicker({
+      pickDate: false
+    });
+</script>
+
+<style>
+    .switch-label,
+.switch-label .status,
+.switch-label .btn { display: block; }
+.switch-label .status:before,
+.switch-label .status:after { float: left; width: 50%; font-size: 15px; font-weight: bold; color: #fff; -khtml-box-sizing: border-box; -ms-box-sizing: border-box; -o-box-sizing: border-box; box-sizing: border-box; }
+.switch { display:inline-block;  padding: 10px; }
+.container-switch { width: 74px; margin: 0 auto;}
+.switch-check { display: none; }
+.switch-check:checked + label .status { margin-left: 0; }
+.switch-check:checked + label .switch-btn { right: 0; }
+.switch-label { position: relative; overflow: hidden; cursor: pointer; border-radius: 18px; height: 36px; line-height: 36px; }
+.switch-label .status { width: 200%; margin-left: -100%; }
+.switch-label .status:before { content: "On"; background: #4285f4; padding-left: 11px; }
+.switch-label .status:after { content: "Off"; background: rgba(0, 0, 0, 0.4); padding-right: 11px; text-align: right; }
+.switch-label .status.colored:before { background: #294E92; }
+.switch-label .status.colored:after { background: #3771D4; }
+ .switch-label .switch-btn { position: absolute; top: 0; right: 38px; width: 30px; height: 30px; margin: 3px; background: #fff; border-radius: 30px; -webkit-transition: all 0.1s ease-in 0s; transition: all 0.1s ease-in 0s; }
+</style>
+
+<script>
+
+</script>
+
+{% endblock %}

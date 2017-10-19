@@ -92,6 +92,9 @@
         },{
             "url": "/auth/user",
             "name": "使用者管理"
+        },{
+            "url": "/auth/release",
+            "name": "審核權限管理"
         }]
     },
     "topic": {
