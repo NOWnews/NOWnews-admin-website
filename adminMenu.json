@@ -94,7 +94,7 @@
             "name": "使用者管理"
         },{
             "url": "/auth/release",
-            "name": "審核權限管理"
+            "name": "發佈權限管理"
         }]
     },
     "topic": {

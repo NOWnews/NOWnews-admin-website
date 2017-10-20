@@ -9,8 +9,9 @@ module.exports = async (req, res, next) => {
         data.CreatedBy = userId;
         data.UpdatedBy = userId;
 
-        let { data: releaseRules } = await axios.post('/releaseRules', data);
+        let { data: releaseRules } = await axios.post('/releaseRules/timeAndRole', data);
 
+        console.log('@@............');
         return res.redirect(`/auth/release`);
     } catch(err) {
         return next(err);

@@ -1,25 +1,118 @@
-{% set title = "審核權限管理" %}
+{% set title = "發佈權限" %}
 {% extends "../../base.html" %}
 {% block headTitle %}
     <title>大編輯台 | {{ title }}</title>
 {% endblock %}
 
 {% block container %}
+{% include "./modal.create.html" %}
+
 <section class="content">
-    <form action="/menu/create" method="post">
+    <form id="releaseRuleForm" action="/auth/release" method="post">
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="switch">
+                    <div class="container-switch">
+                        <input type="checkbox" name="timeAndRoleSwitch" id="timeAndRoleSwitch" class="switch-check" {{ 'checked' if releaseRules.timeAndRole.isOn }} >
+                        <label for="timeAndRoleSwitch" class="switch-label">
+                            <span class="status"></span>
+                            <span class="switch-btn"></span>
+                        </label>
+                    </div>
+                </div>
+                <h3 class="box-title">特定中心、時段、角色 可自己發佈自己的新聞</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+             <div class="box-body">
+                {% for data in releaseRules.timeAndRole.mixed %}
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label">中心</label>
+                                <!-- <input name="Department" type="hidden" value="{{ user.Department._id }}"/>
+                                <input name="Center" type="hidden" value="{{ user.Center._id }}"/> -->
+                                <select class="form-control"
+                                    id="dept-and-center"
+                                    name="timeAndRoleCenterIds">
+                                    <option value="">請選擇中心</option>
+                                    {% for department in departmentList %}
+                                        <!-- <optgroup id="{{ department._id }}" label="{{ department.name }}"> -->
+                                            {% for center in department.Centers %}
+                                                <option value="{{ center._id }}"
+                                                {{ "selected" if center._id == data.centerId }} >
+                                                    {{ center.name }}
+                                                </option>
+                                            {% endfor %}
+                                        <!-- </optgroup> -->
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="control-label">每日時段</label>
+                            <div>
+                                <select class="hourselect" name="timeAndRoleStartHours">
+                                    {% for i in range(0, 23) %}
+                                    <option value="{{i}}" {{ "selected" if i == data.startHour }}>{{i}}</option>
+                                    {% endfor %}
+                                </select>
+                                :
+                                <select class="minuteselect" name="timeAndRoleStartMinutes">
+                                    {% for i in range(0, 59) %}
+                                    <option value="{{i}}" {{ "selected" if i == data.startMinute }}>{{i}}</option>
+                                    {% endfor %}
+                                </select>
+                                到
+                                <select class="hourselect" name="timeAndRoleEndHours">
+                                    {% for i in range(0, 23) %}
+                                    <option value="{{i}}" {{ "selected" if i == data.endHour }}>{{i}}</option>
+                                    {% endfor %}
+                                </select>
+                                :
+                                <select class="minuteselect" name="timeAndRoleEndMinutes">
+                                    {% for i in range(0, 59) %}
+                                    <option value="{{i}}" {{ "selected" if i == data.endMinute }}>{{i}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="control-label">角色</label>
+                            <select name="timeAndRoleRoleIds[{{loop.index-1}}]" class="form-control timeAndRoleRoleIds" multiple="multiple">
+                                 {% for r in roleList %}
+                                        <option value="{{ r._id }}" {{ "selected" if data.roleIds.indexOf(r._id) > -1 }}>{{ r.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="fa fa-trash timeAndRoleDeleteBtn"></button>
+                        </div>
+                    </div>
+                {% endfor %}
+                    <button type="button"
+                        class="addRuleBtn fa fa-plus "
+                        data-toggle="modal"
+                        data-target="#createTimeAndRole"> 新增規則
+                    </button>
+            </div>
+        </div>
 
         <div class="box">
             <div class="box-header with-border">
                 <div class="switch">
                 <div class="container-switch">
-                    <input type="checkbox" name="timeAndRole" id="timeAndRole" class="switch-check" checked="checked">
-                    <label for="timeAndRole" class="switch-label">
+                    <input type="checkbox" name="excludeRolesSwitch" id="excludeRolesSwitch" class="switch-check" {{ 'checked' if releaseRules.excludeRoles.isOn }}>
+                    <label for="excludeRolesSwitch" class="switch-label">
                     <span class="status"></span>
                     <span class="switch-btn"></span>
                     </label>
                 </div>
                 </div>
-                <h3 class="box-title">特定中心、時段、角色 可自己發佈</h3>
+                <h3 class="box-title">特定角色不能發佈文章(例如: 工讀生)</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -28,52 +121,34 @@
             </div>
              <div class="box-body">
                 <div class="row">
-                     <div class="col-sm-4">
-                         從
-                        <div class="well">
-                        <div id="datetimepicker3" class="input-append">
-                            <input data-format="hh:mm:ss" type="text"></input>
-                            <span class="add-on">
-                            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                            </i>
-                            </span>
-                        </div>
-                        </div>
-                        到
-                        <!-- <div class="well">
-                        <div id="datetimepicker3" class="input-append">
-                            <input data-format="hh:mm:ss" type="text"></input>
-                            <span class="add-on">
-                            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                            </i>
-                            </span>
-                        </div>
-                        </div> -->
-                        <!-- <div class="form-group">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="status" id="status1" value="OPEN">
-                                    開啟
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="status" id="status2" value="CLOSE" checked>
-                                    關閉
-                                </label>
-                            </div>
-                        </div> -->
+                    <div class="col-sm-4">
+                        <label class="control-label">角色</label>
+                        <select id='excludeRoleIds' name="excludeRoleIds" class="form-control" multiple="multiple">
+
+
+                            {% for r in roleList %}
+                                     {% if releaseRules.excludeRoles.mixed.excludeRolesIds %}
+                                        <option value="{{ r._id }}"
+                                            {{ "selected" if (releaseRules.excludeRoles.mixed.excludeRolesIds.indexOf(r._id) >= 0) }}>
+                                            {{ r.name }}
+                                        </option>
+                                    {% else %}
+                                        <option value="{{ r._id }}">{{ r.name }}</option>
+                                     {% endif %}
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
             </div>
         </div>
 
+
         <div class="box">
             <div class="box-header with-border">
                 <div class="switch">
                 <div class="container-switch">
-                    <input type="checkbox" name="sameUser" id="sameUser" class="switch-check" checked="checked">
-                    <label for="sameUser" class="switch-label">
+                    <input type="checkbox" name="sameUserSwitch" id="sameUserSwitch" class="switch-check" {{ 'checked' if releaseRules.sameUser.isOn }}>
+                    <label for="sameUserSwitch" class="switch-label">
                     <span class="status"></span>
                     <span class="switch-btn"></span>
                     </label>
@@ -86,54 +161,21 @@
                     </button>
                 </div>
             </div>
-            <!-- <div class="box-body">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <div class="checkbox">
-                            <label>
-                                <input name="isExternal" type="checkbox" class="checkbox_link"> 外部連結
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input name="isAdult" type="checkbox"> 是否為成人
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-5">
-                        <div class="form-group linkBox">
-                            <label for="shortTitle" class="control-label categoryLink">頻道連結</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">/cat/</span>
-                                <input type="text" name="categoryName" class="form-control" placeholder="範例  頻道名稱 sport" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-5">
-                        <div class="form-group">
-                            <label for="title" class="control-label">選單名稱</label>
-                            <input type="text" id="categoryname" maxlength="6" name="name" class="form-control" placeholder="限制字數為6" required>
-                        </div>
-                    </div>
-                </div>
-
-            </div> -->
         </div>
+
 
         <div class="box">
             <div class="box-header with-border">
                 <div class="switch">
                 <div class="container-switch">
-                    <input type="checkbox" name="sameCenter" id="sameCenter" class="switch-check" checked="checked">
-                    <label for="sameCenter" class="switch-label">
+                    <input type="checkbox" name="sameCenterSwitch" id="sameCenterSwitch" class="switch-check" {{ 'checked' if releaseRules.sameCenter.isOn }}>
+                    <label for="sameCenterSwitch" class="switch-label">
                     <span class="status"></span>
                     <span class="switch-btn"></span>
                     </label>
                 </div>
                 </div>
-                <h3 class="box-title">新聞建立者同中心的同仁擁有審核權</h3>
+                <h3 class="box-title">新聞建立者同中心的同仁擁有發佈權</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -147,14 +189,14 @@
             <div class="box-header with-border">
                 <div class="switch">
                 <div class="container-switch">
-                    <input type="checkbox" name="sameCenter" id="sameCenter" class="switch-check" checked="checked">
-                    <label for="sameCenter" class="switch-label">
+                    <input type="checkbox" name="superiorRolesSwitch" id="superiorRolesSwitch" class="switch-check" {{ 'checked' if releaseRules.superiorRoles.isOn }}>
+                    <label for="superiorRolesSwitch" class="switch-label">
                     <span class="status"></span>
                     <span class="switch-btn"></span>
                     </label>
                 </div>
                 </div>
-                <h3 class="box-title">審稿角色</h3>
+                <h3 class="box-title">依照角色管理設定好的角色擁有發佈權</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -165,21 +207,54 @@
 
         <div class="edit-footer text-center">
             <button type="submit" class="btn bg-olive btn-flat margin">儲存</button>
-            <button type="reset" class="btn bg-maroon btn-flat margin">取消</button>
         </div>
     </form>
 </section>
-<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
-<script src="/static/js/bootstrap-datetimepicker.min.js"></script>
+
+<style>
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #cc4c4c;
+    }
+</style>
 
 <script type="text/javascript">
-  $('#datetimepicker3').datetimepicker({
-      pickDate: false
+
+   $(function() {
+        $('select.timeAndRoleRoleIds').select2({
+            placeholder: '請選擇角色...',
+            allowClear: true
+        });
+        $('#roleIds').select2({
+            placeholder: '請選擇角色...',
+            allowClear: true
+        });
+        $('#excludeRoleIds').select2({
+            placeholder: '請選擇角色...',
+            allowClear: true
+        });
+        $('.timeAndRoleDeleteBtn').on('click', function(){
+            var confirmed = confirm('您確定要刪除嗎？');
+            if (!confirmed) { return; }
+            var ruleRow = $(this).closest('div.row');
+            ruleRow.remove();
+            $('#releaseRuleForm').submit();
+
+        });
+
+
     });
+
+
 </script>
 
 <style>
-    .switch-label,
+
+ button.addRuleBtn{
+    padding: 10px;
+}
+
+/*  on off switch style  */
+.switch-label,
 .switch-label .status,
 .switch-label .btn { display: block; }
 .switch-label .status:before,
