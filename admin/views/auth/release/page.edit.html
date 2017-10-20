@@ -20,7 +20,7 @@
                         </label>
                     </div>
                 </div>
-                <h3 class="box-title">特定中心、時段、角色 可自己發佈自己的新聞</h3>
+                <h3 class="box-title">特定中心、時段、角色 可以發佈任何新聞</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -56,25 +56,25 @@
                             <label class="control-label">每日時段</label>
                             <div>
                                 <select class="hourselect" name="timeAndRoleStartHours">
-                                    {% for i in range(0, 23) %}
+                                    {% for i in range(0, 24) %}
                                     <option value="{{i}}" {{ "selected" if i == data.startHour }}>{{i}}</option>
                                     {% endfor %}
                                 </select>
                                 :
                                 <select class="minuteselect" name="timeAndRoleStartMinutes">
-                                    {% for i in range(0, 59) %}
+                                    {% for i in range(0, 60) %}
                                     <option value="{{i}}" {{ "selected" if i == data.startMinute }}>{{i}}</option>
                                     {% endfor %}
                                 </select>
                                 到
                                 <select class="hourselect" name="timeAndRoleEndHours">
-                                    {% for i in range(0, 23) %}
+                                    {% for i in range(0, 24) %}
                                     <option value="{{i}}" {{ "selected" if i == data.endHour }}>{{i}}</option>
                                     {% endfor %}
                                 </select>
                                 :
                                 <select class="minuteselect" name="timeAndRoleEndMinutes">
-                                    {% for i in range(0, 59) %}
+                                    {% for i in range(0, 60) %}
                                     <option value="{{i}}" {{ "selected" if i == data.endMinute }}>{{i}}</option>
                                     {% endfor %}
                                 </select>
@@ -127,9 +127,9 @@
 
 
                             {% for r in roleList %}
-                                     {% if releaseRules.excludeRoles.mixed.excludeRolesIds %}
+                                     {% if releaseRules.excludeRoles.mixed.excludeRoleIds %}
                                         <option value="{{ r._id }}"
-                                            {{ "selected" if (releaseRules.excludeRoles.mixed.excludeRolesIds.indexOf(r._id) >= 0) }}>
+                                            {{ "selected" if (releaseRules.excludeRoles.mixed.excludeRoleIds.indexOf(r._id) >= 0) }}>
                                             {{ r.name }}
                                         </option>
                                     {% else %}
@@ -141,28 +141,6 @@
                 </div>
             </div>
         </div>
-
-
-        <div class="box">
-            <div class="box-header with-border">
-                <div class="switch">
-                <div class="container-switch">
-                    <input type="checkbox" name="sameUserSwitch" id="sameUserSwitch" class="switch-check" {{ 'checked' if releaseRules.sameUser.isOn }}>
-                    <label for="sameUserSwitch" class="switch-label">
-                    <span class="status"></span>
-                    <span class="switch-btn"></span>
-                    </label>
-                </div>
-                </div>
-                <h3 class="box-title">新聞審核者和建立者不能為同一位使用者</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
 
         <div class="box">
             <div class="box-header with-border">
@@ -184,19 +162,18 @@
             </div>
         </div>
 
-
         <div class="box">
             <div class="box-header with-border">
                 <div class="switch">
                 <div class="container-switch">
-                    <input type="checkbox" name="superiorRolesSwitch" id="superiorRolesSwitch" class="switch-check" {{ 'checked' if releaseRules.superiorRoles.isOn }}>
-                    <label for="superiorRolesSwitch" class="switch-label">
+                    <input type="checkbox" name="sameUserSwitch" id="sameUserSwitch" class="switch-check" {{ 'checked' if releaseRules.sameUser.isOn }}>
+                    <label for="sameUserSwitch" class="switch-label">
                     <span class="status"></span>
                     <span class="switch-btn"></span>
                     </label>
                 </div>
                 </div>
-                <h3 class="box-title">依照角色管理設定好的角色擁有發佈權</h3>
+                <h3 class="box-title">新聞審核者和建立者不能為同一位使用者</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
