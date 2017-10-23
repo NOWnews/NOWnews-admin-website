@@ -31,3 +31,8 @@
 ## 系統資訊
 
 Node.js v6.2.2
+
+
+## Prod Mode
+
+pm2 start pm2/admin.json --env production

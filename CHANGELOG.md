@@ -5,7 +5,11 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+### Added
+- 使用 pm2 config 控管 @esbb48
 
+### Changed
+- 移除 `pacakge.json` 沒使用的 build script @esbb48
 ## 1.0.17 - 2017-10-05
 ### Added
 - 根據標題與內容找出推薦關鍵字 @SimonSun
