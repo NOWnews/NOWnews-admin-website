@@ -17,7 +17,6 @@
                     <select class="form-control"
                         id="center-id"
                         name="centerId">
-                        <option value="">請選擇中心</option>
                         {% for department in departmentList %}
                             <!-- <optgroup id="{{ department._id }}" label="{{ department.name }}"> -->
                                 {% for center in department.Centers %}
@@ -45,7 +44,7 @@
             </div>
             <div class="col-sm-4">
                 <label class="control-label">角色</label>
-                <select id="roleIds" name="roleIds" class="form-control" multiple="multiple">
+                <select id="roleIds" name="roleIds" class="form-control" multiple="multiple" required>
                     {% for r in roleList %}
                         <option value="{{ r._id }}">{{ r.name }}</option>
                     {% endfor %}

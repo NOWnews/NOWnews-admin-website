@@ -38,7 +38,6 @@
                                 <select class="form-control"
                                     id="dept-and-center"
                                     name="timeAndRoleCenterIds">
-                                    <option value="">請選擇中心</option>
                                     {% for department in departmentList %}
                                         <!-- <optgroup id="{{ department._id }}" label="{{ department.name }}"> -->
                                             {% for center in department.Centers %}
@@ -208,7 +207,8 @@
         });
         $('#excludeRoleIds').select2({
             placeholder: '請選擇角色...',
-            allowClear: true
+            allowClear: true,
+            maximumSelectionLength: 1
         });
         $('.timeAndRoleDeleteBtn').on('click', function(){
             var confirmed = confirm('您確定要刪除嗎？');
