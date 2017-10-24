@@ -28,7 +28,7 @@
                 </div>
             </div>
              <div class="box-body">
-                {% for data in releaseRules.timeAndRole.mixed %}
+                {% for data in releaseRules.timeAndRole.setting %}
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
@@ -127,9 +127,9 @@
 
 
                             {% for r in roleList %}
-                                     {% if releaseRules.excludeRoles.mixed.excludeRoleIds %}
+                                     {% if releaseRules.excludeRoles.setting.roleIds %}
                                         <option value="{{ r._id }}"
-                                            {{ "selected" if (releaseRules.excludeRoles.mixed.excludeRoleIds.indexOf(r._id) >= 0) }}>
+                                            {{ "selected" if (releaseRules.excludeRoles.setting.roleIds.indexOf(r._id) >= 0) }}>
                                             {{ r.name }}
                                         </option>
                                     {% else %}
@@ -203,7 +203,8 @@
         });
         $('#roleIds').select2({
             placeholder: '請選擇角色...',
-            allowClear: true
+            allowClear: true,
+            width: "100%"
         });
         $('#excludeRoleIds').select2({
             placeholder: '請選擇角色...',

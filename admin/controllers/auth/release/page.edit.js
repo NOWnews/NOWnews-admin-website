@@ -1,5 +1,5 @@
 import Debug from 'debug';
-const debug = Debug('NOWnews-admin-website: controllers:auth:department:page.edit');
+const debug = Debug('NOWnews-admin-website:controllers:auth:release:page.edit');
 
 module.exports = async (req, res, next) => {
 
@@ -14,12 +14,16 @@ module.exports = async (req, res, next) => {
             axios.get('/releaseRules')
         ]);
 
-        let test = await axios.get('/releaseRules');
         departmentList = _.filter(departmentList,(department)=>{
             return department.name.indexOf("新聞部")>-1;
         });
 
         debug('releaseRules = %j', releaseRules);
+
+        if(releaseRules){
+            releaseRules = releaseRules.rules;
+        }
+
         return res.render('auth/release/page.edit.html', {
             departmentList,
             roleList,

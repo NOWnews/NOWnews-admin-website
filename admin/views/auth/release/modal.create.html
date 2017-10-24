@@ -2,6 +2,7 @@
 {% set modalId = "createTimeAndRole" %}
 {% set modalTitle = "" %}
 {% set formAction = "/auth/release/timeAndRole" %}
+{% set modalLarge = "modal-lg" %}
 
 {% block body %}
     <!-- <input type="hidden" name="departmentId" value="{{ department._id }}" required/> -->
@@ -14,7 +15,7 @@
                     <!-- <input name="Department" type="hidden" value="{{ user.Department._id }}"/>
                     <input name="Center" type="hidden" value="{{ user.Center._id }}"/> -->
                     <select class="form-control"
-                        id="dept-and-center"
+                        id="center-id"
                         name="centerId">
                         <option value="">請選擇中心</option>
                         {% for department in departmentList %}
