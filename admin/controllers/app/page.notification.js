@@ -5,9 +5,18 @@ import Promise from 'bluebird';
 
 module.exports = async (req, res, next) => {
     try{
-        return res.render('app/page.notification.html');
+
+    	const { sn } = req.query;
+    	let news = null;
+    	if (sn) {
+	        const result = await axios.get(`/news/oneBySn/${sn}`);
+	        news = result.data;
+    	}
+        return res.render('app/page.notification.html', {
+        	news,
+        });
     }
-    catch(err) {
+    catch (err) {
         return next(err);
     }
 };
