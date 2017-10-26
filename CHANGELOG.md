@@ -5,6 +5,8 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+
+## 1.0.18 - 2017-10-26
 ### Added
 - 使用 pm2 config 控管 @esbb48
 
