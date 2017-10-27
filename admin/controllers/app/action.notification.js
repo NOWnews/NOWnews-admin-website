@@ -14,15 +14,17 @@ module.exports = async (req, res, next) => {
         };
         debug('options = %j', options);
 
-        if(os === 'IOS') {
+        const osArray = (typeof os === 'STRING') ? [os] : os;
+
+        if(osArray.indexOf('IOS') > -1) {
             let { data: result } = await axios.post('/app/notification/ios', options);
         }
 
-        if(os === 'ANDROID') {
+        if(osArray.indexOf('ANDROID') > -1) {
             let { data: result } = await axios.post('/app/notification/android', options);
         }
 
-        if(os === 'WEB') {
+        if(osArray.indexOf('WEB') > -1) {
             let { data: result } = await axios.post('/app/notification/web', options);
         }
 

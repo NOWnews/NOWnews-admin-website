@@ -124,6 +124,17 @@
                 $('img[name=previewImage]').attr('src', e.target.value);
             });
 
+            $('form').on('submit', function(e){
+                var checkedOS = $('input[name="os"]').is(':checked');
+                if (checkedOS === false) {
+                    alert('您沒有選擇要推播的作業系統喔！');
+                    return false;
+                }
+                var confirmed = confirm('您確定要推播嗎？');
+                return confirmed;
+            });
         });
+
+
     </script>
 {% endblock %}
