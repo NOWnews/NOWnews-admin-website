@@ -33,20 +33,16 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="control-label">中心</label>
-                                <!-- <input name="Department" type="hidden" value="{{ user.Department._id }}"/>
-                                <input name="Center" type="hidden" value="{{ user.Center._id }}"/> -->
-                                <select class="form-control"
+                                 <select class="form-control"
                                     id="dept-and-center"
                                     name="timeAndRoleCenterIds">
                                     {% for department in departmentList %}
-                                        <!-- <optgroup id="{{ department._id }}" label="{{ department.name }}"> -->
                                             {% for center in department.Centers %}
                                                 <option value="{{ center._id }}"
                                                 {{ "selected" if center._id == data.centerId }} >
                                                     {{ center.name }}
                                                 </option>
                                             {% endfor %}
-                                        <!-- </optgroup> -->
                                     {% endfor %}
                                 </select>
                             </div>
