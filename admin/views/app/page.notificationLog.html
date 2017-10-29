@@ -1,0 +1,91 @@
+{% set title = "APP | 推播歷史紀錄" %}
+{% extends "../base.html" %}
+{% block headTitle %}
+    <title>APP | 推播歷史紀錄</title>
+{% endblock %}
+
+{% block container %}
+<section class="content">
+    <div class="box">
+        <div class="box-body table-responsive">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <select class="form-control" name="os">
+                            <option value="" selected>全部作業系統</option>
+                            {% for os in OSs %}
+                                {% if os == qs.os %}
+                                    <option value="{{os}}" selected>{{os}}</option>
+                                {% else %}
+                                    <option value="{{os}}">{{os}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-default btn-flat" type="submit">
+                            查詢
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <table id="notification-log-table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>作業系統</th>
+                        <th>標題</th>
+                        <th>圖片</th>
+                        <th>網址</th>
+                        <th>大綱</th>
+                        <th>預計推播數</th>
+                        <th>成功數/失敗數</th>
+                        <th>推播日期</th>
+                        <th>推播人</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in notificationLogs %}
+                        <tr>
+                            <td>{{ log.os}}</td>
+                            <td>{{ log.title }}</td>
+                            <td>
+                                <a href="{{log.image}}" target="_blank"><img height="50" src="{{log.image}}" /></a>
+                            </td>
+                            <td><a href="{{log.url}}" target="_blank">{{ log.url }}</a></td>
+                            <td>{{ log.summary }}</td>
+                            <td>{{ log.expectCount }}</td>
+                            <td>
+                                {{ log.successCount }} /
+                                {{ log.expectCount -  log.successCount }}
+                            </td>
+                            <td>{{ log.formatCreatedAt }}</td>
+                            <td>{{ log.CreatedBy.name}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>作業系統</th>
+                        <th>標題</th>
+                        <th>圖片</th>
+                        <th>網址</th>
+                        <th>大綱</th>
+                        <th>預計推播數</th>
+                        <th>成功數/失敗數</th>
+                        <th>推播日期</th>
+                        <th>推播人</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="box-footer dataTables_wrapper">
+            {% include "../util/pagination.html" %}
+        </div>
+    </div>
+
+
+</section>
+<script>
+</script>
+
+{% endblock %}
