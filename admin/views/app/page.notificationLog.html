@@ -82,10 +82,13 @@
             {% include "../util/pagination.html" %}
         </div>
     </div>
-
-
 </section>
 <script>
+    $('#notification-log-table').DataTable({
+        "order": [[ 7, "desc" ]],
+        "paging": true,
+        "searching": false
+    });
 </script>
 
 {% endblock %}
