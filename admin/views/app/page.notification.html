@@ -30,7 +30,7 @@
                                     新聞連結
                                     <span class="text-danger">*</span>
                                 </label>
-                                <input id="newsUrl" name="newsUrl" class="input form-control" required value="{{news.completeUrl}}" />
+                                <input type="url" id="newsUrl" name="newsUrl" class="input form-control" required value="{{news.completeUrl}}" />
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -75,7 +75,7 @@
                                     圖片網址
                                     <span class="text-danger">*</span>
                                 </label>
-                                <input id="newsImage" name="newsImage" class="input form-control" required value="{{news.MainPhoto.thumbnail}}" />
+                                <input type="url" id="newsImage" name="newsImage" class="input form-control" required value="{{news.MainPhoto.thumbnail}}" />
                                 <img name="previewImage" class="margin" width="200" src="{{news.MainPhoto.thumbnail}}" />
                             </div>
                         </div>
