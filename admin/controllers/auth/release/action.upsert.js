@@ -17,7 +17,9 @@ module.exports = async (req, res, next) => {
         if(data.timeAndRoleCenterIds){
             data.timeAndRole.setting = [];
         }
+
         if(data.timeAndRoleCenterIds && !_.isArray(data.timeAndRoleCenterIds)){
+            data.currentIndexs = [data.currentIndexs];
             data.timeAndRoleCenterIds = [data.timeAndRoleCenterIds];
             data.timeAndRoleStartHours = [data.timeAndRoleStartHours];
             data.timeAndRoleStartMinutes = [data.timeAndRoleStartMinutes];
@@ -25,14 +27,16 @@ module.exports = async (req, res, next) => {
             data.timeAndRoleEndHours = [data.timeAndRoleEndHours];
             data.timeAndRoleEndMinutes = [data.timeAndRoleEndMinutes];
         }
+
         _.forEach(data.timeAndRoleCenterIds, (centerId, index)=>{
+            const currentIndex  = data.currentIndexs[index];
             data.timeAndRole.setting.push({
                 centerId : centerId,
                 startHour : data.timeAndRoleStartHours[index],
                 startMinute : data.timeAndRoleStartMinutes[index],
                 endHour : data.timeAndRoleEndHours[index],
                 endMinute : data.timeAndRoleEndMinutes[index],
-                roleIds : data[`timeAndRoleRoleIds[${index}]`]
+                roleIds : data[`timeAndRoleRoleIds[${currentIndex}]`]
             });
         });
 

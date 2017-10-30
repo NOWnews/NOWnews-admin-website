@@ -77,13 +77,14 @@
                         </div>
                         <div class="col-sm-4">
                             <label class="control-label">角色</label>
-                            <select name="timeAndRoleRoleIds[{{loop.index-1}}]" class="form-control timeAndRoleRoleIds" multiple="multiple">
+                            <select name="timeAndRoleRoleIds[{{loop.index0}}]" class="form-control timeAndRoleRoleIds" multiple="multiple">
                                  {% for r in roleList %}
                                         <option value="{{ r._id }}" {{ "selected" if data.roleIds.indexOf(r._id) > -1 }}>{{ r.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
                         <div class="col-sm-1">
+                            <input name="currentIndexs" type='hidden' value="{{loop.index0}}"/>
                             <button type="button" class="fa fa-trash timeAndRoleDeleteBtn"></button>
                         </div>
                     </div>
