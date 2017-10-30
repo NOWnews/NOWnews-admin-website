@@ -141,8 +141,8 @@
             <div class="box-header with-border">
                 <div class="switch">
                 <div class="container-switch">
-                    <input type="checkbox" name="sameCenterSwitch" id="sameCenterSwitch" class="switch-check" {{ 'checked' if releaseRules.sameCenter.isOn }}>
-                    <label for="sameCenterSwitch" class="switch-label">
+                    <input type="checkbox" name="canSameCenterReviewSwitch" id="canSameCenterReviewSwitch" class="switch-check" {{ 'checked' if releaseRules.canSameCenterReview.isOn }}>
+                    <label for="canSameCenterReviewSwitch" class="switch-label">
                     <span class="status"></span>
                     <span class="switch-btn"></span>
                     </label>
@@ -161,14 +161,14 @@
             <div class="box-header with-border">
                 <div class="switch">
                 <div class="container-switch">
-                    <input type="checkbox" name="sameUserSwitch" id="sameUserSwitch" class="switch-check" {{ 'checked' if releaseRules.sameUser.isOn }}>
-                    <label for="sameUserSwitch" class="switch-label">
+                    <input type="checkbox" name="canSameUserReviewSwitch" id="canSameUserReviewSwitch" class="switch-check" {{ 'checked' if releaseRules.canSameUserReview.isOn }}>
+                    <label for="canSameUserReviewSwitch" class="switch-label">
                     <span class="status"></span>
                     <span class="switch-btn"></span>
                     </label>
                 </div>
                 </div>
-                <h3 class="box-title">新聞審核者和建立者不能為同一位使用者</h3>
+                <h3 class="box-title">新聞審核者和建立者可以是同一位使用者</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>

@@ -8,10 +8,10 @@ module.exports = async (req, res, next) => {
         let data = req.body;
         data.CreatedBy = userId;
         data.UpdatedBy = userId;
-        data.excludeRolesSwitch = data.excludeRolesSwitch === 'on' ? true : false;
-        data.timeAndRoleSwitch =  data.timeAndRoleSwitch === 'on' ? true : false;
-        data.sameUserSwitch = data.sameUserSwitch === 'on' ? true : false;
-        data.sameCenterSwitch = data.sameCenterSwitch === 'on' ? true : false;
+        data.excludeRolesSwitch = data.excludeRolesSwitch === 'on';
+        data.timeAndRoleSwitch =  data.timeAndRoleSwitch === 'on';
+        data.canSameUserReviewSwitch = data.canSameUserReviewSwitch === 'on';
+        data.canSameCenterReviewSwitch = data.canSameCenterReviewSwitch === 'on';
 
         data.timeAndRole = {};
         if(data.timeAndRoleCenterIds){
