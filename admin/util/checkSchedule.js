@@ -7,7 +7,7 @@ module.exports = (startedAt) =>{
     startedAt = moment.tz(startedAt, 'Asia/Taipei');
 
     if ( startedAt.isAfter(now) ){
-    	return true;
+        return true;
     }
 
     return false;

@@ -7,34 +7,34 @@
     </div>
 </div>
 <script>
-	$(function(){
-		$('#searchId').on('click', function(){
-			swal({
-				title: '用 ID 搜尋新聞',
-				text: '將新聞的 ID 填入。 例如: 123',
-				type: 'input',
-				showCancelButton: true,
-				closeOnConfirm: false,
-				animation: 'slide-from-top',
-				inputPlaceholder: '請輸入新聞ID',
-				cancelButtonText: '取消'
-			},
-			function(inputValue){
-				if (inputValue === false) {
-					return false;
-				}
+    $(function(){
+        $('#searchId').on('click', function(){
+            swal({
+                title: '用 ID 搜尋新聞',
+                text: '將新聞的 ID 填入。 例如: 123',
+                type: 'input',
+                showCancelButton: true,
+                closeOnConfirm: false,
+                animation: 'slide-from-top',
+                inputPlaceholder: '請輸入新聞ID',
+                cancelButtonText: '取消'
+            },
+            function(inputValue){
+                if (inputValue === false) {
+                    return false;
+                }
 
-				if (inputValue === '') {
-				    swal.showInputError('請輸入新聞 ID');
-				    return false;
-				}
-				if (isNaN(inputValue)) {
-					swal.showInputError('請輸入新聞 ID');
-				    return false;
-				}
+                if (inputValue === '') {
+                    swal.showInputError('請輸入新聞 ID');
+                    return false;
+                }
+                if (isNaN(inputValue)) {
+                    swal.showInputError('請輸入新聞 ID');
+                    return false;
+                }
 
-				window.window.location.href='?sn=' + inputValue;
-			});
-		});
-	});
+                window.window.location.href='?sn=' + inputValue;
+            });
+        });
+    });
 </script>
