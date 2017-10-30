@@ -5,6 +5,11 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+### Added
+- 增加推播歷史紀錄 @esbb48
+
+### Changed
+- 優化推播操作 UI 和預防機制 @esbb48
 
 ## 1.0.18 - 2017-10-26
 ### Added
