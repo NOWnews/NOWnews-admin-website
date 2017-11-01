@@ -1,0 +1,25 @@
+{% set title = "新增部門" %}
+{% extends "../../base.html" %}
+{% block headTitle %}
+    <title>大編輯台 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+    <section class="content">
+        <div class="box">
+            <form action="/auth/department/create" method="post">
+                <div class="box-body">
+                    {% include "./block.form.html" %}
+                </div>
+                <div class="box-footer text-center">
+                    <a href="/auth/department" class="btn btn-default btn-flat">
+                        返回
+                    </a>
+                    <button type="submit" class="btn bg-olive btn-flat">
+                        送出
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
     try {
 
         let { newsId } = req.params;
-        let roleId = req.session.adminUser.Role._id;
+        let userId = req.session.adminUser._id;
         let { data: { wasReleased } } = await axios.get(`/news/${newsId}/wasreleased`);
         let [
             { data: news },
@@ -22,7 +22,7 @@ module.exports = async (req, res, next) => {
             axios.get('/users?limit=10000&isInitUser=true&sort=staffId'),
             axios.get('/menus/struction'),
             axios.get(`/newsmemo?News=${newsId}&sort=createdAt`),
-            axios.get(`/roles/${roleId}/reviewers`),
+            axios.get(`/users/${userId}/reviewers`),
         ]);
 
         let selectMenus = _.map( news.Menus, (menu) => {

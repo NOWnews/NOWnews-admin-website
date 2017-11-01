@@ -46,9 +46,7 @@
                     <select name="LastReviewer" class="form-control select2">
                         <option value=""></option>
                         {% for user in reviewers %}
-                            {% if user._id != currentUser._id %}
                                 <option value="{{ user._id }}">{{ user.name }}</option>
-                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>
