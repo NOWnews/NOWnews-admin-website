@@ -29,17 +29,17 @@ module.exports = async (req, res, next) => {
     };
 
     try {
-    	let { videoId } = req.params;
+        let { videoId } = req.params;
         let { data: videos } = await axios.get(`/videos/${videoId}`);
 
         // 把影片變成 html
-    	if (videos.videoFrom === 'INTERNAL') {
-    		videos.html = videoHtml(videos.url);
-    	} else {
-    		videos.html = fbVId(videos.url)? fbHtml(fbVId(videos.url)) : videos.html;
+        if (videos.videoFrom === 'INTERNAL') {
+            videos.html = videoHtml(videos.url);
+        } else {
+            videos.html = fbVId(videos.url)? fbHtml(fbVId(videos.url)) : videos.html;
             videos.html = ytVid(videos.url)? ytHtml(ytVid(videos.url)) : videos.html;
-    		videos.html = igVid(videos.url)? IgHtml(igVid(videos.url)) : videos.html;
-    	}
+            videos.html = igVid(videos.url)? IgHtml(igVid(videos.url)) : videos.html;
+        }
 
         return res.render('video/page.demo.html', {
             videos

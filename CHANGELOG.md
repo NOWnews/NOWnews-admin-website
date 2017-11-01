@@ -5,6 +5,11 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+### Added
+- 增加推播歷史紀錄 @esbb48
+
+### Changed
+- 優化推播操作 UI 和預防機制 @esbb48
 
 - 新增 審核權限設定 可設定以下審核權限 @appleoxxo
   - 1. 特定中心、時段、角色 可以發佈任何新聞 （此次新增）
@@ -12,6 +17,12 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
   - 3. 新聞建立者同中心的同仁擁有發佈權 (此次新增)
   - 4. 新聞審核者和建立者不能為同一位使用者（已有功能新增開關）
 
+## 1.0.18 - 2017-10-26
+### Added
+- 使用 pm2 config 控管 @esbb48
+
+### Changed
+- 移除 `pacakge.json` 沒使用的 build script @esbb48
 ## 1.0.17 - 2017-10-05
 ### Added
 - 根據標題與內容找出推薦關鍵字 @SimonSun

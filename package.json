@@ -1,14 +1,11 @@
 {
   "name": "NOWnews-admin-website",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "NOWnews Admin service",
   "main": "index.js",
   "scripts": {
     "start": "npm install && NODE_ENV=develop DEBUG=NOWnews-admin-website* ./node_modules/nodemon/bin/nodemon.js ./bin/admin.js",
-    "staging": "npm install && NODE_ENV=staging DEBUG=NOWnews-admin-website* ./node_modules/nodemon/bin/nodemon.js ./bin/admin.js",
-    "build:staging": "NODE_ENV=staging node_modules/webpack/bin/webpack.js --progress --hide-modules",
-    "build": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules",
-    "prod": "NODE_ENV=production node ./bin/server"
+    "staging": "npm install && NODE_ENV=staging DEBUG=NOWnews-admin-website* ./node_modules/nodemon/bin/nodemon.js ./bin/admin.js"
   },
   "repository": {
     "type": "git",

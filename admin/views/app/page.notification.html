@@ -7,6 +7,7 @@
 {% block container %}
     <section class="content">
         <form action="/app/notification" method="post">
+            <input name="NewsId" type='hidden' value="{{news._id}}" />
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">APP 新聞推播</h3>
@@ -18,27 +19,46 @@
                 </div>
                 <div class="box-body">
                     <div class="row">
+                        <div class="form-group col-md-2">
+                            <a id="searchId" class="btn btn-info" href="#">使用 ID 快速載入推播資訊</a>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="newsUrl" class="control-label">新聞連結</label>
-                                <input id="newsUrl" name="newsUrl" class="input form-control" required></input>
+                                <label for="newsUrl" class="control-label">
+                                    新聞連結
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="url" id="newsUrl" name="newsUrl" class="input form-control" required value="{{news.completeUrl}}" />
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="newsTitle" class="control-label">新聞標題</label>
-                                <input id="newsTitle" name="newsTitle" class="input form-control" required></input>
+                                <label for="newsTitle" class="control-label">
+                                    新聞標題
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input id="newsTitle" name="newsTitle" class="input form-control" required value="{{news.shortTitle}}" />
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="
-                                os" class="control-label">作業系統</label>
-                                <select id="os" class="form-control" name="os">
-                                    <option value="ANDROID">ANDROID</option>
-                                    <option value="IOS">IOS</option>
-                                    <option value="WEB">WEB</option>
-                                </select>
+                                <label for="os" class="control-label">
+                                    作業系統
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="os" value="ANDROID" type="checkbox"> ANDROID
+                                    </label>
+                                    <label>
+                                        <input name="os" value="IOS" type="checkbox"> IOS
+                                    </label>
+                                    <label>
+                                        <input name="os" value="WEB" type="checkbox"> WEB
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -46,22 +66,80 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="newsSummary" class="control-label">新聞摘要</label>
-                                <textarea id="newsSummary" name="newsSummary" class="form-control" rows="8" placeholder="Enter ..." required></textarea>
+                                <textarea id="newsSummary" name="newsSummary" class="form-control" rows="8" placeholder="Enter ...">{{ news.summary }}</textarea>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="newsImage" class="control-label">圖片網址</label>
-                                <input id="newsImage" name="newsImage" class="input form-control" required></input>
+                                <label for="newsImage" class="control-label">
+                                    圖片網址
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="url" id="newsImage" name="newsImage" class="input form-control" required value="{{news.MainPhoto.thumbnail}}" />
+                                <img name="previewImage" class="margin" width="200" src="{{news.MainPhoto.thumbnail}}" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="edit-footer text-center">
+                <a class="btn bg-orange btn-flat margin"
+                    href="/app/notificationLog" target="_blank">
+                    推播歷史紀錄
+                </a>
+
                 <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
                 <button type="button" class="btn bg-maroon btn-flat margin">取消</button>
             </div>
         </form>
     </section>
+
+    <script>
+        $(function(){
+            $('#searchId').on('click', function(){
+                swal({
+                    title: '用 ID 搜尋新聞',
+                    text: '將新聞的 ID 填入。 例如: 123',
+                    type: 'input',
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    animation: 'slide-from-top',
+                    inputPlaceholder: '請輸入新聞ID',
+                    cancelButtonText: '取消'
+                },
+                function(inputValue){
+                    if (inputValue === false) {
+                        return false;
+                    }
+
+                    if (inputValue === '') {
+                        swal.showInputError('請輸入新聞 ID');
+                        return false;
+                    }
+                    if (isNaN(inputValue)) {
+                        swal.showInputError('請輸入新聞 ID');
+                        return false;
+                    }
+
+                    window.window.location.href = '?sn=' + inputValue;
+                });
+            });
+
+            $('#newsImage').on('change', function(e){
+                $('img[name=previewImage]').attr('src', e.target.value);
+            });
+
+            $('form').on('submit', function(e){
+                var checkedOS = $('input[name="os"]').is(':checked');
+                if (checkedOS === false) {
+                    alert('您沒有選擇要推播的作業系統喔！');
+                    return false;
+                }
+                var confirmed = confirm('您確定要推播嗎？');
+                return confirmed;
+            });
+        });
+
+
+    </script>
 {% endblock %}
