@@ -7,6 +7,7 @@ import department from './department';
 import center from './center';
 import role from './role';
 import user from './user';
+import release from './release';
 
 let router = Router();
 
@@ -25,6 +26,7 @@ department(router);
 center(router);
 role(router);
 user(router);
+release(router);
 
 
 module.exports = router;

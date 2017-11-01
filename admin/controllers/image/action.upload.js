@@ -9,7 +9,6 @@ module.exports = async (req, res, next) => {
 
     try {
         let { _id: userId } = req.session.adminUser;
-
         // 檔案路徑更名
         let { originalname, path } = req.file;
         let newPath = `uploads/${originalname}`;

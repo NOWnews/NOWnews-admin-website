@@ -40,7 +40,7 @@ $(function() {
         }, 500);
     });
 
-    $('input').iCheck({
+    $('input').not(".switch-check").iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue',
         increaseArea: '50%' // optional

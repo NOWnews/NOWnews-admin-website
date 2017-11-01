@@ -1,0 +1,42 @@
+<table id="department-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="th-group">部門</th>
+            <th width="15%">部門</th>
+            <th>中心</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for department in departmentList %}
+            {% if department.Centers.length == 0 %}
+                 <tr>
+                    <td>
+                        <a href="/auth/department/{{department._id}}">
+                            {{ department.name }}
+                        </a>
+                    </td>
+                    <td>-</td>
+                    <td><span class="text-danger">待新增</span></td>
+                </tr>
+            {% endif %}
+            {% for center in department.Centers %}
+                <tr>
+                    <td>
+                        <a href="/auth/department/{{department._id}}">
+                            {{ department.name }}
+                        </a>
+                    </td>
+                    <td>-</td>
+                    <td>{{ center.name }}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>部門</th>
+            <th>部門</th>
+            <th>中心</th>
+        </tr>
+    </tfoot>
+</table>

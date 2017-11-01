@@ -1,0 +1,253 @@
+{% set title = "發佈權限" %}
+{% extends "../../base.html" %}
+{% block headTitle %}
+    <title>大編輯台 | {{ title }}</title>
+{% endblock %}
+
+{% block container %}
+{% include "./modal.create.html" %}
+
+<section class="content">
+    <form id="releaseRuleForm" action="/auth/release" method="post">
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="switch">
+                    <div class="container-switch">
+                        <input type="checkbox" name="timeAndRoleSwitch" id="timeAndRoleSwitch" class="switch-check" {{ 'checked' if releaseRules.timeAndRole.isOn }} >
+                        <label for="timeAndRoleSwitch" class="switch-label">
+                            <span class="status"></span>
+                            <span class="switch-btn"></span>
+                        </label>
+                    </div>
+                </div>
+                <h3 class="box-title">特定中心、時段、角色 可以發佈任何新聞</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+             <div class="box-body">
+                {% for data in releaseRules.timeAndRole.setting %}
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label">中心</label>
+                                 <select class="form-control"
+                                    name="timeAndRoleCenterIds">
+                                    {% for department in departmentList %}
+                                            {% for center in department.Centers %}
+                                                <option value="{{ center._id }}"
+                                                {{ "selected" if center._id == data.centerId }} >
+                                                    {{ center.name }}
+                                                </option>
+                                            {% endfor %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="control-label">每日時段</label>
+                            <div>
+                                <select class="hourselect" name="timeAndRoleStartHours">
+                                    {% for i in range(0, 24) %}
+                                    <option value="{{i}}" {{ "selected" if i == data.startHour }}>{{i}}</option>
+                                    {% endfor %}
+                                </select>
+                                :
+                                <select class="minuteselect" name="timeAndRoleStartMinutes">
+                                    {% for i in range(0, 60) %}
+                                    <option value="{{i}}" {{ "selected" if i == data.startMinute }}>{{i}}</option>
+                                    {% endfor %}
+                                </select>
+                                到
+                                <select class="hourselect" name="timeAndRoleEndHours">
+                                    {% for i in range(0, 24) %}
+                                    <option value="{{i}}" {{ "selected" if i == data.endHour }}>{{i}}</option>
+                                    {% endfor %}
+                                </select>
+                                :
+                                <select class="minuteselect" name="timeAndRoleEndMinutes">
+                                    {% for i in range(0, 60) %}
+                                    <option value="{{i}}" {{ "selected" if i == data.endMinute }}>{{i}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="control-label">角色</label>
+                            <select name="timeAndRoleRoleIds[{{loop.index0}}]" class="form-control timeAndRoleRoleIds" multiple="multiple">
+                                 {% for r in roleList %}
+                                        <option value="{{ r._id }}" {{ "selected" if data.roleIds.indexOf(r._id) > -1 }}>{{ r.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <input name="currentIndexs" type='hidden' value="{{loop.index0}}"/>
+                            <button type="button" class="fa fa-trash timeAndRoleDeleteBtn"></button>
+                        </div>
+                    </div>
+                {% endfor %}
+                    <button type="button"
+                        class="addRuleBtn fa fa-plus "
+                        data-toggle="modal"
+                        data-target="#createTimeAndRole"> 新增規則
+                    </button>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="switch">
+                <div class="container-switch">
+                    <input type="checkbox" name="excludeRolesSwitch" id="excludeRolesSwitch" class="switch-check" {{ 'checked' if releaseRules.excludeRoles.isOn }}>
+                    <label for="excludeRolesSwitch" class="switch-label">
+                    <span class="status"></span>
+                    <span class="switch-btn"></span>
+                    </label>
+                </div>
+                </div>
+                <h3 class="box-title">特定角色不能發佈文章(例如: 工讀生)</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+             <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="control-label">角色</label>
+                        <select id='excludeRoleIds' name="excludeRoleIds" class="form-control" multiple="multiple">
+
+
+                            {% for r in roleList %}
+                                     {% if releaseRules.excludeRoles.setting.roleIds %}
+                                        <option value="{{ r._id }}"
+                                            {{ "selected" if (releaseRules.excludeRoles.setting.roleIds.indexOf(r._id) >= 0) }}>
+                                            {{ r.name }}
+                                        </option>
+                                    {% else %}
+                                        <option value="{{ r._id }}">{{ r.name }}</option>
+                                     {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="switch">
+                <div class="container-switch">
+                    <input type="checkbox" name="canSameCenterReviewSwitch" id="canSameCenterReviewSwitch" class="switch-check" {{ 'checked' if releaseRules.canSameCenterReview.isOn }}>
+                    <label for="canSameCenterReviewSwitch" class="switch-label">
+                    <span class="status"></span>
+                    <span class="switch-btn"></span>
+                    </label>
+                </div>
+                </div>
+                <h3 class="box-title">新聞建立者同中心的同仁擁有發佈權</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="switch">
+                <div class="container-switch">
+                    <input type="checkbox" name="canSameUserReviewSwitch" id="canSameUserReviewSwitch" class="switch-check" {{ 'checked' if releaseRules.canSameUserReview.isOn }}>
+                    <label for="canSameUserReviewSwitch" class="switch-label">
+                    <span class="status"></span>
+                    <span class="switch-btn"></span>
+                    </label>
+                </div>
+                </div>
+                <h3 class="box-title">新聞審核者和建立者可以是同一位使用者</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="edit-footer text-center">
+            <button type="submit" class="btn bg-olive btn-flat margin">儲存</button>
+        </div>
+    </form>
+</section>
+
+<style>
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #cc4c4c;
+    }
+</style>
+
+<script type="text/javascript">
+
+   $(function() {
+        $('select.timeAndRoleRoleIds').select2({
+            placeholder: '請選擇角色...',
+            allowClear: true
+        });
+        $('#roleIds').select2({
+            placeholder: '請選擇角色...',
+            allowClear: true,
+            width: "100%"
+        });
+        $('#excludeRoleIds').select2({
+            placeholder: '請選擇角色...',
+            allowClear: true
+        });
+        $('.timeAndRoleDeleteBtn').on('click', function(){
+            var confirmed = confirm('您確定要刪除嗎？');
+            if (!confirmed) { return; }
+            var ruleRow = $(this).closest('div.row');
+            ruleRow.remove();
+            $('#releaseRuleForm').submit();
+
+        });
+
+
+    });
+
+
+</script>
+
+<style>
+
+ button.addRuleBtn{
+    padding: 10px;
+}
+
+/*  on off switch style  */
+.switch-label,
+.switch-label .status,
+.switch-label .btn { display: block; }
+.switch-label .status:before,
+.switch-label .status:after { float: left; width: 50%; font-size: 15px; font-weight: bold; color: #fff; -khtml-box-sizing: border-box; -ms-box-sizing: border-box; -o-box-sizing: border-box; box-sizing: border-box; }
+.switch { display:inline-block;  padding: 10px; }
+.container-switch { width: 74px; margin: 0 auto;}
+.switch-check { display: none; }
+.switch-check:checked + label .status { margin-left: 0; }
+.switch-check:checked + label .switch-btn { right: 0; }
+.switch-label { position: relative; overflow: hidden; cursor: pointer; border-radius: 18px; height: 36px; line-height: 36px; }
+.switch-label .status { width: 200%; margin-left: -100%; }
+.switch-label .status:before { content: "On"; background: #4285f4; padding-left: 11px; }
+.switch-label .status:after { content: "Off"; background: rgba(0, 0, 0, 0.4); padding-right: 11px; text-align: right; }
+.switch-label .status.colored:before { background: #294E92; }
+.switch-label .status.colored:after { background: #3771D4; }
+ .switch-label .switch-btn { position: absolute; top: 0; right: 38px; width: 30px; height: 30px; margin: 3px; background: #fff; border-radius: 30px; -webkit-transition: all 0.1s ease-in 0s; transition: all 0.1s ease-in 0s; }
+</style>
+
+<script>
+
+</script>
+
+{% endblock %}
