@@ -5,6 +5,8 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+### Fixed
+- 避免鉅亨網或中央社的新聞在編輯時 無法選擇原有的特殊主分類 @appleoxxo
 
 ## 1.0.19 - 2017-11-02
 ### Added

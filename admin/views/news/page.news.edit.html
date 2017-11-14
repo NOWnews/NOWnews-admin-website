@@ -104,10 +104,9 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <select id="MainMenu" name="MainMenu" multiple="multiple" style="display: none;">
+                                <option value="{{ news.MainMenu._id }}" selected="selected">{{ news.MainMenu.name }}</option>
                                 {% for m in menus %}
-                                    {% if m._id == news.MainMenu._id %}
-                                        <option value="{{ m._id }}" selected="selected">{{ m.name }}</option>
-                                    {% else %}
+                                    {% if m._id != news.MainMenu._id %}
                                         <option value="{{ m._id }}">{{ m.name }}</option>
                                     {% endif %}
                                 {% endfor %}
