@@ -2,7 +2,7 @@
 import Debug from 'debug';
 import moment from 'moment-timezone';
 import { NEWS_TYPES, NEWS_STATUS, NEWS_TEMPLATES, TEMPLATES_AD } from '../../util/constants';
-const debug = Debug('NOWnews-admin-website: controllers:news:page.news.edit');
+const debug = Debug('NOWnews-admin-website:controllers:news:page.news.edit');
 import checkSchedule from '../../util/checkSchedule.js';
 module.exports = async (req, res, next) => {
 
@@ -27,15 +27,22 @@ module.exports = async (req, res, next) => {
 
         let selectMenus = _.map( news.Menus, (menu) => {
             return menu._id;
-        })
-
+        });
+        //isFound是用來判斷外匯新聞特殊子分類當主分類的狀況
+        let isFound = false;
         _.forEach( menus, (menu) => {
+            if(menu.id === news.MainMenu.id){
+                isFound = true;
+            }
             _.forEach( menu.child, (child) => {
                 if(selectMenus.indexOf(child._id) > -1){
                     child.select = true;
                 }
             });
         });
+        if(!isFound){
+            menus.unshift(news.MainMenu);
+        }
 
         news.Tags = _.map( news.Tags, (value) => {
             return value.name;
