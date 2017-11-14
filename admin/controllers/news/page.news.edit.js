@@ -28,8 +28,6 @@ module.exports = async (req, res, next) => {
         let selectMenus = _.map( news.Menus, (menu) => {
             return menu._id;
         });
-        //isFound是用來判斷外匯新聞特殊子分類當主分類的狀況
-        let isFound = false;
         _.forEach( menus, (menu) => {
             if(menu.id === news.MainMenu.id){
                 isFound = true;
