@@ -29,18 +29,12 @@ module.exports = async (req, res, next) => {
             return menu._id;
         });
         _.forEach( menus, (menu) => {
-            if(menu.id === news.MainMenu.id){
-                isFound = true;
-            }
             _.forEach( menu.child, (child) => {
                 if(selectMenus.indexOf(child._id) > -1){
                     child.select = true;
                 }
             });
         });
-        if(!isFound){
-            menus.unshift(news.MainMenu);
-        }
 
         news.Tags = _.map( news.Tags, (value) => {
             return value.name;
