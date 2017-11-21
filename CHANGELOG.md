@@ -5,6 +5,8 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 而項目則基於 [Semantic Versioning](http://semver.org/lang/zh-TW/).
 
 ## [Unreleased]
+### Fixed
+- 停權與離職強制不能使用系統 @esbb48
 
 ## 1.0.20 - 2017-11-16
 ### Fixed
