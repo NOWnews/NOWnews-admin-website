@@ -11,6 +11,7 @@ import nunjucks from 'nunjucks';
 import methodOverride from 'method-override';
 
 import setLocals from './setLocals';
+import checkUserData from './checkUserData';
 import isLogin from './isLogin';
 import checkAuth from './checkAuth';
 import checkLoginedTime from './checkLoginedTime';
@@ -62,6 +63,7 @@ module.exports = function(app) {
 
     app.use(logger('dev'));
     app.use(isLogin);
+    app.use(checkUserData);
     app.use(checkLoginedTime);
     app.use(setLocals);
     app.use(checkAuth);
