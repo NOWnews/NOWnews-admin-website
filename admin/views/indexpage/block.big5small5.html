@@ -40,7 +40,7 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <small>最多30則</small>
+                        <small>最多30則  &emsp;<b>*目前顯示新聞短標</b></small>
                         <div class="usage_simple" style="position:relative;">
                             <div class="example-container ui-helper-clearfix">
                                 <table class="table table-bordered auto-table">
@@ -62,7 +62,7 @@
                                                         <span class="menu">{{ indexpage.carousels[loop.index0].MainMenu.name }}</span>
                                                         <span class="info">{{ item.formatStartedAt }}</span>
                                                         <span class="pv">{{ indexpage.carousels[loop.index0].pageviews }}</span><br>
-                                                        <span class="title">{{ indexpage.carousels[loop.index0].title }}</span><br>
+                                                        <span class="title">{{ indexpage.carousels[loop.index0].shortTitle }}</span><br>
 
                                                     </a>
                                                 </td>
@@ -83,7 +83,7 @@
                                                                     {{ indexpage.addCarousels[loop.index0].pageviews }}
                                                                 </span><br>
                                                                 <span class="title">
-                                                                    {{ indexpage.addCarousels[loop.index0].title }}
+                                                                    {{ indexpage.addCarousels[loop.index0].shortTitle }}
                                                                 </span>
                                                             </a>
                                                         </li>
@@ -94,6 +94,7 @@
                                                         <ul class="list-group">
                                                         {% for item in predata.newsList %}
                                                             <li class="list-group-item" id="news-list{{ item._id }}" item-url="{{ item.completeUrl }}" value="{{ item._id }}">
+                                                                {{ loop.index }}
                                                                 <span class="close">
                                                                     <i class="fa fa-window-close"></i>
                                                                 </span>
@@ -108,7 +109,7 @@
                                                                         {{ item.pageviews }}
                                                                     </span><br>
                                                                     <span class="title" style="color:#1c94c4;">
-                                                                        {{ item.title }}
+                                                                        {{ item.shortTitle }}
                                                                     </span>
                                                                 </a>
                                                             </li>
