@@ -62,7 +62,7 @@
                                                         <span class="menu">{{ indexpage.carousels[loop.index0].MainMenu.name }}</span>
                                                         <span class="info">{{ item.formatStartedAt }}</span>
                                                         <span class="pv">{{ indexpage.carousels[loop.index0].pageviews }}</span><br>
-                                                        <span class="title">{{ indexpage.carousels[loop.index0].shortTitle }}</span><br>
+                                                        <span class="title">{{ indexpage.carousels[loop.index0].title }}</span><br>
 
                                                     </a>
                                                 </td>
@@ -83,7 +83,7 @@
                                                                     {{ indexpage.addCarousels[loop.index0].pageviews }}
                                                                 </span><br>
                                                                 <span class="title">
-                                                                    {{ indexpage.addCarousels[loop.index0].shortTitle }}
+                                                                    {{ indexpage.addCarousels[loop.index0].title }}
                                                                 </span>
                                                             </a>
                                                         </li>
@@ -109,7 +109,7 @@
                                                                         {{ item.pageviews }}
                                                                     </span><br>
                                                                     <span class="title" style="color:#1c94c4;">
-                                                                        {{ item.shortTitle }}
+                                                                        {{ item.title }}
                                                                     </span>
                                                                 </a>
                                                             </li>
@@ -279,7 +279,7 @@
             },
             onSelect: function (suggestion) {
                 text = suggestion.data;
-                let liHtml = '<li class="list-group-item" id="news-list'+ suggestion.data +'" item-url="' + suggestion.url + '" value="' + suggestion.data + '"><span class="close"><i class="fa fa-window-close"></i></span><a href="' + suggestion.url + '" target="_blank"><span class="menu">' + suggestion.menu + '</span><span class="info">' + suggestion.date + '</span><span class="pv">' + suggestion.pv + '</span><br><span class="title">' + suggestion.shortTitle + '</span></a></li>';
+                let liHtml = '<li class="list-group-item" id="news-list'+ suggestion.data +'" item-url="' + suggestion.url + '" value="' + suggestion.data + '"><span class="close"><i class="fa fa-window-close"></i></span><a href="' + suggestion.url + '" target="_blank"><span class="menu">' + suggestion.menu + '</span><span class="info">' + suggestion.date + '</span><span class="pv">' + suggestion.pv + '</span><br><span class="title">' + suggestion.title + '</span></a></li>';
 
                 if ($(".list-group .list-group-item[id=news-list" + suggestion.data + "]").length === 0) {
                     $('.list-group').prepend(liHtml);
