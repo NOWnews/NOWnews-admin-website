@@ -212,6 +212,14 @@
         color: #fff;
         font-weight: bold;
     }
+    div.close-circle {
+        position: absolute;
+        right: 10px;
+        top: 2px;
+        background-color: black;
+        border: 2px solid;
+        border-radius: 25px;
+    }
 </style>
 
 <script type="text/javascript">
@@ -245,122 +253,6 @@
             addClass: 'abc',
             connectToSortable: ".add-news"
         });
-        // var autoCompleteOptions = {
-        //     serviceUrl: '/indexpage/news',
-        //     dataType: 'json',
-        //     deferRequestBy: 600,
-        //     paramName: "title",
-        //     params: { status: 'RELEASE', isFeed : 'false' },
-        //     preserveInput: true,
-        //     showNoSuggestionNotice: true,
-        //     noSuggestionNotice: '查無結果',
-        //     onSearchStart: function() {
-        //         $('#load').addClass('loader');
-        //         console.log('onSearchStart')
-        //     },
-        //     onSearchComplete: function() {
-        //         $('#load').removeClass('loader');
-        //         $('div.autocomplete-suggestions').append(
-        //             '<div class="close-circle"><svg width="19" height="19" viewBox="-1 -1 50 50" data-icon="close" style="stroke-width: 2; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255); vertical-align: bottom;"><path d="M37.98 34.827l-9.9-9.9 9.9-9.898c.78-.782.78-2.05 0-2.83-.78-.78-2.047-.78-2.828 0l-9.9 9.9-9.898-9.9c-.78-.78-2.048-.78-2.828 0-.78.78-.78 2.047 0 2.828l9.9 9.9-9.9 9.898c-.78.78-.78 2.047 0 2.828.78.78 2.047.78 2.828 0l9.9-9.9 9.898 9.9c.78.78 2.048.78 2.828 0 .782-.78.782-2.047 0-2.827z"></path></svg></div>'
-        //         );
-        //         $('div.autocomplete-suggestions').on('click', 'div.close-circle', function() {
-        //             $('#autocomplete-ajax').autocomplete().dispose();
-        //             $('#autocomplete-ajax').autocomplete(autoCompleteOptions);
-        //             $(this).remove();
-        //         });
-        //         console.log('onSearchComplete');
-        //     },
-        //     onSearchError: function() {
-        //         $('#load').removeClass('loader');
-        //         console.log('onSearchError')
-        //     },
-        //     transformResult: function(response, originalQuery) {
-        //         var suggestions = $.map(response.newsList, function(item) {
-        //             return {
-        //                 value: item.formatStartedAt + '   ' + item.title,
-        //                 data: item._id
-        //             };
-        //         });
-        //         window.suggestions = suggestions;
-        //         return {
-        //             suggestions: suggestions
-        //         };
-        //     },
-        //     onSelect: function(suggestion) {
-        //         //取消原autocomplete點擊事件
-        //         $('div.autocomplete-suggestions').unbind('click');
-        //         $('div.autocomplete-suggestions').on('click', 'div.close-circle', function() {
-        //             $('#autocomplete-ajax').autocomplete().dispose();
-        //             $('#autocomplete-ajax').autocomplete(autoCompleteOptions);
-        //             $(this).remove();
-        //         });
-        //         //將第一次點擊的項目變色
-        //         var suggestions = window.suggestions;
-        //         var selectedItemIndex;
-        //         for (var i = 0; i < suggestions.length; i++) {
-        //             if (suggestion.data === suggestions[i].data) {
-        //                 selectedItemIndex = i;
-        //             }
-        //         }
-        //         $('div.autocomplete-suggestion[data-index=' + selectedItemIndex + ']').css('background-color', 'gray');
-
-        //         //點擊後 suggestions list 保持原位置 不隱藏
-        //         $('div.autocomplete-suggestions').css('display', 'block');
-        //         var inputHeight = $('input#autocomplete-ajax').outerHeight()
-        //         var closeTip = '<div id="close-tip" style="position: absolute;font-size: 1.5em;height:'+inputHeight+'px;width:100%;z-index:99;"></div>';
-        //         $('#autocomplete-ajax').after(closeTip);
-        //         $('div.search').on('click','div#close-tip',function(){
-        //             $('#autocomplete-ajax').autocomplete().dispose();
-        //             $('#autocomplete-ajax').autocomplete(autoCompleteOptions);
-        //             $(this).remove();
-        //             $('#autocomplete-ajax').focus();
-        //         });
-
-        //         //onSelect只監聽第一次點擊 這裡加上之後的suggestion click監聽
-        //         $('div.autocomplete-suggestions div.autocomplete-suggestion').on('click', function() {
-        //             $(this).css('background-color', 'gray');
-        //             var index = $(this).data('index');
-        //             var suggestion = suggestions[index];
-        //             var newsId = suggestion.data;
-        //             if ($("#multiselect_simple option[value='" + newsId + "']").length === 0) {
-        //                 $('#multiselect_simple').prepend('<option value="' + newsId + '">' + suggestion.value + '</option>');
-        //                 $('#multiselect_simple').multiselect('refresh').multiselect({});
-        //             } else {
-        //                 sweetAlert({
-        //                     title: '<small>已經加入過了</small>!',
-        //                     text: '<span>' + $('#autocomplete-ajax').val() + '<span>',
-        //                     html: true
-        //                 });
-        //             }
-        //         });
-
-        //         var text = suggestion.data;
-        //         if ($("#multiselect_simple option[value='" + text + "']").length === 0) {
-        //             $('#multiselect_simple').append('<option value="' + suggestion.data + '">' + suggestion.value + '</option>');
-
-        //         } else {
-        //             sweetAlert({
-        //                 title: '<small>已經加入過了</small>!',
-        //                 text: '<span>' + $('#autocomplete-ajax').val() + '<span>',
-        //                 html: true
-        //             });
-        //         }
-        //         $('#multiselect_simple').multiselect('refresh');
-
-        //     },
-        //     onHint: function(hint) {
-        //         $('#autocomplete-ajax-x').val(hint);
-        //     },
-        //     onInvalidateSelection: function() {
-        //         $('#selection-ajax').html('None selected');
-        //     }
-        // };
-
-
-        // // Initialize ajax autocomplete:
-        // $('#autocomplete-ajax').autocomplete(autoCompleteOptions);
-
-// --------------------
 
         var autoCompleteOptions1 = {
             serviceUrl: '/indexpage/news',
@@ -368,25 +260,34 @@
             deferRequestBy: 600,
             paramName: "title",
             params: { status: 'RELEASE', isFeed : 'false' },
-            onSearchStart: function(){ $(this).siblings('.load').addClass('loader'); console.log('onSearchStart') },
-            onSearchComplete: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchComplete') },
-            onSearchError: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchError') },
+            onSearchStart: function(){ $(this).siblings('.load').addClass('loader'); console.log('onSearchStart2') },
+            onSearchComplete: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchComplete2') },
+            onSearchError: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchError2') },
             transformResult: function(response) {
 
                 return {
                     suggestions: $.map(response.newsList, function(item) {
                         var startTime = item.formatStartedAt;
                         var title = item.title;
+                        var shortTitle = item.shortTitle;
                         var url = '/news/' + item._id;
                         var pv = item.pageviews;
-                        return { title: title, value: startTime + ' - ' + title, data: item._id, url: url, date: startTime, pv: pv};
+                        var menu = item.MainMenu.name;
+                        return { menu: menu, shortTitle: shortTitle, title: title, value: startTime + ' - ' + title, data: item._id, url: url, date: startTime, pv: pv};
                     })
                 };
             },
             onSelect: function (suggestion) {
                 text = suggestion.data;
-                if ($("#multiselect_simple option[value='"+text+"']").length === 0) {
-                    $('#multiselect_simple').prepend('<option item-pv="'+ suggestion.pv +'" item-date="'+ suggestion.date +'" item-url="' + suggestion.url + '" value="'+suggestion.data+'">'+ suggestion.title +'</option>');
+                let liHtml = '<li class="list-group-item" id="news-list'+ suggestion.data +'" item-url="' + suggestion.url + '" value="' + suggestion.data + '"><span class="close"><i class="fa fa-window-close"></i></span><a href="' + suggestion.url + '" target="_blank"><span class="menu">' + suggestion.menu + '</span><span class="info">' + suggestion.date + '</span><span class="pv">' + suggestion.pv + '</span><br><span class="title">' + suggestion.shortTitle + '</span></a></li>';
+
+                if ($(".list-group .list-group-item[id=news-list" + suggestion.data + "]").length === 0) {
+                    $('.list-group').prepend(liHtml);
+                    $("[id=news-list"+ suggestion.data +"]").draggable({
+                        helper: "clone",
+                        addClass: 'abc',
+                        connectToSortable: ".add-news"
+                    });
 
                 } else {
                     sweetAlert({
@@ -396,7 +297,7 @@
                     });
 
                 }
-                $('#multiselect_simple').multiselect('destroy').multiselect(customOption);
+                // $('#multiselect_simple').multiselect('destroy').multiselect(customOption);
                 $('#autocomplete-ajax').val("");
             },
             onHint: function (hint) {
@@ -406,6 +307,7 @@
                 $('.selection-ajax').html('None selected');
             }
         };
+        // $('#autocomplete-ajax').autocomplete(autoCompleteOptionsDemo);
         $('#autocomplete-ajax').autocomplete(autoCompleteOptions1);
 
         $('#autocomplete-ajax5').autocomplete({
@@ -414,37 +316,46 @@
             deferRequestBy: 600,
             paramName: "title",
             params: { status: 'RELEASE', isFeed : 'true', select:'title sn startedAt feedFrom' },
-            onSearchStart: function(){ $(this).siblings('.load').addClass('loader'); console.log('onSearchStart') },
-            onSearchComplete: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchComplete') },
-            onSearchError: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchError') },
+            onSearchStart: function(){ $(this).siblings('.load').addClass('loader'); console.log('onSearchStart1') },
+            onSearchComplete: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchComplete1') },
+            onSearchError: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchError1') },
             transformResult: function(response) {
 
                 return {
                     suggestions: $.map(response.newsList, function(item) {
                         var startTime = item.formatStartedAt;
                         var title = item.title;
+                        var shortTitle = item.shortTitle;
                         var url = '/news/' + item._id;
                         var pv = item.pageviews;
+                        var menu = item.feedFrom;
                         var feedFrom = item.feedFrom;
-                        return { title: title, value: startTime + ' - ' + title, data: item._id, url: url, date: startTime, pv: pv , feedFrom: feedFrom };
+                        return { feedFrom: feedFrom, menu: menu, shortTitle: shortTitle, title: title, value: startTime + ' - ' + title, data: item._id, url: url, date: startTime, pv: pv};
                     })
                 };
             },
             onSelect: function (suggestion) {
                 text = suggestion.data;
-                if ($("#multiselect_simple option[value='"+text+"']").length === 0) {
-                    $('#multiselect_simple').prepend('<option item-feedFrom="'+ suggestion.feedFrom +'" item-pv="'+ suggestion.pv +'" item-date="'+ suggestion.date +'" item-url="' + suggestion.url + '" value="'+suggestion.data+'" selected>'+ suggestion.title +'</option>');
+                let liHtml = '<li class="list-group-item" id="news-list'+ suggestion.data +'" item-url="' + suggestion.url + '" value="' + suggestion.data + '"><span class="close"><i class="fa fa-window-close"></i></span><a href="' + suggestion.url + '" target="_blank"><span class="menu">' + suggestion.menu + '</span><span class="info">' + suggestion.date + '</span><span class="pv">' + suggestion.pv + '</span><br><span class="title">' + suggestion.title + '</span></a></li>';
+
+                if ($(".list-group .list-group-item[id=news-list" + suggestion.data + "]").length === 0) {
+                    $('.list-group').prepend(liHtml);
+                    $("[id=news-list"+ suggestion.data +"]").draggable({
+                        helper: "clone",
+                        addClass: 'abc',
+                        connectToSortable: ".add-news"
+                    });
 
                 } else {
                     sweetAlert({
                         title: '<small>已經加入過了</small>!',
-                        text: '<span>'+ $('#autocomplete-ajax5').val() +'<span>',
+                        text: '<span>'+ $('#autocomplete-ajax').val() +'<span>',
                         html: true
                     });
-                }
-                $('#multiselect_simple').multiselect('destroy').multiselect(customOption);
-                $('#autocomplete-ajax5').val("");
 
+                }
+                // $('#multiselect_simple').multiselect('destroy').multiselect(customOption);
+                $('#autocomplete-ajax').val("");
             },
             onHint: function (hint) {
                 $('#autocomplete-ajax-x5').val(hint);
