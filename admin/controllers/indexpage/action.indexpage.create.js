@@ -26,7 +26,27 @@ module.exports = async (req, res, next) => {
             let { data: indexpage } = await axios.put('/indexpage/carousels/', data);
 
             debug('createdIndexPageCarouselsData = %j', indexpage);
+        }
 
+        if(type === 'ADD_CAROUSELS') {
+            let addCarousels = req.body['addCarousels'] || req.body['addCarousels[]'];
+
+            let formatCarousels = [];
+
+            if (addCarousels) {
+                formatCarousels = _.isArray(addCarousels) ? addCarousels : [ addCarousels ];
+            }
+
+            let data = {
+                addCarousels: formatCarousels,
+                hideCarousels: [],
+                UpdatedAddBy: userId
+            }
+            let { data: indexpage } = await axios.put('/indexpage/addCarousels/', data);
+
+            debug('createdIndexPageCarouselsData = %j', indexpage);
+
+            return res.json(indexpage);
         }
 
         if(type === 'SPECIALTOPICS') {

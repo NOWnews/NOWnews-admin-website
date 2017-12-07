@@ -1,0 +1,123 @@
+<div class="special-block">
+    <form id="fileupload3" action="/indexpage/create" method="POST" >
+        <input type="hidden" name="_method" value="put">
+        <input type="hidden" name="type" value="SPECIALCHANNELS">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">首頁特輯設定</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <label class="control-label">特輯搜尋</label>
+                        <div class="container-search">
+                              <div class="search">
+                                  <input type="text" id="autocomplete-ajax3" class="input form-control input-autocomplete-ajax" placeholder="search" />
+                                  <input type="text" id="autocomplete-ajax-x3" class="input-autocomplete-ajax-x" disabled="disabled" />
+                                  <span class="load"></span>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <small>最多8則</small>
+                        <div class="usage_simple" style="position:relative;">
+                            <div class="example-container ui-helper-clearfix">
+                                <select id="multiselect_simple3" name="specialChannels" class="multiselect" multiple="multiple" style="width:100%">
+                                    {% for item in indexpage.specialChannels %}
+                                        <option item-date="{{ item.formatStartedAt }}" item-pv="{{ item.pageviews }}" value="{{ item._id }}" item-url="{{ item.completeUrl }}" selected>TOP {{ loop.index }} - {{ item.title }}</option>
+                                    {% endfor %}
+                                    {% for item in prespecialchannel.specialChannels %}
+                                        <option item-date="{{ item.formatStartedAt }}" item-pv="{{ item.pageviews }}" item-url="{{ item.completeUrl }}" value="{{ item._id }}">{{ item.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <!-- debug留用參考 -->
+                            <!-- <div class="debug_uiControls">
+                                <button id="btnToggleOriginal_simple3">Toggle original element</button>
+                                <input type="text" id="txtSearch_simple3" size="15" />
+                                <button id="btnSearch_simple3">Search</button>
+                                <button id="btnSearch_simple3">Search</button>
+                                <input type="button" class="btnGet_value" value="Submit" />
+                            </div> -->
+
+                            <div id="debug_simple3" class="debug_log"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="edit-footer text-center">
+            <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
+            <a href="#" class="btn bg-maroon btn-flat margin">取消</a>
+        </div>
+    </form>
+</div>
+
+<style type="text/css"></style>
+
+<script type="text/javascript">
+    $(function(){
+        $('#autocomplete-ajax3').autocomplete({
+            serviceUrl: '/indexpage/specialchannels',
+            dataType: 'json',
+            deferRequestBy: 600,
+            paramName: "title",
+            onSearchStart: function(){ $(this).siblings('.load').addClass('loader'); console.log('onSearchStart3') },
+            onSearchComplete: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchComplete3')},
+            onSearchError: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchError3') },
+            transformResult: function(response) {
+                return {
+                    suggestions: $.map(response.specialChannels, function(item) {
+                        var startTime = item.formatStartedAt;
+                        var title = item.title;
+                        var url = '/news/' + item._id;
+                        var pv = item.pageviews;
+                        return { value: title, data: item._id, url: url, date: startTime, pv: pv};
+                    })
+                };
+            },
+            onSelect: function (suggestion) {
+
+                text = suggestion.data;
+                if ($("#multiselect_simple3 option[value='"+text+"']").length === 0) {
+                    $('#multiselect_simple3').prepend('<option value="'+suggestion.data+'">'+ suggestion.value +'</option>');
+                } else {
+                    sweetAlert({
+                        title: '<small>已經加入過了</small>!',
+                        text: '<span>'+ $('#autocomplete-ajax3').val() +'<span>',
+                        html: true
+                    });
+                }
+                $('#multiselect_simple3').multiselect('destroy').multiselect(customOption);
+                $('#autocomplete-ajax3').val("");
+            },
+            onHint: function (hint) {
+                $('#autocomplete-ajax-x3').val(hint);
+            },
+            onInvalidateSelection: function() {
+                $('.selection-ajax').html('None selected');
+            }
+        });
+        //特輯
+        $('#fileupload3').on('submit',function(e){
+            var limit = 8;
+            var selectedCount = $("option:selected", $('#multiselect_simple3')).length;
+            if( selectedCount > limit ){
+                swal({
+                    title: '特輯最多'+limit+'則喔',
+                    text: '',
+                    type: 'warning',
+                    timer: 1000
+                })
+                e.preventDefault();
+            }
+        });
+    });
+</script>

@@ -1,0 +1,391 @@
+<div class="big5small5-block">
+    <form id="fileupload" action="/indexpage/create" method="POST" >
+        <input type="hidden" name="_method" value="put">
+        <input type="hidden" name="type" value="CAROUSELS">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">首頁大五小五設定</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <label class="control-label">自家新聞搜尋</label>
+                        <div class="container-search">
+                            <div class="search">
+                                <input type="text" id="autocomplete-ajax" class="input form-control input-autocomplete-ajax" placeholder="search" />
+                                <input type="text" id="autocomplete-ajax-x" class="input-autocomplete-ajax-x" disabled="disabled" />
+                                <span class="load"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-8">
+                        <label class="control-label">匯入新聞搜尋</label>
+                        <div class="container-search">
+                            <div class="search">
+                                <input type="text" id="autocomplete-ajax5" class="input form-control input-autocomplete-ajax" placeholder="search" />
+                                <input type="text" id="autocomplete-ajax-x5" class="input-autocomplete-ajax-x" disabled="disabled" />
+                                <span class="load"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <small>最多30則  &emsp;<b>*目前顯示新聞短標</b></small>
+                        <div class="usage_simple" style="position:relative;">
+                            <div class="example-container ui-helper-clearfix">
+                                <table class="table table-bordered auto-table">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width: 9px">#</th>
+                                            <th style="width: 20%">自動</th>
+                                            <th style="width: 40%">加入</th>
+                                            <th style="width: 40%">
+                                                可被選擇的新聞
+                                                <span class="news-count">{{ predata.newsList.length }}</span>
+                                            </th>
+                                        </tr>
+                                        {% for item in indexpage.carousels %}
+                                            <tr>
+                                                <td>{{ loop.index }}</td>
+                                                <td>
+                                                    <a href="{{ item.completeUrl }}">
+                                                        <span class="menu">{{ indexpage.carousels[loop.index0].MainMenu.name }}</span>
+                                                        <span class="info">{{ item.formatStartedAt }}</span>
+                                                        <span class="pv">{{ indexpage.carousels[loop.index0].pageviews }}</span><br>
+                                                        <span class="title">{{ indexpage.carousels[loop.index0].title }}</span><br>
+
+                                                    </a>
+                                                </td>
+                                                <td class="add-news" td-index="{{ loop.index0 }}">
+                                                    {% if indexpage.addCarousels[loop.index0] %}
+                                                        <li class="list-group-item" value="{{ indexpage.addCarousels[loop.index0]._id }}">
+                                                            <span class="close">
+                                                                <i class="fa fa-window-close"></i>
+                                                            </span>
+                                                            <a href="{{ indexpage.addCarousels[loop.index0].completeUrl }}" target="_blank">
+                                                                <span class="menu">
+                                                                    {{ indexpage.addCarousels[loop.index0].MainMenu.name }}
+                                                                </span>
+                                                                <span class="info">
+                                                                    {{ indexpage.addCarousels[loop.index0].formatStartedAt }}
+                                                                </span>
+                                                                <span class="pv">
+                                                                    {{ indexpage.addCarousels[loop.index0].pageviews }}
+                                                                </span><br>
+                                                                <span class="title">
+                                                                    {{ indexpage.addCarousels[loop.index0].title }}
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+                                                </td>
+                                                {% if loop.first %}
+                                                    <td rowspan="10" class="news-reference" style="padding:0;">
+                                                        <ul class="list-group">
+                                                        {% for item in predata.newsList %}
+                                                            <li class="list-group-item" id="news-list{{ item._id }}" item-url="{{ item.completeUrl }}" value="{{ item._id }}">
+                                                                {{ loop.index }}
+                                                                <span class="close">
+                                                                    <i class="fa fa-window-close"></i>
+                                                                </span>
+                                                                <a href="{{ item.completeUrl }}" target="_blank">
+                                                                    <span class="menu">
+                                                                        {{ item.MainMenu.name }}
+                                                                    </span>
+                                                                    <span class="info">
+                                                                        {{ item.formatStartedAt }}
+                                                                    </span>
+                                                                    <span class="pv">
+                                                                        {{ item.pageviews }}
+                                                                    </span><br>
+                                                                    <span class="title" style="color:#1c94c4;">
+                                                                        {{ item.title }}
+                                                                    </span>
+                                                                </a>
+                                                            </li>
+                                                        {% endfor %}
+                                                        </ul>
+                                                    </td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="edit-footer text-center">
+            <button type="submit" class="btn bg-olive btn-flat margin">送出</button>
+            <a href="#" class="btn bg-maroon btn-flat margin">取消</a>
+        </div>
+    </form>
+</div>
+
+<style type="text/css">
+    .add-news .close {
+        opacity: 1;
+    }
+    .news-reference .close {
+        opacity: 0;
+    }
+    .news-reference ul > li:hover {
+        cursor: move;
+        border: 1px solid #fbcb09;
+        background: #fdf5ce;
+        font-weight: bold;
+        color: #c77405;
+    }
+    .news-reference ul > li {
+        background: #f6f6f6;
+    }
+    .add-news li.sortable-placeholder {
+        background-color: #fed22f;
+        height: 50px;
+        display: block;
+    }
+    .add-news > li{
+        background: #ffe45c;
+    }
+    .news-reference ul > li , .add-news > li {
+        padding-top: 5px;
+        padding-bottom: 0;
+    }
+    .add-news > li:first-child {
+        display: block;
+    }
+    .add-news > li{
+        width: 100% !important;
+        height: auto !important;
+        max-width: 450px;
+        display: none;
+    }
+    .news-reference .list-group {
+        height: 680px;
+        overflow: scroll;
+    }
+    .auto-table .menu {
+        color: #343232;
+        border: 1px solid #000;
+        padding: 0 2px;
+        font-weight: bold;
+    }
+    .auto-table .info {
+        border: 2px solid #8686cd;
+        background: #b0b0cf;
+        color: #020202;
+        padding: 0 3px;
+        margin-right: 3px;
+        font-weight: bold;
+    }
+    .auto-table .pv {
+        border: 2px solid #3c3cb2;
+        background: #7373c9;
+        color: #fff;
+        padding: 0 3px;
+        margin-left: 5px;
+    }
+    .auto-table .title {
+        color: #343232;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .auto-table > tbody > tr > th {
+        height: 21px;
+        padding: 2px 5px;
+        border: 1px solid #e78f08;
+        background: #f6a828;
+        color: #fff;
+        font-weight: bold;
+    }
+    div.close-circle {
+        position: absolute;
+        right: 10px;
+        top: 2px;
+        background-color: black;
+        border: 2px solid;
+        border-radius: 25px;
+    }
+</style>
+
+<script type="text/javascript">
+    $(function(){
+        $(".add-news").on('click', '.close', function(){
+            $(this).parent().remove();
+        });
+        $(".add-news").sortable({
+            connectWith: "div",
+            placeholder: "sortable-placeholder",
+            forcePlaceholderSize: true,
+            activate: function( event, ui ) {console.log('activate')},
+            beforeStop: function( event, ui ) {console.log('beforeStop')},
+            change: function( event, ui ) {console.log('change')},
+            create: function( event, ui ) {console.log('create')},
+            deactivate: function( event, ui ) {console.log('deactivate')},
+            out: function( event, ui ) {console.log('out')},
+            over: function( event, ui ) {console.log('over')},
+            receive: function( event, ui ) {console.log('receive')},
+            remove: function( event, ui ) {console.log('remove')},
+            sort: function( event, ui ) {console.log('sort')},
+            start: function( event, ui ) {console.log('start')},
+            stop: function( event, ui ) {
+                console.log('stop')
+            },
+            update: function( event, ui ) {console.log('update')},
+        });
+
+        $("[id^='news-list']").draggable({
+            helper: "clone",
+            addClass: 'abc',
+            connectToSortable: ".add-news"
+        });
+
+        var autoCompleteOptions1 = {
+            serviceUrl: '/indexpage/news',
+            dataType: 'json',
+            deferRequestBy: 600,
+            paramName: "title",
+            params: { status: 'RELEASE', isFeed : 'false' },
+            onSearchStart: function(){ $(this).siblings('.load').addClass('loader'); console.log('onSearchStart2') },
+            onSearchComplete: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchComplete2') },
+            onSearchError: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchError2') },
+            transformResult: function(response) {
+
+                return {
+                    suggestions: $.map(response.newsList, function(item) {
+                        var startTime = item.formatStartedAt;
+                        var title = item.title;
+                        var shortTitle = item.shortTitle;
+                        var url = '/news/' + item._id;
+                        var pv = item.pageviews;
+                        var menu = item.MainMenu.name;
+                        return { menu: menu, shortTitle: shortTitle, title: title, value: startTime + ' - ' + title, data: item._id, url: url, date: startTime, pv: pv};
+                    })
+                };
+            },
+            onSelect: function (suggestion) {
+                text = suggestion.data;
+                let liHtml = '<li class="list-group-item" id="news-list'+ suggestion.data +'" item-url="' + suggestion.url + '" value="' + suggestion.data + '"><span class="close"><i class="fa fa-window-close"></i></span><a href="' + suggestion.url + '" target="_blank"><span class="menu">' + suggestion.menu + '</span><span class="info">' + suggestion.date + '</span><span class="pv">' + suggestion.pv + '</span><br><span class="title">' + suggestion.title + '</span></a></li>';
+
+                if ($(".list-group .list-group-item[id=news-list" + suggestion.data + "]").length === 0) {
+                    $('.list-group').prepend(liHtml);
+                    $("[id=news-list"+ suggestion.data +"]").draggable({
+                        helper: "clone",
+                        addClass: 'abc',
+                        connectToSortable: ".add-news"
+                    });
+
+                } else {
+                    sweetAlert({
+                        title: '<small>已經加入過了</small>!',
+                        text: '<span>'+ $('#autocomplete-ajax').val() +'<span>',
+                        html: true
+                    });
+
+                }
+                // $('#multiselect_simple').multiselect('destroy').multiselect(customOption);
+                $('#autocomplete-ajax').val("");
+            },
+            onHint: function (hint) {
+                $('#autocomplete-ajax-x').val(hint);
+            },
+            onInvalidateSelection: function() {
+                $('.selection-ajax').html('None selected');
+            }
+        };
+        // $('#autocomplete-ajax').autocomplete(autoCompleteOptionsDemo);
+        $('#autocomplete-ajax').autocomplete(autoCompleteOptions1);
+
+        $('#autocomplete-ajax5').autocomplete({
+            serviceUrl: '/indexpage/news',
+            dataType: 'json',
+            deferRequestBy: 600,
+            paramName: "title",
+            params: { status: 'RELEASE', isFeed : 'true', select:'title sn startedAt feedFrom' },
+            onSearchStart: function(){ $(this).siblings('.load').addClass('loader'); console.log('onSearchStart1') },
+            onSearchComplete: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchComplete1') },
+            onSearchError: function(){ $(this).siblings('.load').removeClass('loader');console.log('onSearchError1') },
+            transformResult: function(response) {
+
+                return {
+                    suggestions: $.map(response.newsList, function(item) {
+                        var startTime = item.formatStartedAt;
+                        var title = item.title;
+                        var shortTitle = item.shortTitle;
+                        var url = '/news/' + item._id;
+                        var pv = item.pageviews;
+                        var menu = item.feedFrom;
+                        var feedFrom = item.feedFrom;
+                        return { feedFrom: feedFrom, menu: menu, shortTitle: shortTitle, title: title, value: startTime + ' - ' + title, data: item._id, url: url, date: startTime, pv: pv};
+                    })
+                };
+            },
+            onSelect: function (suggestion) {
+                text = suggestion.data;
+                let liHtml = '<li class="list-group-item" id="news-list'+ suggestion.data +'" item-url="' + suggestion.url + '" value="' + suggestion.data + '"><span class="close"><i class="fa fa-window-close"></i></span><a href="' + suggestion.url + '" target="_blank"><span class="menu">' + suggestion.menu + '</span><span class="info">' + suggestion.date + '</span><span class="pv">' + suggestion.pv + '</span><br><span class="title">' + suggestion.title + '</span></a></li>';
+
+                if ($(".list-group .list-group-item[id=news-list" + suggestion.data + "]").length === 0) {
+                    $('.list-group').prepend(liHtml);
+                    $("[id=news-list"+ suggestion.data +"]").draggable({
+                        helper: "clone",
+                        addClass: 'abc',
+                        connectToSortable: ".add-news"
+                    });
+
+                } else {
+                    sweetAlert({
+                        title: '<small>已經加入過了</small>!',
+                        text: '<span>'+ $('#autocomplete-ajax').val() +'<span>',
+                        html: true
+                    });
+
+                }
+                // $('#multiselect_simple').multiselect('destroy').multiselect(customOption);
+                $('#autocomplete-ajax').val("");
+            },
+            onHint: function (hint) {
+                $('#autocomplete-ajax-x5').val(hint);
+            },
+            onInvalidateSelection: function() {
+                $('.selection-ajax').html('None selected');
+            }
+        });
+
+        //新聞
+        $('#fileupload').on('submit',function(e){
+            e.preventDefault();
+            var carouselsData = {
+                type: 'ADD_CAROUSELS',
+                addCarousels: [],
+                hideCarousels: []
+            };
+
+            $('.add-news').each(function(index, ele){
+                carouselsData.addCarousels[index] = $(ele).find('li').attr('value');
+                return true;
+            });
+
+            $.ajax({
+                url: '/indexpage/create',
+                type: 'PUT',
+                data: carouselsData
+            }).done(function(data) {
+                window.location.reload()
+            });
+        });
+    });
+</script>
