@@ -6,6 +6,9 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ## [Unreleased]
 
+### Changed
+- 首頁管理 -> 首頁管理建立 大五小五的部分 改成自動取新聞 也可以手動設定 @wb
+
 ## 1.0.21 - 2017-11-23
 ### Fixed
 - 停權與離職強制不能使用系統 @esbb48
