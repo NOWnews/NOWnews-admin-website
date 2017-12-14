@@ -6,6 +6,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ## [Unreleased]
 
+## 1.0.22 - 2017-12-14
 ### Changed
 - 首頁管理 -> 首頁管理建立 大五小五的部分 改成自動取新聞 也可以手動設定 @wb
 

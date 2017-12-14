@@ -1,6 +1,6 @@
 {
   "name": "NOWnews-admin-website",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "NOWnews Admin service",
   "main": "index.js",
   "scripts": {
