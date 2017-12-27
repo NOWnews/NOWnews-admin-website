@@ -1,0 +1,32 @@
+<table id="statistics-table" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>主分類</th>
+            <th>新聞總數</th>
+            <th>PageView總數</th>
+            <th>平均PageView</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cat in categoiresNewsInfo %}
+            <tr>
+                <td>
+                    {{ cat.name }}
+                </td>
+                <td>
+                    {{ cat.newsTotalNumber }}
+                </td>
+                <td>{{ cat.pvTotal }}</td>
+                <td>{{ cat.pvAverage }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>總計</th>
+            <th>{{ allCategoriesNewsTotalNumber }} </th>
+            <th>{{ allCategoriesNewsTotalPageviews }}</th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>

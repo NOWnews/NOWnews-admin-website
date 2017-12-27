@@ -139,6 +139,9 @@
         "children": [{
             "url": "/statistics/centers",
             "name": "統計部門則數"
+        },{
+            "url": "/statistics/categories",
+            "name": "統計主分類則數"
         }]
     },
     "priority": {
