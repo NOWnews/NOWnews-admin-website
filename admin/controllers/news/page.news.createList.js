@@ -13,7 +13,14 @@ module.exports = async (req, res, next) => {
         let isFeed = 'false';
         if( queryString.includes('CreatedBy=530000000000000000000002') || //鉅亨網
             queryString.includes('CreatedBy=530000000000000000000004') || //中央社
-            queryString.includes('CreatedBy=530000000000000000000005') //軍聞社
+            queryString.includes('CreatedBy=530000000000000000000005') || //軍聞社
+            queryString.includes('CreatedBy=530000000000000000000006') || //PINKNOW
+            queryString.includes('CreatedBy=530000000000000000000007') || //PLAYNOW
+            queryString.includes('CreatedBy=530000000000000000000008') || //IFUNNOW
+            queryString.includes('CreatedBy=530000000000000000000009') || //SPORTNOW
+            queryString.includes('CreatedBy=530000000000000000000010') || //寵毛
+            queryString.includes('CreatedBy=530000000000000000000011') || //保庇
+            queryString.includes('CreatedBy=530000000000000000000012') //今日觀點
            ){
             isFeed = 'true';
            }
