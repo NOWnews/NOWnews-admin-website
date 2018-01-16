@@ -7,6 +7,9 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 ## [Unreleased]
 
 ### Added
+- 可以搜尋出RSS匯入的子頻道的新聞 @wb
+
+### Added
 ## 1.0.23 - 2017-12-28
 - 新增 "統計" -> "統計主分類則數" @appleoxxo
 
