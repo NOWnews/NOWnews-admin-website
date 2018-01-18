@@ -8,6 +8,7 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ### Added
 - 可以搜尋出RSS匯入的子頻道的新聞 @wb
+- 新增後台上傳圖片大小限制 5 MB@appleoxxo
 
 ### Added
 ## 1.0.23 - 2017-12-28
