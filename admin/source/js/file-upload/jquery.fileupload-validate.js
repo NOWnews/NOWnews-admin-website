@@ -75,7 +75,7 @@
             messages: {
                 maxNumberOfFiles: 'Maximum number of files exceeded',
                 acceptFileTypes: 'File type not allowed',
-                maxFileSize: 'File is too large',
+                maxFileSize: '超過 最大檔案限制 5 MB，將會上傳失敗 ！',
                 minFileSize: 'File is too small'
             }
         },

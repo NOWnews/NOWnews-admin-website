@@ -106,7 +106,7 @@ $(function () {
         filesContainer: $('tbody.files'),
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         downloadTemplateId: null,
-        maxFileSize: 999000,
+        maxFileSize: 5000000, // 圖片上傳檔案大小最大限制 5MB
         paramName: 'image',
         url: '/image/upload',
         uploadTemplateId: null,
