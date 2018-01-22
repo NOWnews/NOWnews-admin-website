@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
         let { data : departments } = await axios.get('/departments');
         let taipeiTimeNow = moment.tz('Asia/Taipei').format('YYYY-MM-DDTHH:mm');
         departments = _.filter(departments,(department)=>{
-            return department.name.indexOf("新聞部")>-1;
+            return department._id === '540000000000000000000002';
         });
         return res.render('dailyPlan/page.create.html',{
             taipeiTimeNow,

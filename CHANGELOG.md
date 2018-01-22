@@ -6,6 +6,11 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ## [Unreleased]
 
+
+## 1.0.24 - 2018-01-22
+### Fixed
+- 每日搞單改拉init新聞部的id做判斷 @wb
+
 ## 1.0.24 - 2018-01-18
 ### Added
 - 可以搜尋出RSS匯入的子頻道的新聞 @wb
