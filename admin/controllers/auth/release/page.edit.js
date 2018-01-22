@@ -15,7 +15,8 @@ module.exports = async (req, res, next) => {
         ]);
 
         departmentList = _.filter(departmentList,(department)=>{
-            return department.name.indexOf("新聞部")>-1;
+            // 新聞部的 init 資料 id 是 540000000000000000000002
+            return department._id === '540000000000000000000002';
         });
 
         debug('releaseRules = %j', releaseRules);
