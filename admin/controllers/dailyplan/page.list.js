@@ -29,6 +29,7 @@ module.exports = async (req, res, next) => {
         //只取新聞部底下的中心
         let { data : departments } = await axios.get('/departments');
         departments = _.filter(departments,(department)=>{
+            // 新聞部的 init 資料 id 是 540000000000000000000002
             return department._id === '540000000000000000000002';
         });
 
