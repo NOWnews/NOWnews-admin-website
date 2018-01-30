@@ -6,6 +6,8 @@ NOWnewsAdmin 的所有改變將在此 CHANGELOG 文件中記錄。
 
 ## [Unreleased]
 
+### Changed
+- 特輯要能拉匯入的新聞 @appleoxxo
 
 ## 1.0.24 - 2018-01-22
 ### Fixed
