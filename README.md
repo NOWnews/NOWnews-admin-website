@@ -32,6 +32,9 @@
 
 Node.js v6.2.2
 
+## 注意事項
+
+這邊沒有建立 DB, 所有跟DB連接都是透過 nownews-api，所以請詳閱 [nownews-api](https://github.com/NOWnews/NOWnews-api)
 
 ## Prod Mode
 
