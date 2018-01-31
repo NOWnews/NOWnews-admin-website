@@ -35,4 +35,8 @@ Node.js v6.2.2
 
 ## Prod Mode
 
-pm2 start pm2/admin.json --env production
+`pm2 start pm2/admin.json --env production`
+
+## Dev Mode
+
+`npm start`
