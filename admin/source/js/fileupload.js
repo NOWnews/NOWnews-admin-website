@@ -188,7 +188,7 @@ $(function () {
 
                 //修改圖說預設值年份
                 var thisYear = moment().format('YYYY');
-                row.find('textarea.desc').html('▲（圖／ＯＯＯ攝 , '+thisYear+'.xx.xx'); 
+                row.find('textarea[name="desc"]').html('▲（圖／ＯＯＯ攝 , '+thisYear+'.xx.xx'); 
 
                 row.find('span.preview2').append('<img width="80" height="40" src="' + URL.createObjectURL(o.files[index]) + '"/>');
                 row.find('button.crop').attr('data-blobURL', blobURL);
