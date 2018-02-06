@@ -12,12 +12,17 @@ module.exports = async (req, res, next) => {
         debug('req.body = %j', req.body);
         newsList = _.isArray(newsList)? newsList : [newsList];
 
+        //依照時間從新到舊排序  @leomax 
+        newsList.sort(function(a,b){
+            return a < b;
+        });
+
         let data = {
             title,
             MainPhoto,
             newsList,
             UpdatedBy: userId
-        }
+        };
 
         let { data: specialchannel } = await axios.put(`/specialchannels/${specialchannelId}`, data);
 
